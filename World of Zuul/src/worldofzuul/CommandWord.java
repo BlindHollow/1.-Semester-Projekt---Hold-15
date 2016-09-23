@@ -1,5 +1,6 @@
 package worldofzuul;
 
+// TODO: Write Documentation
 public enum CommandWord
 {
     GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?");
@@ -15,4 +16,4 @@ public enum CommandWord
     {
         return commandString;
     }
-}
+} // Class CommandWord

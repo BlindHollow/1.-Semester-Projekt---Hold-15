@@ -1,7 +1,7 @@
 package worldofzuul;
 import java.util.HashMap;
 
-
+// TODO: Write Documentation
 public class CommandWords
 {
     private HashMap<String, CommandWord> validCommands;
@@ -44,4 +44,4 @@ public class CommandWords
         }
         System.out.println();
     }
-}
+} // Class CommandWords

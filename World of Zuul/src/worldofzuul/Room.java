@@ -4,19 +4,19 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
 
-
-public class Room 
+// TODO: Write Documentation
+public class Room
 {
     private String description;
     private HashMap<String, Room> exits;
 
-    public Room(String description) 
+    public Room(String description)
     {
         this.description = description;
         exits = new HashMap<String, Room>();
     }
 
-    public void setExit(String direction, Room neighbor) 
+    public void setExit(String direction, Room neighbor)
     {
         exits.put(direction, neighbor);
     }
@@ -41,9 +41,8 @@ public class Room
         return returnString;
     }
 
-    public Room getExit(String direction) 
+    public Room getExit(String direction)
     {
         return exits.get(direction);
     }
 }
-
