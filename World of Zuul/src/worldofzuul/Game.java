@@ -16,28 +16,56 @@ public class Game
 
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office;
+        Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation ;
 
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-
-        theatre.setExit("west", outside);
-
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;
+        outside1 = new Room("on westside of the mainstreet");
+        outside2 = new Room("on the eastside of the mainstreet");
+        helipad = new Room("on a helipad");
+        hospital = new Room("in a hospital");
+        policestation = new Room("in the policestation");
+        grocerystore = new Room("in the grocerystore");
+        firestation = new Room("in the firestation");
+        house1 = new Room("in the red house");
+        house2 = new Room("in the blue house");        
+        drugstore = new Room("in the drugstore");      
+        pub = new Room("in the pub");
+        gasstation = new Room("in the gasstation");
+        
+        outside1.setExit("northwest", drugstore);
+        outside1.setExit("northeast", house1);
+        outside1.setExit("southwest", firestation);
+        outside1.setExit("southeast", pub);
+        outside1.setExit("west", hospital);
+        
+        house1.setExit("south", outside1);
+        house1.setExit("north", house2);
+        
+        drugstore.setExit("south", outside1);
+        
+        firestation.setExit("north", outside1);
+        
+        pub.setExit("north", outside1);
+        
+        hospital.setExit("east", outside1);
+        
+        house2.setExit("north", house1);
+        house2.setExit("south", outside2);
+        
+        outside2.setExit("northwest", house2);
+        outside2.setExit("northeast", grocerystore);
+        outside2.setExit("southwest", policestation);
+        outside2.setExit("southeast", gasstation);
+        outside2.setExit("east", helipad);
+        
+        grocerystore.setExit("south", outside2);
+        
+        policestation.setExit("north", outside2);
+        
+        gasstation.setExit("north", outside2);
+        
+        helipad.setExit("west", outside2);
+        
+        currentRoom = hospital;
     }
 
     public void play()
@@ -78,17 +106,19 @@ public class Game
             return false;
         }
 
-        if (commandWord == CommandWord.HELP)
-        {
-            printHelp();
-        }
-        else if (commandWord == CommandWord.GO)
-        {
-            goRoom(command);
-        }
-        else if (commandWord == CommandWord.QUIT)
-        {
-            wantToQuit = quit(command);
+        if (null != commandWord)
+        switch (commandWord) {
+            case HELP:
+                printHelp();
+                break;
+            case GO:
+                goRoom(command);
+                break;
+            case QUIT:
+                wantToQuit = quit(command);
+                break;
+            default:
+                break;
         }
         return wantToQuit;
     }
