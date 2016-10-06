@@ -8,9 +8,6 @@ public class Items extends Objects
 
     }
 
-    // Use it, depended on the type of object it is
-    public abstract void Use();
-
     // Throw the object away
     public void ThrowAway()
     {
@@ -20,7 +17,7 @@ public class Items extends Objects
     // Broken, etc.
     private int Item_Status()
     {
-
+        return 0;
     }
 
 }
