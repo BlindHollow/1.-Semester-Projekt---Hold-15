@@ -1,11 +1,13 @@
 package worldofzuul;
 
-class Items
+class Items extends Objects
 {
-  
-  public Items()
-  {
+  public int Damage;
 
+  public Items( String Name, int Damage )
+  {
+    this.Name = Name;
+    this.Damage = Damage;
   }
 
 }
