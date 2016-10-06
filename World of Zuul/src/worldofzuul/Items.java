@@ -1,8 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
+// Potentiel objects a user can keep on himself.
+public class Items extends Objects
+{
 
+    public void Pickup()
+    {
+
+    }
+
+    public void ThrowAway()
+    {
+
+    }
+
+    private void ItemStatus()
+    {
+
+    }
+
+}
