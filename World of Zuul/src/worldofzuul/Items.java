@@ -5,4 +5,14 @@
  */
 package worldofzuul;
 
+class Items extends WorldObjects
+{
+    public int something;
 
+    public Items()
+    {
+
+    }
+
+    
+}
