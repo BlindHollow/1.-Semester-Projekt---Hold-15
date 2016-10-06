@@ -4,6 +4,8 @@ package worldofzuul;
 {
   // Objects name
   public String name;
+  // The Objects "health", how much it can withstand 
+  public int Durability;
 
   public void Found()
   {
@@ -13,7 +15,7 @@ package worldofzuul;
 
   public void Destroy()
   {
-    String ActionString = "You destroyed" + this.name;
+    String ActionString = "You destroyed " + this.name;
     System.out.println( ActionString );
   }
 
