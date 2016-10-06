@@ -5,9 +5,11 @@ public class Game {
 
     private Parser parser;
     private Room currentRoom;
+    private Player player;
 
     public Game() {
         createRooms();
+        player = new Player();
         parser = new Parser();
     }
 
@@ -104,6 +106,9 @@ public class Game {
                 case GO:
                     goRoom(command);
                     break;
+                case STATUS:
+                    player.getStatus();
+                    break;
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
@@ -166,6 +171,7 @@ public class Game {
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            player.degenHungerAndThirst();
         }
     }
 

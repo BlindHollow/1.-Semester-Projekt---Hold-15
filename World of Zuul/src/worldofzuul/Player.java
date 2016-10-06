@@ -35,6 +35,12 @@ public class Player {
         illness = illness + modifier;
     }
     
+    //Hunger and thirst should degrade, when changing rooms or when performing actions.
+    public void degenHungerAndThirst() {
+        hunger = hunger - 5.0;
+        thirst = thirst - 5.0;
+    }
+    
     public double getHealth() {
         return health;
     }
