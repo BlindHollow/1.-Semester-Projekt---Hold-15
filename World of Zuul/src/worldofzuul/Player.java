@@ -10,54 +10,54 @@ package worldofzuul;
  * 
  */
 public class Player {
-    private double health, hunger, thirst, illness;
+    private int health, hunger, thirst, illness;
     
     public Player() {
-        this.health = 100.0;
-        this.hunger = 100.0;
-        this.thirst = 100.0;
+        this.health = 100;
+        this.hunger = 100;
+        this.thirst = 100;
         this.illness = 0;
     }
     
-    private void updateHealth(double modifier) {
+    private void updateHealth(int modifier) {
         health = health + modifier;
     }
     
-    private void updateHunger(double modifier) {
+    private void updateHunger(int modifier) {
         hunger = hunger + modifier;
     }
     
-    private void updateThirst(double modifier) {
+    private void updateThirst(int modifier) {
         thirst = thirst + modifier;
     }
     
-    private void updateIllness(double modifier) {
+    private void updateIllness(int modifier) {
         illness = illness + modifier;
     }
     
     //Hunger and thirst should degrade, when changing rooms or when performing actions.
     public void degenHungerAndThirst() {
-        hunger = hunger - 5.0;
-        thirst = thirst - 5.0;
+        hunger = hunger - 5;
+        thirst = thirst - 5;
     }
     
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
     
-    public double getHunger() {
+    public int getHunger() {
         return hunger;
     }
     
-    public double getThrist() {
+    public int getThrist() {
         return thirst;
     }
     
-    public double getIllness() {
+    public int getIllness() {
         return illness;
     }
     
     public void getStatus() {
-        System.out.println("You have " + health + "health, " + hunger + " hunger, " + thirst + " thirst " + illness + "illness.");                
+        System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");                
     }
 } //class Player
