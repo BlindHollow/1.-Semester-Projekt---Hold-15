@@ -5,7 +5,7 @@ public class Weapons extends Items
   public int Damage;
   public int Modifier;
 
-  
+
 
   public int Attack()
   {
