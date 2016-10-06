@@ -38,8 +38,11 @@ public class Game
         outside1.setExit("west", hospital);
         
         house1.setExit("south", outside1);
-        house1.setExit("north", house2);
+        house1.setExit("east", house2);
         
+        house2.setExit("west", house1);
+        house2.setExit("south", outside2);
+
         drugstore.setExit("south", outside1);
         
         firestation.setExit("north", outside1);
@@ -47,9 +50,6 @@ public class Game
         pub.setExit("north", outside1);
         
         hospital.setExit("east", outside1);
-        
-        house2.setExit("north", house1);
-        house2.setExit("south", outside2);
         
         outside2.setExit("northwest", house2);
         outside2.setExit("northeast", grocerystore);
