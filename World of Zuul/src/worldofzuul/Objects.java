@@ -2,11 +2,12 @@ package worldofzuul;
 
 class Objects
 {
+  
   // Objects name
-  public String name;
+  private String name;
 
   // The Objects "health", how much it can withstand
-  public int Durability = 0;
+  private int Durability = 0;
 
   public void Found()
   {
