@@ -1,19 +1,22 @@
 package worldofzuul;
 
-public class Weapons extends Items
-{
-  public int Damage;
-  public int Modifier;
+public class Weapons extends Items {
 
+    public int damage;
+    public int modifier;
 
+    public Weapons(String name, int damage, int modifier) {
+        this.damage = damage;
+        this.modifier = modifier;
+        this.name = name;
+    }
 
-  public int Attack()
-  {
-    int Total_Damage = Damage * Modifier;
+    public int attack() {
+        int total_Damage = damage * modifier;
 
-    System.out.println( "You Attacked" + Total_Damage );
+        System.out.println("You Attacked for " + total_Damage + " damage.");
 
-    return Total_Damage;
-  }
+        return total_Damage;
+    }
 
 }

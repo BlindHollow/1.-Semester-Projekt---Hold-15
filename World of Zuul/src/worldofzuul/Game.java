@@ -109,6 +109,10 @@ public class Game {
                 case STATUS:
                     player.getStatus();
                     break;
+                case GRAB://TODO laves når vi har implementeret items i rummene.
+                   
+                case DROP:
+                    
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
