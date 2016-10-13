@@ -1,6 +1,10 @@
 package worldofzuul;
 
-// TODO: Write Documentation
+/**
+ * Contains a list of all allowed commandwords
+ * 
+ * 
+ */
 public enum CommandWord
 {
     GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), SNEAK("sneak"), GRAB("grab"), ATTACK("attack"), BLOCK("block"), DROP("drop"), STATUS("status"), USE("use");

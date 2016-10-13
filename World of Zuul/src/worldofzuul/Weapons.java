@@ -14,7 +14,7 @@ public class Weapons extends Items {
     public int attack() {
         int total_Damage = damage * modifier;
 
-        System.out.println("You Attacked for " + total_Damage + " damage.");
+        System.out.println("You dealt " + total_Damage + " damage.");
 
         return total_Damage;
     }

@@ -30,5 +30,9 @@ public class Items {
         String actionString = "You destroyed " + this.name;
         System.out.println(actionString);
     }
+    
+    public String getName() {
+        return name;
+    }
 
 }

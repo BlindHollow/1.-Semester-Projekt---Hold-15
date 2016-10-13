@@ -74,6 +74,10 @@ public class Game {
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+            if (player.isDead) {
+                System.out.println("You are dead.");
+                finished = true;
+            }
         }
 
         System.out.println("Thank you for playing.  Good bye.");
@@ -138,7 +142,7 @@ public class Game {
         }
         String direction = command.getSecondWord();
         if (null != command.getCommandWord());
-        switch (command.getSecondWord()) {
+        switch (command.getSecondWord()) { //Allows abbreviations for directions.
             case "ne":
                 direction = "northeast";
                 break;
@@ -175,7 +179,8 @@ public class Game {
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
+            //player.updateHealth(-50); //testing of dying player.
         }
     }
 

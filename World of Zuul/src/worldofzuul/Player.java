@@ -5,6 +5,8 @@
  */
 package worldofzuul;
 
+import java.util.ArrayList;
+
 /**
  *
  * 
@@ -12,30 +14,47 @@ package worldofzuul;
 public class Player {
     private int health, hunger, thirst, illness;
     
+    public boolean isDead = false; //If set to true, game will end.
+    
+    public static ArrayList<Items> inventory;
+    /**
+     * Constructor
+     * Starts the player object with full health, hunger, thirst and illness gauges.
+     */
     public Player() {
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;
         this.illness = 0;
     }
-    
-    private void updateHealth(int modifier) {
+    /**
+     * Updates the health attribute
+     * checks if health is 0 or less on update,
+     * if it is, sets isDead = true, causing the game to end. 
+     * @param modifier 
+     */
+    public void updateHealth(int modifier) {
         health = health + modifier;
+        if (health <= 0) {
+            isDead = true; //If player is dead game should end.
+        }
     }
     
-    private void updateHunger(int modifier) {
+    public void updateHunger(int modifier) {
         hunger = hunger + modifier;
     }
     
-    private void updateThirst(int modifier) {
+    public void updateThirst(int modifier) {
         thirst = thirst + modifier;
     }
     
-    private void updateIllness(int modifier) {
+    public void updateIllness(int modifier) {
         illness = illness + modifier;
     }
     
-    //Hunger and thirst should degrade, when changing rooms or when performing actions.
+    /**
+     * Degrades hunger and thirst by 5 each.
+     */
     public void degenHungerAndThirst() {
         hunger = hunger - 5;
         thirst = thirst - 5;
@@ -59,5 +78,11 @@ public class Player {
     
     public void getStatus() {
         System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");                
+    }
+    
+    public void showInventory() {
+        for (Items itm : inventory) {
+            System.out.println(itm.getName());
+        }
     }
 } //class Player
