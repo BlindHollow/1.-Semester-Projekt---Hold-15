@@ -31,13 +31,13 @@ public class Game {
 
         hospital.setExit("east", outside1);
 
-        outside1.setExit("northwest", drugstore);
+        outside1.setExit("northwest", grocerystore);
         outside1.setExit("northeast", house1);
         outside1.setExit("southwest", firestation);
         outside1.setExit("southeast", pub);
         outside1.setExit("west", hospital);
 
-        drugstore.setExit("south", outside1);
+        drugstore.setExit("south", outside2);
 
         house1.setExit("south", outside1);
         house1.setExit("east", house2);
@@ -49,10 +49,10 @@ public class Game {
         house2.setExit("west", house1);
         house2.setExit("south", outside2);
 
-        grocerystore.setExit("south", outside2);
+        grocerystore.setExit("south", outside1);
 
         outside2.setExit("northwest", house2);
-        outside2.setExit("northeast", grocerystore);
+        outside2.setExit("northeast", drugstore);
         outside2.setExit("southwest", policestation);
         outside2.setExit("southeast", gasstation);
         outside2.setExit("east", helipad);
