@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Player {
     private int health, hunger, thirst, illness;
     
-    public boolean isDead = false; //If set to true, game will end.
+    private boolean isDead = false; //If set to true, game will end.
     
     public static ArrayList<Items> inventory;
     /**
@@ -42,10 +42,18 @@ public class Player {
     
     public void updateHunger(int modifier) {
         hunger = hunger + modifier;
+        if (hunger < 0) {
+            hunger = 0;
+        }
+        starving();
     }
     
     public void updateThirst(int modifier) {
         thirst = thirst + modifier;
+        if (thirst < 0) {
+            thirst = 0;
+        }
+        starving();
     }
     
     public void updateIllness(int modifier) {
@@ -56,8 +64,21 @@ public class Player {
      * Degrades hunger and thirst by 5 each.
      */
     public void degenHungerAndThirst() {
-        hunger = hunger - 5;
-        thirst = thirst - 5;
+        updateHunger(-5);
+        updateThirst(-5);
+                
+    }
+    
+    public void starving() {
+        if (hunger == 0 || thirst == 0) {
+            updateHealth(-10);
+        }
+        if (hunger < 10 && hunger > 0 || thirst < 10 && thirst > 0) {
+            updateHealth(-5);
+        }
+    }
+    public boolean schrodinger() {
+        return isDead;
     }
     
     public int getHealth() {
@@ -68,7 +89,7 @@ public class Player {
         return hunger;
     }
     
-    public int getThrist() {
+    public int getThirst() {
         return thirst;
     }
     

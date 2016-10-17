@@ -74,7 +74,7 @@ public class Game {
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
-            if (player.isDead) {
+            if (player.schrodinger()) {
                 System.out.println("You are dead.");
                 finished = true;
             }
