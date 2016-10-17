@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.util.ArrayList;
@@ -39,7 +34,11 @@ public class Player {
             isDead = true; //If player is dead game should end.
         }
     }
-    
+    /**
+     * Updates the hunger attribute.
+     * If hunger goes beolw 0, it is set back to zero.
+     * @param modifier 
+     */
     public void updateHunger(int modifier) {
         hunger = hunger + modifier;
         if (hunger < 0) {
@@ -47,17 +46,29 @@ public class Player {
         }
         starving();
     }
-    
+    /**
+     * Updates the thirst attribute.
+     * If thirst goes below 0 it is set to zero.
+     * @param modifier 
+     */
     public void updateThirst(int modifier) {
         thirst = thirst + modifier;
         if (thirst < 0) {
             thirst = 0;
         }
-        starving();
+        dehydration();
     }
-    
+    /**
+     * Updates illness attribute
+     * has no maxvalue
+     * if above 80 it will update health with -10% of current value of illness.
+     * @param modifier 
+     */
     public void updateIllness(int modifier) {
         illness = illness + modifier;
+        if (illness > 80) {
+            updateHealth((int) (-1*illness*0.10)); //lose health equivalent to 10% of illness stat.
+        }
     }
     
     /**
@@ -65,18 +76,37 @@ public class Player {
      */
     public void degenHungerAndThirst() {
         updateHunger(-5);
-        updateThirst(-5);
-                
+        updateThirst(-5);         
+    }
+    /**
+     * Updates health if hunger is below a certain threshold.
+     * Prints that the player is starving.
+     */
+    public void starving() {
+        if (hunger == 0) {
+            updateHealth(-10);
+            System.out.println("You are starving.");
+        }
+        else if (hunger < 10 && hunger > 0) {
+            updateHealth(-5);
+            System.out.println("You are starving.");
+        }
+    }
+    /**
+     * Updates health if thirst is below a certain theshold.
+     * Prints that the player is dehydrated.
+     */
+    public void dehydration() {
+       if (thirst == 0) {
+            updateHealth(-10);
+            System.out.println("You are dehydrated.");
+        }
+        else if (thirst < 10 && thirst > 0) {
+            updateHealth(-5);
+            System.out.println("You are dehydrated.");
+        } 
     }
     
-    public void starving() {
-        if (hunger == 0 || thirst == 0) {
-            updateHealth(-10);
-        }
-        if (hunger < 10 && hunger > 0 || thirst < 10 && thirst > 0) {
-            updateHealth(-5);
-        }
-    }
     public boolean schrodinger() {
         return isDead;
     }
@@ -96,14 +126,19 @@ public class Player {
     public int getIllness() {
         return illness;
     }
-    
+    /**
+     * Prints the players status, ie. values of the attributes.
+     */
     public void getStatus() {
         System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");                
     }
-    
+    /**
+     * Prints names of the items in the players inventory.
+     */
     public void showInventory() {
         for (Items itm : inventory) {
-            System.out.println(itm.getName());
+            System.out.print(itm.getName() + " ");
         }
+        System.out.println("\n");
     }
 } //class Player
