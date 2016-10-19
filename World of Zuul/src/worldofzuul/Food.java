@@ -11,13 +11,13 @@ package worldofzuul;
  */
 public class Food extends Items {
 
-    private final int hungerRegen;
-    private final int thirstRegen;
-    
-    public Food(String name, int hunger, int thirst){
+    private final int hungerRegen; //for regenerating health upon use
+    private final int thirstRegen; //for regenerating thirst upon use
+
+    public Food(String name, int hunger, int thirst) {
         this.hungerRegen = hunger;
         this.thirstRegen = thirst;
         this.name = name;
     }
-     
+
 }

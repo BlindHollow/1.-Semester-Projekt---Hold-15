@@ -4,7 +4,6 @@ package worldofzuul;
 public class Items {
 
     public String name;
-    
 
     // Throw the object away
     public void drop(int index) {
@@ -26,7 +25,7 @@ public class Items {
         String actionString = "You destroyed " + this.name;
         System.out.println(actionString);
     }
-    
+
     public String getName() {
         return name;
     }
