@@ -6,15 +6,16 @@ public class Game {
     private Parser parser;
     private Room currentRoom;
     private Player player;
+    private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
 
     public Game() {
         createRooms();
+        createItems();
         player = new Player();
         parser = new Parser();
     }
 
     private void createRooms() {
-        Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
 
         outside1 = new Room("on westside of the mainstreet");
         outside2 = new Room("on the eastside of the mainstreet");
@@ -66,6 +67,41 @@ public class Game {
         currentRoom = hospital;
     }
 
+    //Creates items and places them in rooms
+    private void createItems() {
+        Weapons fireaxe, policegun, shotgun;
+        Food energybar, energydrink, cannedtuna, rum;
+        Sustain medKit, vaccination;
+
+        fireaxe = new Weapons("fireaxe", 10, 2, true);
+        policegun = new Weapons("policegun", 30, 2, false);
+        shotgun = new Weapons("shotgun", 20, 4, false);
+
+        energybar = new Food("energybar", 30, 0);
+        energydrink = new Food("energybar", 0, 30);
+        cannedtuna = new Food("energybar", 50, 0);
+        rum = new Food("energybar", 0, 20);
+
+        medKit = new Sustain("medkit", 50, 0);
+        vaccination = new Sustain("vaccination", 0, 50);
+
+        hospital.placeItem(medKit);
+
+        policestation.placeItem(policegun);
+
+        firestation.placeItem(fireaxe);
+
+        grocerystore.placeItem(energybar);
+        grocerystore.placeItem(energydrink);
+        grocerystore.placeItem(cannedtuna);
+
+        pub.placeItem(shotgun);
+        pub.placeItem(rum);
+
+        drugstore.placeItem(vaccination);
+
+    }
+
     public void play() {
         printWelcome();
 
@@ -113,10 +149,18 @@ public class Game {
                 case STATUS:
                     player.getStatus();
                     break;
-                case GRAB://TODO laves når vi har implementeret items i rummene.
-                   
+                case GRAB:
+                    takeItem(command);
+                    break;
                 case DROP:
-                    
+                    dropItem(command);
+                    break;
+                case SEARCH:
+                    currentRoom.searchRoom();
+                    break;
+                case INVENTORY:
+                    player.showInventory();
+                    break;
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
@@ -190,6 +234,44 @@ public class Game {
             return false;
         } else {
             return true;
+        }
+    }
+
+    //pick up an item in the room you are in. Command: Grab "item"
+    public void takeItem(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("What item?");
+            return;
+        }
+        Items item = currentRoom.getItem(command.getSecondWord());
+
+        if (null == item) {
+            System.out.println("Can't find that item");
+        } else {
+
+            System.out.println("You picked up the " + item.getName());
+            Player.inventory.put(item.getName(), item);
+
+            currentRoom.removeItem(item.getName());
+        }
+    }
+
+    //drop an item in your inventory and leave it in current room. Command: Drop "item"
+    public void dropItem(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("What item?");
+            return;
+        }
+        Items item = player.getInventory(command.getSecondWord());
+
+        if (null == item) {
+            System.out.println("That is not an item in your inventory.");
+        } else {
+
+            System.out.println("You dropped up the " + item.getName());
+            currentRoom.placeItem(item);
+
+            Player.inventory.remove(item.getName());
         }
     }
 

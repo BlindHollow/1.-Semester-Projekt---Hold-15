@@ -4,14 +4,10 @@ package worldofzuul;
 public class Items {
 
     public String name;
-
-    public void pickUp(Items item) {
-        Player.inventory.add(item);
-        
-    }
+    
 
     // Throw the object away
-    public void throwAway(int index) {
+    public void drop(int index) {
         Player.inventory.remove(index);//TODO add search to find correct index of item.
 
     }
