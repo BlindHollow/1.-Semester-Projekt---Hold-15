@@ -78,9 +78,9 @@ public class Game {
         shotgun = new Weapons("shotgun", 20, 4, false);
 
         energybar = new Food("energybar", 30, 0);
-        energydrink = new Food("energybar", 0, 30);
-        cannedtuna = new Food("energybar", 50, 0);
-        rum = new Food("energybar", 0, 20);
+        energydrink = new Food("energydrink", 0, 30);
+        cannedtuna = new Food("cannedtuna", 50, 0);
+        rum = new Food("rum", 0, 20);
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
