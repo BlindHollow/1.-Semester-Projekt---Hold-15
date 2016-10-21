@@ -1,6 +1,7 @@
-package worldofzuul;
+package worldofzuul; //NETBEANS
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Contains info about the Player.
@@ -12,7 +13,7 @@ public class Player {
 
     private boolean isDead = false; //If set to true, game will end.
 
-    public static ArrayList<Items> inventory;
+    public static HashMap<String, Items> inventory = new HashMap<>();
 
     /**
      * Constructor Starts the player object with full health, hunger, thirst and
@@ -145,13 +146,22 @@ public class Player {
         System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");
     }
 
-    /**
-     * Prints names of the items in the players inventory.
-     */
+//Returns the item (an object) with the key "key" in the inventory HashMap
+    public Items getInventory(String key) {
+        return inventory.get(key);
+    }
+
+    //Lists the items in the inventory
     public void showInventory() {
-        for (Items itm : inventory) {
-            System.out.print(itm.getName() + " ");
+        if (inventory.size() == 0) {
+            System.out.println("Your inventory is empty.");
+        } else {
+            String itemString = "Items in inventory:";
+            Set<String> keys = inventory.keySet();
+            for (String item : keys) {
+                itemString += " " + item;
+            }
+            System.out.println(itemString);
         }
-        System.out.println("\n");
     }
 } //class Player

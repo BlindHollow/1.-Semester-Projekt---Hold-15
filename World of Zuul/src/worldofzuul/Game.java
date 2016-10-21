@@ -1,4 +1,4 @@
-package worldofzuul;
+package worldofzuul; //NETBEANS
 
 /**
  * This class holds information about the game state. Upon creating a Game
@@ -13,9 +13,11 @@ public class Game {
     private Parser parser;
     private Room currentRoom;
     private Player player;
+    private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
 
     public Game() {
         createRooms();
+        createItems();
         player = new Player();
         parser = new Parser();
     }
@@ -25,7 +27,6 @@ public class Game {
      * Room.setExit(direction) Descriptions created on creation of the rooms.
      */
     private void createRooms() { //TODO: Possibly randomize neighbouring rooms.
-        Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
 
         outside1 = new Room("on westside of the mainstreet");
         outside2 = new Room("on the eastside of the mainstreet");
@@ -77,6 +78,41 @@ public class Game {
         currentRoom = hospital; //Sets the games starting Room.
     }
 
+//Creates items and places them in rooms
+    private void createItems() {
+        Weapons fireaxe, policegun, shotgun;
+        Food energybar, energydrink, cannedtuna, rum;
+        Sustain medKit, vaccination;
+
+        fireaxe = new Weapons("fireaxe", 10, true);
+        policegun = new Weapons("policegun", 30, false);
+        shotgun = new Weapons("shotgun", 20, false);
+
+        energybar = new Food("energybar", 30, 0);
+        energydrink = new Food("energydrink", 0, 30);
+        cannedtuna = new Food("cannedtuna", 50, 0);
+        rum = new Food("rum", 0, 20);
+
+        medKit = new Sustain("medkit", 50, 0);
+        vaccination = new Sustain("vaccination", 0, 50);
+
+        hospital.placeItem(medKit);
+
+        policestation.placeItem(policegun);
+
+        firestation.placeItem(fireaxe);
+
+        grocerystore.placeItem(energybar);
+        grocerystore.placeItem(energydrink);
+        grocerystore.placeItem(cannedtuna);
+
+        pub.placeItem(shotgun);
+        pub.placeItem(rum);
+
+        drugstore.placeItem(vaccination);
+
+    }
+
     public void play() {
         printWelcome();
 
@@ -124,10 +160,21 @@ public class Game {
                 case STATUS:
                     player.getStatus();
                     break;
-                case GRAB://TODO laves når vi har implementeret items i rummene.
-
+                case GRAB:
+                    takeItem(command);
+                    break;
                 case DROP:
-
+                    dropItem(command);
+                    break;
+                case SEARCH:
+                    currentRoom.searchRoom();
+                    break;
+                case INVENTORY:
+                    player.showInventory();
+                    break;
+                case SUICIDE:
+                    player.updateHealth(-100);
+                    break;
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
@@ -203,5 +250,42 @@ public class Game {
             return true;
         }
     }
+//pick up an item in the room you are in. Command: Grab "item"
 
+    private void takeItem(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("What item?");
+            return;
+        }
+        Items item = currentRoom.getItem(command.getSecondWord());
+
+        if (null == item) {
+            System.out.println("Can't find that item");
+        } else {
+
+            System.out.println("You picked up the " + item.getName());
+            Player.inventory.put(item.getName(), item);
+
+            currentRoom.removeItem(item.getName());
+        }
+    }
+
+    //drop an item in your inventory and leave it in current room. Command: Drop "item"
+    private void dropItem(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("What item?");
+            return;
+        }
+        Items item = player.getInventory(command.getSecondWord());
+
+        if (null == item) {
+            System.out.println("That is not an item in your inventory.");
+        } else {
+
+            System.out.println("You dropped the " + item.getName());
+            currentRoom.placeItem(item);
+
+            Player.inventory.remove(item.getName());
+        }
+    }
 } // Class Game

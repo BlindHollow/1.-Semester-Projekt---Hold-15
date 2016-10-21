@@ -13,42 +13,36 @@
  *
  * If the command had only one word, then the second word is <null>.
  *
- * @author  Michael Kolling and David J. Barnes
+ * @author Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-
 package worldofzuul;
 
 // TODO: Write Documentation
-public class Command
-{
+public class Command {
+
     private CommandWord commandWord;
     private String secondWord;
 
-    public Command(CommandWord commandWord, String secondWord)
-    {
+    public Command(CommandWord commandWord, String secondWord) {
         this.commandWord = commandWord;
         this.secondWord = secondWord;
     }
 
-    public CommandWord getCommandWord()
-    {
+    public CommandWord getCommandWord() {
         return commandWord;
     }
 
-    public String getSecondWord()
-    {
+    public String getSecondWord() {
         return secondWord;
     }
 
-    public boolean isUnknown()
-    {
+    public boolean isUnknown() {
         return (commandWord == CommandWord.UNKNOWN);
     }
 
-    public boolean hasSecondWord()
-    {
+    public boolean hasSecondWord() {
         return (secondWord != null);
     }
-    
+
 } // Class Command
