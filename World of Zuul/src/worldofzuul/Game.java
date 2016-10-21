@@ -9,7 +9,7 @@ package worldofzuul; //NETBEANS
  * end.
  */
 public class Game {
-
+    
     private Parser parser;
     private Room currentRoom;
     private Player player;
@@ -20,6 +20,10 @@ public class Game {
         createItems();
         player = new Player();
         parser = new Parser();
+        
+        float[] values = {20.0f, 25.0f};
+        
+        RandomChances RC = new RandomChances(values);
     }
 
     /**
