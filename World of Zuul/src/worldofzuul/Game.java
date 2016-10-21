@@ -1,63 +1,100 @@
 package worldofzuul;
 
-// TODO: Write Documentation
-public class Game
-{
+/**
+ * This class holds information about the game state. Upon creating a Game
+ * object, a parser, a player and an amount of Rooms are created. The play()
+ * method contains the main loop of the game, repeatedly checking for
+ * commandwors from the user. As long as the command is not quit and the player
+ * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
+ * end.
+ */
+public class Game {
+
     private Parser parser;
     private Room currentRoom;
+    private Player player;
 
-
-    public Game()
-    {
+    public Game() {
         createRooms();
+        player = new Player();
         parser = new Parser();
     }
 
+    /**
+     * Creates the rooms the game is set in. Neighbours are set using
+     * Room.setExit(direction) Descriptions created on creation of the rooms.
+     */
+    private void createRooms() { //TODO: Possibly randomize neighbouring rooms.
+        Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
 
-    private void createRooms()
-    {
-        Room outside, theatre, pub, lab, office;
+        outside1 = new Room("on westside of the mainstreet");
+        outside2 = new Room("on the eastside of the mainstreet");
+        helipad = new Room("on a helipad");
+        hospital = new Room("in a hospital");
+        policestation = new Room("in the policestation");
+        grocerystore = new Room("in the grocerystore");
+        firestation = new Room("in the firestation");
+        house1 = new Room("in the red house");
+        house2 = new Room("in the blue house");
+        drugstore = new Room("in the drugstore");
+        pub = new Room("in the pub");
+        gasstation = new Room("in the gasstation");
 
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        hospital.setExit("east", outside1);
 
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        outside1.setExit("northwest", grocerystore);
+        outside1.setExit("northeast", house1);
+        outside1.setExit("southwest", firestation);
+        outside1.setExit("southeast", pub);
+        outside1.setExit("west", hospital);
 
-        theatre.setExit("west", outside);
+        drugstore.setExit("south", outside2);
 
-        pub.setExit("east", outside);
+        house1.setExit("south", outside1);
+        house1.setExit("east", house2);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        firestation.setExit("north", outside1);
 
-        office.setExit("west", lab);
+        pub.setExit("north", outside1);
 
-        currentRoom = outside;
+        house2.setExit("west", house1);
+        house2.setExit("south", outside2);
+
+        grocerystore.setExit("south", outside1);
+
+        outside2.setExit("northwest", house2);
+        outside2.setExit("northeast", drugstore);
+        outside2.setExit("southwest", policestation);
+        outside2.setExit("southeast", gasstation);
+        outside2.setExit("east", helipad);
+
+        policestation.setExit("north", outside2);
+
+        gasstation.setExit("north", outside2);
+
+        helipad.setExit("west", outside2);
+
+        currentRoom = hospital; //Sets the games starting Room.
     }
 
-    public void play()
-    {
+    public void play() {
         printWelcome();
-
 
         boolean finished = false;
 
-        while (! finished)
-        {
+        while (!finished) { //TODO: Add wincondition.
             Command command = parser.getCommand();
             finished = processCommand(command);
+            if (player.schrodinger()) {
+                System.out.println("You are dead.");
+                finished = true;
+            }
         }
 
         System.out.println("Thank you for playing.  Good bye.");
     }
 
-    private void printWelcome()
-    {
+    private void printWelcome() {
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
@@ -66,35 +103,42 @@ public class Game
         System.out.println(currentRoom.getLongDescription());
     }
 
-    private boolean processCommand(Command command)
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
 
-        if(commandWord == CommandWord.UNKNOWN)
-        {
+        if (commandWord == CommandWord.UNKNOWN) {
             System.out.println("I don't know what you mean...");
             return false;
         }
 
-        if (commandWord == CommandWord.HELP)
-        {
-            printHelp();
-        }
-        else if (commandWord == CommandWord.GO)
-        {
-            goRoom(command);
-        }
-        else if (commandWord == CommandWord.QUIT)
-        {
-            wantToQuit = quit(command);
+        if (null != commandWord) {
+            switch (commandWord) {
+                case HELP:
+                    printHelp();
+                    break;
+                case GO:
+                    goRoom(command);
+                    break;
+                case STATUS:
+                    player.getStatus();
+                    break;
+                case GRAB://TODO laves når vi har implementeret items i rummene.
+
+                case DROP:
+
+                case QUIT:
+                    wantToQuit = quit(command);
+                    break;
+                default:
+                    break;
+            }
         }
         return wantToQuit;
     }
 
-    private void printHelp()
-    {
+    private void printHelp() { //TODO Change help message to be suitable for our game.
         System.out.println("You are lost. You are alone. You wander");
         System.out.println("around at the university.");
         System.out.println();
@@ -102,38 +146,60 @@ public class Game
         parser.showCommands();
     }
 
-    private void goRoom(Command command)
-    {
-        if(!command.hasSecondWord())
-        {
+    private void goRoom(Command command) {
+        if (!command.hasSecondWord()) {
             System.out.println("Go where?");
             return;
         }
-
         String direction = command.getSecondWord();
+        if (null != command.getCommandWord());
+        switch (command.getSecondWord()) { //Allows abbreviations for directions.
+            case "ne":
+                direction = "northeast";
+                break;
+            case "nw":
+                direction = "northwest";
+                break;
+            case "se":
+                direction = "southeast";
+                break;
+            case "sw":
+                direction = "southwest";
+                break;
+            case "n":
+                direction = "north";
+                break;
+            case "s":
+                direction = "south";
+                break;
+            case "e":
+                direction = "east";
+                break;
+            case "w":
+                direction = "west";
+                break;
+
+            default:
+                break;
+        }
 
         Room nextRoom = currentRoom.getExit(direction);
 
-        if (nextRoom == null)
-        {
+        if (nextRoom == null) {
             System.out.println("There is no door!");
-        }
-        else
-        {
+        } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
+            //player.updateHealth(-50); //testing of dying player.
         }
     }
 
-    private boolean quit(Command command)
-    {
-        if(command.hasSecondWord())
-        {
+    private boolean quit(Command command) {
+        if (command.hasSecondWord()) {
             System.out.println("Quit what?");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
