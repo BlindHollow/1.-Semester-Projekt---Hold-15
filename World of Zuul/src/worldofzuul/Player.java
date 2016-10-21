@@ -3,7 +3,7 @@ package worldofzuul;
 import java.util.ArrayList;
 
 /**
- *
+ *Contains info about the Player.
  * 
  */
 public class Player {
@@ -36,7 +36,7 @@ public class Player {
     }
     /**
      * Updates the hunger attribute.
-     * If hunger goes beolw 0, it is set back to zero.
+     * If hunger goes beolw 0, set back to zero, as hunger less than zero is not allowed.
      * @param modifier 
      */
     public void updateHunger(int modifier) {
@@ -48,7 +48,7 @@ public class Player {
     }
     /**
      * Updates the thirst attribute.
-     * If thirst goes below 0 it is set to zero.
+     * If thirst goes below 0 it is set to zero, as thirst less than zero is not allowed.
      * @param modifier 
      */
     public void updateThirst(int modifier) {
@@ -61,7 +61,7 @@ public class Player {
     /**
      * Updates illness attribute
      * has no maxvalue
-     * if above 80 it will update health with -10% of current value of illness.
+     * if above 80 it will update health with -10% of current value of illness. TODO Adjust numbers, possibly remove attribute entirely.
      * @param modifier 
      */
     public void updateIllness(int modifier) {
@@ -72,7 +72,7 @@ public class Player {
     }
     
     /**
-     * Degrades hunger and thirst by 5 each.
+     * Degrades hunger and thirst by 5 each. TODO: Adjust numbers to adjust difficulty.
      */
     public void degenHungerAndThirst() {
         updateHunger(-5);
@@ -82,7 +82,7 @@ public class Player {
      * Updates health if hunger is below a certain threshold.
      * Prints that the player is starving.
      */
-    public void starving() {
+    public void starving() { //TODO: Possibly add more cases ?
         if (hunger == 0) {
             updateHealth(-10);
             System.out.println("You are starving.");
@@ -96,7 +96,7 @@ public class Player {
      * Updates health if thirst is below a certain theshold.
      * Prints that the player is dehydrated.
      */
-    public void dehydration() {
+    public void dehydration() { //TODO: Possibly add more cases ?
        if (thirst == 0) {
             updateHealth(-10);
             System.out.println("You are dehydrated.");
@@ -106,7 +106,7 @@ public class Player {
             System.out.println("You are dehydrated.");
         } 
     }
-    
+    //Access functions.
     public boolean schrodinger() {
         return isDead;
     }

@@ -1,6 +1,11 @@
 package worldofzuul;
 
-// TODO: Write Documentation
+/**
+ * This class holds information about the game state.
+ * Upon creating a Game object, a parser, a player and an amount of Rooms are created.
+ * The play() method contains the main loop of the game, repeatedly checking for commandwors from the user.
+ * As long as the command is not quit and the player is not dead (ie. player.schrodinger evaluates to FALSE) the game does not end.
+ */
 public class Game {
 
     private Parser parser;
@@ -12,8 +17,12 @@ public class Game {
         player = new Player();
         parser = new Parser();
     }
-
-    private void createRooms() {
+    /**
+     * Creates the rooms the game is set in.
+     * Neighbours are set using Room.setExit(direction)
+     * Descriptions created on creation of the rooms.
+     */
+    private void createRooms() { //TODO: Possibly randomize neighbouring rooms.
         Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
 
         outside1 = new Room("on westside of the mainstreet");
@@ -63,7 +72,7 @@ public class Game {
 
         helipad.setExit("west", outside2);
 
-        currentRoom = hospital;
+        currentRoom = hospital; //Sets the games starting Room.
     }
 
     public void play() {
@@ -71,7 +80,7 @@ public class Game {
 
         boolean finished = false;
 
-        while (!finished) {
+        while (!finished) { //TODO: Add wincondition.
             Command command = parser.getCommand();
             finished = processCommand(command);
             if (player.schrodinger()) {
@@ -127,7 +136,7 @@ public class Game {
         return wantToQuit;
     }
 
-    private void printHelp() {
+    private void printHelp() { //TODO Change help message to be suitable for our game.
         System.out.println("You are lost. You are alone. You wander");
         System.out.println("around at the university.");
         System.out.println();
