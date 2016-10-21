@@ -8,8 +8,6 @@ public class Chances
 {
     public boolean Error = false;
 
-    private ArrayList<RandomElement> nElements;
-
     // Classens startup
     public Chances( float[] NumberOfElements ) 
     {   
