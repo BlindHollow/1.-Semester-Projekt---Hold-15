@@ -23,7 +23,6 @@ public class Game {
         
         float[] values = {20.0f, 25.0f};
         
-        RandomChances RC = new RandomChances(values);
     }
 
     /**
