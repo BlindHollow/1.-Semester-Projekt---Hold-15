@@ -20,13 +20,13 @@ public class RandomChances {
 
     private float RestValue = 0.0f;
 
-    public RandomChances(float[] NumberOfElements) {
-        System.out.println("RandomChances: adding - number of Elements " + NumberOfElements.length);
+    public RandomChances( float[] NumberOfElements ) 
+    {    
         int arraySize = NumberOfElements.length;
 
         nElements = new ArrayList();
 
-        float t = CalculateSize(NumberOfElements);
+        float t = CalculateSize( NumberOfElements );
 
         float value = 100 - t;
 
@@ -59,14 +59,19 @@ public class RandomChances {
         } else {
             System.out.println("RandomChances: Error occured, t == -1");
         }
+        
+        ShowElements();
 
     }
 
-    private float CalculateSize(float[] NumberOfElements) {
-        System.out.println("RandomChances: Calculating Size");
+    // Beregner sig frem til den summerede størrelse af en array x_n
+    // 20 + 40 + 10 + 5 = 75
+    private float CalculateSize( float[] NumberOfElements ) 
+    {    
         float v = 0.0f;
 
-        for (float n : NumberOfElements) {
+        for (float n : NumberOfElements) 
+        {
             v = v + n;
 
             System.out.println("RandomChances: Current Value = " + v);
@@ -81,13 +86,20 @@ public class RandomChances {
         return v;
     }
 
-    private float CalculateSize(RandomElement[] Elements) {
+    // Beregner sig frem til den summerede størrelse af en array x_n, men med randomElements, 0 bliver skippet
+    private float CalculateSize( RandomElement[] Elements ) 
+    {
         float v = 0.0f;
 
-        for (RandomElement e : Elements) {
+        for ( RandomElement e : Elements ) 
+        {
+            if( e.GetId() == 0 )
+                continue;
+            
             v = v + e.GetValue();
 
-            if (aboveThreshold(v, 100.0f) == true) {
+            if ( aboveThreshold( v, 100.0f ) == true ) 
+            {
                 Error = true;
                 return -1;
             }
@@ -97,7 +109,8 @@ public class RandomChances {
     }
 
     // x is above a given threshold y
-    private boolean aboveThreshold(float current, float threshold) {
+    private boolean aboveThreshold( float current, float threshold ) 
+    {
 
         if (current > threshold) {
             return true;
@@ -146,6 +159,14 @@ public class RandomChances {
 
         }
 
+    }
+    
+    private void ShowElements()
+    {
+        for(RandomElement re : nElements)
+        {
+            System.out.println( "ID:" + re.GetId() + ", Value:" + re.GetValue() );
+        }
     }
 
     private RandomElement[] SortList() {

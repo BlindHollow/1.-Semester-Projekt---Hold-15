@@ -29,16 +29,15 @@ public class RandomElement
     return value;
   }
   
-  // Note: It's only RandomChances, that is supposed to use this method
-    public float ThresholdA()
-    {
-        return thresholdA;
-    }
+  public float ThresholdA()
+  {
+     return thresholdA;
+  }
 
-    public float ThresholdB()
-    {
-        return thresholdB;
-    }
+  public float ThresholdB()
+  {
+     return thresholdB;
+  }
 
   // metoder til at ændre attributes
   public void SetId( int Id )
@@ -50,8 +49,7 @@ public class RandomElement
   {
     value = Value;
   }
-
-  // Note: It's only RandomChances, that is supposed to use this method
+  
   public void SetThresholds( float ThresholdA, float ThresholdB )
   {
       thresholdA = ThresholdA;
