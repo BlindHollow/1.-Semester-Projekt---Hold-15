@@ -73,9 +73,9 @@ public class Game {
         Food energybar, energydrink, cannedtuna, rum;
         Sustain medKit, vaccination;
 
-        fireaxe = new Weapons("fireaxe", 10, 2, true);
-        policegun = new Weapons("policegun", 30, 2, false);
-        shotgun = new Weapons("shotgun", 20, 4, false);
+        fireaxe = new Weapons("fireaxe", 10, true);
+        policegun = new Weapons("policegun", 30, false);
+        shotgun = new Weapons("shotgun", 20, false);
 
         energybar = new Food("energybar", 30, 0);
         energydrink = new Food("energydrink", 0, 30);
@@ -238,7 +238,7 @@ public class Game {
     }
 
     //pick up an item in the room you are in. Command: Grab "item"
-    public void takeItem(Command command) {
+    private void takeItem(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("What item?");
             return;
@@ -257,7 +257,7 @@ public class Game {
     }
 
     //drop an item in your inventory and leave it in current room. Command: Drop "item"
-    public void dropItem(Command command) {
+    private void dropItem(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("What item?");
             return;
