@@ -1,10 +1,12 @@
 package worldofzuul;
 
 /**
- * This class holds information about the game state.
- * Upon creating a Game object, a parser, a player and an amount of Rooms are created.
- * The play() method contains the main loop of the game, repeatedly checking for commandwors from the user.
- * As long as the command is not quit and the player is not dead (ie. player.schrodinger evaluates to FALSE) the game does not end.
+ * This class holds information about the game state. Upon creating a Game
+ * object, a parser, a player and an amount of Rooms are created. The play()
+ * method contains the main loop of the game, repeatedly checking for
+ * commandwors from the user. As long as the command is not quit and the player
+ * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
+ * end.
  */
 public class Game {
 
@@ -17,10 +19,10 @@ public class Game {
         player = new Player();
         parser = new Parser();
     }
+
     /**
-     * Creates the rooms the game is set in.
-     * Neighbours are set using Room.setExit(direction)
-     * Descriptions created on creation of the rooms.
+     * Creates the rooms the game is set in. Neighbours are set using
+     * Room.setExit(direction) Descriptions created on creation of the rooms.
      */
     private void createRooms() { //TODO: Possibly randomize neighbouring rooms.
         Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
@@ -123,9 +125,9 @@ public class Game {
                     player.getStatus();
                     break;
                 case GRAB://TODO laves når vi har implementeret items i rummene.
-                   
+
                 case DROP:
-                    
+
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
