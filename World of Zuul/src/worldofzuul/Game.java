@@ -21,8 +21,6 @@ public class Game {
         player = new Player();
         parser = new Parser();
         
-        float[] values = {20.0f, 25.0f};
-        
     }
 
     /**
