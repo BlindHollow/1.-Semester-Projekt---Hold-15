@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.util.ArrayList;
 
 /**
- *
+ *Contains info about the Player.
  * 
  */
 public class Player {
     private int health, hunger, thirst, illness;
     
-    public boolean isDead = false; //If set to true, game will end.
+    private boolean isDead = false; //If set to true, game will end.
     
     public static ArrayList<Items> inventory;
     /**
@@ -39,25 +34,81 @@ public class Player {
             isDead = true; //If player is dead game should end.
         }
     }
-    
+    /**
+     * Updates the hunger attribute.
+     * If hunger goes beolw 0, set back to zero, as hunger less than zero is not allowed.
+     * @param modifier 
+     */
     public void updateHunger(int modifier) {
         hunger = hunger + modifier;
+        if (hunger < 0) {
+            hunger = 0;
+        }
+        starving();
     }
-    
+    /**
+     * Updates the thirst attribute.
+     * If thirst goes below 0 it is set to zero, as thirst less than zero is not allowed.
+     * @param modifier 
+     */
     public void updateThirst(int modifier) {
         thirst = thirst + modifier;
+        if (thirst < 0) {
+            thirst = 0;
+        }
+        dehydration();
     }
-    
+    /**
+     * Updates illness attribute
+     * has no maxvalue
+     * if above 80 it will update health with -10% of current value of illness. TODO Adjust numbers, possibly remove attribute entirely.
+     * @param modifier 
+     */
     public void updateIllness(int modifier) {
         illness = illness + modifier;
+        if (illness > 80) {
+            updateHealth((int) (-1*illness*0.10)); //lose health equivalent to 10% of illness stat.
+        }
     }
     
     /**
-     * Degrades hunger and thirst by 5 each.
+     * Degrades hunger and thirst by 5 each. TODO: Adjust numbers to adjust difficulty.
      */
     public void degenHungerAndThirst() {
-        hunger = hunger - 5;
-        thirst = thirst - 5;
+        updateHunger(-5);
+        updateThirst(-5);         
+    }
+    /**
+     * Updates health if hunger is below a certain threshold.
+     * Prints that the player is starving.
+     */
+    public void starving() { //TODO: Possibly add more cases ?
+        if (hunger == 0) {
+            updateHealth(-10);
+            System.out.println("You are starving.");
+        }
+        else if (hunger < 10 && hunger > 0) {
+            updateHealth(-5);
+            System.out.println("You are starving.");
+        }
+    }
+    /**
+     * Updates health if thirst is below a certain theshold.
+     * Prints that the player is dehydrated.
+     */
+    public void dehydration() { //TODO: Possibly add more cases ?
+       if (thirst == 0) {
+            updateHealth(-10);
+            System.out.println("You are dehydrated.");
+        }
+        else if (thirst < 10 && thirst > 0) {
+            updateHealth(-5);
+            System.out.println("You are dehydrated.");
+        } 
+    }
+    //Access functions.
+    public boolean schrodinger() {
+        return isDead;
     }
     
     public int getHealth() {
@@ -68,21 +119,26 @@ public class Player {
         return hunger;
     }
     
-    public int getThrist() {
+    public int getThirst() {
         return thirst;
     }
     
     public int getIllness() {
         return illness;
     }
-    
+    /**
+     * Prints the players status, ie. values of the attributes.
+     */
     public void getStatus() {
         System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");                
     }
-    
+    /**
+     * Prints names of the items in the players inventory.
+     */
     public void showInventory() {
         for (Items itm : inventory) {
-            System.out.println(itm.getName());
+            System.out.print(itm.getName() + " ");
         }
+        System.out.println("\n");
     }
 } //class Player
