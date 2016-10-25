@@ -106,6 +106,7 @@ public class Chances
 
       if( NOE_Length != Ids_Length )
       {
+          System.out.print("Error: 1");
           // Error
           return;
       }
@@ -126,11 +127,20 @@ public class Chances
       }
       else
       {
+          
+          System.out.print("Error: 2");
           // Error
           return;
       }
 
       SortElements();
+      
+      for(int x = 0; x <= ElementList.size()-1; x++)
+      {
+          Elements a = ElementList.get(x);
+          
+          System.out.println("Procentage:" + a.Value );
+      }
 
     }
 
@@ -204,8 +214,10 @@ public class Chances
                                    x );
 
         if( y == -1 )
+        {
+          System.out.print("Error: 3\r\n");
           break;
-
+        }
           SwitchPosition( x,
                           y );
 
@@ -219,7 +231,7 @@ public class Chances
                                    int end )
     {
       // given that a mistake is made
-      if( ( start - end ) < 0 )
+      if( ( end - start ) < 0 )
         return -1;
 
       int index = 0;

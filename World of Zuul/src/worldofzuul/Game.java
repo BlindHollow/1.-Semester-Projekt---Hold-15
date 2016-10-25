@@ -21,8 +21,8 @@ public class Game {
         player = new Player();
         parser = new Parser();
         
-        double[] values = {30.0f, 25.0f, 20.0f, 10.0f, 5.0f};
-        int[] ids = {0, 1, 2, 3, 4};
+        double[] values = { 5.0f, 20.0f, 53.0f, 7.0f, 5.0f, 9.0f};
+        int[] ids = {0, 1, 2, 3, 4, 5};
         Chances Chance = new Chances(values, ids);
     }
 
