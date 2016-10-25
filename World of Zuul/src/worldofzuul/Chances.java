@@ -92,7 +92,7 @@ public class Chances
        Error = false;
        Maximum = 4096.0;
 
-       Current_Identifier = 0;
+       current_Identifier = 0;
 
        ElementList = new ArrayList();
     }
@@ -130,6 +130,8 @@ public class Chances
           return;
       }
 
+      SortElements();
+
     }
 
     // -Accumulate Processes -------------------------------------------- //
@@ -143,7 +145,7 @@ public class Chances
                  x <= NumberOfElements.length - 1;
                  x ++ )
         {
-            current_Identifier = current_Identifier + 1;
+            current_Identifier++;
 
             // Laver et nyt
             Elements element = new Elements( NumberOfElements[x],
@@ -159,8 +161,11 @@ public class Chances
     private void AccumulateObjects( double ElementValue,
                                     int Id )
     {
+      current_Identifier++;
+      
       Elements element = new Elements( ElementValue,
-                                       Id );
+                                       Id, 
+                                       current_Identifier );
       ElementList.add( element );
     }
 
@@ -180,14 +185,13 @@ public class Chances
     {
         double Midpoint = Maximum/2;
 
-        SortElements();
-
 
 
         return 0;
     }
 
     // -Sorting ---------------------------------------------------------- //
+      // Sortere Elementer ud fra mindst -> Størst, ud fra procent sats
     private void SortElements()
     {
 
@@ -247,19 +251,19 @@ public class Chances
     // Switch 2 positions in an array
     private void SwitchPosition( int p1, int p2 )
     {
-      Element tempBufferPos1,
-              tempBufferPos2;
+      Elements tempBufferPos1,
+               tempBufferPos2;
 
       // Temperary Buffer
       tempBufferPos1 = ElementList.get( p1 );
       tempBufferPos2 = ElementList.get( p2 );
 
       // Needs to be changed later, but it works as intended
-      ElementList.replace( p2,
-                           tempBufferPos1 );
+      ElementList.set( p2, 
+                       tempBufferPos1);
 
-      ElementList.replace( p1,
-                           tempBufferPos2 );
+      ElementList.set( p1,
+                       tempBufferPos2 );
 
     }
 
