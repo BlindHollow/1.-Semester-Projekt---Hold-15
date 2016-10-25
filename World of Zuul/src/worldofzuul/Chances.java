@@ -34,7 +34,7 @@ public class Chances
           return Center;
         }
 
-        // Thresholds on a Axis
+        // Thresholds size
         private double Threshold;
 
         // Calculates the threshold
@@ -51,6 +51,30 @@ public class Chances
         public double GetThreshold()
         {
           return Threshold;
+        }
+
+        private double ThresholdPosA;
+
+        public void SetThresholdPosA(double Position)
+        {
+            ThresholdPosA = Position;
+        }
+
+        public double GetThresholdPosA()
+        {
+            return ThresholdPosA;
+        }
+
+        private double ThresholdPosB;
+
+        public void SetThresHoldPosB( double Position )
+        {
+            ThresholdPosB = Position;
+        }
+
+        public double GetThresholdPosB()
+        {
+            return ThresholdPosB;
         }
 
         // Given procentage for the given Element
@@ -78,10 +102,13 @@ public class Chances
     // Variabler
         // In case of error
     private boolean Error;
+    private boolean issueSortElements = false;
 
       // Maximum length
     private double Maximum;
     private int current_Identifier;
+
+    private boolean Debug = true;
 
     //
     private ArrayList<Elements> ElementList;
@@ -119,7 +146,7 @@ public class Chances
 
       // Checks if the summerized Value, of Elements is above 100 Procent.
       // If it is, throw an error and exit
-      if( ( SummerizedElements >= 100.0f ) != true )
+      if( ( SummerizedElements > 100.0f ) != true )
       {
         // Add Objects to Elements
         AccumulateObjects( NumberOfElements,
@@ -127,21 +154,14 @@ public class Chances
       }
       else
       {
-          
-          System.out.print("Error: 2");
+          System.out.print( "Error: 2" );
           // Error
           return;
       }
 
       SortElements();
-      
-      for(int x = 0; x <= ElementList.size()-1; x++)
-      {
-          Elements a = ElementList.get(x);
-          
-          System.out.println("Procentage:" + a.Value );
-      }
 
+      ShowArray();
     }
 
     // -Accumulate Processes -------------------------------------------- //
@@ -172,10 +192,11 @@ public class Chances
                                     int Id )
     {
       current_Identifier++;
-      
+
       Elements element = new Elements( ElementValue,
-                                       Id, 
+                                       Id,
                                        current_Identifier );
+
       ElementList.add( element );
     }
 
@@ -190,14 +211,121 @@ public class Chances
 
     }
 
+    private double posA,
+                   posB;
+
     // -Functions ------------------------------------------------------- //
     public int Calculate()
     {
-        double Midpoint = Maximum/2;
+        if( issueSortElements == true )
+            SortElements();
 
+        Initialise_Elements();
 
+        int i = Retrieve_R_Element();
 
-        return 0;
+        return i;
+    }
+
+    private void Initialise_Elements()
+    {
+        posA = Maximum/2;
+        posB = Maximum/2;
+
+        for( int x = 0;
+                 x <= ElementList.size() - 1;
+                 x ++ )
+        {
+            ChangeElement(x);
+        }
+
+    }
+
+    private int Retrieve_R_Element()
+    {
+        // Får et random tal, kan evt. ved hjælp af en random, hash gøres mere tilfældig
+        java.util.Random r_generator = new Random();
+
+        // x aksens længde
+        double frg = Maximum;
+
+        // retunere et sted mellem 0 og Maximum
+        frg = (frg * r_generator.nextGaussian());
+
+        // den tætteste index
+        int indexA = 0;
+
+        for( int x = 0;
+                 x <= ElementList.size() - 1;
+                 x ++ )
+        {
+            // get last Element
+            Elements Last = ElementList.get( indexA );
+            Elements Current = ElementList.get( x );
+
+            double cDistance = RetrieveLowestDistance( frg,
+                                                       Current );
+
+            double lDistance = RetrieveLowestDistance( frg,
+                                                       Last );
+
+            if( cDistance > lDistance )
+                indexA = x;
+        }
+
+        Elements RandomObject = ElementList.get( indexA );
+
+        // Retunere extern Id
+        return RandomObject.Id_Ext;
+    }
+
+    private double RetrieveLowestDistance( double Position,
+                                           Elements CurrentObject )
+    {
+        double lengthA = CalculateDistance( Position,
+                                            CurrentObject.GetThresholdPosA() );
+
+        double lengthB = CalculateDistance( Position,
+                                            CurrentObject.GetThresholdPosB() );
+
+        // Return
+        if( ( lengthA < lengthB ) )
+            return lengthA;
+        else
+            return lengthB;
+    }
+
+    private double CalculateDistance( double A,
+                                      double B )
+    {
+        if( A > B )
+            return( A - B );
+        else
+            return( B - A );
+    }
+
+    private void ChangeElement( int Element )
+    {
+        // Retrieve Element
+        Elements ChosenElement = ElementList.get( Element );
+
+        // Sætter Centrum på x Aksen
+        ChosenElement.SetCenter( Maximum );
+
+        // Bestemmer dets thresshold ud fra
+        ChosenElement.SetThreshold( Maximum );
+
+        // Position Calculated
+        posA = posA - ChosenElement.GetThreshold();
+        posB = posB - ChosenElement.GetThreshold();
+
+        // Insert Position
+        ChosenElement.SetThresholdPosA( posA );
+        ChosenElement.SetThresHoldPosB( posB );
+
+        // Inserts Element back
+        ElementList.set( Element,
+                         ChosenElement );
     }
 
     // -Sorting ---------------------------------------------------------- //
@@ -215,11 +343,11 @@ public class Chances
 
         if( y == -1 )
         {
-          System.out.print("Error: 3\r\n");
           break;
         }
-          SwitchPosition( x,
-                          y );
+
+        SwitchPosition( x,
+                        y );
 
       }
 
@@ -271,8 +399,8 @@ public class Chances
       tempBufferPos2 = ElementList.get( p2 );
 
       // Needs to be changed later, but it works as intended
-      ElementList.set( p2, 
-                       tempBufferPos1);
+      ElementList.set( p2,
+                       tempBufferPos1 );
 
       ElementList.set( p1,
                        tempBufferPos2 );
@@ -293,6 +421,40 @@ public class Chances
         }
 
         return ReturnValue;
+    }
+
+    // -Debugging ---------------------------------------------------------- //
+    private void ShowArray()
+    {
+        if( Debug == false )
+            return;
+
+        for( int x = 0;
+                 x <= ElementList.size() - 1;
+                 x ++ )
+      {
+          Elements a = ElementList.get(x);
+
+          System.out.println( "Procentage:" + a.Value +
+                              ", Id: " + a.Id_Internal +
+                              ", Pos in A:" + x );
+      }
+
+    }
+
+    private void ShowResults()
+    {
+        if( Debug == false )
+            return;
+
+        for( int x = 0;
+                 x <= ElementList.size() - 1;
+                 x ++ )
+        {
+            Elements a = ElementList.get(x);
+
+            System.out.println();
+        }
     }
 
 }
