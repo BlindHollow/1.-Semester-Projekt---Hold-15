@@ -1,5 +1,7 @@
 package worldofzuul; //NETBEANS
 
+import java.util.Scanner;
+
 /**
  * This class holds information about the game state. Upon creating a Game
  * object, a parser, a player and an amount of Rooms are created. The play()
@@ -14,6 +16,7 @@ public class Game {
     private Room currentRoom;
     private Player player;
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
+    private boolean wantToQuit;
 
     public Game() {
         createRooms();
@@ -140,7 +143,7 @@ public class Game {
     }
 
     private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
+        wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
 
@@ -239,6 +242,9 @@ public class Game {
             System.out.println(currentRoom.getLongDescription());
             player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
             //player.updateHealth(-50); //testing of dying player.
+            if(currentRoom.equals(helipad)){
+                gameWon();
+            }
         }
     }
 
@@ -288,4 +294,25 @@ public class Game {
             Player.inventory.remove(item.getName());
         }
     }
+
+    private void gameWon() {
+        System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
+        Scanner scan = new Scanner(System.in);
+        String playString = "f";
+        while (!playString.equals("n") && !playString.equals("y")) {
+            playString = scan.next();
+            switch (playString.toLowerCase()) {
+                case "n":
+                    wantToQuit = true;
+                    break;
+                case "y":
+                    Application.newGame();
+                    break;
+                default:
+                    System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
+                    break;
+            }
+        }
+    }
+
 } // Class Game
