@@ -9,7 +9,7 @@ package worldofzuul; //NETBEANS
  * end.
  */
 public class Game {
-    
+
     private Parser parser;
     private Room currentRoom;
     private Player player;
@@ -20,7 +20,7 @@ public class Game {
         createItems();
         player = new Player();
         parser = new Parser();
-        
+
     }
 
     /**
@@ -262,6 +262,8 @@ public class Game {
 
         if (null == item) {
             System.out.println("Can't find that item");
+        } else if (Player.inventory.size() >= 3) {
+            System.out.println("Your inventory is full.");
         } else {
 
             System.out.println("You picked up the " + item.getName());
