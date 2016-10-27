@@ -262,12 +262,12 @@ public class Game {
 
         if (null == item) {
             System.out.println("Can't find that item");
-        } else if (Player.inventory.size() >= 3) {
+        } else if (player.inventory.size() >= 3) {
             System.out.println("Your inventory is full.");
         } else {
 
             System.out.println("You picked up the " + item.getName());
-            Player.inventory.put(item.getName(), item);
+            player.inventory.put(item.getName(), item);
 
             currentRoom.removeItem(item.getName());
         }
@@ -288,7 +288,7 @@ public class Game {
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
 
-            Player.inventory.remove(item.getName());
+            player.inventory.remove(item.getName());
         }
     }
 } // Class Game
