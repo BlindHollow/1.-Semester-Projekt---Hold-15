@@ -17,6 +17,9 @@ public class Game {
     private Player player;
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
     private boolean wantToQuit;
+    private boolean noteFound;
+    private Room pilotRoom;
+    private boolean pilotFound;
 
     public Game() {
         createRooms();
@@ -80,6 +83,7 @@ public class Game {
         helipad.setExit("west", outside2);
 
         currentRoom = hospital; //Sets the games starting Room.
+        pilotRoom = outside1;
     }
 
 //Creates items and places them in rooms
@@ -243,8 +247,34 @@ public class Game {
             System.out.println(currentRoom.getLongDescription());
             player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
             //player.updateHealth(-50); //testing of dying player.
-            if(currentRoom.equals(helipad)){
+            if (noteFound) {
+                movePilot();
+            }
+            if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
                 gameWon();
+            } else if (currentRoom.equals(helipad)) {
+                noteFound = true;
+            }
+        }
+    }
+
+    private void movePilot() {
+        if (pilotFound) {
+            pilotRoom = currentRoom;
+        } else if (pilotRoom.equals(currentRoom)) {
+            pilotFound = true;
+            System.out.println("You found the pilot");
+        } else {
+            int roomInt = (int) (Math.random() * pilotRoom.getSize());
+            Room nextRoom = pilotRoom.getExit(roomInt);
+            if (nextRoom == null) {
+                System.out.println("No door for pilot.. Fix u moron");
+            } else {
+                pilotRoom = nextRoom;
+                if (pilotRoom.equals(currentRoom)) {
+                    pilotFound = true;
+                    System.out.println("You found the pilot");
+                }
             }
         }
     }
