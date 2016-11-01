@@ -6,11 +6,18 @@ package worldofzuul;
  */
 class Application {
 
+    private static Game detvirker;
+
     // Entry function, for the Java Program
     public static void main(String[] Args) {
-        Game detvirker = new Game();
-        detvirker.play(); //Creates a new game and starts it.
 
+        newGame();
+
+    }
+
+    public static void newGame() {
+        detvirker = new Game();
+        detvirker.play(); //Creates a new game and starts it.
     }
 
 } // Class Application

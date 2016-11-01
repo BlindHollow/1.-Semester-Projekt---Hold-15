@@ -13,7 +13,7 @@ public class Player {
 
     private boolean isDead = false; //If set to true, game will end.
 
-    public static HashMap<String, Items> inventory = new HashMap<>();
+    public HashMap<String, Items> inventory = new HashMap<>();
 
     /**
      * Constructor Starts the player object with full health, hunger, thirst and
@@ -153,7 +153,7 @@ public class Player {
 
     //Lists the items in the inventory
     public void showInventory() {
-        if (inventory.size() == 0) {
+        if (inventory.isEmpty()) {
             System.out.println("Your inventory is empty.");
         } else {
             String itemString = "Items in inventory:";
