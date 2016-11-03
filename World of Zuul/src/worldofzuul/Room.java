@@ -4,17 +4,24 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
 
-// TODO: Write Documentation
+/**
+ * This class contains information about the rooms.
+ * A room consists of a description string and three seperate hashmaps containng information about what exits a given room has,
+ * what items are placed in it and whether there are zombies in the room and if yes, which zombies there are.
+ * 
+ */
 public class Room {
 
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
+    private HashMap<String, Zombie> zombies;
 
     public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
         placements = new HashMap<>();
+        zombies = new HashMap<>();
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -31,12 +38,22 @@ public class Room {
         placements.remove(key);
     }
 
+    //Places a zombie in a room
+    public void placeZombie(Zombie zombie) {
+        zombies.put(zombie.getName(), zombie);
+    }
+
+    //Removes the zombie from the room. Should be used when it's killed
+    public void removeZombie(String key) {
+        zombies.remove(key);
+    }
+
     public String getShortDescription() {
         return description;
     }
 
     public String getLongDescription() {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getZombieString() + getExitString();
     }
 
     private String getExitString() {
@@ -46,6 +63,20 @@ public class Room {
             returnString += " " + exit;
         }
         return returnString;
+    }
+
+    public String getZombieString() {
+        if (!zombies.isEmpty()) {
+            String zombieString = "A zombified version of ";
+            Set<String> keys = zombies.keySet();
+            for (String zombie : keys) {
+                zombieString += zombie;
+            }
+            return zombieString + " is in the room!" + ".\n";
+        } else {
+            return "";
+        }
+
     }
 
     public Room getExit(String direction) {
@@ -69,9 +100,13 @@ public class Room {
         return placements.get(key);
     }
 
+    public Zombie getZombie(String key) {
+        return zombies.get(key);
+    }
+
     //Prints a list of items in the current room
     public void searchRoom() {
-        if (placements.size() == 0) {
+        if (placements.isEmpty()) {
             System.out.println("The room is empty.");
         } else {
             String itemString = "Items in room:";

@@ -1,8 +1,8 @@
 package worldofzuul;
 
 /**
- *
- * @author bytof
+ *Items of this type have an effect on the health and illness attributes of a player.
+ * 
  */
 public class Sustain extends Items {
 

@@ -1,8 +1,8 @@
 package worldofzuul;
 
 /**
- *
- * @author bytof
+ *Items of this type have affect the hunger and thirst attributes of a player.
+ * 
  */
 public class Food extends Items {
 

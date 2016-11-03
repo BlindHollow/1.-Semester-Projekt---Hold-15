@@ -24,6 +24,7 @@ public class Game {
     public Game() {
         createRooms();
         createItems();
+        createZombies();
         player = new Player();
         parser = new Parser();
 
@@ -86,7 +87,10 @@ public class Game {
         pilotRoom = outside1;
     }
 
-//Creates items and places them in rooms
+    /**
+     * Creates the items and places them in rooms.
+     *
+     */
     private void createItems() {
         Weapons fireaxe, policegun, shotgun;
         Food energybar, energydrink, cannedtuna, rum;
@@ -121,15 +125,30 @@ public class Game {
 
     }
 
+    /**
+     * Creates zombies and places them in rooms.
+     */
+    private void createZombies() {
+        Zombie smallZombie, mediumZombie, largeZombie;
+
+        //Create zombies with a name, hp and a damage modifier
+        smallZombie = new Zombie("dave", 10, 10);
+        mediumZombie = new Zombie("john", 20, 12);
+        largeZombie = new Zombie("tommy", 30, 15);
+
+        hospital.placeZombie(smallZombie);
+
+    }
+
     public void play() {
         printWelcome();
 
         boolean finished = false;
 
-        while (!finished) { //TODO: Add wincondition.
+        while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
-            if (player.schrodinger()) {
+            if (player.schroedinger()) {
                 System.out.println("You are dead.");
                 finished = true;
             }
@@ -180,6 +199,9 @@ public class Game {
                 case INVENTORY:
                     player.showInventory();
                     break;
+                case ATTACK:
+                    attackZombie(command);
+                    break;
                 case SUICIDE:
                     player.updateHealth(-100);
                     break;
@@ -193,9 +215,12 @@ public class Game {
         return wantToQuit;
     }
 
-    private void printHelp() { //TODO Change help message to be suitable for our game.
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+    private void printHelp() {
+        System.out.println("You wake up from a coma");
+        System.out.println("You are in a hospital");
+        System.out.println("A note reads:");
+        System.out.println("A virus outbreak has turned people to zombies");
+        System.out.println("Good luck, friendo");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
@@ -254,6 +279,25 @@ public class Game {
                 gameWon();
             } else if (currentRoom.equals(helipad)) {
                 noteFound = true;
+            }
+        }
+    }
+
+    private void attackZombie(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("What zombie?");
+            return;
+        }
+        Zombie zombie = currentRoom.getZombie(command.getSecondWord());
+
+        if (null == zombie) {
+            System.out.println("Can't find that zombie in the room");
+        } else {
+
+            zombie.hit(5);
+            if (zombie.schroedinger()) {
+                currentRoom.removeZombie(zombie.getName());
+                System.out.println(zombie.getName() + " is dead. Hooray...");
             }
         }
     }
@@ -346,6 +390,10 @@ public class Game {
                     break;
             }
         }
+    }
+
+    public Room currentRoom() {
+        return currentRoom;
     }
 
 } // Class Game

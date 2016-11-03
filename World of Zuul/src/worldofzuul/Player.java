@@ -27,6 +27,16 @@ public class Player {
     }
 
     /**
+     * Constructor used if loading from a saved game state.
+     */
+    public Player(int health, int hunger, int thirst, int illness) {
+        this.health = health;
+        this.hunger = hunger;
+        this.thirst = thirst;
+        this.illness = illness;
+    }
+
+    /**
      * Updates the health attribute checks if health is 0 or less on update, if
      * it is, sets isDead = true, causing the game to end.
      *
@@ -119,7 +129,7 @@ public class Player {
     }
 
     //Access functions.
-    public boolean schrodinger() {
+    public boolean schroedinger() {
         return isDead;
     }
 
@@ -146,12 +156,14 @@ public class Player {
         System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");
     }
 
-//Returns the item (an object) with the key "key" in the inventory HashMap
+    //Returns the item (an object) with the key "key" in the inventory HashMap
     public Items getInventory(String key) {
         return inventory.get(key);
     }
 
-    //Lists the items in the inventory
+    /**
+     * Lists all items in the players inventory
+     */
     public void showInventory() {
         if (inventory.isEmpty()) {
             System.out.println("Your inventory is empty.");
