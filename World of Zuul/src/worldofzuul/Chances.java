@@ -201,14 +201,187 @@ public class Chances
     }
 
     // -Add Elements ---------------------------------------------------- //
-    public void AddElement( float Procentage )
+    public void AddElement( double Procentage, 
+                            int Extern )
     {
-
+        current_Identifier++;
+        
+        Elements Object = new Elements( Procentage, 
+                                        Extern, 
+                                        current_Identifier );
+        
+        InsertElement( Object );
+        
     }
 
-    public void AddElements( float[] Procentages )
+    public void AddElements( double[] Procentages, 
+                             int[] Extern )
     {
+        
+        if( Procentages.length != Extern.length )
+        {
+            return;
+        }
+        
+        for( int x = 0; 
+                 x <= Procentages.length - 1; 
+                 x ++ )
+        {
+            current_Identifier++;
+            
+            Elements Object = new Elements( Procentages[x], 
+                                            Extern[x], 
+                                            current_Identifier );
+         
+            InsertElement( Object );
+        }
+        
+    }
+    
+    // Add Elements to Array
+    private void InsertElement( Elements input )
+    {
+        boolean specificly_insert = false;
+        
+        int End = ElementList.size() - 1;
+        int Destination = 0;
+        
+        for( int x = 0; 
+                // Inside Search range
+                 x <= ( End - 1 ); 
+                 x ++ )
+        {
+            // If, it's already the biggest, just skip
+            if( x == 0 )
+            {
+                Elements Element0 = ElementList.get( x );
+                
+                if( Element0.Value < input.Value )
+                {
+                    specificly_insert = true;
+                    Destination = x;
+                    
+                    break;
+                }
+            }
+            
+            Destination = x;
 
+            int Forward_Index = x + 1;
+            
+            // Add buffers
+            Elements current = ElementList.get( x );
+            Elements forward = ElementList.get( Forward_Index );
+            
+            //BT = Bigger Than
+            //ST = Smaller Than
+            boolean BT_current = false, 
+                    ST_forward = false;
+            
+            // if element Input is smaller than current Value
+            if( current.Value > input.Value )
+                BT_current = true;
+            
+            // if element S is Bigger than Forward
+            if( forward.Value < input.Value )
+                ST_forward = true;
+            
+            // If it fits inbetween two values
+            if( ( BT_current && ST_forward ) == true )
+            {
+                Destination++;
+                specificly_insert = true;
+                
+                break;
+            }
+            
+        }
+        
+        if( specificly_insert == true )
+        {
+            // Places in between two values, specificly
+            ElementList.add( Destination, 
+                             input );
+        }
+        else
+        {
+            // places in the bottom
+            ElementList.add( input );
+        }
+        
+    }
+    
+    public void RemoveElement( int Extern )
+    {
+        // Indexes, to be remove
+        ArrayList<Integer> Indexes = new ArrayList();
+        
+        // Find x, extern values that matches
+        for( int x = 0; 
+                 x <= ElementList.size() - 1; 
+                 x ++ )
+        {
+            Elements current = ElementList.get( x );
+            
+            if( current.Id_Ext == Extern )
+            {
+                Indexes.add( x );
+            }
+            
+        }
+        
+        // Space thats been removed
+        int removed_space = 0;
+        
+        // remove them
+        for( int x = 0; 
+                 x <= Indexes.size() - 1; 
+                 x ++ )
+        {
+            int current = Indexes.get(x);
+            
+            ElementList.remove( ( current - removed_space ) );
+            removed_space++;
+        }
+        
+    }
+    
+    public void RemoveElements( int[] Extern )
+    {
+        // Indexes, to be remove
+        ArrayList<Integer> Indexes = new ArrayList();
+        
+        // Searches list for elements
+        for( int x = 0; 
+                 x <= ElementList.size() - 1; 
+                 x ++ )
+        {
+            Elements current = ElementList.get( x );
+            
+            for( int i = 0; 
+                     i <= Extern.length - 1; 
+                     i ++ )
+            {
+                if( Extern[i] == current.Id_Ext )
+                {
+                    Indexes.add( x );
+                }
+            }
+            
+        }
+        
+        int removed_space = 0;
+        
+        for( int x = 0; 
+                 x <= Indexes.size() - 1; 
+                 x ++ )
+        {
+            int current = Indexes.get(x);
+            
+            ElementList.remove( current - removed_space );
+            removed_space++;
+        }
+        
     }
 
     private double posA,
@@ -250,7 +423,7 @@ public class Chances
         double frg = Maximum;
 
         // retunere et sted mellem 0 og Maximum
-        frg = (frg * r_generator.nextGaussian());
+        frg = ( frg * r_generator.nextGaussian() );
 
         // den tætteste index
         int indexA = 0;
