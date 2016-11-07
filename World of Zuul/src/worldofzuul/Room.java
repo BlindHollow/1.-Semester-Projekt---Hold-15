@@ -52,6 +52,18 @@ public class Room {
         return exits.get(direction);
     }
 
+    public Room getExit(int index) {
+        Set<String> keys = exits.keySet();
+        int i = 0;
+        for (String exit : keys) {
+            if (i == index) {
+                return exits.get(exit);
+            }
+            i++;
+        }
+        return null;
+    }
+
     //Returns the item (an object) with the key "key" in the placements HashMap
     public Items getItem(String key) {
         return placements.get(key);
@@ -69,6 +81,10 @@ public class Room {
             }
             System.out.println(itemString);
         }
+    }
+
+    public int getSize() {
+        return exits.size();
     }
 
 }
