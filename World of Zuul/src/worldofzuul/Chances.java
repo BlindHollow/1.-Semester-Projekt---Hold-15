@@ -3,12 +3,17 @@ package worldofzuul;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+    @author: Kent v. Madsen, Mads thy, Emil Højgaard, simo
+*/
+
 // TODO: Write Documentation
 
 // Input:
 // External Identifier : Something the user chooses, to identify the result
-  // as an example, Enums, 0 weapon, 1, bedroom object, 2 trash, etc.
-  // It will return an external identifier as a result. up to the programmer how to use it.
+    // as an example, Enums, 0 weapon, 1, bedroom object, 2 trash, etc.
+    // It will return an external identifier as a result. 
+    // up to the programmer how to use it.
 
 // Procentages: a value between 0 and 100
 
@@ -17,35 +22,71 @@ public class Chances
     // Intern Objects
     private class Elements
     {
+        // Variables
+            // Center on a given Length, along a axis
+        private double Center;
+        
+            // Thresholds size
+        private double Threshold;
+        
+            // Position, along x axis
+        private double ThresholdPosA;
+        private double ThresholdPosB;
+
+            // Given procentage for the given Element
+        private double Value;
+
+        // Identifiers
+          // External, something the user define
+        public int Id_Ext;
+
+          // Used by the class
+        private int Id_Internal;
+        
+        // Initiators
+        public Elements( int External_Identifier, 
+                         int Internal_Identifier )
+        {
+            SetExternal( External_Identifier );
+            SetInternal( Internal_Identifier );
+        }
+        
         public Elements( double Procentage,
                          int External_Identifier,
                          int Internal_Identifier )
-        {
-            Value       = Procentage;
-
-            Id_Ext      = External_Identifier;
-            Id_Internal = Internal_Identifier;
+        {   
+            this( External_Identifier, 
+                  Internal_Identifier );
+            
+            SetProcentage( Procentage );
         }
-
-        // Center on a given Length, along a axis
-        private double Center;
-
-        // Finder Centrum af en given Længde
-        public void SetCenter( double iLength )
+        
+        // Tag: Center
+            // Finder Centrum af en given Længde
+        public final void SetCenter( double iLength )
         {
           Center = iLength/2;
         }
 
-        // Returns Center
-        public double GetCenter()
+            // Returns Center
+        public final double GetCenter()
         {
           return Center;
         }
+        
+        // Tags: Procentage
+        public final double GetProcentage()
+        {
+            return Value;
+        }
 
-        // Thresholds size
-        private double Threshold;
-
-        // Calculates the threshold
+        public final void SetProcentage( double Procentage )
+        {
+            Value = Procentage;
+        }
+        
+        // Tag: Threshold
+            // Calculates the threshold
         public void SetThreshold( double iLength )
         {
           double HalfProcentage = Value / 2;
@@ -55,15 +96,14 @@ public class Chances
           Threshold = Result;
         }
 
-        // Returns Threshold
+            // Returns Threshold
         public double GetThreshold()
         {
           return Threshold;
         }
-
-        private double ThresholdPosA;
-
-        public void SetThresholdPosA(double Position)
+        
+        // Tag: ThresholdPosA
+        public void SetThresholdPosA( double Position )
         {
             ThresholdPosA = Position;
         }
@@ -72,10 +112,9 @@ public class Chances
         {
             return ThresholdPosA;
         }
-
-        private double ThresholdPosB;
-
-        public void SetThresHoldPosB( double Position )
+        
+        // Tag: ThresholdPosB
+        public void SetThresholdPosB( double Position )
         {
             ThresholdPosB = Position;
         }
@@ -84,25 +123,27 @@ public class Chances
         {
             return ThresholdPosB;
         }
-
-        // Given procentage for the given Element
-        public double Value;
-
-        // Identifiers
-          // External, something the user define
-        public int Id_Ext;
-
-          // Used by the class
-        private int Id_Internal;
-
-        public int GetInternal()
+        
+        // Tag: Internal
+        public final void SetInternal( int Id )
+        {
+          Id_Internal = Id;
+        }
+        
+        public final int GetInternal()
         {
           return Id_Internal;
         }
-
-        public void SetInternal( int Id )
+        
+        // Tag: External
+        public final void SetExternal(int Id)
         {
-          Id_Internal = Id;
+            Id_Ext = Id;
+        }
+        
+        public final int GetExternal()
+        {
+            return Id_Ext;
         }
 
     }
@@ -116,7 +157,7 @@ public class Chances
     private double Maximum;
     private int current_Identifier;
 
-    private boolean Debug = true;
+    private boolean Debug = false;
 
     //
     private ArrayList<Elements> ElementList;
@@ -136,12 +177,14 @@ public class Chances
     public Chances( double[] NumberOfElements,
                     int[] Identifiers )
     {
+        // Retrieves the length of NOE's and Identifiers Array
       int NOE_Length = NumberOfElements.length;
       int Ids_Length = Identifiers.length;
 
+      // If, they not equal, retrieve error
       if( NOE_Length != Ids_Length )
       {
-          System.out.print("Error: 1");
+          System.out.print( "Error: 1" );
           // Error
           return;
       }
@@ -479,7 +522,7 @@ public class Chances
     private double CalculateDistance( double A,
                                       double B )
     {
-        if( A > B )
+        if( A >= B )
             return( A - B );
         else
             return( B - A );
@@ -502,7 +545,7 @@ public class Chances
 
         // Insert Position
         ChosenElement.SetThresholdPosA( posA );
-        ChosenElement.SetThresHoldPosB( posB );
+        ChosenElement.SetThresholdPosB( posB );
 
         // Inserts Element back
         ElementList.set( Element,
@@ -572,19 +615,19 @@ public class Chances
     // Switch 2 positions in an array
     private void SwitchPosition( int p1, int p2 )
     {
-      Elements tempBufferPos1,
-               tempBufferPos2;
+      Elements tempBuffer;
 
-      // Temperary Buffer
-      tempBufferPos1 = ElementList.get( p1 );
-      tempBufferPos2 = ElementList.get( p2 );
+      // Temperary Buffer, loader ind, et element
+      tempBuffer = ElementList.get( p2 );
 
-      // Needs to be changed later, but it works as intended
+      // Moves the Objects
+        // Replaces, the tempbuffer position, in the array
       ElementList.set( p2,
-                       tempBufferPos1 );
-
+                       ElementList.get( p1 ) );
+      
+        // Replaces first element, with the tempbuffer
       ElementList.set( p1,
-                       tempBufferPos2 );
+                       tempBuffer );
 
     }
 
