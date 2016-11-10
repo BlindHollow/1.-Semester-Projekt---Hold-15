@@ -41,7 +41,7 @@ public class Room {
 
     //Places a zombie in a room
     public void placeZombie(Zombie zombie) {
-        zombies.put(zombie.getName(), zombie);
+        zombies.put( zombie.getName(), zombie );
     }
 
     //Removes the zombie from the room. Should be used when it's killed

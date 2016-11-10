@@ -82,8 +82,8 @@ public class Game {
         gasstation.setExit("north", outside2);
 
         helipad.setExit("west", outside2);
-
-        currentRoom = hospital; //Sets the games starting Room.
+        
+        currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
     }
 
