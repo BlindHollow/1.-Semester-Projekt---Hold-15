@@ -8,10 +8,11 @@ import java.util.Iterator;
  * This class contains information about the rooms.
  * A room consists of a description string and three seperate hashmaps containng information about what exits a given room has,
  * what items are placed in it and whether there are zombies in the room and if yes, which zombies there are.
- * 
+ *
  */
 public class Room {
-
+    private boolean Lock = false;
+    
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
@@ -79,8 +80,10 @@ public class Room {
 
     }
 
-    public Room getExit(String direction) {
-        return exits.get(direction);
+    public Room getExit(String direction) { 
+        Room room = exits.get(direction);
+        
+        return room;
     }
 
     public Room getExit(int index) {
@@ -116,6 +119,16 @@ public class Room {
             }
             System.out.println(itemString);
         }
+    }
+    
+    public boolean getLock()
+    {
+        return this.Lock;
+    }
+    
+    public void setLock( boolean status )
+    {
+        this.Lock = status;
     }
 
     public int getSize() {

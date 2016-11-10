@@ -267,18 +267,31 @@ public class Game {
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
-        } else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
-            player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
-            //player.updateHealth(-50); //testing of dying player.
-            if (noteFound) {
-                movePilot();
+        }
+        else 
+        {
+            if( nextRoom.getLock() == true )
+            {
+                System.out.println( "Doors Locked, find a key or an axe and try again." );
             }
-            if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
-                gameWon();
-            } else if (currentRoom.equals(helipad)) {
-                noteFound = true;
+            else
+            {
+                currentRoom = nextRoom;
+                
+                System.out.println(currentRoom.getLongDescription());
+                
+                player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
+                
+                //player.updateHealth(-50); //testing of dying player.
+                if (noteFound) {
+                    movePilot();
+                }
+                
+                if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
+                    gameWon();
+                } else if (currentRoom.equals(helipad)) {
+                    noteFound = true;
+                }
             }
         }
     }
