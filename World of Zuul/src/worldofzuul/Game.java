@@ -216,12 +216,7 @@ public class Game {
     }
 
     private void printHelp() {
-        System.out.println("You wake up from a coma");
-        System.out.println("You are in a hospital");
-        System.out.println("A note reads:");
-        System.out.println("A virus outbreak has turned people to zombies");
-        System.out.println("Good luck, friendo");
-        System.out.println();
+        System.out.println("You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\n\r\nYour command words are:");
         System.out.println("Your command words are:");
         parser.showCommands();
     }
@@ -277,8 +272,9 @@ public class Game {
             else
             {
                 currentRoom = nextRoom;
+                currentRoom.spawnRandomZombie();
                 
-                System.out.println(currentRoom.getLongDescription());
+                System.out.println( currentRoom.getLongDescription() );
                 
                 player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
                 
