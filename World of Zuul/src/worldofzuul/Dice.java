@@ -34,7 +34,7 @@ public class Dice
      * @return value between begin and end interval
      * @return -1 : Error
      */
-    public int Calculate()
+    public final int Calculate()
     {
         Random r = new Random();
         

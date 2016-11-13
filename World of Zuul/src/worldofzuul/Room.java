@@ -12,6 +12,7 @@ import java.util.Iterator;
  */
 public class Room {
     private boolean Lock = false;
+    private boolean Spawnable = false;
     
     private String description;
     private HashMap<String, Room> exits;
@@ -105,6 +106,42 @@ public class Room {
 
     public Zombie getZombie(String key) {
         return zombies.get(key);
+    }
+    
+    private void spawnZombie()
+    {
+        Zombie monster = new Zombie( "RandomZombie", 
+                                     100, 2 );
+        
+        zombies.put( "RandomZombie", 
+                     monster );
+    }
+    
+    public void SetSpawnable( boolean value )
+    {
+        Spawnable = value;
+    }
+    
+    public boolean GetSpawnable()
+    {
+        return Spawnable;
+    }
+    
+    public void spawnRandomZombie()
+    {
+        if( Spawnable == true )
+        {
+            Dice random = new Dice(0, 100);
+        
+            int rValue = random.Calculate();
+        
+            if( rValue <= 25 && 
+                rValue >= 75 )
+            {
+                spawnZombie();
+            }
+           
+        }
     }
 
     //Prints a list of items in the current room
