@@ -23,6 +23,11 @@ public class Zombie {
         updateHealth(-1*damage);
         System.out.println("You attacked " + name + " for " + damage + " damage.");
     }
+    
+    public void attackPlayer(Player player) {
+        player.updateHealth(-1*zomDamage);
+        player.updateIllness(7);
+    }
 
     public void kill() {
         String actionString = "You killed the " + this.name;

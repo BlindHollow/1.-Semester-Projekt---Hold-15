@@ -205,6 +205,9 @@ public class Game {
                 case SUICIDE:
                     player.updateHealth(-100);
                     break;
+                case ZIPLINE:
+                    zipline();
+                    break;
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
@@ -216,7 +219,7 @@ public class Game {
     }
 
     private void printHelp() {
-        System.out.println("You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\n\r\nYour command words are:");
+        System.out.println("You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\nGood luck, friendo \r\n\r\n");
         System.out.println("Your command words are:");
         parser.showCommands();
     }
@@ -303,11 +306,26 @@ public class Game {
             System.out.println("Can't find that zombie in the room");
         } else {
 
-            zombie.hit(5);
+            zombie.hit(5); //TODO: Get Weapons working.
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             }
+            zombie.attackPlayer(player);
+        }
+    }
+    
+    private void zipline() {
+        if (currentRoom == firestation) {
+            currentRoom = policestation;
+            player.degenHungerAndThirst();
+            currentRoom.getLongDescription();
+        } else if (currentRoom == policestation) {
+            currentRoom = helipad;
+            player.degenHungerAndThirst();
+            currentRoom.getLongDescription();
+        } else {
+            System.out.println("You can not zipline from here.");
         }
     }
 

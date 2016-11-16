@@ -160,12 +160,12 @@ public class Room {
     
     public boolean getLock()
     {
-        return this.Lock;
+        return Lock;
     }
     
     public void setLock( boolean status )
     {
-        this.Lock = status;
+        Lock = status;
     }
 
     public int getSize() {
