@@ -12,6 +12,8 @@ public class Player {
     private int health, hunger, thirst, illness;
 
     private boolean isDead = false; //If set to true, game will end.
+    
+    private Weapons primaryWeapon;
 
     public HashMap<String, Items> inventory = new HashMap<>();
 
@@ -127,6 +129,10 @@ public class Player {
             System.out.println("You are dehydrated.");
         }
     }
+    
+    public void setPrimaryWeapon(Weapons weapon) {
+        primaryWeapon = weapon;
+    }
 
     //Access functions.
     public boolean schroedinger() {
@@ -149,6 +155,9 @@ public class Player {
         return illness;
     }
 
+    public Weapons getPrimaryWeapon() {
+        return primaryWeapon;
+    }
     /**
      * Prints the players status, ie. values of the attributes.
      */

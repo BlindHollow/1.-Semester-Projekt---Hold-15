@@ -27,6 +27,7 @@ public class Zombie {
     public void attackPlayer(Player player) {
         player.updateHealth(-1*zomDamage);
         player.updateIllness(7);
+        System.out.println(name + " attacked you for " + zomDamage + " damage.");
     }
 
     public void kill() {

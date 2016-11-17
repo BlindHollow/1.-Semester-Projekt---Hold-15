@@ -1,6 +1,8 @@
 package worldofzuul; //NETBEANS
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.*;
 
 /**
  * This class holds information about the game state. Upon creating a Game
@@ -28,6 +30,17 @@ public class Game {
         player = new Player();
         parser = new Parser();
 
+    }
+
+    public void save() throws IOException {
+        //Save the player state.
+        player.getHealth();
+        player.getHunger();
+        player.getThirst();
+        player.getIllness();
+        //Inventory?
+        //Save room states.
+        //Save pilot state.
     }
 
     /**
@@ -82,7 +95,9 @@ public class Game {
         gasstation.setExit("north", outside2);
 
         helipad.setExit("west", outside2);
-        
+
+        house2.setLock(true);
+
         currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
     }
@@ -265,27 +280,23 @@ public class Game {
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
-        }
-        else 
-        {
-            if( nextRoom.getLock() == true )
-            {
-                System.out.println( "Doors Locked, find a key or an axe and try again." );
-            }
-            else
-            {
+        } else {
+            if (nextRoom.getLock() == true && !player.inventory.containsKey("fireaxe")) {
+                System.out.println("Door is Locked, find something to open the door with and try again.");
+
+            } else {
                 currentRoom = nextRoom;
                 currentRoom.spawnRandomZombie();
-                
-                System.out.println( currentRoom.getLongDescription() );
-                
+
+                System.out.println(currentRoom.getLongDescription());
+
                 player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
-                
+
                 //player.updateHealth(-50); //testing of dying player.
                 if (noteFound) {
                     movePilot();
                 }
-                
+
                 if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
                     gameWon();
                 } else if (currentRoom.equals(helipad)) {
@@ -301,20 +312,32 @@ public class Game {
             return;
         }
         Zombie zombie = currentRoom.getZombie(command.getSecondWord());
+        Weapons weapon = player.getPrimaryWeapon();
 
         if (null == zombie) {
             System.out.println("Can't find that zombie in the room");
         } else {
+            if (player.getPrimaryWeapon() == null) {
+                zombie.hit(5);
+                if (zombie.schroedinger()) {
+                    currentRoom.removeZombie(zombie.getName());
+                    System.out.println(zombie.getName() + " is dead. Hooray...");
+                } else {
+                    zombie.attackPlayer(player);
+                }
+            } else {
+                zombie.hit(weapon.getDamage()); //TODO: Get Weapons working.
+                if (zombie.schroedinger()) {
+                    currentRoom.removeZombie(zombie.getName());
+                    System.out.println(zombie.getName() + " is dead. Hooray...");
+                } else {
+                    zombie.attackPlayer(player);
+                }
 
-            zombie.hit(5); //TODO: Get Weapons working.
-            if (zombie.schroedinger()) {
-                currentRoom.removeZombie(zombie.getName());
-                System.out.println(zombie.getName() + " is dead. Hooray...");
             }
-            zombie.attackPlayer(player);
         }
     }
-    
+
     private void zipline() {
         if (currentRoom == firestation) {
             currentRoom = policestation;
@@ -375,6 +398,10 @@ public class Game {
 
             System.out.println("You picked up the " + item.getName());
             player.inventory.put(item.getName(), item);
+            if (item instanceof Weapons) {
+                player.setPrimaryWeapon((Weapons) item);
+                System.out.println("Primary Weapon set");
+            }
 
             currentRoom.removeItem(item.getName());
         }
@@ -421,6 +448,10 @@ public class Game {
 
     public Room currentRoom() {
         return currentRoom;
+    }
+
+    public Room pilotRoom() {
+        return pilotRoom;
     }
 
 } // Class Game
