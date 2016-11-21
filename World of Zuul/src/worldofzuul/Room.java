@@ -171,5 +171,15 @@ public class Room {
     public int getSize() {
         return exits.size();
     }
-
+    
+    public HashMap<String, Room> getNeighbours() {
+        return exits;
+    }
+    
+    public HashMap<String, Items> getPlacements() {
+        return placements;
+    }
+    public HashMap<String, Zombie> getZombies() {
+        return zombies;
+    }
 }
