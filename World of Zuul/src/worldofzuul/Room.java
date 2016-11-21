@@ -158,7 +158,7 @@ public class Room {
         }
     }
     
-    public boolean getLock()
+    public boolean isLocked()
     {
         return Lock;
     }

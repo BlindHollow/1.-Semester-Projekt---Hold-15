@@ -2,13 +2,16 @@ package worldofzuul; //NETBEANS
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Set;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class holds information about the game state. Upon creating a Game
  * object, a parser, a player and an amount of Rooms are created. The play()
  * method contains the main loop of the game, repeatedly checking for
- * commandwors from the user. As long as the command is not quit and the player
+ * commandwords from the user. As long as the command is not quit and the player
  * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
  * end.
  */
@@ -22,8 +25,9 @@ public class Game {
     private boolean noteFound;
     private Room pilotRoom;
     private boolean pilotFound;
+    private ArrayList<Room> rooms = new ArrayList<Room>();    
 
-    public Game() {
+    public Game() { 
         createRooms();
         createItems();
         createZombies();
@@ -34,13 +38,47 @@ public class Game {
 
     public void save() throws IOException {
         //Save the player state.
-        player.getHealth();
-        player.getHunger();
-        player.getThirst();
-        player.getIllness();
-        //Inventory?
-        //Save room states.
-        //Save pilot state.
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("save.txt"), "utf-8"))) {
+            writer.write(player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "\n");
+            if (!player.inventory.isEmpty()) {
+                Set<String> keys = player.inventory.keySet();
+                for (String item : keys) {
+                    writer.write(item + ",");
+                    writer.write("\n");
+                }
+            }
+            //Save pilot state.
+            if (pilotFound) {
+                writer.write("pilotFound," + pilotRoom);
+            }
+            //Save room states.
+            if (!rooms.isEmpty()) {
+                for (Room room : rooms) {
+                    writer.write("'" + room.getShortDescription() + "'" + "\n");
+                    HashMap<String, Room> exits = room.getNeighbours();
+                    for (String key : exits.keySet()) {
+                        writer.write(key + ",");
+                        writer.write("\n");
+                    }
+                    HashMap<String, Items> placements = room.getPlacements();
+                    for (String key : placements.keySet()) {
+                        writer.write(key + ",");
+                        writer.write("\n");
+                    }
+                    HashMap<String, Zombie> zombies = room.getZombies();
+                    for (String key : zombies.keySet()) {
+                        writer.write(key + ",");
+                        writer.write("\n");
+                    }
+                    if (room.isLocked()) {
+                        writer.write("locked");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("File could not be written");
+        }
     }
 
     /**
@@ -61,6 +99,19 @@ public class Game {
         drugstore = new Room("in the drugstore");
         pub = new Room("in the pub");
         gasstation = new Room("in the gasstation");
+        
+        rooms.add(outside1);
+        rooms.add(outside2);
+        rooms.add(helipad);
+        rooms.add(hospital);
+        rooms.add(policestation);
+        rooms.add(grocerystore);
+        rooms.add(firestation);
+        rooms.add(house1);
+        rooms.add(house2);
+        rooms.add(drugstore);
+        rooms.add(pub);
+        rooms.add(gasstation);
 
         hospital.setExit("east", outside1);
 
@@ -280,28 +331,26 @@ public class Game {
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
+        } else if (nextRoom.isLocked() == true && !player.inventory.containsKey("fireaxe")) {
+            System.out.println("Door is Locked, find something to open the door with and try again.");
+
         } else {
-            if (nextRoom.getLock() == true && !player.inventory.containsKey("fireaxe")) {
-                System.out.println("Door is Locked, find something to open the door with and try again.");
+            currentRoom = nextRoom;
+            currentRoom.spawnRandomZombie();
 
-            } else {
-                currentRoom = nextRoom;
-                currentRoom.spawnRandomZombie();
+            System.out.println(currentRoom.getLongDescription());
 
-                System.out.println(currentRoom.getLongDescription());
+            player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
 
-                player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
+            //player.updateHealth(-50); //testing of dying player.
+            if (noteFound) {
+                movePilot();
+            }
 
-                //player.updateHealth(-50); //testing of dying player.
-                if (noteFound) {
-                    movePilot();
-                }
-
-                if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
-                    gameWon();
-                } else if (currentRoom.equals(helipad)) {
-                    noteFound = true;
-                }
+            if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
+                gameWon();
+            } else if (currentRoom.equals(helipad)) {
+                noteFound = true;
             }
         }
     }
@@ -316,25 +365,23 @@ public class Game {
 
         if (null == zombie) {
             System.out.println("Can't find that zombie in the room");
-        } else {
-            if (player.getPrimaryWeapon() == null) {
-                zombie.hit(5);
-                if (zombie.schroedinger()) {
-                    currentRoom.removeZombie(zombie.getName());
-                    System.out.println(zombie.getName() + " is dead. Hooray...");
-                } else {
-                    zombie.attackPlayer(player);
-                }
+        } else if (player.getPrimaryWeapon() == null) {
+            zombie.hit(5);
+            if (zombie.schroedinger()) {
+                currentRoom.removeZombie(zombie.getName());
+                System.out.println(zombie.getName() + " is dead. Hooray...");
             } else {
-                zombie.hit(weapon.getDamage()); //TODO: Get Weapons working.
-                if (zombie.schroedinger()) {
-                    currentRoom.removeZombie(zombie.getName());
-                    System.out.println(zombie.getName() + " is dead. Hooray...");
-                } else {
-                    zombie.attackPlayer(player);
-                }
-
+                zombie.attackPlayer(player);
             }
+        } else {
+            zombie.hit(weapon.getDamage()); //TODO: Get Weapons working.
+            if (zombie.schroedinger()) {
+                currentRoom.removeZombie(zombie.getName());
+                System.out.println(zombie.getName() + " is dead. Hooray...");
+            } else {
+                zombie.attackPlayer(player);
+            }
+
         }
     }
 
