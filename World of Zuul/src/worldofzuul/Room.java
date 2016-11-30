@@ -12,8 +12,8 @@ import java.util.Iterator;
  */
 public class Room {
     private boolean Lock = false;
-    private boolean Spawnable = false;
     private String name;
+    private boolean Spawnable = true;
     
     private String description;
     private HashMap<String, Room> exits;
@@ -137,8 +137,8 @@ public class Room {
         
             int rValue = random.Calculate();
         
-            if( rValue <= 25 && 
-                rValue >= 75 )
+            if( rValue >= 20 && 
+                rValue <= 80 )
             {
                 spawnZombie();
             }
