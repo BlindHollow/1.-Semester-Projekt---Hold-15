@@ -17,7 +17,7 @@ public class Player {
     
     private Weapons primaryWeapon;
 
-    public HashMap<String, Items> inventory = new HashMap<>();
+    private HashMap<String, Items> inventory = new HashMap<>();
 
     /**
      * Constructor Starts the player object with full health, hunger, thirst and

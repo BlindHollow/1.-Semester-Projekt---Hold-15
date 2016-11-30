@@ -1,4 +1,4 @@
-package worldofzuul; //NETBEANS
+package worldofzuul;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -42,8 +42,8 @@ public class Game {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
             writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "\n");
-            if (!player.inventory.isEmpty()) {
-                Set<String> keys = player.inventory.keySet();
+            if (!player.getInventory().isEmpty()) {
+                Set<String> keys = player.getInventory().keySet();
                 for (String item : keys) {
                     writer.write(item + ",");
                     writer.write("\n");
@@ -452,12 +452,12 @@ public class Game {
 
         if (null == item) {
             System.out.println("Can't find that item");
-        } else if (player.inventory.size() >= 4) {
+        } else if (player.getInventory().size() >= 4) {
             System.out.println("Your inventory is full.");
         } else {
 
             System.out.println("You picked up the " + item.getName());
-            player.inventory.put(item.getName(), item);
+            player.getInventory().put(item.getName(), item);
             if (item instanceof Weapons) {
                 player.setPrimaryWeapon((Weapons) item);
                 System.out.println("Primary Weapon set");
@@ -482,7 +482,7 @@ public class Game {
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
 
-            player.inventory.remove(item.getName());
+            player.getInventory().remove(item.getName());
         }
     }
 
