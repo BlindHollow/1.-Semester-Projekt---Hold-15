@@ -12,23 +12,37 @@ import java.util.*;
  * @author Fract
  */
 
-public class HighscoreSystem 
+public final class HighscoreSystem 
 {
     HighscorePlayer CurrentPlayer = new HighscorePlayer();
     ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
     
+    /**
+     * 
+     * @param CurrentPlayername 
+     */
     public HighscoreSystem( String CurrentPlayername )
     {
         CurrentPlayer.SetPlayerName( CurrentPlayername );
         CurrentPlayer.SetIsPlayer( true );
     }
     
-    // Add Player's to compare againts
+    /**
+     * Add Player's to compare againts 
+     * @param Name
+     * @return 
+     */
     public boolean AddPlayers( String Name )
     {
         return AddPlayers( Name, 0 );
     }
     
+    /**
+     * 
+     * @param Name
+     * @param Score
+     * @return 
+     */
     public boolean AddPlayers( String Name, int Score )
     {
         HighscorePlayer player = new HighscorePlayer( Name, 
@@ -47,7 +61,11 @@ public class HighscoreSystem
         
     }
     
-    // Returns true if a player with the same name, show up. avoid duplicates
+    /**
+     * Returns true if a player with the same name, show up. avoid duplicates
+     * @param Name
+     * @return 
+     */
     private boolean ExactUser( String Name )
     {
         if( CurrentPlayer.GetPlayername() == CurrentPlayer.GetPlayername() )
@@ -64,25 +82,38 @@ public class HighscoreSystem
         return false;
     }
     
-    // Current Player
+    /**
+     * Add points for the Current Player
+     * @param Number 
+     */
     public void AddPoints( int Number )
     {
         CurrentPlayer.SetPlayerScore( GetPoints() + Number );
         
     }
     
+    /**
+     * Remove points for the Current Player
+     * @param Number 
+     */
     public void RemovePoints( int Number )
     {
         CurrentPlayer.SetPlayerScore( GetPoints() - Number );
         
     }
-    
+    /**
+     * Retrieve Points for the current Player
+     * @return 
+     */
     public int GetPoints()
     {
         return CurrentPlayer.GetPlayerScore();
     }
     
-    // Retunere en sorteret list, med spilleren
+    /**
+     * Returns a sorted list, with the player and other players
+     * @return 
+     */
     public ArrayList<HighscorePlayer> OrderedListOfPlayers()
     {
         // ReturnList
@@ -98,8 +129,4 @@ public class HighscoreSystem
         return retList;
     }
     
-    public void DebugInfo()
-    {
-        
-    }
 }
