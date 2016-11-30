@@ -272,9 +272,11 @@ public class Game {
                 case SAVE:
                     try {
                         save();
+                        System.out.println("Game saved");
                     } catch (IOException e) {
                         System.out.println("Something happened");
                     }
+                    break;
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
