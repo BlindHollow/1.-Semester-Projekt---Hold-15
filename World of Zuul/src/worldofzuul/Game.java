@@ -32,8 +32,7 @@ public class Game {
     public Game() {
         createRooms();
         createItems();
-        createZombies();
-        player = new Player();
+        player = new Player("Bob");
         parser = new Parser();
 
     }
@@ -42,7 +41,7 @@ public class Game {
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
-            writer.write(player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "\n");
+            writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "\n");
             if (!player.inventory.isEmpty()) {
                 Set<String> keys = player.inventory.keySet();
                 for (String item : keys) {
@@ -183,7 +182,7 @@ public class Game {
         vaccination = new Sustain("vaccination", 0, 50);
 
         gasstation.placeItem(crowbar);
-        
+
         hospital.placeItem(medKit);
 
         policestation.placeItem(policegun);
@@ -199,21 +198,6 @@ public class Game {
         pub.placeItem(rum);
 
         drugstore.placeItem(vaccination);
-
-    }
-
-    /**
-     * Creates zombies and places them in rooms.
-     */
-    private void createZombies() {
-        Zombie smallZombie, mediumZombie, largeZombie;
-
-        //Create zombies with a name, hp and a damage modifier
-        smallZombie = new Zombie("dave", 10, 10);
-        mediumZombie = new Zombie("john", 20, 12);
-        largeZombie = new Zombie("tommy", 30, 15);
-
-        hospital.placeZombie(smallZombie);
 
     }
 
@@ -349,8 +333,8 @@ public class Game {
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
-                System.out.println("Door is Locked, find something to open the door with and try again.");
-            } else {
+            System.out.println("Door is Locked, find something to open the door with and try again.");
+        } else {
             currentRoom = nextRoom;
             currentRoom.spawnRandomZombie();
 
@@ -468,7 +452,7 @@ public class Game {
 
         if (null == item) {
             System.out.println("Can't find that item");
-        } else if (player.inventory.size() >= 3) {
+        } else if (player.inventory.size() >= 4) {
             System.out.println("Your inventory is full.");
         } else {
 

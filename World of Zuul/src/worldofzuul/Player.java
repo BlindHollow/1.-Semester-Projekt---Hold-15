@@ -10,6 +10,8 @@ import java.util.Set;
 public class Player {
 
     private int health, hunger, thirst, illness;
+    
+    private String name;
 
     private boolean isDead = false; //If set to true, game will end.
     
@@ -21,7 +23,8 @@ public class Player {
      * Constructor Starts the player object with full health, hunger, thirst and
      * illness gauges.
      */
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;
@@ -31,7 +34,7 @@ public class Player {
     /**
      * Constructor used if loading from a saved game state.
      */
-    public Player(int health, int hunger, int thirst, int illness) {
+    public Player(String name, int health, int hunger, int thirst, int illness) {
         this.health = health;
         this.hunger = hunger;
         this.thirst = thirst;
@@ -170,6 +173,9 @@ public class Player {
                 return false;
             }
         } return false;       
+    }
+    public String getName() {
+        return name;
     }
     /**
      * Prints the players status, ie. values of the attributes.
