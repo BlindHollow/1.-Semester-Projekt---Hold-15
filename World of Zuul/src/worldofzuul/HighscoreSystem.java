@@ -17,15 +17,23 @@ public class HighscoreSystem
     HighscorePlayer CurrentPlayer = new HighscorePlayer();
     ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
     
-    // Add Player's to compare againts
-    public boolean AddPlayer( String Name )
+    public HighscoreSystem( String CurrentPlayername )
     {
-        return AddPlayer( Name, 0 );
+        CurrentPlayer.SetPlayerName( CurrentPlayername );
+        CurrentPlayer.SetIsPlayer( true );
     }
     
-    public boolean AddPlayer( String Name, int Score )
+    // Add Player's to compare againts
+    public boolean AddPlayers( String Name )
     {
-        HighscorePlayer player = new HighscorePlayer( Name, Score );
+        return AddPlayers( Name, 0 );
+    }
+    
+    public boolean AddPlayers( String Name, int Score )
+    {
+        HighscorePlayer player = new HighscorePlayer( Name, 
+                                                      Score, 
+                                                      false );
         
         if( ExactUser( Name ) == true )
         {
@@ -42,6 +50,9 @@ public class HighscoreSystem
     // Returns true if a player with the same name, show up. avoid duplicates
     private boolean ExactUser( String Name )
     {
+        if( CurrentPlayer.GetPlayername() == CurrentPlayer.GetPlayername() )
+            return true;
+        
         for( HighscorePlayer current : ListOfPriorUserScores )
         {
             if( Name.toLowerCase() == current.GetPlayername().toLowerCase() )
@@ -71,6 +82,7 @@ public class HighscoreSystem
         return CurrentPlayer.GetPlayerScore();
     }
     
+    // Retunere en sorteret list, med spilleren
     public ArrayList<HighscorePlayer> OrderedListOfPlayers()
     {
         // ReturnList

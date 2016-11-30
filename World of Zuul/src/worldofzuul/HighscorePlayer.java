@@ -80,11 +80,19 @@ public class HighscorePlayer implements Comparable<HighscorePlayer>
         PlayerScore = Score;
     }
     
+    public HighscorePlayer(String Name, int Score, boolean isPlayer)
+    {
+        this( Name, Score );
+        
+        this.isPlayer = isPlayer;
+    }
+    
+    
     // Implementations
     @Override
     public int compareTo( HighscorePlayer object )
     {
-        return object.PlayerScore - this.GetPlayerScore();
+        return this.GetPlayerScore() - object.GetPlayerScore();
     }
     
 } // End Class
