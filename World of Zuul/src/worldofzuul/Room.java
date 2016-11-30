@@ -13,17 +13,19 @@ import java.util.Iterator;
 public class Room {
     private boolean Lock = false;
     private boolean Spawnable = false;
+    private String name;
     
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
 
-    public Room(String description) {
+    public Room(String name, String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
         placements = new HashMap<>();
         zombies = new HashMap<>();
+        this.name = name;
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -181,5 +183,8 @@ public class Room {
     }
     public HashMap<String, Zombie> getZombies() {
         return zombies;
+    }
+    public String getName() {
+        return name;
     }
 }

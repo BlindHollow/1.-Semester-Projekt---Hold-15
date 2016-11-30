@@ -2,17 +2,17 @@ package worldofzuul;
 
 public class Weapons extends Items {
 
-    public int damage;
+    private int damage;
+    private boolean usable;
 
-    public Weapons(String name, int damage, boolean axe) {
+    public Weapons(String name, int damage, boolean usable) {
         this.damage = damage;
         this.name = name;
+        this.usable = usable;
     }
-
-    public int attack() {
-        int total_Damage = damage;
-
-        return total_Damage;
+    
+    public boolean isUsable() {
+        return usable;
     }
 
     public int getDamage() {

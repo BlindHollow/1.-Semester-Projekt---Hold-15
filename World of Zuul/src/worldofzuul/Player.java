@@ -158,6 +158,19 @@ public class Player {
     public Weapons getPrimaryWeapon() {
         return primaryWeapon;
     }
+    
+    public boolean hasUsableItem() {
+        for (Items item : inventory.values()) {
+            if (item instanceof Weapons) {
+                Weapons weap = (Weapons)item;
+                if (weap.isUsable()) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } return false;       
+    }
     /**
      * Prints the players status, ie. values of the attributes.
      */
@@ -166,8 +179,11 @@ public class Player {
     }
 
     //Returns the item (an object) with the key "key" in the inventory HashMap
-    public Items getInventory(String key) {
+    public Items getItemInInventory(String key) {
         return inventory.get(key);
+    }
+    public HashMap<String, Items> getInventory() {
+        return inventory;
     }
 
     /**

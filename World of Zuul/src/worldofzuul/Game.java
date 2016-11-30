@@ -6,6 +6,7 @@ import java.util.Set;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * This class holds information about the game state. Upon creating a Game
@@ -23,11 +24,12 @@ public class Game {
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
     private boolean wantToQuit;
     private boolean noteFound;
+    private boolean hasBeenInPub;
     private Room pilotRoom;
     private boolean pilotFound;
-    private ArrayList<Room> rooms = new ArrayList<Room>();    
+    private ArrayList<Room> rooms = new ArrayList<Room>();
 
-    public Game() { 
+    public Game() {
         createRooms();
         createItems();
         createZombies();
@@ -50,27 +52,31 @@ public class Game {
             }
             //Save pilot state.
             if (pilotFound) {
-                writer.write("pilotFound," + pilotRoom);
+                writer.write("pilotFound," + pilotRoom.getName() + "\n");
+            } else {
+                writer.write("notFound");
+                writer.write("\n");
             }
+
             //Save room states.
             if (!rooms.isEmpty()) {
                 for (Room room : rooms) {
-                    writer.write("'" + room.getShortDescription() + "'" + "\n");
+                    writer.write("'" + room.getName() + "'" + "\n");
                     HashMap<String, Room> exits = room.getNeighbours();
                     for (String key : exits.keySet()) {
                         writer.write(key + ",");
-                        writer.write("\n");
                     }
+                    writer.write("\n");
                     HashMap<String, Items> placements = room.getPlacements();
                     for (String key : placements.keySet()) {
                         writer.write(key + ",");
-                        writer.write("\n");
                     }
+                    writer.write("\n");
                     HashMap<String, Zombie> zombies = room.getZombies();
                     for (String key : zombies.keySet()) {
                         writer.write(key + ",");
-                        writer.write("\n");
                     }
+                    writer.write("\n");
                     if (room.isLocked()) {
                         writer.write("locked");
                     }
@@ -85,21 +91,21 @@ public class Game {
      * Creates the rooms the game is set in. Neighbours are set using
      * Room.setExit(direction) Descriptions created on creation of the rooms.
      */
-    private void createRooms() { //TODO: Possibly randomize neighbouring rooms.
+    private void createRooms() {
 
-        outside1 = new Room("on westside of the mainstreet");
-        outside2 = new Room("on the eastside of the mainstreet");
-        helipad = new Room("on a helipad");
-        hospital = new Room("in a hospital");
-        policestation = new Room("in the policestation");
-        grocerystore = new Room("in the grocerystore");
-        firestation = new Room("in the firestation");
-        house1 = new Room("in the red house");
-        house2 = new Room("in the blue house");
-        drugstore = new Room("in the drugstore");
-        pub = new Room("in the pub");
-        gasstation = new Room("in the gasstation");
-        
+        outside1 = new Room("outsidewest", "on westside of the mainstreet");
+        outside2 = new Room("outsideeast", "on the eastside of the mainstreet");
+        helipad = new Room("helipad", "on a helipad");
+        hospital = new Room("hospital", "in a hospital");
+        policestation = new Room("policestation", "in the policestation");
+        grocerystore = new Room("grocerystore", "in the grocerystore");
+        firestation = new Room("firestation", "in the firestation");
+        house1 = new Room("redhouse", "in the red house");
+        house2 = new Room("bluehouse", "in the blue house");
+        drugstore = new Room("drugstore", "in the drugstore");
+        pub = new Room("pub", "in the pub");
+        gasstation = new Room("gasstation", "in the gasstation");
+
         rooms.add(outside1);
         rooms.add(outside2);
         rooms.add(helipad);
@@ -158,13 +164,15 @@ public class Game {
      *
      */
     private void createItems() {
-        Weapons fireaxe, policegun, shotgun;
+        Weapons fireaxe, policegun, shotgun, ram, crowbar;
         Food energybar, energydrink, cannedtuna, rum;
         Sustain medKit, vaccination;
 
         fireaxe = new Weapons("fireaxe", 10, true);
         policegun = new Weapons("policegun", 30, false);
         shotgun = new Weapons("shotgun", 20, false);
+        crowbar = new Weapons("crowbar", 10, true);
+        ram = new Weapons("ram", 3, true);
 
         energybar = new Food("energybar", 30, 0);
         energydrink = new Food("energydrink", 0, 30);
@@ -174,9 +182,12 @@ public class Game {
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
 
+        gasstation.placeItem(crowbar);
+        
         hospital.placeItem(medKit);
 
         policestation.placeItem(policegun);
+        policestation.placeItem(ram);
 
         firestation.placeItem(fireaxe);
 
@@ -274,6 +285,12 @@ public class Game {
                 case ZIPLINE:
                     zipline();
                     break;
+                case SAVE:
+                    try {
+                        save();
+                    } catch (IOException e) {
+                        System.out.println("Something happened");
+                    }
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
@@ -331,10 +348,9 @@ public class Game {
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
-        } else if (nextRoom.isLocked() == true && !player.inventory.containsKey("fireaxe")) {
-            System.out.println("Door is Locked, find something to open the door with and try again.");
-
-        } else {
+        } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
+                System.out.println("Door is Locked, find something to open the door with and try again.");
+            } else {
             currentRoom = nextRoom;
             currentRoom.spawnRandomZombie();
 
@@ -342,7 +358,9 @@ public class Game {
 
             player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
 
-            //player.updateHealth(-50); //testing of dying player.
+            if (currentRoom == pub && !hasBeenInPub) {
+                sewer();
+            }
             if (noteFound) {
                 movePilot();
             }
@@ -367,6 +385,7 @@ public class Game {
             System.out.println("Can't find that zombie in the room");
         } else if (player.getPrimaryWeapon() == null) {
             zombie.hit(5);
+            player.degenHungerAndThirst();
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -374,7 +393,8 @@ public class Game {
                 zombie.attackPlayer(player);
             }
         } else {
-            zombie.hit(weapon.getDamage()); //TODO: Get Weapons working.
+            zombie.hit(weapon.getDamage());
+            player.degenHungerAndThirst();
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -383,6 +403,15 @@ public class Game {
             }
 
         }
+    }
+
+    private void sewer() {
+        Room randomRoom = (rooms.get(new Random().nextInt(rooms.size())));
+        currentRoom = randomRoom;
+        hasBeenInPub = true;
+        player.degenHungerAndThirst();
+        System.out.println("You fall into a sewer, you decide to explore it");
+        System.out.println(currentRoom.getLongDescription());
     }
 
     private void zipline() {
@@ -460,7 +489,7 @@ public class Game {
             System.out.println("What item?");
             return;
         }
-        Items item = player.getInventory(command.getSecondWord());
+        Items item = player.getItemInInventory(command.getSecondWord());
 
         if (null == item) {
             System.out.println("That is not an item in your inventory.");
