@@ -5,7 +5,7 @@
  */
 package worldofzuul;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  *
@@ -14,16 +14,80 @@ import java.util.ArrayList;
 
 public class HighscoreSystem 
 {
-    // Internal Variables
-    ArrayList<HighscoreContainer> ListOfPlayers = new ArrayList();
+    HighscorePlayer CurrentPlayer = new HighscorePlayer();
+    ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
     
-    // Tilføjer en spiller til playerlisten, retunere en id (pos. i array)
-    public int AddPlayer( String Playername )
+    // Add Player's to compare againts
+    public boolean AddPlayer( String Name )
     {
-        HighscoreContainer container = new HighscoreContainer( Playername );
-        
-        
-        return -1;
+        return AddPlayer( Name, 0 );
     }
     
+    public boolean AddPlayer( String Name, int Score )
+    {
+        HighscorePlayer player = new HighscorePlayer( Name, Score );
+        
+        if( ExactUser( Name ) == true )
+        {
+            return false;
+        }
+        else
+        {
+            ListOfPriorUserScores.add( player );
+            return true;
+        }
+        
+    }
+    
+    // Returns true if a player with the same name, show up. avoid duplicates
+    private boolean ExactUser( String Name )
+    {
+        for( HighscorePlayer current : ListOfPriorUserScores )
+        {
+            if( Name.toLowerCase() == current.GetPlayername().toLowerCase() )
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Current Player
+    public void AddPoints( int Number )
+    {
+        CurrentPlayer.SetPlayerScore( GetPoints() + Number );
+        
+    }
+    
+    public void RemovePoints( int Number )
+    {
+        CurrentPlayer.SetPlayerScore( GetPoints() - Number );
+        
+    }
+    
+    public int GetPoints()
+    {
+        return CurrentPlayer.GetPlayerScore();
+    }
+    
+    public ArrayList<HighscorePlayer> OrderedListOfPlayers()
+    {
+        // ReturnList
+        ArrayList<HighscorePlayer> retList = new ArrayList();
+        
+        // Adds Everybody
+        retList.addAll( ListOfPriorUserScores );
+        retList.add( CurrentPlayer );
+        
+        // Sortere Listen
+        Collections.sort( retList );
+        
+        return retList;
+    }
+    
+    public void DebugInfo()
+    {
+        
+    }
 }
