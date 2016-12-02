@@ -1,4 +1,4 @@
-package worldofzuul; //NETBEANS
+package worldofzuul;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -6,6 +6,7 @@ import java.util.Set;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * This class holds information about the game state. Upon creating a Game
@@ -23,26 +24,37 @@ public class Game {
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
     private boolean wantToQuit;
     private boolean noteFound;
+    private boolean hasBeenInPub;
     private Room pilotRoom;
     private boolean pilotFound;
-    private ArrayList<Room> rooms = new ArrayList<Room>();    
+    private ArrayList<Room> rooms = new ArrayList<Room>();
+    private Weapons fireaxe, policegun, shotgun, ram, crowbar;
+    private Food energybar, energydrink, cannedtuna, rum;
+    private Sustain medKit, vaccination;
+    private int degenFactor;
 
-    public Game() { 
-        createRooms();
-        createItems();
-        createZombies();
-        player = new Player();
+    public Game() {
         parser = new Parser();
 
     }
+    public void newGame() {
+        degenFactor = 5;
+        createRooms();
+        addNeighbours();
+        createItems();
+        placeItems();
+        player = new Player("Bob");
+        play();
+    }
 
-    public void save() throws IOException {
+    public void saveGame() throws IOException {
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
-            writer.write(player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "\n");
-            if (!player.inventory.isEmpty()) {
-                Set<String> keys = player.inventory.keySet();
+            writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + ","
+                    + degenFactor + "," + currentRoom.getName() + "\n");
+            if (!player.getInventory().isEmpty()) {
+                Set<String> keys = player.getInventory().keySet();
                 for (String item : keys) {
                     writer.write(item + ",");
                     writer.write("\n");
@@ -50,30 +62,35 @@ public class Game {
             }
             //Save pilot state.
             if (pilotFound) {
-                writer.write("pilotFound," + pilotRoom);
+                writer.write("pilotFound," + pilotRoom.getName() + "\n");
+            } else {
+                writer.write("notFound");
+                writer.write("\n");
             }
+
             //Save room states.
             if (!rooms.isEmpty()) {
                 for (Room room : rooms) {
-                    writer.write("'" + room.getShortDescription() + "'" + "\n");
+                    writer.write("'" + room.getName() + "'" + "\n");
                     HashMap<String, Room> exits = room.getNeighbours();
                     for (String key : exits.keySet()) {
                         writer.write(key + ",");
-                        writer.write("\n");
                     }
+                    writer.write("\n");
                     HashMap<String, Items> placements = room.getPlacements();
                     for (String key : placements.keySet()) {
                         writer.write(key + ",");
-                        writer.write("\n");
                     }
+                    writer.write("\n");
                     HashMap<String, Zombie> zombies = room.getZombies();
                     for (String key : zombies.keySet()) {
                         writer.write(key + ",");
-                        writer.write("\n");
                     }
+                    writer.write("\n");
                     if (room.isLocked()) {
                         writer.write("locked");
                     }
+                    writer.write("\n");
                 }
             }
         } catch (IOException e) {
@@ -85,33 +102,23 @@ public class Game {
      * Creates the rooms the game is set in. Neighbours are set using
      * Room.setExit(direction) Descriptions created on creation of the rooms.
      */
-    private void createRooms() { //TODO: Possibly randomize neighbouring rooms.
+    private void createRooms() {
 
-        outside1 = new Room("on westside of the mainstreet");
-        outside2 = new Room("on the eastside of the mainstreet");
-        helipad = new Room("on a helipad");
-        hospital = new Room("in a hospital");
-        policestation = new Room("in the policestation");
-        grocerystore = new Room("in the grocerystore");
-        firestation = new Room("in the firestation");
-        house1 = new Room("in the red house");
-        house2 = new Room("in the blue house");
-        drugstore = new Room("in the drugstore");
-        pub = new Room("in the pub");
-        gasstation = new Room("in the gasstation");
+        outside1 = new Room("outsidewest", "on westside of the mainstreet");
+        outside2 = new Room("outsideeast", "on the eastside of the mainstreet");
+        helipad = new Room("helipad", "on a helipad");
+        hospital = new Room("hospital", "in a hospital");
+        policestation = new Room("policestation", "in the policestation");
+        grocerystore = new Room("grocerystore", "in the grocerystore");
+        firestation = new Room("firestation", "in the firestation");
+        house1 = new Room("redhouse", "in the red house");
+        house2 = new Room("bluehouse", "in the blue house");
+        drugstore = new Room("drugstore", "in the drugstore");
+        pub = new Room("pub", "in the pub");
+        gasstation = new Room("gasstation", "in the gasstation");
         
-        rooms.add(outside1);
-        rooms.add(outside2);
-        rooms.add(helipad);
-        rooms.add(hospital);
-        rooms.add(policestation);
-        rooms.add(grocerystore);
-        rooms.add(firestation);
-        rooms.add(house1);
-        rooms.add(house2);
-        rooms.add(drugstore);
-        rooms.add(pub);
-        rooms.add(gasstation);
+    }
+    private void addNeighbours() {
 
         hospital.setExit("east", outside1);
 
@@ -151,6 +158,19 @@ public class Game {
 
         currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
+        
+        rooms.add(outside1);
+        rooms.add(outside2);
+        rooms.add(helipad);
+        rooms.add(hospital);
+        rooms.add(policestation);
+        rooms.add(grocerystore);
+        rooms.add(firestation);
+        rooms.add(house1);
+        rooms.add(house2);
+        rooms.add(drugstore);
+        rooms.add(pub);
+        rooms.add(gasstation);
     }
 
     /**
@@ -158,13 +178,12 @@ public class Game {
      *
      */
     private void createItems() {
-        Weapons fireaxe, policegun, shotgun;
-        Food energybar, energydrink, cannedtuna, rum;
-        Sustain medKit, vaccination;
 
         fireaxe = new Weapons("fireaxe", 10, true);
         policegun = new Weapons("policegun", 30, false);
         shotgun = new Weapons("shotgun", 20, false);
+        crowbar = new Weapons("crowbar", 10, true);
+        ram = new Weapons("ram", 3, true);
 
         energybar = new Food("energybar", 30, 0);
         energydrink = new Food("energydrink", 0, 30);
@@ -173,10 +192,16 @@ public class Game {
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
+        
+    }
+    private void placeItems() {
+
+        gasstation.placeItem(crowbar);
 
         hospital.placeItem(medKit);
 
         policestation.placeItem(policegun);
+        policestation.placeItem(ram);
 
         firestation.placeItem(fireaxe);
 
@@ -188,21 +213,6 @@ public class Game {
         pub.placeItem(rum);
 
         drugstore.placeItem(vaccination);
-
-    }
-
-    /**
-     * Creates zombies and places them in rooms.
-     */
-    private void createZombies() {
-        Zombie smallZombie, mediumZombie, largeZombie;
-
-        //Create zombies with a name, hp and a damage modifier
-        smallZombie = new Zombie("dave", 10, 10);
-        mediumZombie = new Zombie("john", 20, 12);
-        largeZombie = new Zombie("tommy", 30, 15);
-
-        hospital.placeZombie(smallZombie);
 
     }
 
@@ -274,6 +284,14 @@ public class Game {
                 case ZIPLINE:
                     zipline();
                     break;
+                case SAVE:
+                    try {
+                        saveGame();
+                        System.out.println("Game saved");
+                    } catch (IOException e) {
+                        System.out.println("Something happened");
+                    }
+                    break;
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
@@ -331,18 +349,19 @@ public class Game {
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
-        } else if (nextRoom.isLocked() == true && !player.inventory.containsKey("fireaxe")) {
+        } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
             System.out.println("Door is Locked, find something to open the door with and try again.");
-
         } else {
             currentRoom = nextRoom;
             currentRoom.spawnRandomZombie();
 
             System.out.println(currentRoom.getLongDescription());
 
-            player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
+            player.degenHungerAndThirst(degenFactor); //update hunger and thirst gauges on roomchange.
 
-            //player.updateHealth(-50); //testing of dying player.
+            if (currentRoom == pub && !hasBeenInPub) {
+                sewer();
+            }
             if (noteFound) {
                 movePilot();
             }
@@ -367,6 +386,7 @@ public class Game {
             System.out.println("Can't find that zombie in the room");
         } else if (player.getPrimaryWeapon() == null) {
             zombie.hit(5);
+            player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -374,7 +394,8 @@ public class Game {
                 zombie.attackPlayer(player);
             }
         } else {
-            zombie.hit(weapon.getDamage()); //TODO: Get Weapons working.
+            zombie.hit(weapon.getDamage());
+            player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -385,14 +406,23 @@ public class Game {
         }
     }
 
+    private void sewer() {
+        Room randomRoom = (rooms.get(new Random().nextInt(rooms.size())));
+        currentRoom = randomRoom;
+        hasBeenInPub = true;
+        player.degenHungerAndThirst(degenFactor);
+        System.out.println("You fall into a sewer, you decide to explore it");
+        System.out.println(currentRoom.getLongDescription());
+    }
+
     private void zipline() {
         if (currentRoom == firestation) {
             currentRoom = policestation;
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else if (currentRoom == policestation) {
             currentRoom = helipad;
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else {
             System.out.println("You can not zipline from here.");
@@ -439,12 +469,12 @@ public class Game {
 
         if (null == item) {
             System.out.println("Can't find that item");
-        } else if (player.inventory.size() >= 3) {
+        } else if (player.getInventory().size() >= 4) {
             System.out.println("Your inventory is full.");
         } else {
 
             System.out.println("You picked up the " + item.getName());
-            player.inventory.put(item.getName(), item);
+            player.getInventory().put(item.getName(), item);
             if (item instanceof Weapons) {
                 player.setPrimaryWeapon((Weapons) item);
                 System.out.println("Primary Weapon set");
@@ -460,7 +490,7 @@ public class Game {
             System.out.println("What item?");
             return;
         }
-        Items item = player.getInventory(command.getSecondWord());
+        Items item = player.getItemInInventory(command.getSecondWord());
 
         if (null == item) {
             System.out.println("That is not an item in your inventory.");
@@ -469,7 +499,7 @@ public class Game {
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
 
-            player.inventory.remove(item.getName());
+            player.getInventory().remove(item.getName());
         }
     }
 
