@@ -51,7 +51,8 @@ public class Game {
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
-            writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "," + degenFactor + "\n");
+            writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + ","
+                    + degenFactor + "," + currentRoom.getName() + "\n");
             if (!player.getInventory().isEmpty()) {
                 Set<String> keys = player.getInventory().keySet();
                 for (String item : keys) {
