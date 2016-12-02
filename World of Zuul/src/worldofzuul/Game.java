@@ -44,7 +44,6 @@ public class Game {
         createItems();
         placeItems();
         player = new Player("Bob");
-        play();
     }
 
     public void saveGame() throws IOException {
@@ -214,23 +213,6 @@ public class Game {
 
         drugstore.placeItem(vaccination);
 
-    }
-
-    public void play() {
-        printWelcome();
-
-        boolean finished = false;
-
-        while (!finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-            if (player.schroedinger()) {
-                System.out.println("You are dead.");
-                finished = true;
-            }
-        }
-
-        System.out.println("Thank you for playing.  Good bye.");
     }
 
     private void printWelcome() {
@@ -514,7 +496,7 @@ public class Game {
                     wantToQuit = true;
                     break;
                 case "y":
-                    Application.newGame();
+                    NewFXMain.startNewGame();
                     break;
                 default:
                     System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
