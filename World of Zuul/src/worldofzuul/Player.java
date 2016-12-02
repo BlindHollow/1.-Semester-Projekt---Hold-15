@@ -100,9 +100,9 @@ public class Player {
      * Degrades hunger and thirst by 5 each. TODO: Adjust numbers to adjust
      * difficulty.
      */
-    public void degenHungerAndThirst() {
-        updateHunger(-5);
-        updateThirst(-5);
+    public void degenHungerAndThirst(int n) {
+        updateHunger(-1*n);
+        updateThirst(-1*n);
     }
 
     /**

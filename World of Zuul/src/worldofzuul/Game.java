@@ -28,20 +28,30 @@ public class Game {
     private Room pilotRoom;
     private boolean pilotFound;
     private ArrayList<Room> rooms = new ArrayList<Room>();
+    private Weapons fireaxe, policegun, shotgun, ram, crowbar;
+    private Food energybar, energydrink, cannedtuna, rum;
+    private Sustain medKit, vaccination;
+    private int degenFactor;
 
     public Game() {
-        createRooms();
-        createItems();
-        player = new Player("Bob");
         parser = new Parser();
 
     }
+    public void newGame() {
+        degenFactor = 5;
+        createRooms();
+        addNeighbours();
+        createItems();
+        placeItems();
+        player = new Player("Bob");
+        play();
+    }
 
-    public void save() throws IOException {
+    public void saveGame() throws IOException {
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
-            writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "\n");
+            writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + "," + degenFactor + "\n");
             if (!player.getInventory().isEmpty()) {
                 Set<String> keys = player.getInventory().keySet();
                 for (String item : keys) {
@@ -79,6 +89,7 @@ public class Game {
                     if (room.isLocked()) {
                         writer.write("locked");
                     }
+                    writer.write("\n");
                 }
             }
         } catch (IOException e) {
@@ -104,19 +115,9 @@ public class Game {
         drugstore = new Room("drugstore", "in the drugstore");
         pub = new Room("pub", "in the pub");
         gasstation = new Room("gasstation", "in the gasstation");
-
-        rooms.add(outside1);
-        rooms.add(outside2);
-        rooms.add(helipad);
-        rooms.add(hospital);
-        rooms.add(policestation);
-        rooms.add(grocerystore);
-        rooms.add(firestation);
-        rooms.add(house1);
-        rooms.add(house2);
-        rooms.add(drugstore);
-        rooms.add(pub);
-        rooms.add(gasstation);
+        
+    }
+    private void addNeighbours() {
 
         hospital.setExit("east", outside1);
 
@@ -156,6 +157,19 @@ public class Game {
 
         currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
+        
+        rooms.add(outside1);
+        rooms.add(outside2);
+        rooms.add(helipad);
+        rooms.add(hospital);
+        rooms.add(policestation);
+        rooms.add(grocerystore);
+        rooms.add(firestation);
+        rooms.add(house1);
+        rooms.add(house2);
+        rooms.add(drugstore);
+        rooms.add(pub);
+        rooms.add(gasstation);
     }
 
     /**
@@ -163,9 +177,6 @@ public class Game {
      *
      */
     private void createItems() {
-        Weapons fireaxe, policegun, shotgun, ram, crowbar;
-        Food energybar, energydrink, cannedtuna, rum;
-        Sustain medKit, vaccination;
 
         fireaxe = new Weapons("fireaxe", 10, true);
         policegun = new Weapons("policegun", 30, false);
@@ -180,6 +191,9 @@ public class Game {
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
+        
+    }
+    private void placeItems() {
 
         gasstation.placeItem(crowbar);
 
@@ -271,7 +285,7 @@ public class Game {
                     break;
                 case SAVE:
                     try {
-                        save();
+                        saveGame();
                         System.out.println("Game saved");
                     } catch (IOException e) {
                         System.out.println("Something happened");
@@ -342,7 +356,7 @@ public class Game {
 
             System.out.println(currentRoom.getLongDescription());
 
-            player.degenHungerAndThirst(); //update hunger and thirst gauges on roomchange.
+            player.degenHungerAndThirst(degenFactor); //update hunger and thirst gauges on roomchange.
 
             if (currentRoom == pub && !hasBeenInPub) {
                 sewer();
@@ -371,7 +385,7 @@ public class Game {
             System.out.println("Can't find that zombie in the room");
         } else if (player.getPrimaryWeapon() == null) {
             zombie.hit(5);
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -380,7 +394,7 @@ public class Game {
             }
         } else {
             zombie.hit(weapon.getDamage());
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -395,7 +409,7 @@ public class Game {
         Room randomRoom = (rooms.get(new Random().nextInt(rooms.size())));
         currentRoom = randomRoom;
         hasBeenInPub = true;
-        player.degenHungerAndThirst();
+        player.degenHungerAndThirst(degenFactor);
         System.out.println("You fall into a sewer, you decide to explore it");
         System.out.println(currentRoom.getLongDescription());
     }
@@ -403,11 +417,11 @@ public class Game {
     private void zipline() {
         if (currentRoom == firestation) {
             currentRoom = policestation;
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else if (currentRoom == policestation) {
             currentRoom = helipad;
-            player.degenHungerAndThirst();
+            player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else {
             System.out.println("You can not zipline from here.");
