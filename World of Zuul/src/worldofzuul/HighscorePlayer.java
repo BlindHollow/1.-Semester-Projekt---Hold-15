@@ -14,6 +14,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
     private String Playername;
     private boolean isPlayer;
+    
     private int PlayerScore;
     private int Rank;
     

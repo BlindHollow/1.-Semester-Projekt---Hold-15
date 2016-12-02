@@ -32,7 +32,7 @@ public class Dice
     /**
      * 
      * @return value between begin and end interval
-     * @return -1 : Error
+     * @return -1 : Error, else random value between @param Begin and @param End
      */
     public final int Calculate()
     {

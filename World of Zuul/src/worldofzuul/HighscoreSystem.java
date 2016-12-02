@@ -12,18 +12,18 @@ import java.util.*;
  * @author Fract
  */
 
-public final class HighscoreSystem 
+public class HighscoreSystem
 {
-    HighscorePlayer CurrentPlayer = new HighscorePlayer();
-    ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
+    private HighscorePlayer CurrentPlayer = new HighscorePlayer();
+    private ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
     
     /**
      * 
      * @param CurrentPlayername 
      */
-    public HighscoreSystem( String CurrentPlayername )
+    public HighscoreSystem( )
     {
-        CurrentPlayer.SetPlayerName( CurrentPlayername );
+        CurrentPlayer.SetPlayerName( "Player" );
         CurrentPlayer.SetIsPlayer( true );
     }
     
@@ -89,7 +89,6 @@ public final class HighscoreSystem
     public void AddPoints( int Number )
     {
         CurrentPlayer.SetPlayerScore( GetPoints() + Number );
-        
     }
     
     /**
@@ -108,6 +107,16 @@ public final class HighscoreSystem
     public int GetPoints()
     {
         return CurrentPlayer.GetPlayerScore();
+    }
+    
+    public void SetCurrentPlayername( String name )
+    {
+        CurrentPlayer.SetPlayerName( name );
+    }
+    
+    public String GetCurrentPlayername()
+    {
+        return CurrentPlayer.GetPlayername();
     }
     
     /**
