@@ -6,7 +6,7 @@
 package worldofzuul;
 
 import java.util.*;
-import java.io.File;
+import java.io.*;
 
 /**
  *
@@ -60,5 +60,60 @@ public final class Files
         return ( String[] )FilePathsFound.toArray();
     } // End RetrieveFiles
     
+    public static boolean Exist( String Path )
+    {
+        File find = new File( Path );
+        
+        return find.exists();
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public static String LoadFile( String path )
+    {
+        StringBuilder outputText = new StringBuilder();
+        
+        FileInputStream fis;
+        InputStreamReader isr;
+        
+        try
+        {
+            fis = new FileInputStream( path );
+            
+            isr = new InputStreamReader( fis, 
+                                         "UTF-8" );
+            
+            int data;
+            
+            while( ( data = isr.read() ) != -1 )
+            {
+                char currentVal = ( char ) data;
+                outputText.append( currentVal );
+                
+                data = isr.read();
+            }
+            
+            fis.close();
+            isr.close();
+        }
+        catch( Exception E )
+        {
+            // IO Exception, gonna look at it, later
+            
+        }
+        
+        return outputText.toString();
+    }
+    
+    /**
+     * 
+     */
+    public static void SaveFile( String Path, 
+                                 String Content )
+    {
+        
+    }
     
 }

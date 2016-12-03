@@ -8,7 +8,8 @@ import java.util.Set;
  *
  */
 public class Player {
-
+    
+    private Highscore highscore;
     private int health, hunger, thirst, illness;
 
     private boolean isDead = false; //If set to true, game will end.

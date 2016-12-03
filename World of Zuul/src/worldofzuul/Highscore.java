@@ -28,7 +28,7 @@ public class Highscore extends HighscoreSystem
                 Continue = true;
             
             
-            if(c == '-' ||c == '_')
+            if( c == '-' ||c == '_' )
                 Continue = true;
             
             if( Continue == false )
@@ -43,6 +43,8 @@ public class Highscore extends HighscoreSystem
      */
     public Highscore()
     {
+        SetCurrentPlayername("player");
+        
         // Hvis directorien, eksistere lad være med at gøre noget, ellers lav den
         if( Directory.ExistDirectory( Content.Directory_Highscore ) != true )
             Directory.CreateDirectory( Content.Directory_Highscore, 
@@ -65,13 +67,7 @@ public class Highscore extends HighscoreSystem
      */
     public void Load()
     {
-        String[] filePaths = Files.RetrieveFiles( Content.Directory_Highscore );
         
-        for( String s : filePaths )
-        {
-            // Do somethings
-            
-        }
         
     }
     
@@ -83,10 +79,19 @@ public class Highscore extends HighscoreSystem
      */
     public boolean LoadCurrentCharacter( String CharacterName )
     {
-        if(ParseName(CharacterName))
+        if( ParseName( CharacterName ) )
         {
-            
+            return false;
         }
+        
+        String Path = Content.Directory_Highscore + "\\" + CharacterName;
+        
+        // If it exist Load, else error
+        if( Files.Exist( Path ) == false )
+            return false;
+        
+        String config = Files.LoadFile( Path );
+        
         
         
         return false;
@@ -99,6 +104,10 @@ public class Highscore extends HighscoreSystem
      */
     public boolean SaveCurrentCharacter( String CharacterName )
     {
+        if( ParseName( CharacterName ) )
+        {
+            return false;
+        }
       
         return false;
     }
