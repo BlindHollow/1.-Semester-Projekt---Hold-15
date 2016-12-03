@@ -20,7 +20,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     
         // Accessors
             // Getters
-    public String GetPlayername()
+    public String GetPlayerName()
     {
         return this.Playername;
     }
