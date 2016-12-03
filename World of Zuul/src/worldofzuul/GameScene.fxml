@@ -46,7 +46,7 @@
       <AnchorPane onMouseMoved="#coordCheck" prefHeight="600.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="tempLabel" layoutX="333.0" layoutY="290.0" text="Label" />
-            <Button fx:id="btn" layoutX="169.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Button" />
+            <Button fx:id="mainBtn" layoutX="169.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Go back to intro scene" />
          </children>
       </AnchorPane>
    </children>

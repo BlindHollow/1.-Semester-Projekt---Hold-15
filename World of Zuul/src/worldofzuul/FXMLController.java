@@ -5,15 +5,20 @@
  */
 package worldofzuul;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -21,8 +26,6 @@ import javafx.scene.input.MouseEvent;
  * @author bytof
  */
 public class FXMLController implements Initializable {
-
-    private final Player spiller = new Player("Bob", 85, 20, 100, 30);
 
     @FXML
     private ProgressBar healthbar;
@@ -43,7 +46,9 @@ public class FXMLController implements Initializable {
     @FXML
     private Label tempLabel;
     @FXML
-    private Button btn;
+    private Button mainBtn;
+    @FXML
+    private Button startBtn;
 
     /**
      * Initializes the controller class.
@@ -54,9 +59,23 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        NewFXMain.startNewGame();
-        healthbar.setProgress(0.01 * NewFXMain.spil.player.getHealth());
+    private void handleButtonAction(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        if (event.getSource() == startBtn) {
+            //get reference to the button's stage         
+            stage = (Stage) startBtn.getScene().getWindow();
+            //load up OTHER FXML document
+            root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
+        } else {
+            stage = (Stage) mainBtn.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
+        }
+        //create a new scene with root and set the stage
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 
     @FXML

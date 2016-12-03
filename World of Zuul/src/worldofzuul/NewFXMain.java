@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 public class NewFXMain extends Application {
 
     public static Game spil;
+    
+    Stage window;
 
     static void startNewGame() {
         spil = new Game();
@@ -32,12 +34,14 @@ public class NewFXMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
 
         Scene gameScene = new Scene(root);
+        
+        window = stage;
 
-        stage.setScene(gameScene);
-        stage.show();
+        window.setScene(gameScene);
+        window.show();
     }
 
     /**
