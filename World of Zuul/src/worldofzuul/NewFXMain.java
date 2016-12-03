@@ -39,7 +39,7 @@ public class NewFXMain extends Application {
         Scene gameScene = new Scene(root);
         
         window = stage;
-
+        window.setTitle("World of Zuul - The Game");
         window.setScene(gameScene);
         window.show();
     }
