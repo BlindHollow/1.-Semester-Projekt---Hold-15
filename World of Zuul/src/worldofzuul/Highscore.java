@@ -43,7 +43,7 @@ public class Highscore extends HighscoreSystem
      */
     public Highscore()
     {
-        SetCurrentPlayername("player");
+        SetCurrentPlayerName("player");
         
         // Hvis directorien, eksistere lad være med at gøre noget, ellers lav den
         if( Directory.ExistDirectory( Content.Directory_Highscore ) != true )
@@ -59,7 +59,7 @@ public class Highscore extends HighscoreSystem
     public Highscore( String name )
     {
         this();
-        SetCurrentPlayername( name );
+        SetCurrentPlayerName( name );
     }
     
     /**

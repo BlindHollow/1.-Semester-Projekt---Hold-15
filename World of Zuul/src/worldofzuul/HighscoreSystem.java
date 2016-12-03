@@ -68,7 +68,7 @@ public class HighscoreSystem
      */
     private boolean ExactUser( String Name )
     {
-        if( Name == CurrentPlayer.GetPlayerName() )
+        if( Name.toLowerCase() == CurrentPlayer.GetPlayerName().toLowerCase() )
             return true;
         
         for( HighscorePlayer current : ListOfPriorUserScores )
@@ -88,7 +88,7 @@ public class HighscoreSystem
      */
     public void AddCurrentPlayerPoints( int Number )
     {
-        CurrentPlayer.SetPlayerScore( GetPoints() + Number );
+        CurrentPlayer.SetPlayerScore( GetCurrentPlayerPoints() + Number );
     }
     
     
@@ -107,7 +107,7 @@ public class HighscoreSystem
      */
     public void RemoveCurrentPlayerPoints( int Number )
     {
-        CurrentPlayer.SetPlayerScore( GetPoints() - Number );
+        CurrentPlayer.SetPlayerScore( GetCurrentPlayerPoints() - Number );
         
     }
     
@@ -116,17 +116,17 @@ public class HighscoreSystem
      * Retrieve Points for the current Player
      * @return 
      */
-    public int GetPoints()
+    public int GetCurrentPlayerPoints()
     {
         return CurrentPlayer.GetPlayerScore();
     }
     
-    public void SetCurrentPlayername( String name )
+    public void SetCurrentPlayerName( String name )
     {
         CurrentPlayer.SetPlayerName( name );
     }
     
-    public String GetCurrentPlayername()
+    public String GetCurrentPlayerName()
     {
         return CurrentPlayer.GetPlayerName();
     }
