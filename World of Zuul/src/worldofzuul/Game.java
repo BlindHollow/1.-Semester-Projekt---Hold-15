@@ -20,7 +20,7 @@ public class Game {
 
     private Parser parser;
     private Room currentRoom;
-    private Player player;
+    public Player player;
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
     private boolean wantToQuit;
     private boolean noteFound;
@@ -34,9 +34,11 @@ public class Game {
     private int degenFactor;
 
     public Game() {
-        parser = new Parser();
 
+        parser = new Parser();
+        newGame();
     }
+
     public void newGame() {
         degenFactor = 5;
         createRooms();
@@ -115,8 +117,9 @@ public class Game {
         drugstore = new Room("drugstore", "in the drugstore");
         pub = new Room("pub", "in the pub");
         gasstation = new Room("gasstation", "in the gasstation");
-        
+
     }
+
     private void addNeighbours() {
 
         hospital.setExit("east", outside1);
@@ -157,7 +160,7 @@ public class Game {
 
         currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
-        
+
         rooms.add(outside1);
         rooms.add(outside2);
         rooms.add(helipad);
@@ -191,8 +194,9 @@ public class Game {
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
-        
+
     }
+
     private void placeItems() {
 
         gasstation.placeItem(crowbar);

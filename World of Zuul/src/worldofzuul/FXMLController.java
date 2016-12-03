@@ -22,6 +22,8 @@ import javafx.scene.input.MouseEvent;
  */
 public class FXMLController implements Initializable {
 
+    private final Player spiller = new Player("Bob", 85, 20, 100, 30);
+
     @FXML
     private ProgressBar healthbar;
     @FXML
@@ -49,14 +51,16 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
+        NewFXMain.startNewGame();
+        healthbar.setProgress(0.01 * NewFXMain.spil.player.getHealth());
     }
 
     @FXML
     private void coordCheck(MouseEvent event) {
     }
-    
+
 }
