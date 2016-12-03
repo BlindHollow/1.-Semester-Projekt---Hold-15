@@ -54,9 +54,26 @@ public final class Directory
         
         try
         {
+            boolean Exist = false;
             
+            // Can Exist as a file and directory. so lets put it under the same type
+                                                    // because java logic.......
+            if( dir.exists() )
+                Exist = true;
             
+            // If it's a directory, no reason to try and create it again...
+            if( Exist == true )
+                if( dir.isDirectory() )
+                    return false;
+            
+            if( CreateRoots )
+                dir.mkdirs();
+            else
+                dir.mkdir();
+        
+            return true;
         }
+        // Remember -> IO Exception, remember later
         catch( Exception E )
         {
             

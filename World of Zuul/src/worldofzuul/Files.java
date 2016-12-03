@@ -5,11 +5,60 @@
  */
 package worldofzuul;
 
+import java.util.*;
+import java.io.File;
+
 /**
  *
  * @author Fract
  */
 public final class Files 
 {
+    /**
+     * 
+     * @param Directory
+     * @return 
+     */
+    public static String[] RetrieveFiles( String Directory )
+    {
+        File fObject = new File( Directory );
+        
+        
+        ArrayList<String> FilePathsFound = new ArrayList();
+        
+        try
+        {
+            // if it isn't a directory, well no points of doing it
+            if( fObject.isDirectory() != true )
+                return null;
+            
+            // if it doesn't exist, we can't really list anything
+            if( fObject.exists() != true )
+                return null;
+            
+            // List files
+            File[] foundFiles = fObject.listFiles();
+            
+            // Adds the directories path to the list
+            for( File f : foundFiles )
+            { 
+                if( f.isFile() )
+                    FilePathsFound.add( f.getPath() );
+                else
+                    continue;
+            }
+            
+        }
+        catch( Exception e )
+        {
+            // Do something
+            
+            return null;
+        }
+        
+        // Returns String Array
+        return ( String[] )FilePathsFound.toArray();
+    } // End RetrieveFiles
+    
     
 }

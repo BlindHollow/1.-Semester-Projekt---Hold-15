@@ -91,6 +91,16 @@ public class HighscoreSystem
         CurrentPlayer.SetPlayerScore( GetPoints() + Number );
     }
     
+    
+    /**
+     * 
+     * @param Number 
+     */
+    public void SetPoints( int Number )
+    {
+        CurrentPlayer.SetPlayerScore( Number );
+    }
+    
     /**
      * Remove points for the Current Player
      * @param Number 
@@ -100,6 +110,8 @@ public class HighscoreSystem
         CurrentPlayer.SetPlayerScore( GetPoints() - Number );
         
     }
+    
+    
     /**
      * Retrieve Points for the current Player
      * @return 

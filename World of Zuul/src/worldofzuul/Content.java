@@ -12,9 +12,14 @@ package worldofzuul;
 public final class Content 
 {
     // Root
-    public static String Directory_Config        = ".\\config";
+    public final static String Directory_Config        = ".\\config";
     
     // Subdirectories
-    public static String Directory_Saved_Configs = ".\\config\\saved";
-    public static String Directory_Highscore     = ".\\config\\saved\\highscore";
+    public final static String Directory_Saved_Configs = Directory_Config + "\\saved";
+    
+    // User Highscores
+    public final static String Directory_Highscore     = Directory_Saved_Configs + "\\highscore";
+    
+    // Props, Zombie names, etc
+    public final static String Directory_Stats         = Directory_Config + "\\props";
 }

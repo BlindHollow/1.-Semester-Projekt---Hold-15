@@ -13,24 +13,41 @@ import java.util.*;
  */
 public class Highscore extends HighscoreSystem 
 {
+    private boolean ParseName( String InputName )
+    {
+        // 
+        for( char c : InputName.toCharArray() )
+        {
+            boolean Continue = false;
+            
+            if( c <= 'A' || c >= 'z' )
+                Continue = true;
+            
+            
+            if( c <= '0' || c >= '9' )
+                Continue = true;
+            
+            
+            if(c == '-' ||c == '_')
+                Continue = true;
+            
+            if( Continue == false )
+                return false;
+        }
+        
+        return true;
+    }
+    
     /**
      * 
      */
     public Highscore()
     {
-        if( Directory.ExistDirectory("") != true )
-        {
-            
-        }
+        // Hvis directorien, eksistere lad være med at gøre noget, ellers lav den
+        if( Directory.ExistDirectory( Content.Directory_Highscore ) != true )
+            Directory.CreateDirectory( Content.Directory_Highscore, 
+                                       true );
         
-        if(Directory.ExistDirectory("") != true)
-        {
-            
-        }
-        
-        if(Directory.ExistDirectory("") != true)
-        {
-        }
     }
     
     /**
@@ -48,8 +65,16 @@ public class Highscore extends HighscoreSystem
      */
     public void Load()
     {
+        String[] filePaths = Files.RetrieveFiles( Content.Directory_Highscore );
+        
+        for( String s : filePaths )
+        {
+            // Do somethings
+            
+        }
         
     }
+    
     
     /**
      * Loads a character's, current score
@@ -58,6 +83,10 @@ public class Highscore extends HighscoreSystem
      */
     public boolean LoadCurrentCharacter( String CharacterName )
     {
+        if(ParseName(CharacterName))
+        {
+            
+        }
         
         
         return false;
