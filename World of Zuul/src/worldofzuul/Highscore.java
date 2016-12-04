@@ -87,6 +87,7 @@ public class Highscore extends HighscoreSystem
             Directory.CreateDirectory( Content.Directory_Highscore, 
                                        true );
         
+        Load();
     }
     
     /**
@@ -116,7 +117,8 @@ public class Highscore extends HighscoreSystem
                 
                 String content = Files.LoadFile( s );
                 
-                AddPlayers( name, Integer.parseInt( content ) );   
+                AddPlayers( name, 
+                            Integer.parseInt( content ) );   
             }
             
         }
