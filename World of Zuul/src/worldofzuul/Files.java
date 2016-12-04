@@ -23,7 +23,6 @@ public final class Files
     {
         File fObject = new File( Directory );
         
-        
         ArrayList<String> FilePathsFound = new ArrayList();
         
         try
@@ -57,7 +56,7 @@ public final class Files
         }
         
         // Returns String Array
-        return ( String[] )FilePathsFound.toArray();
+        return (String[])FilePathsFound.toArray();
     } // End RetrieveFiles
     
     public static boolean Exist( String Path )

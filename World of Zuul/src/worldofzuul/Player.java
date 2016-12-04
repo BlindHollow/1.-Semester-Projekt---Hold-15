@@ -23,7 +23,7 @@ public class Player {
      * illness gauges.
      */
     public Player() {
-        
+        highscore = new Highscore();
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;

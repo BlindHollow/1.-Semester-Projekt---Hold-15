@@ -107,6 +107,16 @@ public class Highscore extends HighscoreSystem
     {
         String[] filePath = Files.RetrieveFiles( Content.Directory_Highscore );
         
+        
+        File a = new File(Content.Directory_Highscore);
+        
+        
+        System.out.print( a.getAbsoluteFile() );
+        
+        if( filePath == null )
+            return;
+        
+        
         for( String s : filePath )
         {
             File f = new File( s );
@@ -116,6 +126,9 @@ public class Highscore extends HighscoreSystem
                 String name = f.getName();
                 
                 String content = Files.LoadFile( s );
+                
+                System.out.print("Found Name: " + name);
+                System.out.print("Found Content:" + content);
                 
                 AddPlayers( name, 
                             Integer.parseInt( content ) );   
