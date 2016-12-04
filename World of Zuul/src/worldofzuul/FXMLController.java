@@ -47,12 +47,16 @@ public class FXMLController implements Initializable {
     @FXML
     private Label tempLabel;
     @FXML
+    private Button btnNewGame;
+    @FXML
     private Button mainBtn;
     @FXML
-    private Button startBtn;
+    private Button btnContinue;
+    @FXML
+    private Button btnQuit;
 
     /**
-     * Initializes the controller class.
+     * initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,25 +67,38 @@ public class FXMLController implements Initializable {
     private void handleButtonAction(ActionEvent event) throws IOException {
         Stage stage;
         Parent root;
-        if (event.getSource() == startBtn) {
+        if (event.getSource() == btnContinue) {
             //get reference to the button's stage         
-            stage = (Stage) startBtn.getScene().getWindow();
+            stage = (Stage) btnContinue.getScene().getWindow();
+            //load up OTHER FXML document
+            root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
+        } else if (event.getSource() == btnNewGame) {
+            //get reference to the button's stage         
+            stage = (Stage) btnNewGame.getScene().getWindow();
             //load up OTHER FXML document
             root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
         } else {
             stage = (Stage) mainBtn.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         }
-        
+
         //create a new scene with root and set the stage
         Scene scene = new Scene(root, 1200, 680);
         stage.setScene(scene);
         stage.show();
 
     }
+    
+    @FXML
+    private void quitGame(ActionEvent event) throws IOException {
+        Stage stage;
+        stage = (Stage) btnQuit.getScene().getWindow();
+        stage.hide();
+    }
 
     @FXML
-    private void coordCheck(MouseEvent event) {
+    private void coordCheck(MouseEvent event
+    ) {
     }
 
 }
