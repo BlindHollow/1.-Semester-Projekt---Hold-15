@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -71,6 +72,7 @@ public class FXMLController implements Initializable {
             stage = (Stage) mainBtn.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         }
+        
         //create a new scene with root and set the stage
         Scene scene = new Scene(root);
         stage.setScene(scene);
