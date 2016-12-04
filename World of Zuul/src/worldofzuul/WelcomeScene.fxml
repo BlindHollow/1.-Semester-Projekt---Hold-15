@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController">
+<AnchorPane id="AnchorPane" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController">
     <children>
         <Label layoutX="463.0" layoutY="22.0" text="World of Zuul">
             <font>
@@ -15,16 +15,6 @@
             </font>
         </Label>
         <Label layoutX="581.0" layoutY="213.0" text="Klik for at starte spillet" />
-        <Button fx:id="startBtn" layoutX="620.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Start" 
-                style="-fx-background-color: linear-gradient(#ffd65b, #e68400), 
-        linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),
-        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
-        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
-        -fx-background-radius: 30;
-        -fx-background-insets: 0,1,2,3,0;
-        -fx-text-fill: #654b00;
-        -fx-font-weight: bold;
-        -fx-font-size: 14px;
-        -fx-padding: 10 20 10 20;" />
+        <Button fx:id="startBtn" layoutX="620.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: linear-gradient(#ffd65b, #e68400),          linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),         linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));         -fx-background-radius: 30;         -fx-background-insets: 0,1,2,3,0;         -fx-text-fill: #654b00;         -fx-font-weight: bold;         -fx-font-size: 14px;         -fx-padding: 10 20 10 20;" text="Start" />
     </children>
 </AnchorPane>
