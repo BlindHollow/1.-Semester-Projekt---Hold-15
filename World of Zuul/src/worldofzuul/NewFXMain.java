@@ -25,8 +25,6 @@ import javafx.stage.Stage;
 public class NewFXMain extends Application {
 
     public static Game spil;
-    
-    Stage window;
 
     static void startNewGame() {
         spil = new Game();
@@ -37,11 +35,10 @@ public class NewFXMain extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
 
         Scene gameScene = new Scene(root);
-        
-        window = stage;
 
-        window.setScene(gameScene);
-        window.show();
+        stage.setScene(gameScene);
+        stage.show();
+        stage.setResizable(false);
     }
 
     /**
