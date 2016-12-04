@@ -32,7 +32,7 @@ public class HighscoreSystem
      * @param Name
      * @return 
      */
-    public boolean AddPlayers( String Name )
+    protected boolean AddPlayers( String Name )
     {
         return AddPlayers( Name, 0 );
     }
@@ -43,7 +43,7 @@ public class HighscoreSystem
      * @param Score
      * @return 
      */
-    public boolean AddPlayers( String Name, int Score )
+    protected boolean AddPlayers( String Name, int Score )
     {
         HighscorePlayer player = new HighscorePlayer( Name, 
                                                       Score, 

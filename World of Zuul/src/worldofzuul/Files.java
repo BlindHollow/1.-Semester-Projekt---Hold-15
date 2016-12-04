@@ -113,6 +113,16 @@ public final class Files
     public static void SaveFile( String Path, 
                                  String Content )
     {
+        try
+        {
+           PrintWriter out = new PrintWriter( Path );
+           
+           out.println( Content );
+        }
+        catch( Exception e )
+        {
+            System.out.println(e.getMessage());
+        }
         
     }
     
