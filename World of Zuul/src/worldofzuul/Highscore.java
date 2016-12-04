@@ -82,10 +82,7 @@ public class Highscore extends HighscoreSystem
     {
         SetCurrentPlayerName( "player" );
         
-        // Hvis directorien, eksistere lad være med at gøre noget, ellers lav den
-        if( Directory.ExistDirectory( Content.Directory_Highscore ) != true )
-            Directory.CreateDirectory( Content.Directory_Highscore, 
-                                       true );
+        
         
         Load();
     }
@@ -105,36 +102,7 @@ public class Highscore extends HighscoreSystem
      */
     public void Load()
     {
-        String[] filePath = Files.RetrieveFiles( Content.Directory_Highscore );
         
-        
-        File a = new File(Content.Directory_Highscore);
-        
-        
-        System.out.print( a.getAbsoluteFile() );
-        
-        if( filePath == null )
-            return;
-        
-        
-        for( String s : filePath )
-        {
-            File f = new File( s );
-            
-            if( f.isFile() )
-            {
-                String name = f.getName();
-                
-                String content = Files.LoadFile( s );
-                
-                System.out.print("Found Name: " + name);
-                System.out.print("Found Content:" + content);
-                
-                AddPlayers( name, 
-                            Integer.parseInt( content ) );   
-            }
-            
-        }
         
     }
     
@@ -151,22 +119,6 @@ public class Highscore extends HighscoreSystem
             return false;
         }
         
-        String Path = Content.Directory_Highscore + "\\" + CharacterName;
-        
-        // If it exist Load, else error
-        if( Files.Exist( Path ) == false )
-            return false;
-        
-        String config = Files.LoadFile( Path );
-        
-        String[] tokens = Tokenize( config );
-        
-        // Retrieves the current score
-        String CurrentScore = tokens[ tokens.length - 1 ];
-        
-        int ScoreValue = Integer.parseInt( CurrentScore );
-        
-        SetCurrentPlayerPoints( ScoreValue );
         
         return true;
     }
@@ -182,15 +134,6 @@ public class Highscore extends HighscoreSystem
         {
             return false;
         }
-        
-        if( Directory.ExistDirectory( Content.Directory_Highscore ) == false )
-            Directory.CreateDirectory( Content.Directory_Highscore, 
-                                       true );
-        
-        String Path = Content.Directory_Highscore + "\\" + CharacterName;
-        
-        Files.SaveFile( Path, 
-                        Integer.toString( GetCurrentPlayerPoints() ) );
         
         
         
