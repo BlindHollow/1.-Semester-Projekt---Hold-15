@@ -74,7 +74,7 @@ public class FXMLController implements Initializable {
         }
         
         //create a new scene with root and set the stage
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 1200, 680);
         stage.setScene(scene);
         stage.show();
 

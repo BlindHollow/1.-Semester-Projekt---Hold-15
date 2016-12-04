@@ -34,9 +34,10 @@ public class NewFXMain extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
 
-        Scene gameScene = new Scene(root);
+        Scene gameScene = new Scene(root, 1200, 680);
 
         stage.setScene(gameScene);
+        stage.setTitle("World of Zuul - The Game.");
         stage.show();
         stage.setResizable(false);
     }
