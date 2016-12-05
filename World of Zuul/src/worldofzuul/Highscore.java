@@ -14,13 +14,23 @@ import java.io.*;
  */
 public class Highscore extends HighscoreSystem 
 {
+    private final static String dir_Highscore = Content.Directory_Config + "\\highscore";
+    
+    private final static String dir_Players = dir_Highscore + "\\players";
+    
+    /**
+     * 
+     * @param inputValue
+     * @return 
+     */
     private boolean AllowedCharacter( char inputValue )
     {
      if ( inputValue <= 'A' || 
           inputValue >= 'z' )
          return true;
      
-     if( inputValue <= '0' || inputValue >= '9')
+     if( inputValue <= '0' || 
+         inputValue >= '9' )
          return true;
      
      if( inputValue == '-' || 
@@ -30,7 +40,12 @@ public class Highscore extends HighscoreSystem
         return false;
     }
     
-    private boolean ParseName( String InputName )
+    /**
+     * 
+     * @param InputName
+     * @return 
+     */
+    private boolean ParseNameCharacters( String InputName )
     {
         // 
         for( char c : InputName.toCharArray() )
@@ -40,8 +55,6 @@ public class Highscore extends HighscoreSystem
             if( AllowedCharacter( c ) == true )
                 Continue = true;
             
-            // In case - Add customs here
-            
             if( Continue == false )
                 return false;
         }
@@ -49,6 +62,11 @@ public class Highscore extends HighscoreSystem
         return true;
     }
     
+    /**
+     * 
+     * @param InputText
+     * @return 
+     */
     private String[] Tokenize( String InputText )
     {
         ArrayList<String> retValues = new ArrayList();
@@ -72,6 +90,9 @@ public class Highscore extends HighscoreSystem
                 builder.append( current );       
         }
         
+        if( retValues.size() == 0 )
+            return null;
+        
         return ( String[] )retValues.toArray();
     }
     
@@ -81,10 +102,6 @@ public class Highscore extends HighscoreSystem
     public Highscore()
     {
         SetCurrentPlayerName( "player" );
-        
-        
-        
-        Load();
     }
     
     /**
@@ -94,18 +111,10 @@ public class Highscore extends HighscoreSystem
     public Highscore( String name )
     {
         this();
+        
         SetCurrentPlayerName( name );
-    }
-    
-    /**
-     * Loads other Character's that are saved
-     */
-    public void Load()
-    {
-        
         
     }
-    
     
     /**
      * Loads a character's, current score
@@ -114,7 +123,7 @@ public class Highscore extends HighscoreSystem
      */
     public boolean LoadCurrentCharacter( String CharacterName )
     {
-        if( ParseName( CharacterName ) )
+        if( ParseNameCharacters( CharacterName ) )
         {
             return false;
         }
@@ -130,7 +139,7 @@ public class Highscore extends HighscoreSystem
      */
     public boolean SaveCurrentCharacter( String CharacterName )
     {
-        if( ParseName( CharacterName ) )
+        if( ParseNameCharacters( CharacterName ) )
         {
             return false;
         }
@@ -140,4 +149,158 @@ public class Highscore extends HighscoreSystem
         return true;
     }
     
-}
+        /**
+     * Loads other Character's that are saved
+     */
+    public void LoadPlayers()
+    {
+        
+        
+    }
+    
+    /**
+     * 
+     */
+    private final class hFiles
+    {
+                
+        /**
+         * 
+         * @return 
+         */
+        public boolean Create( File f )
+        {
+            
+            if( Exist( f ) == false )
+            {
+                try
+                {
+                    return f.createNewFile(); 
+                }
+                catch( Exception ex )
+                {
+                    
+                }
+                
+            }
+            else
+            {
+                
+            }
+            
+            return false; 
+        }
+        
+        /**
+         * 
+         * @return 
+         */
+        public boolean Remove( File f )
+        {
+            try
+            {
+                if( Exist( f ) )
+                    f.delete();
+            }
+            catch( Exception Ex )
+            {
+                
+            }
+            
+           return false; 
+        }
+        
+        /**
+         * 
+         * @return 
+         */
+        public boolean Exist( File f )
+        {
+            try
+            {
+                if( f.isFile() )
+                {
+                    return f.exists();
+                }
+            }
+            catch( Exception ex )
+            {
+                
+            }
+            
+            return false;
+        }
+        
+    } // End hFiles
+    
+    /**
+     * 
+     */
+    private final class hDirectories
+    {
+        public boolean Create( File Path, boolean createParents )
+        {
+            try
+            {
+                if( createParents == true )
+                {
+                    Path.mkdirs();
+                }
+                else
+                {
+                    Path.mkdir();
+                }
+            }
+            catch( Exception Ex )
+            {
+                
+            }
+            
+            return false;
+        }
+        
+        
+        public boolean Remove( File Path )
+        {
+            try
+            {
+                if( Exist( Path ) == true )
+                {
+                    Path.delete();
+                        
+                    return true;
+                }   
+                else
+                {
+                    return false;
+                }
+                
+            }
+            catch( Exception ex )
+            {
+                
+            }
+            
+            return false;
+        }
+        
+        public boolean Exist( File Path )
+        {
+            try
+            {
+                if( Path.isDirectory() )
+                {
+                    return Path.exists();
+                }  
+            }
+            catch( Exception Ex )
+            {
+                
+            }
+                    
+            return false;   
+        }
+    
+    } // End Class hDirectories
+    
+}  // End Class Main
