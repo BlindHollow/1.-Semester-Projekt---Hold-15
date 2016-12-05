@@ -15,7 +15,6 @@ import java.io.*;
 public class Highscore extends HighscoreSystem 
 {
     private final static String dir_Highscore = Content.Directory_Config + "\\highscore";
-    
     private final static String dir_Players = dir_Highscore + "\\players";
     
     /**
@@ -102,6 +101,14 @@ public class Highscore extends HighscoreSystem
     public Highscore()
     {
         SetCurrentPlayerName( "player" );
+        
+        if( hDirectories.Exist( dir_Players ) )
+        {
+            hDirectories.Create( dir_Players, 
+                                 true );
+        }
+        
+        
     }
     
     /**
@@ -161,21 +168,28 @@ public class Highscore extends HighscoreSystem
     /**
      * 
      */
-    private final class hFiles
+    public static final class hFiles
     {
+        // Wrapper function
+        public static boolean Create( String Path )
+        {
+            File f = new File( Path );
+            
+            return Create( f );
+        }
                 
         /**
          * 
          * @return 
          */
-        public boolean Create( File f )
+        public static boolean Create( File filePath )
         {
             
-            if( Exist( f ) == false )
+            if( Exist( filePath ) == false )
             {
                 try
                 {
-                    return f.createNewFile(); 
+                    return filePath.createNewFile(); 
                 }
                 catch( Exception ex )
                 {
@@ -191,16 +205,24 @@ public class Highscore extends HighscoreSystem
             return false; 
         }
         
+        // Wrapper Function
+        public static boolean Remove( String path )
+        {
+            File f = new File( path );
+            
+            return Remove( f );
+        }
+        
         /**
          * 
          * @return 
          */
-        public boolean Remove( File f )
+        public static boolean Remove( File filePath )
         {
             try
             {
-                if( Exist( f ) )
-                    f.delete();
+                if( Exist( filePath ) )
+                    filePath.delete();
             }
             catch( Exception Ex )
             {
@@ -210,17 +232,25 @@ public class Highscore extends HighscoreSystem
            return false; 
         }
         
+        // Wrapper Function
+        public static boolean Exist( String path )
+        {
+            File f = new File( path );
+            
+            return Exist( f );
+        }
+        
         /**
          * 
          * @return 
          */
-        public boolean Exist( File f )
+        public static boolean Exist( File filePath )
         {
             try
             {
-                if( f.isFile() )
+                if( filePath.isFile() )
                 {
-                    return f.exists();
+                    return filePath.exists();
                 }
             }
             catch( Exception ex )
@@ -231,14 +261,60 @@ public class Highscore extends HighscoreSystem
             return false;
         }
         
+        public static final class List
+        {
+            
+            public static File[] FilesInDirectory( File filePath )
+            {
+                ArrayList<File> ListOfFoundFiles = new ArrayList();
+                
+                File[] ListOfStuffFound = filePath.listFiles();
+                
+                if( ListOfStuffFound.length == 0 )
+                    return null;
+                
+                for( File f : ListOfStuffFound )
+                {
+                    
+                    if( f.isFile() )
+                    {
+                        ListOfFoundFiles.add( f );
+                    }
+                    
+                }
+                
+                File[] Files = ( File[] )ListOfFoundFiles.toArray();
+                
+                return Files;
+            }
+        }
+        
+        private static final class Content
+        {
+            public static String GetText( File filePath )
+            {
+            
+                return null;
+            }
+        
+            } // End Class hContent
+        
     } // End hFiles
     
     /**
      * 
      */
-    private final class hDirectories
+    public static final class hDirectories
     {
-        public boolean Create( File Path, boolean createParents )
+        // Wrapper Function
+        public static boolean Create( String path, boolean createParents )
+        {
+            File f = new File( path );
+            
+            return Create( f, createParents );
+        }
+        
+        public static boolean Create( File Path, boolean createParents )
         {
             try
             {
@@ -259,8 +335,15 @@ public class Highscore extends HighscoreSystem
             return false;
         }
         
+        // Wrapper function
+        public static boolean Remove( String path )
+        {
+            File f = new File( path );
+            
+            return Remove( f );
+        }
         
-        public boolean Remove( File Path )
+        public static boolean Remove( File Path )
         {
             try
             {
@@ -284,7 +367,15 @@ public class Highscore extends HighscoreSystem
             return false;
         }
         
-        public boolean Exist( File Path )
+        // Wrapper function
+        public static boolean Exist( String path )
+        {
+            File f = new File( path );
+            
+            return Exist( f );
+        }
+        
+        public static boolean Exist( File Path )
         {
             try
             {
