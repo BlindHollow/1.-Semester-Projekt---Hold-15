@@ -33,7 +33,6 @@ public class NewFXMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
-
         Scene gameScene = new Scene(root, 1200, 680);
 
         stage.setScene(gameScene);

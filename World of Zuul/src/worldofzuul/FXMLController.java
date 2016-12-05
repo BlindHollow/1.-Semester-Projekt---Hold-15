@@ -72,16 +72,38 @@ public class FXMLController implements Initializable {
             stage = (Stage) mainBtn.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
         }
-        
+
         //create a new scene with root and set the stage
         Scene scene = new Scene(root, 1200, 680);
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
     private void coordCheck(MouseEvent event) {
+    }
+
+    @FXML
+    private void onMouseClicked(MouseEvent event) {
+        if (event.getX() < 50 && event.getX() > 0) {
+            tempLabel.setText("You walked west");
+            updateStats();
+        } else if (event.getX() < 1000 && event.getX() > 950) {
+            tempLabel.setText("You walked east");
+            updateStats();
+        }
+    }
+
+    private void updateStats() {
+        NewFXMain.spil.player.degenHungerAndThirst(10);
+        double passnumber = NewFXMain.spil.player.getThirst();
+        this.thirstbar.setProgress(passnumber / 100);
+        passnumber = NewFXMain.spil.player.getHunger();
+        this.hungerbar.setProgress(passnumber / 100);
+        passnumber = NewFXMain.spil.player.getHealth();
+        this.healthbar.setProgress(passnumber / 100);
+        passnumber = NewFXMain.spil.player.getIllness();
+        this.illnessbar.setProgress(passnumber / 100);
     }
 
 }
