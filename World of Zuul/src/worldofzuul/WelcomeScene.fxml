@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,14 +9,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController">
+<AnchorPane id="anchorWelcomeScene" stylesheets="@css\welcomeScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController">
     <children>
-        <Label layoutX="463.0" layoutY="22.0" text="World of Zuul">
+        <Label id="welcomeHeader" layoutX="20.0" layoutY="20.0" text="Death Hospital - A zombie game" textFill="#ddab05">
             <font>
                 <Font size="58.0" />
             </font>
+            <effect>
+                <DropShadow />
+            </effect>
         </Label>
-        <Label layoutX="581.0" layoutY="213.0" text="Klik for at starte spillet" />
-        <Button fx:id="startBtn" layoutX="620.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: linear-gradient(#ffd65b, #e68400),          linear-gradient(#ffef84, #f2ba44), linear-gradient(#ffea6a, #efaa22),         linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));         -fx-background-radius: 30;         -fx-background-insets: 0,1,2,3,0;         -fx-text-fill: #654b00;         -fx-font-weight: bold;         -fx-font-size: 14px;         -fx-padding: 10 20 10 20;" text="Start" />
+        <Button fx:id="btnContinue" layoutX="138.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Continue Game" />
+        <Button fx:id="btnNewGame" layoutX="138.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleButtonAction" text="New Game" />
+        <Button fx:id="btnQuit" layoutX="138.0" layoutY="326.0" mnemonicParsing="false" onAction="#quitGame" text="Quit" />
+      <Label layoutX="359.0" layoutY="192.0" text="&lt;-- Works, but just loads the game" textFill="#b9ad2a" />
+      <Label layoutX="359.0" layoutY="270.0" text="&lt;-- Works" textFill="#b9ad2a" />
+      <Label layoutX="253.0" layoutY="346.0" text="&lt;-- Works" textFill="#b9ad2a" />
+        
     </children>
 </AnchorPane>
