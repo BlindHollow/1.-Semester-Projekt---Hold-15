@@ -10,16 +10,21 @@ import java.util.Set;
 public class Player {
 
     private int health, hunger, thirst, illness;
+    
+    private String name;
 
     private boolean isDead = false; //If set to true, game will end.
+    
+    private Weapons primaryWeapon;
 
-    public HashMap<String, Items> inventory = new HashMap<>();
+    private HashMap<String, Items> inventory = new HashMap<>();
 
     /**
      * Constructor Starts the player object with full health, hunger, thirst and
      * illness gauges.
      */
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;
@@ -29,7 +34,7 @@ public class Player {
     /**
      * Constructor used if loading from a saved game state.
      */
-    public Player(int health, int hunger, int thirst, int illness) {
+    public Player(String name, int health, int hunger, int thirst, int illness) {
         this.health = health;
         this.hunger = hunger;
         this.thirst = thirst;
@@ -95,9 +100,9 @@ public class Player {
      * Degrades hunger and thirst by 5 each. TODO: Adjust numbers to adjust
      * difficulty.
      */
-    public void degenHungerAndThirst() {
-        updateHunger(-5);
-        updateThirst(-5);
+    public void degenHungerAndThirst(int n) {
+        updateHunger(-1*n);
+        updateThirst(-1*n);
     }
 
     /**
@@ -127,6 +132,10 @@ public class Player {
             System.out.println("You are dehydrated.");
         }
     }
+    
+    public void setPrimaryWeapon(Weapons weapon) {
+        primaryWeapon = weapon;
+    }
 
     //Access functions.
     public boolean schroedinger() {
@@ -149,6 +158,25 @@ public class Player {
         return illness;
     }
 
+    public Weapons getPrimaryWeapon() {
+        return primaryWeapon;
+    }
+    
+    public boolean hasUsableItem() {
+        for (Items item : inventory.values()) {
+            if (item instanceof Weapons) {
+                Weapons weap = (Weapons)item;
+                if (weap.isUsable()) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } return false;       
+    }
+    public String getName() {
+        return name;
+    }
     /**
      * Prints the players status, ie. values of the attributes.
      */
@@ -157,8 +185,11 @@ public class Player {
     }
 
     //Returns the item (an object) with the key "key" in the inventory HashMap
-    public Items getInventory(String key) {
+    public Items getItemInInventory(String key) {
         return inventory.get(key);
+    }
+    public HashMap<String, Items> getInventory() {
+        return inventory;
     }
 
     /**

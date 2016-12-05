@@ -2,21 +2,21 @@ package worldofzuul;
 
 public class Weapons extends Items {
 
-    public int damage;
-    private boolean usable; //tells if the weapon can be used to destroy barricade between houses
+    private int damage;
+    private boolean usable;
 
-    public Weapons(String name, int damage, boolean axe) {
+    public Weapons(String name, int damage, boolean usable) {
         this.damage = damage;
         this.name = name;
-        this.usable = axe;
+        this.usable = usable;
+    }
+    
+    public boolean isUsable() {
+        return usable;
     }
 
-    public int attack() {
-        int total_Damage = damage;
-
-        System.out.println("You dealt " + total_Damage + " damage.");
-
-        return total_Damage;
+    public int getDamage() {
+        return damage;
     }
 
 }

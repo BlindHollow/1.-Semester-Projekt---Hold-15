@@ -17,7 +17,7 @@ class Application {
 
     public static void newGame() {
         detvirker = new Game();
-        detvirker.play(); //Creates a new game and starts it.
+        detvirker.newGame(); //Creates a new game and starts it.
     }
 
 } // Class Application

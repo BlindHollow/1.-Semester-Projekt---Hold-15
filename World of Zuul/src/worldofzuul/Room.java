@@ -8,20 +8,24 @@ import java.util.Iterator;
  * This class contains information about the rooms.
  * A room consists of a description string and three seperate hashmaps containng information about what exits a given room has,
  * what items are placed in it and whether there are zombies in the room and if yes, which zombies there are.
- * 
+ *
  */
 public class Room {
-
+    private boolean Lock = false;
+    private String name;
+    private boolean Spawnable = true;
+    
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
 
-    public Room(String description) {
+    public Room(String name, String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
         placements = new HashMap<>();
         zombies = new HashMap<>();
+        this.name = name;
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -40,7 +44,7 @@ public class Room {
 
     //Places a zombie in a room
     public void placeZombie(Zombie zombie) {
-        zombies.put(zombie.getName(), zombie);
+        zombies.put( zombie.getName(), zombie );
     }
 
     //Removes the zombie from the room. Should be used when it's killed
@@ -79,8 +83,10 @@ public class Room {
 
     }
 
-    public Room getExit(String direction) {
-        return exits.get(direction);
+    public Room getExit(String direction) { 
+        Room room = exits.get(direction);
+        
+        return room;
     }
 
     public Room getExit(int index) {
@@ -103,6 +109,42 @@ public class Room {
     public Zombie getZombie(String key) {
         return zombies.get(key);
     }
+    
+    private void spawnZombie()
+    {
+        Zombie monster = new Zombie( "RandomZombie", 
+                                     100, 2 );
+        
+        zombies.put( "RandomZombie", 
+                     monster );
+    }
+    
+    public void SetSpawnable( boolean value )
+    {
+        Spawnable = value;
+    }
+    
+    public boolean GetSpawnable()
+    {
+        return Spawnable;
+    }
+    
+    public void spawnRandomZombie()
+    {
+        if( Spawnable == true )
+        {
+            Dice random = new Dice(0, 100);
+        
+            int rValue = random.Calculate();
+        
+            if( rValue >= 20 && 
+                rValue <= 80 )
+            {
+                spawnZombie();
+            }
+           
+        }
+    }
 
     //Prints a list of items in the current room
     public void searchRoom() {
@@ -117,9 +159,32 @@ public class Room {
             System.out.println(itemString);
         }
     }
+    
+    public boolean isLocked()
+    {
+        return Lock;
+    }
+    
+    public void setLock( boolean status )
+    {
+        Lock = status;
+    }
 
     public int getSize() {
         return exits.size();
     }
-
+    
+    public HashMap<String, Room> getNeighbours() {
+        return exits;
+    }
+    
+    public HashMap<String, Items> getPlacements() {
+        return placements;
+    }
+    public HashMap<String, Zombie> getZombies() {
+        return zombies;
+    }
+    public String getName() {
+        return name;
+    }
 }
