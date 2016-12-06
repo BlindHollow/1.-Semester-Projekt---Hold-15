@@ -42,22 +42,8 @@ public class Highscore extends HighscoreSystem
         
         SetCurrentPlayerName( name );
         
-    }
-    
-    /**
-     * Loads a character's, current score
-     * @param CharacterName
-     * @return True: Loaded, False: Error occured
-     */
-    public boolean LoadCurrentCharacter( String CharacterName )
-    {
-        if( hText.ParseCharacters( CharacterName ) != true )
-        {
-            return false;
-        }
+        LoadPlayers();
         
-        
-        return true;
     }
     
     /**
@@ -80,29 +66,39 @@ public class Highscore extends HighscoreSystem
     /**
      * Loads other Character's that are saved
      */
-    public void LoadPlayers()
+    public final void LoadPlayers()
     {
         File FilepathToPlayers = new File( dir_Highscore );
         
         System.out.println( "Highscore Directory:" + FilepathToPlayers.getAbsolutePath() );
         
-        File[] PlayerInformation = hFiles.List.FilesInDirectory( FilepathToPlayers );
+        ArrayList<File> PlayerInformation = hFiles.List.FilesInDirectory( FilepathToPlayers );
         
         // If null or empty, exit
         if( PlayerInformation == null )
             return;
         
-        if( PlayerInformation.length == 0 )
+        if( PlayerInformation.isEmpty() )
         {
             return;
         }
         
         for( File f : PlayerInformation )
         {
-            String data = hFiles.Content.GetText( f );
+            ArrayList<String> data = hFiles.Content.GetText( f );
             
+            ParseDocuments( data );
         }
         
+        
+    }
+    
+    private void ParseDocuments( ArrayList<String> inputData )
+    {
+        for( String s : inputData )
+        {
+            
+        }
         
     }
     
@@ -204,7 +200,7 @@ public class Highscore extends HighscoreSystem
         
         public static final class List
         {
-            public static File[] FilesInDirectory( File filePath )
+            public static ArrayList<File> FilesInDirectory( File filePath )
             {
                 ArrayList<File> ListOfFoundFiles = new ArrayList();
                 
@@ -223,18 +219,55 @@ public class Highscore extends HighscoreSystem
                     
                 }
                 
-                File[] Files = ( File[] )ListOfFoundFiles.toArray();
-                
-                return Files;
+                return ListOfFoundFiles;
             }
         }
         
         private static final class Content
         {
-            public static String GetText( File filePath )
+            public static ArrayList<String> GetText( File filePath )
             {
-            
-                return null;
+                ArrayList<String> Lines = new ArrayList();
+                
+                FileReader fr; 
+                BufferedReader textReader = null;
+                
+                try
+                {
+                    fr = new FileReader( filePath );
+                    textReader = new BufferedReader( fr );
+
+                    String line;
+
+                    while( ( line = textReader.readLine() ) != null )
+                    {
+                        Lines.add( line );
+                    }
+                    
+                    textReader.close();
+                }
+                catch( Exception ex )
+                {
+                    
+                }
+                finally
+                {   
+                    try
+                    {
+                        if( textReader != null )
+                            textReader.close();
+                    }
+                    catch( NullPointerException NPE )
+                    {
+                        
+                    }
+                    catch( IOException IOE )
+                    {
+                        
+                    }
+                }
+                
+                return Lines;
             }
         
             } // End Class hContent

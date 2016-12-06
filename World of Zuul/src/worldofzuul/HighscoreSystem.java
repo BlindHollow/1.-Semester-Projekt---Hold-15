@@ -133,6 +133,11 @@ public class HighscoreSystem
         return CurrentPlayer.GetPlayerName();
     }
     
+    public final int GetTotalAmountOfHighscores()
+    {
+        return TotalAmountOfUsers;
+    }
+    
     /**
      * Returns a sorted list, with the player and other players
      * @return 
