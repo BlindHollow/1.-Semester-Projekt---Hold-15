@@ -14,86 +14,8 @@ import java.io.*;
  */
 public class Highscore extends HighscoreSystem 
 {
-    private final static String dir_Highscore = Content.Directory_Config + "\\highscore";
-    private final static String dir_Players = dir_Highscore + "\\players";
-    
-    /**
-     * 
-     * @param inputValue
-     * @return 
-     */
-    private boolean AllowedCharacter( char inputValue )
-    {
-     if ( inputValue <= 'A' || 
-          inputValue >= 'z' )
-         return true;
-     
-     if( inputValue <= '0' || 
-         inputValue >= '9' )
-         return true;
-     
-     if( inputValue == '-' || 
-         inputValue == '_')
-         return true;
-     
-        return false;
-    }
-    
-    /**
-     * 
-     * @param InputName
-     * @return 
-     */
-    private boolean ParseNameCharacters( String InputName )
-    {
-        // 
-        for( char c : InputName.toCharArray() )
-        {
-            boolean Continue = false;
-            
-            if( AllowedCharacter( c ) == true )
-                Continue = true;
-            
-            if( Continue == false )
-                return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * 
-     * @param InputText
-     * @return 
-     */
-    private String[] Tokenize( String InputText )
-    {
-        ArrayList<String> retValues = new ArrayList();
-        
-        StringBuilder builder = new StringBuilder();
-        
-        for( int x = 0; 
-                 x <= InputText.length() - 1; 
-                 x ++ )
-        {
-            char current = InputText.charAt( x );
-            
-            // If space, newline or end of line, append to list
-            if( current == ' '   ||
-                current == '\n'  ||
-                x == InputText.length() -1 )
-                    retValues.add( builder.toString() );
-            
-            // Only append allowed characters
-            if( AllowedCharacter( current ) )
-                builder.append( current );       
-        }
-        
-        if( retValues.size() == 0 )
-            return null;
-        
-        return ( String[] )retValues.toArray();
-    }
+    private final static String dir_Players = ".\\players";
+    private final static String dir_Highscore = dir_Players + "\\highscore";
     
     /**
      * 
@@ -102,12 +24,11 @@ public class Highscore extends HighscoreSystem
     {
         SetCurrentPlayerName( "player" );
         
-        if( hDirectories.Exist( dir_Players ) )
+        if( hDirectories.Exist( dir_Highscore ) == false )
         {
-            hDirectories.Create( dir_Players, 
+            hDirectories.Create( dir_Highscore, 
                                  true );
         }
-        
         
     }
     
@@ -130,7 +51,7 @@ public class Highscore extends HighscoreSystem
      */
     public boolean LoadCurrentCharacter( String CharacterName )
     {
-        if( ParseNameCharacters( CharacterName ) )
+        if( hText.ParseCharacters( CharacterName ) != true )
         {
             return false;
         }
@@ -146,7 +67,7 @@ public class Highscore extends HighscoreSystem
      */
     public boolean SaveCurrentCharacter( String CharacterName )
     {
-        if( ParseNameCharacters( CharacterName ) )
+        if( hText.ParseCharacters( CharacterName ) != true )
         {
             return false;
         }
@@ -156,11 +77,31 @@ public class Highscore extends HighscoreSystem
         return true;
     }
     
-        /**
+    /**
      * Loads other Character's that are saved
      */
     public void LoadPlayers()
     {
+        File FilepathToPlayers = new File( dir_Highscore );
+        
+        System.out.println( "Highscore Directory:" + FilepathToPlayers.getAbsolutePath() );
+        
+        File[] PlayerInformation = hFiles.List.FilesInDirectory( FilepathToPlayers );
+        
+        // If null or empty, exit
+        if( PlayerInformation == null )
+            return;
+        
+        if( PlayerInformation.length == 0 )
+        {
+            return;
+        }
+        
+        for( File f : PlayerInformation )
+        {
+            String data = hFiles.Content.GetText( f );
+            
+        }
         
         
     }
@@ -168,7 +109,7 @@ public class Highscore extends HighscoreSystem
     /**
      * 
      */
-    public static final class hFiles
+    private static final class hFiles
     {
         // Wrapper function
         public static boolean Create( String Path )
@@ -263,7 +204,6 @@ public class Highscore extends HighscoreSystem
         
         public static final class List
         {
-            
             public static File[] FilesInDirectory( File filePath )
             {
                 ArrayList<File> ListOfFoundFiles = new ArrayList();
@@ -304,14 +244,15 @@ public class Highscore extends HighscoreSystem
     /**
      * 
      */
-    public static final class hDirectories
+    private static final class hDirectories
     {
         // Wrapper Function
         public static boolean Create( String path, boolean createParents )
         {
             File f = new File( path );
             
-            return Create( f, createParents );
+            return Create( f, 
+                           createParents );
         }
         
         public static boolean Create( File Path, boolean createParents )
@@ -393,5 +334,53 @@ public class Highscore extends HighscoreSystem
         }
     
     } // End Class hDirectories
+    
+    private static class hText
+    {   
+            /**
+            * 
+            * @param InputName
+            * @return 
+            */
+        public static boolean ParseCharacters( String InputName )
+        {
+            // 
+            for( char c : InputName.toCharArray() )
+            {
+                boolean Continue = false;
+
+                if( hText.AllowedCharacter( c ) == true )
+                    Continue = true;
+
+                if( Continue == false )
+                    return false;
+            }
+
+            return true;
+        } // End ParseCharacters
+     
+       /**
+        * 
+        * @param inputValue
+        * @return 
+        */
+        public static boolean AllowedCharacter( char inputValue )
+        {
+            if ( inputValue <= 'A' || 
+                 inputValue >= 'z' )
+                return true;
+
+            if( inputValue <= '0' || 
+                inputValue >= '9' )
+                return true;
+
+            if( inputValue == '-' || 
+                inputValue == '_')
+                return true;
+
+            return false;
+        } // End AllowedCharacter
+        
+    } // End Parsing
     
 }  // End Class Main

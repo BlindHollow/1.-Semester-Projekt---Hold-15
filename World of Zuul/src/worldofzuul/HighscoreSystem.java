@@ -17,6 +17,8 @@ public class HighscoreSystem
     private HighscorePlayer CurrentPlayer = new HighscorePlayer();
     private ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
     
+    private int TotalAmountOfUsers = 0;
+    
     /**
      * 
      * @param CurrentPlayername 
@@ -68,12 +70,12 @@ public class HighscoreSystem
      */
     private boolean ExactUser( String Name )
     {
-        if( Name.toLowerCase() == CurrentPlayer.GetPlayerName().toLowerCase() )
+        if( Name.equalsIgnoreCase( CurrentPlayer.GetPlayerName() ) )
             return true;
         
         for( HighscorePlayer current : ListOfPriorUserScores )
         {
-            if( Name.toLowerCase() == current.GetPlayerName().toLowerCase() )
+            if( Name.equalsIgnoreCase( CurrentPlayer.GetPlayerName() ) )
             {
                 return true;
             }
@@ -86,7 +88,7 @@ public class HighscoreSystem
      * Add points for the Current Player
      * @param Number 
      */
-    public void AddCurrentPlayerPoints( int Number )
+    public final void AddCurrentPlayerPoints( int Number )
     {
         CurrentPlayer.SetPlayerScore( GetCurrentPlayerPoints() + Number );
     }
@@ -96,7 +98,7 @@ public class HighscoreSystem
      * 
      * @param Number 
      */
-    public void SetCurrentPlayerPoints( int Number )
+    public final void SetCurrentPlayerPoints( int Number )
     {
         CurrentPlayer.SetPlayerScore( Number );
     }
@@ -105,7 +107,7 @@ public class HighscoreSystem
      * Remove points for the Current Player
      * @param Number 
      */
-    public void RemoveCurrentPlayerPoints( int Number )
+    public final void RemoveCurrentPlayerPoints( int Number )
     {
         CurrentPlayer.SetPlayerScore( GetCurrentPlayerPoints() - Number );
         
@@ -116,17 +118,17 @@ public class HighscoreSystem
      * Retrieve Points for the current Player
      * @return 
      */
-    public int GetCurrentPlayerPoints()
+    public final int GetCurrentPlayerPoints()
     {
         return CurrentPlayer.GetPlayerScore();
     }
     
-    public void SetCurrentPlayerName( String name )
+    public final void SetCurrentPlayerName( String name )
     {
         CurrentPlayer.SetPlayerName( name );
     }
     
-    public String GetCurrentPlayerName()
+    public final String GetCurrentPlayerName()
     {
         return CurrentPlayer.GetPlayerName();
     }

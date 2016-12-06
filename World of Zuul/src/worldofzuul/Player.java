@@ -24,6 +24,8 @@ public class Player {
      */
     public Player() {
         highscore = new Highscore();
+        highscore.LoadPlayers();
+        
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;
