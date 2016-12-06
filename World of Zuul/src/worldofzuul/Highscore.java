@@ -6,7 +6,6 @@
 package worldofzuul;
 
 import java.util.*;
-import java.io.*;
 
 /**
  *
@@ -14,11 +13,8 @@ import java.io.*;
  */
 public class Highscore extends HighscoreSystem 
 {
-    private Registry register;
-    
-    private final static String dir_Players = ".\\players";
-    private final static String dir_Highscore = dir_Players + "\\highscore";
-    
+    private Registry register = new Registry( ".\\Highschool.rg" );
+       
     /**
      * 
      */
@@ -26,11 +22,10 @@ public class Highscore extends HighscoreSystem
     {
         SetCurrentPlayerName( "player" );
         
-        if( hDirectories.Exist( dir_Highscore ) == false )
-        {
-            hDirectories.Create( dir_Highscore, 
-                                 true );
-        }
+        String[] keyValues = { "username", 
+                               "highscore" };
+        
+        register.AddKeys( keyValues );
         
     }
     
@@ -70,244 +65,12 @@ public class Highscore extends HighscoreSystem
      */
     public final void LoadPlayers()
     {
-        File FilepathToPlayers = new File( dir_Highscore );
-        
-        System.out.println( "Highscore Directory:" + FilepathToPlayers.getAbsolutePath() );
-        
-        ArrayList<File> PlayerInformation = hFiles.List.FilesInDirectory( FilepathToPlayers );
-        
-        // If null or empty, exit
-        if( PlayerInformation == null )
-            return;
-        
-        if( PlayerInformation.isEmpty() )
-        {
-            return;
-        }
 
         
     }
     
     // Functions ------------------------------------------------------------------------------------ //
-    
-    /**
-     * 
-     */
-    private static final class hFiles
-    {
-        // Wrapper function
-        public static boolean Create( String Path )
-        {
-            File f = new File( Path );
-            
-            return Create( f );
-        }
-                
-        /**
-         * 
-         * @return 
-         */
-        public static boolean Create( File filePath )
-        {
-            
-            if( Exist( filePath ) == false )
-            {
-                try
-                {
-                    return filePath.createNewFile(); 
-                }
-                catch( Exception ex )
-                {
-                    
-                }
-                
-            }
-            else
-            {
-                
-            }
-            
-            return false; 
-        }
-        
-        // Wrapper Function
-        public static boolean Remove( String path )
-        {
-            File f = new File( path );
-            
-            return Remove( f );
-        }
-        
-        /**
-         * 
-         * @return 
-         */
-        public static boolean Remove( File filePath )
-        {
-            try
-            {
-                if( Exist( filePath ) )
-                    filePath.delete();
-            }
-            catch( Exception Ex )
-            {
-                
-            }
-            
-           return false; 
-        }
-        
-        // Wrapper Function
-        public static boolean Exist( String path )
-        {
-            File f = new File( path );
-            
-            return Exist( f );
-        }
-        
-        /**
-         * 
-         * @return 
-         */
-        public static boolean Exist( File filePath )
-        {
-            try
-            {
-                if( filePath.isFile() )
-                {
-                    return filePath.exists();
-                }
-            }
-            catch( Exception ex )
-            {
-                
-            }
-            
-            return false;
-        }
-        
-        public static final class List
-        {
-            public static ArrayList<File> FilesInDirectory( File filePath )
-            {
-                ArrayList<File> ListOfFoundFiles = new ArrayList();
-                
-                File[] ListOfStuffFound = filePath.listFiles();
-                
-                if( ListOfStuffFound.length == 0 )
-                    return null;
-                
-                for( File f : ListOfStuffFound )
-                {
-                    
-                    if( f.isFile() )
-                    {
-                        ListOfFoundFiles.add( f );
-                    }
-                    
-                }
-                
-                return ListOfFoundFiles;
-            }
-        }
-      
-        
-    } // End hFiles
-    
-    /**
-     * 
-     */
-    private static final class hDirectories
-    {
-        // Wrapper Function
-        public static boolean Create( String path, boolean createParents )
-        {
-            File f = new File( path );
-            
-            return Create( f, 
-                           createParents );
-        }
-        
-        public static boolean Create( File Path, boolean createParents )
-        {
-            try
-            {
-                if( createParents == true )
-                {
-                    Path.mkdirs();
-                }
-                else
-                {
-                    Path.mkdir();
-                }
-            }
-            catch( Exception Ex )
-            {
-                
-            }
-            
-            return false;
-        }
-        
-        // Wrapper function
-        public static boolean Remove( String path )
-        {
-            File f = new File( path );
-            
-            return Remove( f );
-        }
-        
-        public static boolean Remove( File Path )
-        {
-            try
-            {
-                if( Exist( Path ) == true )
-                {
-                    Path.delete();
-                        
-                    return true;
-                }   
-                else
-                {
-                    return false;
-                }
-                
-            }
-            catch( Exception ex )
-            {
-                
-            }
-            
-            return false;
-        }
-        
-        // Wrapper function
-        public static boolean Exist( String path )
-        {
-            File f = new File( path );
-            
-            return Exist( f );
-        }
-        
-        public static boolean Exist( File Path )
-        {
-            try
-            {
-                if( Path.isDirectory() )
-                {
-                    return Path.exists();
-                }  
-            }
-            catch( Exception Ex )
-            {
-                
-            }
-                    
-            return false;   
-        }
-    
-    } // End Class hDirectories
-    
+   
     private static class hText
     {   
             /**
