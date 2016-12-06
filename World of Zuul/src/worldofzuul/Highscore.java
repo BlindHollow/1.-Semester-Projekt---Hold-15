@@ -82,23 +82,7 @@ public class Highscore extends HighscoreSystem
         {
             return;
         }
-        
-        for( File f : PlayerInformation )
-        {
-            ArrayList<String> data = hFiles.Content.GetText( f );
-            
-            ParseDocuments( data );
-        }
-        
-        
-    }
-    
-    private void ParseDocuments( ArrayList<String> inputData )
-    {
-        for( String s : inputData )
-        {
-            
-        }
+
         
     }
     
@@ -222,55 +206,7 @@ public class Highscore extends HighscoreSystem
                 return ListOfFoundFiles;
             }
         }
-        
-        private static final class Content
-        {
-            public static ArrayList<String> GetText( File filePath )
-            {
-                ArrayList<String> Lines = new ArrayList();
-                
-                FileReader fr; 
-                BufferedReader textReader = null;
-                
-                try
-                {
-                    fr = new FileReader( filePath );
-                    textReader = new BufferedReader( fr );
-
-                    String line;
-
-                    while( ( line = textReader.readLine() ) != null )
-                    {
-                        Lines.add( line );
-                    }
-                    
-                    textReader.close();
-                }
-                catch( Exception ex )
-                {
-                    
-                }
-                finally
-                {   
-                    try
-                    {
-                        if( textReader != null )
-                            textReader.close();
-                    }
-                    catch( NullPointerException NPE )
-                    {
-                        
-                    }
-                    catch( IOException IOE )
-                    {
-                        
-                    }
-                }
-                
-                return Lines;
-            }
-        
-            } // End Class hContent
+      
         
     } // End hFiles
     
