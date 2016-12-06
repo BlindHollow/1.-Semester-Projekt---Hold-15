@@ -9,11 +9,23 @@ package worldofzuul;
  *
  * @author Fract
  */
-public final class Content 
+public class Registry 
 {
+    public Registry()
+    {
+        
+    }
     
+    public boolean AddKey()
+    {
+        
+        return false;
+    }
     
-    // Root
-    public final static String Directory_Config        = ".\\config";
+    public boolean RemoveKey()
+    {
+        
+        return false;
+    }
     
 }

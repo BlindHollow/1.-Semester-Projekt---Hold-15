@@ -14,6 +14,8 @@ import java.io.*;
  */
 public class Highscore extends HighscoreSystem 
 {
+    private Registry register;
+    
     private final static String dir_Players = ".\\players";
     private final static String dir_Highscore = dir_Players + "\\highscore";
     
@@ -85,6 +87,8 @@ public class Highscore extends HighscoreSystem
 
         
     }
+    
+    // Functions ------------------------------------------------------------------------------------ //
     
     /**
      * 
