@@ -49,11 +49,17 @@ public class FXMLController implements Initializable {
     @FXML
     private Button btnNewGame;
     @FXML
+    private AnchorPane welcomeStartAnchor;
+    @FXML
     private Button mainBtn;
+    @FXML
+    private Button btnStartGame;
     @FXML
     private Button btnContinue;
     @FXML
     private Button btnQuit;
+    Stage stage = null;
+    Parent root = null;
 
     /**
      * initialises the controller class.
@@ -65,25 +71,26 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
         if (event.getSource() == btnContinue) {
-            //get reference to the button's stage         
-            stage = (Stage) btnContinue.getScene().getWindow();
-            //load up OTHER FXML document
-            root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
+            stage = (Stage) btnContinue.getScene().getWindow(); //get reference to the button's stage        
+            loadScene("GameScene");
         } else if (event.getSource() == btnNewGame) {
-            //get reference to the button's stage         
-            stage = (Stage) btnNewGame.getScene().getWindow();
-            //load up OTHER FXML document
-            root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
+            welcomeStartAnchor.setVisible(true);
+        } else if (event.getSource() == btnStartGame) {
+            stage = (Stage) btnStartGame.getScene().getWindow();
+            loadScene("GameScene");
         } else {
             stage = (Stage) mainBtn.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
+            loadScene("WelcomeScene");
         }
 
+    }
+
+    @FXML
+    private void loadScene(String sceneName) throws IOException {
+        root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml")); //load up OTHER FXML document
         //create a new scene with root and set the stage
-        Scene scene = new Scene(root, 1200, 680);
+        Scene scene = new Scene(root,1200, 680);
         stage.setScene(scene);
         stage.show();
     }
