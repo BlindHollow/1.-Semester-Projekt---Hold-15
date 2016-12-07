@@ -14,23 +14,28 @@ import java.util.ArrayList;
  */
 public class List 
 {
+    /**
+     * 
+     * @param directory
+     * @return 
+     */
     public static File[] ListFiles( File directory )
-       {
-           ArrayList<File> fileList = new ArrayList();
+    {
+        ArrayList<File> fileList = new ArrayList();
         
-           try
-           {
-               File[] files = null;
+        try
+        {
+            File[] files = null;
                
-               files = directory.listFiles( new worldofzuul.IO.FileFilters.Files() );
+            files = directory.listFiles( new worldofzuul.IO.FileFilters.Files() );
                
-               return files;
-           }
-           catch( Exception ex )
-           {
+            return files;
+        }
+        catch( Exception ex )
+        {
                
-           }
+        }
                
-           return null;
-       }
+        return null;
+    }
 }

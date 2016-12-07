@@ -13,35 +13,45 @@ import java.io.File;
  */
 public class Files 
 {   
+    /**
+     * 
+     * @param filePath
+     * @return 
+     */
     public static boolean Create( File filePath )
-       {
+    {
 
-           if( Exist( filePath ) == false )
-           {
-               try
-               {
-                   return filePath.createNewFile();
-               }
-               catch( Exception ex )
-               {
+        if( Exist( filePath ) == false )
+        {
+            try
+            {
+                return filePath.createNewFile();
+            }
+            catch( Exception ex )
+            {
 
-               }
+            }
 
-           }
-           else
-           {
+        }
+        else
+        {
 
-           }
+        }
 
-           return false;
-       }
-       
+        return false;
+    }
+    
+       /**
+        * 
+        * @param filePath
+        * @return 
+        */
        public static boolean Remove( File filePath )
        {
            try
            {
-               if( Exist( filePath ) )
-                   filePath.delete();
+                if( Exist( filePath ) )
+                    filePath.delete();
            }
            catch( Exception Ex )
            {
@@ -51,20 +61,27 @@ public class Files
           return false;
        }
        
+       /**
+        * 
+        * @param filePath
+        * @return 
+        */
        public static boolean Exist( File filePath )
        {
            try
            {
-               if( filePath.isFile() )
-               {
-                   return filePath.exists();
-               }
-           }
-           catch( Exception ex )
-           {
+               
+                if( filePath.isFile() )
+                {
+                    return filePath.exists();
+                }
+        }
+        catch( Exception ex )
+        {
 
-           }
+        }
 
-           return false;
-       }
+        return false;
+    }
+       
 }

@@ -13,6 +13,12 @@ import java.io.File;
  */
 public class Directories 
 {
+        /**
+         * 
+         * @param Path
+         * @param CreateParents
+         * @return 
+         */
         public static boolean Create(String Path, boolean CreateParents)
         {
             File f = new File(Path);
@@ -20,6 +26,12 @@ public class Directories
             return Create(f, CreateParents);
         }
     
+        /**
+         * 
+         * @param Path
+         * @param createParents
+         * @return 
+         */
         public static boolean Create( File Path, boolean createParents )
         {
            try
@@ -41,6 +53,11 @@ public class Directories
            return false;
         }
         
+       /**
+        * 
+        * @param Path
+        * @return 
+        */
        public static boolean Remove( File Path )
        {
            try
@@ -64,7 +81,12 @@ public class Directories
 
            return false;
        }
-        
+       
+       /**
+        * 
+        * @param Path
+        * @return 
+        */
        public static boolean Exist( File Path )
        {
            try
