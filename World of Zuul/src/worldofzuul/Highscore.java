@@ -27,10 +27,10 @@ public class Highscore extends HighscoreSystem
     {
         SetCurrentPlayerName( "player" );
         
-        if( hsDirectories.Exist( new File( HS_Database ) ) == false )
+        if( worldofzuul.IO.Directories.Exist( new File( HS_Database ) ) == false )
         {
-            hsDirectories.Create( HS_Database, 
-                                  true );
+            worldofzuul.IO.Directories.Create( HS_Database, 
+                                               true );
         }
         
     }
@@ -91,7 +91,7 @@ public class Highscore extends HighscoreSystem
     {
         File f = new File( HS_Database );
         
-        File[] listed = hsFiles.ListFiles( f );
+        File[] listed = worldofzuul.IO.List.ListFiles( f );
         
         for( File user : listed )
         {
@@ -196,165 +196,6 @@ public class Highscore extends HighscoreSystem
             }
             
         }
-    }
-    
-    private static class hsDirectories
-    {
-        public static boolean Create(String Path, boolean CreateParents)
-        {
-            File f = new File(Path);
-            
-            return Create(f, CreateParents);
-        }
-        
-        public static boolean Create( File Path, boolean createParents )
-       {
-           try
-           {
-               if( createParents == true )
-               {
-                   Path.mkdirs();
-               }
-               else
-               {
-                   Path.mkdir();
-               }
-           }
-           catch( Exception Ex )
-           {
+    } // End hsDebug    
 
-           }
-
-           return false;
-       }
-        
-        public static boolean Remove( File Path )
-       {
-           try
-           {
-               if( Exist( Path ) == true )
-               {
-                   Path.delete();
-
-                   return true;
-               }
-               else
-               {
-                   return false;
-               }
-
-           }
-           catch( Exception ex )
-           {
-
-           }
-
-           return false;
-       }
-        
-        public static boolean Exist( File Path )
-       {
-           try
-           {
-               if( Path.isDirectory() )
-               {
-                   return Path.exists();
-               }
-           }
-           catch( Exception Ex )
-           {
-
-           }
-
-           return false;
-       }
-        
-    }
-    
-    private static class hsFiles implements FileFilter 
-    {
-        
-       public static boolean Create( File filePath )
-       {
-
-           if( Exist( filePath ) == false )
-           {
-               try
-               {
-                   return filePath.createNewFile();
-               }
-               catch( Exception ex )
-               {
-
-               }
-
-           }
-           else
-           {
-
-           }
-
-           return false;
-       }
-       
-       public static boolean Remove( File filePath )
-       {
-           try
-           {
-               if( Exist( filePath ) )
-                   filePath.delete();
-           }
-           catch( Exception Ex )
-           {
-
-           }
-
-          return false;
-       }
-       
-       public static boolean Exist( File filePath )
-       {
-           try
-           {
-               if( filePath.isFile() )
-               {
-                   return filePath.exists();
-               }
-           }
-           catch( Exception ex )
-           {
-
-           }
-
-           return false;
-       }
-       
-       @Override
-       public boolean accept( File f )
-       {
-           return f.isFile();
-       }
-       
-       public static File[] ListFiles( File directory )
-       {
-           ArrayList<File> fileList = new ArrayList();
-        
-           try
-           {
-               File[] files = null;
-               
-               files = directory.listFiles( new hsFiles() );
-               
-               return files;
-           }
-           catch( Exception ex )
-           {
-               
-           }
-               
-           return null;
-       }
-       
-    }
-    
 }  // End Class Main

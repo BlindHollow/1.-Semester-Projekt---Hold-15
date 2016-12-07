@@ -112,9 +112,25 @@ public class Room {
     
     private void spawnZombie()
     {
-        Zombie monster = new Zombie( "RandomZombie", 
-                                     100, 2 );
+        int HP, DMG;
+        HP = 5;
+        DMG = 2;
         
+        NameGenerator NG = new NameGenerator();
+        
+        String name = NG.Get();
+        Zombie monster = null;
+        
+        if( name == null )
+        {
+            monster = new Zombie( "zombie", 
+                                  HP, DMG );
+        }
+        else
+        {
+            monster = new Zombie( name, 
+                                  HP, DMG );
+        }
         zombies.put( "RandomZombie", 
                      monster );
     }
