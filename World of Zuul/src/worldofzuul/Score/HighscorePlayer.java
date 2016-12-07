@@ -7,8 +7,14 @@ package worldofzuul.Score;
 
 /**
  *
- * @author Fract
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
+
 // Implements Comparable. used to sort a array
 public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
