@@ -19,6 +19,9 @@ public class Room {
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
+    
+    private Dice SpawnChance = new Dice( 0,     // Min
+                                         100 ); // Max
 
     public Room(String name, String description) {
         this.description = description;
@@ -138,9 +141,8 @@ public class Room {
     {
         if( Spawnable == true )
         {
-            Dice random = new Dice(0, 100);
         
-            int rValue = random.Calculate();
+            int rValue = SpawnChance.Calculate();
         
             if( rValue >= 20 && 
                 rValue <= 80 )
