@@ -3,12 +3,29 @@ package worldofzuul;
 public class Weapons extends Items {
 
     private int damage;
+    private int critmodifier;
     private boolean usable;
+    private Dice RandChange = new Dice(0, 100);
 
-    public Weapons(String name, int damage, boolean usable) {
+    public Weapons(String name, int damage, int critmod, boolean usable) {
         this.damage = damage;
         this.name = name;
         this.usable = usable;
+        this.critmodifier = critmod;
+    }
+    
+    private int CritDmg( int dmg )
+    {
+        int r = RandChange.Calculate();
+        
+        if( r <= 40 && r>= 60 )
+        {
+            return (dmg * this.critmodifier);
+        }
+        else
+        {
+            return dmg;
+        }
     }
     
     public boolean isUsable() {
@@ -16,7 +33,7 @@ public class Weapons extends Items {
     }
 
     public int getDamage() {
-        return damage;
+        return CritDmg( this.damage );
     }
 
 }

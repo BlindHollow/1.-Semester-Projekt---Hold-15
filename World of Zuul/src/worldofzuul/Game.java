@@ -179,11 +179,11 @@ public class Game {
      */
     private void createItems() {
 
-        fireaxe = new Weapons("fireaxe", 10, true);
-        policegun = new Weapons("policegun", 30, false);
-        shotgun = new Weapons("shotgun", 20, false);
-        crowbar = new Weapons("crowbar", 10, true);
-        ram = new Weapons("ram", 3, true);
+        fireaxe = new Weapons("fireaxe", 10, 1, true);
+        policegun = new Weapons("policegun", 30, 4, false);
+        shotgun = new Weapons("shotgun", 20, 5, false);
+        crowbar = new Weapons("crowbar", 10, 1, true);
+        ram = new Weapons("ram", 3, 4, true);
 
         energybar = new Food("energybar", 30, 0);
         energydrink = new Food("energydrink", 0, 30);
