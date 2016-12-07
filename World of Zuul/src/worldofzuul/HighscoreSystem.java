@@ -12,20 +12,44 @@ import java.util.*;
  * @author Fract
  */
 
-public class HighscoreSystem 
+public class HighscoreSystem
 {
-    HighscorePlayer CurrentPlayer = new HighscorePlayer();
-    ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
+    private HighscorePlayer CurrentPlayer = new HighscorePlayer();
+    private ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
     
-    // Add Player's to compare againts
-    public boolean AddPlayer( String Name )
+    private int TotalAmountOfUsers = 0;
+    
+    /**
+     * 
+     * @param CurrentPlayername 
+     */
+    public HighscoreSystem( )
     {
-        return AddPlayer( Name, 0 );
+        CurrentPlayer.SetPlayerName( "Player" );
+        CurrentPlayer.SetIsPlayer( true );
     }
     
-    public boolean AddPlayer( String Name, int Score )
+    /**
+     * Add Player's to compare againts 
+     * @param Name
+     * @return 
+     */
+    protected boolean AddPlayers( String Name )
     {
-        HighscorePlayer player = new HighscorePlayer( Name, Score );
+        return AddPlayers( Name, 0 );
+    }
+    
+    /**
+     * 
+     * @param Name
+     * @param Score
+     * @return 
+     */
+    protected boolean AddPlayers( String Name, int Score )
+    {
+        HighscorePlayer player = new HighscorePlayer( Name, 
+                                                      Score, 
+                                                      false );
         
         if( ExactUser( Name ) == true )
         {
@@ -39,12 +63,19 @@ public class HighscoreSystem
         
     }
     
-    // Returns true if a player with the same name, show up. avoid duplicates
+    /**
+     * Returns true if a player with the same name, show up. avoid duplicates
+     * @param Name
+     * @return 
+     */
     private boolean ExactUser( String Name )
     {
+        if( Name.equalsIgnoreCase( CurrentPlayer.GetPlayerName() ) )
+            return true;
+        
         for( HighscorePlayer current : ListOfPriorUserScores )
         {
-            if( Name.toLowerCase() == current.GetPlayername().toLowerCase() )
+            if( Name.equalsIgnoreCase( CurrentPlayer.GetPlayerName() ) )
             {
                 return true;
             }
@@ -53,24 +84,64 @@ public class HighscoreSystem
         return false;
     }
     
-    // Current Player
-    public void AddPoints( int Number )
+    /**
+     * Add points for the Current Player
+     * @param Number 
+     */
+    public final void AddCurrentPlayerPoints( int Number )
     {
-        CurrentPlayer.SetPlayerScore( GetPoints() + Number );
+        CurrentPlayer.SetPlayerScore( GetCurrentPlayerPoints() + Number );
+    }
+    
+    
+    /**
+     * 
+     * @param Number 
+     */
+    public final void SetCurrentPlayerPoints( int Number )
+    {
+        CurrentPlayer.SetPlayerScore( Number );
+    }
+    
+    /**
+     * Remove points for the Current Player
+     * @param Number 
+     */
+    public final void RemoveCurrentPlayerPoints( int Number )
+    {
+        CurrentPlayer.SetPlayerScore( GetCurrentPlayerPoints() - Number );
         
     }
     
-    public void RemovePoints( int Number )
-    {
-        CurrentPlayer.SetPlayerScore( GetPoints() - Number );
-        
-    }
     
-    public int GetPoints()
+    /**
+     * Retrieve Points for the current Player
+     * @return 
+     */
+    public final int GetCurrentPlayerPoints()
     {
         return CurrentPlayer.GetPlayerScore();
     }
     
+    public final void SetCurrentPlayerName( String name )
+    {
+        CurrentPlayer.SetPlayerName( name );
+    }
+    
+    public final String GetCurrentPlayerName()
+    {
+        return CurrentPlayer.GetPlayerName();
+    }
+    
+    public final int GetTotalAmountOfHighscores()
+    {
+        return TotalAmountOfUsers;
+    }
+    
+    /**
+     * Returns a sorted list, with the player and other players
+     * @return 
+     */
     public ArrayList<HighscorePlayer> OrderedListOfPlayers()
     {
         // ReturnList
@@ -86,8 +157,4 @@ public class HighscoreSystem
         return retList;
     }
     
-    public void DebugInfo()
-    {
-        
-    }
 }

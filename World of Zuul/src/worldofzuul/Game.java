@@ -514,7 +514,7 @@ public class Game {
                     wantToQuit = true;
                     break;
                 case "y":
-                    Application.newGame();
+                    Application.createGame();
                     break;
                 default:
                     System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");

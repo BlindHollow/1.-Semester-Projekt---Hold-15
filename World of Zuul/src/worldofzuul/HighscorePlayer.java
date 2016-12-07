@@ -10,52 +10,53 @@ package worldofzuul;
  * @author Fract
  */
 // Implements Comparable. used to sort a array
-public class HighscorePlayer implements Comparable<HighscorePlayer>
+public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
     private String Playername;
     private boolean isPlayer;
+    
     private int PlayerScore;
     private int Rank;
     
         // Accessors
             // Getters
-    public final String GetPlayername()
+    public String GetPlayerName()
     {
         return this.Playername;
     }
     
-    public final int GetPlayerScore()
+    public int GetPlayerScore()
     {
         return this.PlayerScore;
     }
     
-    public final int GetRank()
+    public int GetRank()
     {
         return this.Rank;
     }
     
-    public final boolean GetIsPlayer()
+    public boolean GetIsPlayer()
     {
         return isPlayer;
     }
     
         // Setters
-    public final void SetRank( int Rank )
+    public void SetRank( int Rank )
     {
         this.Rank = Rank;
     }
     
-    public final void SetPlayerScore( int Score )
+    public void SetPlayerScore( int Score )
     {
         this.PlayerScore = Score;
     }
     
-    public final void SetPlayerName( String name )
+    public void SetPlayerName( String name )
     {
         this.Playername = name;
     }
     
-    public final void SetIsPlayer( boolean isPlayer )
+    public void SetIsPlayer( boolean isPlayer )
     {
         this.isPlayer = isPlayer;
     }
@@ -80,11 +81,19 @@ public class HighscorePlayer implements Comparable<HighscorePlayer>
         PlayerScore = Score;
     }
     
+    public HighscorePlayer(String Name, int Score, boolean isPlayer)
+    {
+        this( Name, Score );
+        
+        this.isPlayer = isPlayer;
+    }
+    
+    
     // Implementations
     @Override
     public int compareTo( HighscorePlayer object )
     {
-        return object.PlayerScore - this.GetPlayerScore();
+        return object.GetPlayerScore() - this.GetPlayerScore();
     }
     
 } // End Class
