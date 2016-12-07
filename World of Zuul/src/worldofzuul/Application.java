@@ -11,11 +11,11 @@ class Application {
     // Entry function, for the Java Program
     public static void main(String[] Args) {
 
-        newGame();
+        createGame();
 
     }
 
-    public static void newGame() {
+    public static void createGame() {
         detvirker = new Game();
         detvirker.newGame(); //Creates a new game and starts it.
     }
