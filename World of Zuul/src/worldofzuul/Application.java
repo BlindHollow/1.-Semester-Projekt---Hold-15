@@ -24,7 +24,9 @@ class Application {
 
     public static void newGame() {
         detvirker = new Game();
-        detvirker.newGame(); //Creates a new game and starts it.
+        Scanner keyboard = new Scanner(System.in);
+        String playerName = keyboard.nextLine();
+        detvirker.newGame(playerName); //Creates a new game and starts it.
     }
 
     public static void loadGame(File file) throws IOException {

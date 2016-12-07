@@ -41,13 +41,13 @@ public class Game {
 
     }
 
-    public void newGame() {
+    public void newGame(String playerName) {
         degenFactor = 5;
         createRooms();
         addNeighbours();
         createItems();
         placeItems();
-        player = new Player("Bob");
+        player = new Player(playerName);
         play();
     }
 
@@ -123,11 +123,11 @@ public class Game {
         try (BufferedReader read = new BufferedReader(new FileReader(file))) {
             while (read.ready()) {
                 String playerState = read.readLine();
-                String[] playerAtributes = playerState.split(",");
-                player = new Player(playerAtributes[0], Integer.parseInt(playerAtributes[1]), Integer.parseInt(playerAtributes[2]), Integer.parseInt(playerAtributes[3]),
-                        Integer.parseInt(playerAtributes[4]));
-                currentRoom = allowedRooms.get(playerAtributes[6]);
-                degenFactor = Integer.parseInt(playerAtributes[5]);
+                String[] playerAttributes = playerState.split(",");
+                player = new Player(playerAttributes[0], Integer.parseInt(playerAttributes[1]), Integer.parseInt(playerAttributes[2]), Integer.parseInt(playerAttributes[3]),
+                        Integer.parseInt(playerAttributes[4]));
+                currentRoom = allowedRooms.get(playerAttributes[6]);
+                degenFactor = Integer.parseInt(playerAttributes[5]);
                 String inventoryLine = read.readLine();
                 if (inventoryLine.equals("no items")) {
                     System.out.println("No items in inventory");
@@ -157,6 +157,7 @@ public class Game {
                         Room temp = allowedRooms.get(room);
                         //System.out.println(room);
                         System.out.println(temp.getName());
+                        rooms.add(temp);
                         while (true) {
                             String exit = read.readLine();
                             //System.out.println(exit);
