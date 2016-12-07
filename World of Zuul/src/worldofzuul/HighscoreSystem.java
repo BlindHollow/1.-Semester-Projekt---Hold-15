@@ -51,6 +51,8 @@ public class HighscoreSystem
                                                       Score, 
                                                       false );
         
+        System.out.println("Name, Score:" + Name + ", " + Integer.toString(Score));
+        
         if( ExactUser( Name ) == true )
         {
             return false;

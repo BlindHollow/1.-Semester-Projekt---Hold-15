@@ -7,6 +7,7 @@ package worldofzuul;
 
 import java.util.*;
 import java.io.*;
+import java.nio.file.Files;
 
 /**
  *
@@ -66,9 +67,7 @@ public class Highscore extends HighscoreSystem
        builder.append( GetCurrentPlayerName() );
        builder.append( ',' );
        builder.append( Integer.toString( GetCurrentPlayerPoints() ) );
-       
-       hsDebug.Output( builder.toString(), Debug );
-       
+              
        File file = new File( HS_Database + "\\" + GetCurrentPlayerName() );
        
        try
@@ -90,7 +89,31 @@ public class Highscore extends HighscoreSystem
      */
     public final void LoadPlayers()
     {
-
+        File f = new File( HS_Database );
+        
+        File[] listed = hsFiles.ListFiles( f );
+        
+        for( File a : listed )
+        {
+            try
+            {
+                List<String> s = Files.readAllLines( a.toPath() );
+                
+                for( String b : s )
+                {
+                    String[] result = b.split( "," );
+                    
+                    AddPlayers( result[0], Integer.parseInt( result[1] ) );  
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                        
+            }
+            
+        }
+        
         
     }
     
@@ -247,7 +270,7 @@ public class Highscore extends HighscoreSystem
         
     }
     
-    private static class hsFiles
+    private static class hsFiles implements FileFilter 
     {
         
        public static boolean Create( File filePath )
@@ -303,6 +326,32 @@ public class Highscore extends HighscoreSystem
            }
 
            return false;
+       }
+       
+       @Override
+       public boolean accept( File f )
+       {
+           return f.isFile();
+       }
+       
+       public static File[] ListFiles( File directory )
+       {
+           ArrayList<File> fileList = new ArrayList();
+        
+           try
+           {
+               File[] files = null;
+               
+               files = directory.listFiles( new hsFiles() );
+               
+               return files;
+           }
+           catch( Exception ex )
+           {
+               
+           }
+               
+           return null;
        }
        
     }

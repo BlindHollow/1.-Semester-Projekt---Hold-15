@@ -24,11 +24,8 @@ public class Player {
      * illness gauges.
      */
     public Player() {
-        highscore = new Highscore("SørenHansen");
-        
-        highscore.SetCurrentPlayerPoints( 425 );
+        highscore = new Highscore("player");
         highscore.SetDebug(true);
-        highscore.SaveCurrentCharacter( );
         
         this.health = 100;
         this.hunger = 100;
