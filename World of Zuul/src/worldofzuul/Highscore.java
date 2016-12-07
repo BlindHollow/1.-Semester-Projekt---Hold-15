@@ -27,10 +27,10 @@ public class Highscore extends HighscoreSystem
     {
         SetCurrentPlayerName( "player" );
         
-        if( hsDirectories.Exist( new File( HS_Database ) ) == false )
+        if( worldofzuul.IO.Directories.Exist( new File( HS_Database ) ) == false )
         {
-            hsDirectories.Create( HS_Database, 
-                                  true );
+            worldofzuul.IO.Directories.Create( HS_Database, 
+                                               true );
         }
         
     }
@@ -91,7 +91,7 @@ public class Highscore extends HighscoreSystem
     {
         File f = new File( HS_Database );
         
-        File[] listed = hsFiles.ListFiles( f );
+        File[] listed = worldofzuul.IO.List.ListFiles( f );
         
         for( File user : listed )
         {
@@ -196,30 +196,6 @@ public class Highscore extends HighscoreSystem
             }
             
         }
-    } // End hsDebug
-    
-    private static class hsDirectories
-    {
-        public static boolean Create(String Path, boolean CreateParents)
-        {
-            File f = new File(Path);
-            
-            return Create(f, CreateParents);
-        }
-        
-       
-        
-    }
-    
-    private static class hsFiles implements FileFilter 
-    {
-        
-       
-       
-       
-       
-       
-       
-    }
-    
+    } // End hsDebug    
+
 }  // End Class Main

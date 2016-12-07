@@ -13,6 +13,13 @@ import java.io.File;
  */
 public class Directories 
 {
+        public static boolean Create(String Path, boolean CreateParents)
+        {
+            File f = new File(Path);
+            
+            return Create(f, CreateParents);
+        }
+    
         public static boolean Create( File Path, boolean createParents )
         {
            try

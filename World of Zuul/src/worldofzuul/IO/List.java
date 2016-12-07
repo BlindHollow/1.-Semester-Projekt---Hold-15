@@ -7,7 +7,6 @@ package worldofzuul.IO;
 
 import java.io.File;
 import java.util.ArrayList;
-import worldofzuul.Highscore;
 
 /**
  *
@@ -23,7 +22,7 @@ public class List
            {
                File[] files = null;
                
-               files = directory.listFiles( new Highscore.hsFiles() );
+               files = directory.listFiles( new worldofzuul.IO.FileFilters.Files() );
                
                return files;
            }
