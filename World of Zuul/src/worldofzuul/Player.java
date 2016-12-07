@@ -24,8 +24,11 @@ public class Player {
      * illness gauges.
      */
     public Player() {
-        highscore = new Highscore();
-        highscore.LoadPlayers();
+        highscore = new Highscore("@Dwarf@");
+        
+        highscore.SetCurrentPlayerPoints( 2342 );
+        highscore.SetDebug(true);
+        highscore.SaveCurrentCharacter( );
         
         this.health = 100;
         this.hunger = 100;

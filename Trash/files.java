@@ -197,22 +197,5 @@
            return Exist( f );
        }
 
-       public static boolean Exist( File Path )
-       {
-           try
-           {
-               if( Path.isDirectory() )
-               {
-                   return Path.exists();
-               }
-           }
-           catch( Exception Ex )
-           {
-
-           }
-
-           return false;
-       }
-
+       
    } // End Class hDirectories
-   
