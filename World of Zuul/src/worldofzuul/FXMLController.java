@@ -87,7 +87,7 @@ public class FXMLController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void quitGame(ActionEvent event) throws IOException {
         Stage stage;
@@ -96,23 +96,44 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void coordCheck(MouseEvent event
-    ) {
-    }
-
-    @FXML
     private void onMouseClicked(MouseEvent event) {
-        if (event.getX() < 50 && event.getX() > 0) {
+        if (event.getX() < 50 && event.getX() > 0 && event.getY() < 365 && event.getY() > 315) {
+            NewFXMain.spil.goRoom("west");
             tempLabel.setText("You walked west");
             updateStats();
-        } else if (event.getX() < 1000 && event.getX() > 950) {
+        } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 365 && event.getY() > 315) {
+            NewFXMain.spil.goRoom("east");
             tempLabel.setText("You walked east");
             updateStats();
+        } else if (event.getX() < 525 && event.getX() > 475 && event.getY() < 50 && event.getY() > 0) {
+            NewFXMain.spil.goRoom("north");
+            tempLabel.setText("You walked north");
+            updateStats();
+        } else if (event.getX() < 525 && event.getX() > 475 && event.getY() < 680 && event.getY() > 630) {
+            NewFXMain.spil.goRoom("south");
+            tempLabel.setText("You walked south");
+            updateStats();
+        } else if (event.getX() < 50 && event.getX() > 0 && event.getY() < 50 && event.getY() > 0) {
+            NewFXMain.spil.goRoom("northwest");
+            tempLabel.setText("You walked northwest");
+            updateStats();
+        } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 50 && event.getY() > 0) {
+            NewFXMain.spil.goRoom("northeast");
+            tempLabel.setText("You walked northeast");
+            updateStats();
+        } else if (event.getX() < 50 && event.getX() > 0 && event.getY() < 680 && event.getY() > 630) {
+            NewFXMain.spil.goRoom("southwest");
+            tempLabel.setText("You walked southwest");
+            updateStats();
+        } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 680 && event.getY() > 630) {
+            NewFXMain.spil.goRoom("southeast");
+            tempLabel.setText("You walked southeast");
+            updateStats();
         }
+
     }
 
     private void updateStats() {
-        NewFXMain.spil.player.degenHungerAndThirst(10);
         double passnumber = NewFXMain.spil.player.getThirst();
         this.thirstbar.setProgress(passnumber / 100);
         passnumber = NewFXMain.spil.player.getHunger();

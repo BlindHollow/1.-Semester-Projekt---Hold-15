@@ -43,7 +43,7 @@
             </AnchorPane>
          </children>
       </VBox>
-      <AnchorPane onMouseClicked="#onMouseClicked" onMouseMoved="#coordCheck" HBox.hgrow="ALWAYS">
+      <AnchorPane onMouseClicked="#onMouseClicked" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="tempLabel" layoutX="333.0" layoutY="290.0" text="Label" />
             <Button fx:id="mainBtn" layoutX="169.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Go back to intro scene" />

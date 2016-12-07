@@ -244,7 +244,7 @@ public class Game {
                     printHelp();
                     break;
                 case GO:
-                    goRoom(command);
+                    goRoom("hej");
                     break;
                 case STATUS:
                     player.getStatus();
@@ -294,43 +294,8 @@ public class Game {
         parser.showCommands();
     }
 
-    private void goRoom(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("Go where?");
-            return;
-        }
-        String direction = command.getSecondWord();
-        if (null != command.getCommandWord());
-        switch (command.getSecondWord()) { //Allows abbreviations for directions.
-            case "ne":
-                direction = "northeast";
-                break;
-            case "nw":
-                direction = "northwest";
-                break;
-            case "se":
-                direction = "southeast";
-                break;
-            case "sw":
-                direction = "southwest";
-                break;
-            case "n":
-                direction = "north";
-                break;
-            case "s":
-                direction = "south";
-                break;
-            case "e":
-                direction = "east";
-                break;
-            case "w":
-                direction = "west";
-                break;
-
-            default:
-                break;
-        }
-
+    public void goRoom(String direction) {
+        
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
@@ -348,6 +313,7 @@ public class Game {
             if (currentRoom == pub && !hasBeenInPub) {
                 sewer();
             }
+            
             if (noteFound) {
                 movePilot();
             }
