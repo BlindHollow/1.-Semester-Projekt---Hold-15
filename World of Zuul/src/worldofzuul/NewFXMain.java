@@ -40,6 +40,7 @@ public class NewFXMain extends Application {
         stage.setTitle("World of Zuul - The Game");
         stage.show();
         stage.setResizable(false);
+        stage.sizeToScene();
     }
 
     /**
