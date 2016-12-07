@@ -196,7 +196,7 @@ public class Highscore extends HighscoreSystem
             }
             
         }
-    }
+    } // End hsDebug
     
     private static class hsDirectories
     {
