@@ -13,19 +13,14 @@ import java.util.*;
  */
 public class Highscore extends HighscoreSystem 
 {
-    private Registry register = new Registry( ".\\Highschool.rg" );
        
     /**
      * 
      */
     public Highscore()
     {
+        
         SetCurrentPlayerName( "player" );
-        
-        String[] keyValues = { "username", 
-                               "highscore" };
-        
-        register.AddKeys( keyValues );
         
     }
     
