@@ -24,9 +24,9 @@ public class Player {
      * illness gauges.
      */
     public Player() {
-        highscore = new Highscore("@Dwarf@");
+        highscore = new Highscore("SørenHansen");
         
-        highscore.SetCurrentPlayerPoints( 2342 );
+        highscore.SetCurrentPlayerPoints( 425 );
         highscore.SetDebug(true);
         highscore.SaveCurrentCharacter( );
         

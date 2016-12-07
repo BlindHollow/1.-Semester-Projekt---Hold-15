@@ -69,7 +69,20 @@ public class Highscore extends HighscoreSystem
        
        hsDebug.Output( builder.toString(), Debug );
        
-        return true;
+       File file = new File( HS_Database + "\\" + GetCurrentPlayerName() );
+       
+       try
+       {
+            PrintWriter pw = new PrintWriter( file, "UTF-8" );
+            pw.println( builder.toString() );
+            pw.close();
+       }
+       catch( Exception ex )
+       {
+            return false;   
+       }
+       
+       return true;
     }
     
     /**
@@ -104,19 +117,16 @@ public class Highscore extends HighscoreSystem
             */
         public static boolean ParseCharacters( String InputName )
         {
-            System.out.println("asd \r\n");
             //
             boolean Continue = false;
             
             for( char c : InputName.toCharArray() )
             {
-                System.out.println("Allowed:" + c);
                 Continue = AllowedCharacter( c );
 
                 if( Continue == false )
                     return false;
             }
-            hsDebug.Output("", true);
 
             return true;
         } // End ParseCharacters
@@ -140,8 +150,8 @@ public class Highscore extends HighscoreSystem
                 return true;
             }
             
-            if( inputValue == '-' && 
-                inputValue == '_')
+            if( (inputValue == '-') || 
+                (inputValue == '_') )
             {
                 return true;
             }
@@ -239,6 +249,7 @@ public class Highscore extends HighscoreSystem
     
     private static class hsFiles
     {
+        
        public static boolean Create( File filePath )
        {
 
