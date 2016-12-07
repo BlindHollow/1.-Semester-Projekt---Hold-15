@@ -93,21 +93,22 @@ public class Highscore extends HighscoreSystem
         
         File[] listed = hsFiles.ListFiles( f );
         
-        for( File a : listed )
+        for( File user : listed )
         {
             try
             {
-                List<String> s = Files.readAllLines( a.toPath() );
+                List<String> lines = Files.readAllLines( user.toPath() );
                 
-                for( String b : s )
+                for( String line : lines )
                 {
-                    String[] result = b.split( "," );
+                    String[] result = line.split( "," );
                     
-                    AddPlayers( result[0], Integer.parseInt( result[1] ) );  
+                    AddPlayers( result[0], 
+                                Integer.parseInt( result[1] ) );  
                 }
                 
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
                         
             }

@@ -93,7 +93,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     @Override
     public int compareTo( HighscorePlayer object )
     {
-        return this.GetPlayerScore() - object.GetPlayerScore();
+        return object.GetPlayerScore() - this.GetPlayerScore();
     }
     
 } // End Class

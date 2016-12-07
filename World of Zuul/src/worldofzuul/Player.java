@@ -1,5 +1,6 @@
 package worldofzuul; //NETBEANS
 
+import java.util.*;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -26,6 +27,11 @@ public class Player {
     public Player() {
         highscore = new Highscore("player");
         highscore.SetDebug(true);
+        
+        ArrayList<HighscorePlayer> players = highscore.OrderedListOfPlayers();
+        for(HighscorePlayer p : players)
+            System.out.println("Name, Score:" + p.GetPlayerName() + ", " + Integer.toString(p.GetPlayerScore()));
+        
         
         this.health = 100;
         this.hunger = 100;
