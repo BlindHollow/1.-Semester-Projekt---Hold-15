@@ -19,10 +19,10 @@
                 <DropShadow />
             </effect>
         </Label>
-        <Button fx:id="btnContinue" layoutX="138.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Continue Game" />
+        <Button fx:id="btnContinue" layoutX="138.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Continue Game" disable="true" />
         <Button fx:id="btnNewGame" layoutX="138.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleButtonAction" text="New Game" />
         <Button fx:id="btnQuit" layoutX="138.0" layoutY="326.0" mnemonicParsing="false" onAction="#quitGame" text="Quit" />
-      <Label layoutX="359.0" layoutY="192.0" text="&lt;-- Works, but just loads the game" textFill="#b9ad2a" />
+      <Label layoutX="359.0" layoutY="192.0" text="&lt;-- Add continue function, when save.txt is present" textFill="#b9ad2a" />
       <Label layoutX="359.0" layoutY="270.0" text="&lt;-- Works" textFill="#b9ad2a" />
       <Label layoutX="253.0" layoutY="346.0" text="&lt;-- Works" textFill="#b9ad2a" />
         

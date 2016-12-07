@@ -47,6 +47,7 @@
          <children>
             <Label fx:id="tempLabel" layoutX="333.0" layoutY="290.0" text="Label" />
             <Button fx:id="mainBtn" layoutX="169.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Go back to intro scene" />
+            <Button fx:id="btnQuit" layoutX="138.0" layoutY="326.0" mnemonicParsing="false" onAction="#quitGame" text="Quit" />
          </children>
       </AnchorPane>
    </children>

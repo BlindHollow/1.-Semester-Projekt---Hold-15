@@ -90,9 +90,8 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void quitGame(ActionEvent event) throws IOException {
-        Stage stage;
-        stage = (Stage) btnQuit.getScene().getWindow();
-        stage.hide();
+        //hider scenen, og slukker spillet
+        btnQuit.getScene().getWindow().hide();
     }
 
     @FXML
