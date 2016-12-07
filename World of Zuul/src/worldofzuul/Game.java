@@ -111,7 +111,7 @@ public class Game {
             }
             writer.write("endfile");
             writer.close();
-            
+
         } catch (IOException e) {
             System.out.println("File could not be written");
         }
@@ -150,10 +150,10 @@ public class Game {
                 while (moreRoomsToLoad) {
                     String room = read.readLine();
                     if (room.equals("endfile")) {
-                            System.out.println("load complete");
-                            break;
+                        System.out.println("load complete");
+                        break;
                     }
-                    while (!room.equals("endroom")) {   
+                    while (!room.equals("endroom")) {
                         Room temp = allowedRooms.get(room);
                         //System.out.println(room);
                         System.out.println(temp.getName());
@@ -168,7 +168,7 @@ public class Game {
                                 String[] exitDirection = exit.split(",");
                                 //System.out.println(exitDirection[0] + exitDirection[1]);
                                 temp.setExit(exitDirection[0], allowedRooms.get(exitDirection[1]));
-                                
+
                             }
                         }
                         String itemString = read.readLine();
@@ -191,9 +191,8 @@ public class Game {
 
                         room = read.readLine();
                         //System.out.println(room + "\n");
-                    }                        
-                
-                        
+                    }
+
                 }
                 read.close();
                 play();
