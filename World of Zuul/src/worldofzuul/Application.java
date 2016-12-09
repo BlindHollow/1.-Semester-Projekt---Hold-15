@@ -6,7 +6,7 @@ package worldofzuul;
  */
 class Application {
 
-    private static Game detvirker;
+    private static Game game;
 
     // Entry function, for the Java Program
     public static void main(String[] Args) {
@@ -16,8 +16,8 @@ class Application {
     }
 
     public static void createGame() {
-        detvirker = new Game();
-        detvirker.newGame(); //Creates a new game and starts it.
+        game = new Game();
+        game.newGame(); //Creates a new game and starts it.
     }
 
 } // Class Application
