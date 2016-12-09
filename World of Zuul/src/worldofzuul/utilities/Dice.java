@@ -25,8 +25,8 @@ public class Dice
     public final void edit( int begin, 
                             int end )
     {
-        this.Begin = begin;
-        this.End = end;
+        setBegin( begin );
+        setEnd( end );
     }
     
     // Public Accessors
