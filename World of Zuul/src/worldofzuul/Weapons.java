@@ -18,7 +18,7 @@ public class Weapons extends Items {
     
     private int CritDmg( int dmg )
     {
-        int r = RandChange.Calculate();
+        int r = RandChange.calculate();
         
         if( r <= 45 && r >= 55 )
         {

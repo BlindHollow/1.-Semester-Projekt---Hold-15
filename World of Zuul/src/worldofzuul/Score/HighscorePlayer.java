@@ -27,22 +27,22 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     
         // Accessors
             // Getters
-    public String GetPlayerName()
+    public String getPlayerName()
     {
         return this.Playername;
     }
     
-    public int GetPlayerScore()
+    public int getPlayerScore()
     {
         return this.PlayerScore;
     }
     
-    public int GetRank()
+    public int getRank()
     {
         return this.Rank;
     }
     
-    public boolean GetPOI()
+    public boolean getPOI()
     {
         boolean currentState = this.PersonOfInterest;
         
@@ -54,22 +54,22 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     }
     
         // Setters
-    public void SetRank( int Rank )
+    public void setRank( int Rank )
     {
         this.Rank = Rank;
     }
     
-    public void SetPOI( boolean PersonOfInterestState )
+    public void setPOI( boolean PersonOfInterestState )
     {
         this.PersonOfInterest = PersonOfInterestState;
     }
     
-    public void SetPlayerScore( int Score )
+    public void setPlayerScore( int Score )
     {
         this.PlayerScore = Score;
     }
     
-    public void SetPlayerName( String name )
+    public void setPlayerName( String name )
     {
         this.Playername = name;
     }
@@ -77,14 +77,14 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     // Init
     public HighscorePlayer()
     {
-        this.SetPlayerScore(0);
+        this.setPlayerScore(0);
     }
     
     public HighscorePlayer( String Name )
     {
         this();
         
-        this.SetPlayerName( Name );
+        this.setPlayerName( Name );
     }
     
     public HighscorePlayer( String Name, int Score )
@@ -98,7 +98,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     @Override
     public int compareTo( HighscorePlayer object )
     {
-        return object.GetPlayerScore() - this.GetPlayerScore();
+        return object.getPlayerScore() - this.getPlayerScore();
     }
     
 } // End Class

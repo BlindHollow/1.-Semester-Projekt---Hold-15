@@ -28,12 +28,12 @@ public class HighscoreUser
     // Setters
     public void SetPlayerName( String name )
     {
-        Player.SetPlayerName( name );
+        Player.setPlayerName( name );
     }
     
     public void SetPlayerScore( int Score )
     {
-        Player.SetPlayerScore( Score );
+        Player.setPlayerScore( Score );
     }
     
     public void SetIsPlayer( boolean inputState )
@@ -43,7 +43,7 @@ public class HighscoreUser
     
     public void SetRank( int r )
     {
-        Player.SetRank( r );
+        Player.setRank( r );
     }
     
     // Getters
@@ -54,17 +54,17 @@ public class HighscoreUser
     
     public String GetPlayerName()
     {
-        return Player.GetPlayerName();
+        return Player.getPlayerName();
     }
     
     public int GetPlayerScore()
     {
-        return Player.GetPlayerScore();
+        return Player.getPlayerScore();
     }
     
     public int GetPlayerRank()
     {
-        return Player.GetRank();
+        return Player.getRank();
     }
     
     // Object

@@ -143,7 +143,7 @@ public class Room {
         if( Spawnable == true )
         {
         
-            int rValue = SpawnChance.Calculate();
+            int rValue = SpawnChance.calculate();
         
             if( rValue >= 20 && 
                 rValue <= 80 )
