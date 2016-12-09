@@ -46,7 +46,7 @@ public class Highscore extends HighscoreSystem
     {
         this();
         
-        if( hsText.ParseCharacters( name ) == false )
+        if( hsText.parseCharacters( name ) == false )
         {
             return;
         }
@@ -141,7 +141,7 @@ public class Highscore extends HighscoreSystem
             * @param InputName
             * @return 
             */
-        public static boolean ParseCharacters( String InputName )
+        public static boolean parseCharacters( String InputName )
         {
             //
             boolean Continue;
@@ -190,7 +190,7 @@ public class Highscore extends HighscoreSystem
     
     private static class hsDebug
     {
-        public static void Output( String Text, boolean DebugState )
+        public static void output( String Text, boolean DebugState )
         {
             
             if( DebugState == true )
