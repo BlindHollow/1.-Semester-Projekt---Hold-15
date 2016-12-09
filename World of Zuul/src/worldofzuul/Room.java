@@ -9,7 +9,13 @@ import java.util.Iterator;
  * This class contains information about the rooms.
  * A room consists of a description string and three seperate hashmaps containng information about what exits a given room has,
  * what items are placed in it and whether there are zombies in the room and if yes, which zombies there are.
- *
+ 
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Room {
     private boolean lock = false;

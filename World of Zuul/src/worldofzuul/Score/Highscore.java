@@ -5,13 +5,14 @@
  */
 package worldofzuul.score;
 
-import java.util.*;
-import java.io.*;
+import java.util.List;
+import java.io.File;
+import java.io.PrintWriter;
 import java.nio.file.Files;
-import worldofzuul.misc.directories;
+import worldofzuul.misc.Directories;
 
 /**
- *
+
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -30,9 +31,9 @@ public class Highscore extends HighscoreSystem
     {
         setCurrentPlayerName( "player" );
         
-        if( worldofzuul.IO.Directories.exist( new File( directories.HighscoreTable ) ) == false )
+        if( worldofzuul.IO.Directories.exist(new File( Directories.HighscoreTable ) ) == false )
         {
-            worldofzuul.IO.Directories.create( directories.HighscoreTable, 
+            worldofzuul.IO.Directories.create(Directories.HighscoreTable, 
                                                true );
         }
         
@@ -71,7 +72,7 @@ public class Highscore extends HighscoreSystem
        builder.append( ',' );
        builder.append( Integer.toString( getCurrentPlayerPoints() ) );
               
-       File file = new File( directories.HighscoreTable + "\\" + getCurrentPlayerName() );
+       File file = new File( Directories.HighscoreTable + "\\" + getCurrentPlayerName() );
        
        try
        {
@@ -92,7 +93,7 @@ public class Highscore extends HighscoreSystem
      */
     public final void loadPlayers()
     {
-        File playerFilesDirectory = new File( directories.HighscoreTable );
+        File playerFilesDirectory = new File( Directories.HighscoreTable );
         File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
         for( File user : listedPlayerFiles )

@@ -6,12 +6,17 @@
 package worldofzuul.misc;
 
 /**
- *
- * @author Fract
+
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
-public final class directories 
+public final class Directories 
 {
-    public static String DBpath = ".\\db";
+    public static final String DBpath = ".\\db";
     
     public static String ZombieNamesPath = DBpath + "\\Zombies";
     public static String HighscoreTable  = DBpath + "\\Highscore";

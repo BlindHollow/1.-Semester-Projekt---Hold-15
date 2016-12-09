@@ -3,7 +3,10 @@ package worldofzuul;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -15,6 +18,13 @@ import java.util.Random;
  * commandwords from the user. As long as the command is not quit and the player
  * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
  * end.
+
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Game {
 
