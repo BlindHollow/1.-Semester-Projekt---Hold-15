@@ -3,6 +3,12 @@ package worldofzuul;
 /**
  * Contains information about the zombies in the game
  * (Can possibly inherit from player?)
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 
 import java.io.*;
