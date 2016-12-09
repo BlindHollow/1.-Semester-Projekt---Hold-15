@@ -18,11 +18,12 @@ package worldofzuul.Score;
 // Implements Comparable. used to sort a array
 public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
-    private String Playername;
-    private boolean isPlayer;
+    private String Playername = null;
     
-    private int PlayerScore;
-    private int Rank;
+    private boolean PersonOfInterest = false;
+    
+    private int PlayerScore = 0;
+    private int Rank        = 0;
     
         // Accessors
             // Getters
@@ -41,15 +42,26 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
         return this.Rank;
     }
     
-    public boolean GetIsPlayer()
+    public boolean GetPOI()
     {
-        return isPlayer;
+        boolean currentState = this.PersonOfInterest;
+        
+        // Reset's it.
+        if( this.PersonOfInterest == true )
+            this.PersonOfInterest = false;
+        
+        return currentState;
     }
     
         // Setters
     public void SetRank( int Rank )
     {
         this.Rank = Rank;
+    }
+    
+    public void SetPOI( boolean PersonOfInterestState )
+    {
+        this.PersonOfInterest = PersonOfInterestState;
     }
     
     public void SetPlayerScore( int Score )
@@ -60,11 +72,6 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     public void SetPlayerName( String name )
     {
         this.Playername = name;
-    }
-    
-    public void SetIsPlayer( boolean isPlayer )
-    {
-        this.isPlayer = isPlayer;
     }
     
     // Init
@@ -86,14 +93,6 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
         
         PlayerScore = Score;
     }
-    
-    public HighscorePlayer(String Name, int Score, boolean isPlayer)
-    {
-        this( Name, Score );
-        
-        this.isPlayer = isPlayer;
-    }
-    
     
     // Implementations
     @Override
