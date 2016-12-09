@@ -19,10 +19,10 @@ import java.util.*;
 
 public class HighscoreSystem
 {
-    private HighscoreUser User = new HighscoreUser();
-    private ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
+    private HighscoreUser user = new HighscoreUser();
+    private ArrayList<HighscorePlayer> listOfPriorUserScores = new ArrayList();
     
-    private int TotalAmountOfUsers = 0;
+    private int totalAmountOfUsers = 0;
     
     /**
      * 
@@ -30,8 +30,8 @@ public class HighscoreSystem
      */
     public HighscoreSystem( )
     {
-        User.SetPlayerName( "Player" );
-        User.SetIsPlayer( true );
+        user.setPlayerName( "Player" );
+        user.setIsPlayer( true );
     }
     
     /**
@@ -61,7 +61,7 @@ public class HighscoreSystem
         }
         else
         {
-            ListOfPriorUserScores.add( player );
+            listOfPriorUserScores.add( player );
             return true;
         }
         
@@ -74,12 +74,12 @@ public class HighscoreSystem
      */
     private boolean exactUser( String Name )
     {
-        if( Name.equalsIgnoreCase( User.GetPlayerName() ) )
+        if( Name.equalsIgnoreCase( user.getPlayerName() ) )
             return true;
         
-        for( HighscorePlayer current : ListOfPriorUserScores )
+        for( HighscorePlayer current : listOfPriorUserScores )
         {
-            if( Name.equalsIgnoreCase( User.GetPlayerName() ) )
+            if( Name.equalsIgnoreCase( user.getPlayerName() ) )
             {
                 return true;
             }
@@ -94,7 +94,7 @@ public class HighscoreSystem
      */
     public final void addCurrentPlayerPoints( int Number )
     {
-        User.SetPlayerScore( getCurrentPlayerPoints() + Number );
+        user.setPlayerScore( getCurrentPlayerPoints() + Number );
     }
     
     
@@ -104,7 +104,7 @@ public class HighscoreSystem
      */
     public final void setCurrentPlayerPoints( int Number )
     {
-        User.SetPlayerScore( Number );
+        user.setPlayerScore( Number );
     }
     
     /**
@@ -113,7 +113,7 @@ public class HighscoreSystem
      */
     public final void removeCurrentPlayerPoints( int Number )
     {
-        User.SetPlayerScore( getCurrentPlayerPoints() - Number );
+        user.setPlayerScore( getCurrentPlayerPoints() - Number );
         
     }
     
@@ -124,22 +124,22 @@ public class HighscoreSystem
      */
     public final int getCurrentPlayerPoints()
     {
-        return User.GetPlayerScore();
+        return user.getPlayerScore();
     }
     
     public final void setCurrentPlayerName( String name )
     {
-        User.SetPlayerName( name );
+        user.setPlayerName( name );
     }
     
     public final String getCurrentPlayerName()
     {
-        return User.GetPlayerName();
+        return user.getPlayerName();
     }
     
     public final int getTotalAmountOfHighscores()
     {
-        return TotalAmountOfUsers;
+        return totalAmountOfUsers;
     }
     
     /**
@@ -152,8 +152,8 @@ public class HighscoreSystem
         ArrayList<HighscorePlayer> retList = new ArrayList();
         
         // Adds Everybody
-        retList.addAll( ListOfPriorUserScores );
-        retList.add( User.GetPlayerObject() );
+        retList.addAll( listOfPriorUserScores );
+        retList.add( user.getPlayerObject() );
         
         // Sortere Listen
         Collections.sort( retList );

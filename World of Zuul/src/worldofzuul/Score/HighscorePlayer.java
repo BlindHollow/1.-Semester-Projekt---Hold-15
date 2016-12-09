@@ -18,37 +18,37 @@ package worldofzuul.Score;
 // Implements Comparable. used to sort a array
 public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
-    private String Playername = null;
+    private String playerName = null;
     
-    private boolean PersonOfInterest = false;
+    private boolean personOfInterest = false;
     
-    private int PlayerScore = 0;
-    private int Rank        = 0;
+    private int playerScore = 0;
+    private int rank        = 0;
     
         // Accessors
             // Getters
     public String getPlayerName()
     {
-        return this.Playername;
+        return this.playerName;
     }
     
     public int getPlayerScore()
     {
-        return this.PlayerScore;
+        return this.playerScore;
     }
     
     public int getRank()
     {
-        return this.Rank;
+        return this.rank;
     }
     
     public boolean getPOI()
     {
-        boolean currentState = this.PersonOfInterest;
+        boolean currentState = this.personOfInterest;
         
         // Reset's it.
-        if( this.PersonOfInterest == true )
-            this.PersonOfInterest = false;
+        if( this.personOfInterest == true )
+            this.personOfInterest = false;
         
         return currentState;
     }
@@ -56,22 +56,22 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
         // Setters
     public void setRank( int Rank )
     {
-        this.Rank = Rank;
+        this.rank = Rank;
     }
     
     public void setPOI( boolean PersonOfInterestState )
     {
-        this.PersonOfInterest = PersonOfInterestState;
+        this.personOfInterest = PersonOfInterestState;
     }
     
     public void setPlayerScore( int Score )
     {
-        this.PlayerScore = Score;
+        this.playerScore = Score;
     }
     
     public void setPlayerName( String name )
     {
-        this.Playername = name;
+        this.playerName = name;
     }
     
     // Init
@@ -91,7 +91,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     {
         this( Name );
         
-        PlayerScore = Score;
+        playerScore = Score;
     }
     
     // Implementations

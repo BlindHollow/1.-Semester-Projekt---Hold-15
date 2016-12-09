@@ -17,8 +17,8 @@ package worldofzuul.Score;
 public class HighscoreUser 
 {
     
-    private boolean IsPlayer = false;
-    private HighscorePlayer Player = new HighscorePlayer();
+    private boolean isPlayer = false;
+    private HighscorePlayer player = new HighscorePlayer();
     
     public HighscoreUser()
     {
@@ -26,51 +26,51 @@ public class HighscoreUser
     }
     
     // Setters
-    public void SetPlayerName( String name )
+    public void setPlayerName( String name )
     {
-        Player.setPlayerName( name );
+        player.setPlayerName( name );
     }
     
-    public void SetPlayerScore( int Score )
+    public void setPlayerScore( int Score )
     {
-        Player.setPlayerScore( Score );
+        player.setPlayerScore( Score );
     }
     
-    public void SetIsPlayer( boolean inputState )
+    public void setIsPlayer( boolean inputState )
     {
-        IsPlayer = inputState;
+        isPlayer = inputState;
     }
     
-    public void SetRank( int r )
+    public void setRank( int r )
     {
-        Player.setRank( r );
+        player.setRank( r );
     }
     
     // Getters
-    public boolean GetIsPlayer()
+    public boolean getIsPlayer()
     {
-        return IsPlayer;
+        return isPlayer;
     }
     
-    public String GetPlayerName()
+    public String getPlayerName()
     {
-        return Player.getPlayerName();
+        return player.getPlayerName();
     }
     
-    public int GetPlayerScore()
+    public int getPlayerScore()
     {
-        return Player.getPlayerScore();
+        return player.getPlayerScore();
     }
     
-    public int GetPlayerRank()
+    public int getPlayerRank()
     {
-        return Player.getRank();
+        return player.getRank();
     }
     
     // Object
-    public HighscorePlayer GetPlayerObject()
+    public HighscorePlayer getPlayerObject()
     {
-        return Player;
+        return player;
     }
     
 }

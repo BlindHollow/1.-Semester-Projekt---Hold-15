@@ -20,10 +20,10 @@ import java.nio.file.Files;
  */
 public class Highscore extends HighscoreSystem 
 {
-    private boolean Debug = false;
+    private boolean debug = false;
     
-    private final String DatabasePath = ".\\db";
-    private final String HS_Database = DatabasePath + "\\Highscore";
+    private final String databasePath = ".\\db";
+    private final String hsDatabase = databasePath + "\\Highscore";
     
     /**
      * 
@@ -32,9 +32,9 @@ public class Highscore extends HighscoreSystem
     {
         setCurrentPlayerName( "player" );
         
-        if( worldofzuul.IO.Directories.exist( new File( HS_Database ) ) == false )
+        if( worldofzuul.IO.Directories.exist( new File( hsDatabase ) ) == false )
         {
-            worldofzuul.IO.Directories.create( HS_Database, 
+            worldofzuul.IO.Directories.create( hsDatabase, 
                                                true );
         }
         
@@ -73,7 +73,7 @@ public class Highscore extends HighscoreSystem
        builder.append( ',' );
        builder.append( Integer.toString( getCurrentPlayerPoints() ) );
               
-       File file = new File( HS_Database + "\\" + getCurrentPlayerName() );
+       File file = new File( hsDatabase + "\\" + getCurrentPlayerName() );
        
        try
        {
@@ -94,7 +94,7 @@ public class Highscore extends HighscoreSystem
      */
     public final void loadPlayers()
     {
-        File playerFilesDirectory = new File( HS_Database );
+        File playerFilesDirectory = new File( hsDatabase );
         File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
         for( File user : listedPlayerFiles )
@@ -125,13 +125,13 @@ public class Highscore extends HighscoreSystem
     // Get
     public boolean getDebug()
     {
-        return this.Debug;
+        return this.debug;
     }
     
     // Set
     public void setDebug( boolean State )
     {
-        this.Debug = State;
+        this.debug = State;
     }
     
     // Functions ------------------------------------------------------------------------------------ //
