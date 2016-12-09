@@ -12,10 +12,11 @@ package worldofzuul;
  * @author Thy, Mads Heimdal
  */
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
 import worldofzuul.utilities.Dice;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Zombie {
     private String defaultName = "zombie";

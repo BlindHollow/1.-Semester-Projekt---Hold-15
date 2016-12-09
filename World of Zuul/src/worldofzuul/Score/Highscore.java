@@ -5,8 +5,9 @@
  */
 package worldofzuul.score;
 
-import java.util.*;
-import java.io.*;
+import java.util.List;
+import java.io.File;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import worldofzuul.misc.directories;
 
