@@ -29,6 +29,16 @@ public class Dice
         this.End = end;
     }
     
+    public int getBegin()
+    {
+        return Begin;
+    }
+    
+    public int getEnd()
+    {
+        return End;
+    }
+    
     /**
      * 
      * @return value between begin and end interval
