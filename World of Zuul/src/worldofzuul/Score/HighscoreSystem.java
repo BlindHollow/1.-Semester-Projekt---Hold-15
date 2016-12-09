@@ -8,7 +8,7 @@ package worldofzuul.score;
 import java.util.*;
 
 /**
- *
+
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

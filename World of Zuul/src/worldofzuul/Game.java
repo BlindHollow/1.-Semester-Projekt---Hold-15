@@ -15,6 +15,7 @@ import java.util.Random;
  * commandwords from the user. As long as the command is not quit and the player
  * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
  * end.
+
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

@@ -9,6 +9,7 @@ import java.util.Random;
 
 /**
  * Dice class that returns a number between the "begin" interval and the "end" interval
+ 
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

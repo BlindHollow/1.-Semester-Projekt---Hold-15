@@ -5,6 +5,7 @@ import java.util.Set;
 import worldofzuul.score.Highscore;
 
 /**
+ 
  * Contains info about the Player.
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen

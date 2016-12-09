@@ -3,6 +3,7 @@ package worldofzuul;
 import worldofzuul.utilities.Dice;
 
 /*
+ 
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

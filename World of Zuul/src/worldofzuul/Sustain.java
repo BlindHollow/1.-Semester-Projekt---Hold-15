@@ -2,6 +2,7 @@ package worldofzuul;
 
 /**
  *Items of this type have an effect on the health and illness attributes of a player.
+ 
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

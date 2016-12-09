@@ -8,7 +8,7 @@ package worldofzuul.IO;
 import java.io.File;
 
 /**
- *
+
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

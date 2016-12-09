@@ -2,6 +2,7 @@ package worldofzuul;
 
 /**
  *Items of this type have affect the hunger and thirst attributes of a player.
+ 
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

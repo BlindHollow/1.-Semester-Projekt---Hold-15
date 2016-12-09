@@ -8,7 +8,7 @@ package worldofzuul.IO.fileFilters;
 import java.io.*;
 
 /**
- *
+
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest

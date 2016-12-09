@@ -6,7 +6,7 @@
 package worldofzuul.score;
 
 /**
- *
+
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
