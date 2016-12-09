@@ -32,9 +32,9 @@ public class Highscore extends HighscoreSystem
     {
         setCurrentPlayerName( "player" );
         
-        if( worldofzuul.IO.Directories.Exist( new File( HS_Database ) ) == false )
+        if( worldofzuul.IO.Directories.exist( new File( HS_Database ) ) == false )
         {
-            worldofzuul.IO.Directories.Create( HS_Database, 
+            worldofzuul.IO.Directories.create( HS_Database, 
                                                true );
         }
         
@@ -95,7 +95,7 @@ public class Highscore extends HighscoreSystem
     public final void loadPlayers()
     {
         File playerFilesDirectory = new File( HS_Database );
-        File[] listedPlayerFiles = worldofzuul.IO.List.ListFiles( playerFilesDirectory );
+        File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
         for( File user : listedPlayerFiles )
         {

@@ -23,10 +23,10 @@ public class Files
      * @param filePath
      * @return 
      */
-    public static boolean Create( File filePath )
+    public static boolean create( File filePath )
     {
 
-        if( Exist( filePath ) == false )
+        if( exist( filePath ) == false )
         {
             try
             {
@@ -51,11 +51,11 @@ public class Files
         * @param filePath
         * @return 
         */
-       public static boolean Remove( File filePath )
+       public static boolean remove( File filePath )
        {
            try
            {
-                if( Exist( filePath ) )
+                if( exist( filePath ) )
                     filePath.delete();
            }
            catch( Exception Ex )
@@ -71,7 +71,7 @@ public class Files
         * @param filePath
         * @return 
         */
-       public static boolean Exist( File filePath )
+       public static boolean exist( File filePath )
        {
            try
            {

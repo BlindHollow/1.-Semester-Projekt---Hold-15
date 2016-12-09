@@ -128,12 +128,12 @@ public class Room {
                      monster );
     }
     
-    public void SetSpawnable( boolean value )
+    public void setSpawnable( boolean value )
     {
         Spawnable = value;
     }
     
-    public boolean GetSpawnable()
+    public boolean getSpawnable()
     {
         return Spawnable;
     }
