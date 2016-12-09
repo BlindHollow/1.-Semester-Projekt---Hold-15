@@ -16,7 +16,7 @@ package worldofzuul.misc;
  */
 public final class Directories 
 {
-    public static String DBpath = ".\\db";
+    public static final String DBpath = ".\\db";
     
     public static String ZombieNamesPath = DBpath + "\\Zombies";
     public static String HighscoreTable  = DBpath + "\\Highscore";
