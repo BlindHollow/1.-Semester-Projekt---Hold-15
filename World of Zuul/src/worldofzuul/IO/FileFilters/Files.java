@@ -5,7 +5,8 @@
  */
 package worldofzuul.IO.fileFilters;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileFilter;
 
 /**
 
