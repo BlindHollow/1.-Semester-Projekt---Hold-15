@@ -11,7 +11,12 @@ import java.nio.file.Files;
 
 /**
  *
- * @author Fract
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Highscore extends HighscoreSystem 
 {
@@ -89,19 +94,18 @@ public class Highscore extends HighscoreSystem
      */
     public final void LoadPlayers()
     {
-        File f = new File( HS_Database );
+        File playerFilesDirectory = new File( HS_Database );
+        File[] listedPlayerFiles = worldofzuul.IO.List.ListFiles( playerFilesDirectory );
         
-        File[] listed = worldofzuul.IO.List.ListFiles( f );
-        
-        for( File user : listed )
+        for( File user : listedPlayerFiles )
         {
             try
             {
-                List<String> lines = Files.readAllLines( user.toPath() );
+                List<String> linesRead = Files.readAllLines( user.toPath() );
                 
-                for( String line : lines )
+                for( String currentline : linesRead )
                 {
-                    String[] result = line.split( "," );
+                    String[] result = currentline.split( "," );
                     
                     AddPlayers( result[0], 
                                 Integer.parseInt( result[1] ) );  
@@ -142,7 +146,7 @@ public class Highscore extends HighscoreSystem
         public static boolean ParseCharacters( String InputName )
         {
             //
-            boolean Continue = false;
+            boolean Continue;
             
             for( char c : InputName.toCharArray() )
             {
@@ -162,6 +166,7 @@ public class Highscore extends HighscoreSystem
         */
         public static boolean AllowedCharacter( char inputValue )
         {
+            
             if ( inputValue >= 'A' && 
                  inputValue <= 'z' )
             {
@@ -174,8 +179,8 @@ public class Highscore extends HighscoreSystem
                 return true;
             }
             
-            if( (inputValue == '-') || 
-                (inputValue == '_') )
+            if( ( inputValue == '-' ) || 
+                ( inputValue == '_' ) )
             {
                 return true;
             }
