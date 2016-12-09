@@ -29,6 +29,8 @@ public class Dice
         this.End = end;
     }
     
+    // Public Accessors
+        // Getters ------------------------------------------------------------>
     public int getBegin()
     {
         return Begin;
@@ -37,6 +39,16 @@ public class Dice
     public int getEnd()
     {
         return End;
+    }
+        // Setters ------------------------------------------------------------>
+    public void setEnd( int End )
+    {
+        this.End = End;
+    }
+    
+    public void setBegin( int Begin )
+    {
+        this.Begin = Begin;
     }
     
     /**
