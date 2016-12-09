@@ -1,6 +1,6 @@
 package worldofzuul;
 
-import Utilities.Dice;
+import worldofzuul.utilities.Dice;
 
 public class Weapons extends Items {
 

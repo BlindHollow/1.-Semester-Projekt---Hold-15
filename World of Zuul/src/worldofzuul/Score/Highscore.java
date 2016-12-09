@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldofzuul.Score;
+package worldofzuul.score;
 
 import java.util.*;
 import java.io.*;
 import java.nio.file.Files;
+import worldofzuul.misc.directories;
 
 /**
  *
@@ -22,9 +23,6 @@ public class Highscore extends HighscoreSystem
 {
     private boolean debug = false;
     
-    private final String databasePath = ".\\db";
-    private final String hsDatabase = databasePath + "\\Highscore";
-    
     /**
      * 
      */
@@ -32,9 +30,9 @@ public class Highscore extends HighscoreSystem
     {
         setCurrentPlayerName( "player" );
         
-        if( worldofzuul.IO.Directories.exist( new File( hsDatabase ) ) == false )
+        if( worldofzuul.IO.Directories.exist( new File( directories.HighscoreTable ) ) == false )
         {
-            worldofzuul.IO.Directories.create( hsDatabase, 
+            worldofzuul.IO.Directories.create( directories.HighscoreTable, 
                                                true );
         }
         
@@ -48,7 +46,7 @@ public class Highscore extends HighscoreSystem
     {
         this();
         
-        if( hsText.ParseCharacters( name ) == false )
+        if( hsText.parseCharacters( name ) == false )
         {
             return;
         }
@@ -73,7 +71,7 @@ public class Highscore extends HighscoreSystem
        builder.append( ',' );
        builder.append( Integer.toString( getCurrentPlayerPoints() ) );
               
-       File file = new File( hsDatabase + "\\" + getCurrentPlayerName() );
+       File file = new File( directories.HighscoreTable + "\\" + getCurrentPlayerName() );
        
        try
        {
@@ -94,7 +92,7 @@ public class Highscore extends HighscoreSystem
      */
     public final void loadPlayers()
     {
-        File playerFilesDirectory = new File( hsDatabase );
+        File playerFilesDirectory = new File( directories.HighscoreTable );
         File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
         for( File user : listedPlayerFiles )
@@ -122,13 +120,14 @@ public class Highscore extends HighscoreSystem
         
     }
     
-    // Get
+    // Accessors
+        // Getters ------------------------------------------------------------>
     public boolean getDebug()
     {
         return this.debug;
     }
     
-    // Set
+        // Setters ------------------------------------------------------------>
     public void setDebug( boolean State )
     {
         this.debug = State;
@@ -143,7 +142,7 @@ public class Highscore extends HighscoreSystem
             * @param InputName
             * @return 
             */
-        public static boolean ParseCharacters( String InputName )
+        public static boolean parseCharacters( String InputName )
         {
             //
             boolean Continue;
@@ -192,7 +191,7 @@ public class Highscore extends HighscoreSystem
     
     private static class hsDebug
     {
-        public static void Output( String Text, boolean DebugState )
+        public static void output( String Text, boolean DebugState )
         {
             
             if( DebugState == true )

@@ -7,7 +7,7 @@ package worldofzuul;
 
 import java.io.*;
 import java.util.*;
-import Utilities.Dice;
+import worldofzuul.utilities.Dice;
 import java.nio.file.Files;
 
 public class Zombie {

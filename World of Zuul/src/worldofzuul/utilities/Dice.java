@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Utilities;
+package worldofzuul.utilities;
 
 import java.util.Random;
 
@@ -25,10 +25,12 @@ public class Dice
     public final void edit( int begin, 
                             int end )
     {
-        this.Begin = begin;
-        this.End = end;
+        setBegin( begin );
+        setEnd( end );
     }
     
+    // Public Accessors
+        // Getters ------------------------------------------------------------>
     public int getBegin()
     {
         return Begin;
@@ -37,6 +39,16 @@ public class Dice
     public int getEnd()
     {
         return End;
+    }
+        // Setters ------------------------------------------------------------>
+    public void setEnd( int End )
+    {
+        this.End = End;
+    }
+    
+    public void setBegin( int Begin )
+    {
+        this.Begin = Begin;
     }
     
     /**

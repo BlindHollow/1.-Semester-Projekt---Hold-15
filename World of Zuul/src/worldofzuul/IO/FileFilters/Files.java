@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldofzuul.IO.FileFilters;
+package worldofzuul.IO.fileFilters;
 
 import java.io.*;
 
@@ -18,10 +18,6 @@ import java.io.*;
  */
 public class Files implements FileFilter 
 {
-    public Files()
-    {
-        
-    }
     
     @Override
     public boolean accept( File f )
