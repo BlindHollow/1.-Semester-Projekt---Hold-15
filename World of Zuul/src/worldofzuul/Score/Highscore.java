@@ -9,7 +9,7 @@ import java.util.List;
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import worldofzuul.misc.DirectoriesA;
+import worldofzuul.misc.Directories;
 
 /**
 
@@ -31,9 +31,9 @@ public class Highscore extends HighscoreSystem
     {
         setCurrentPlayerName( "player" );
         
-        if( worldofzuul.IO.Directories.exist(new File( DirectoriesA.HighscoreTable ) ) == false )
+        if( worldofzuul.IO.Directories.exist(new File( Directories.HighscoreTable ) ) == false )
         {
-            worldofzuul.IO.Directories.create(DirectoriesA.HighscoreTable, 
+            worldofzuul.IO.Directories.create(Directories.HighscoreTable, 
                                                true );
         }
         
@@ -72,7 +72,7 @@ public class Highscore extends HighscoreSystem
        builder.append( ',' );
        builder.append( Integer.toString( getCurrentPlayerPoints() ) );
               
-       File file = new File( DirectoriesA.HighscoreTable + "\\" + getCurrentPlayerName() );
+       File file = new File( Directories.HighscoreTable + "\\" + getCurrentPlayerName() );
        
        try
        {
@@ -93,7 +93,7 @@ public class Highscore extends HighscoreSystem
      */
     public final void loadPlayers()
     {
-        File playerFilesDirectory = new File( DirectoriesA.HighscoreTable );
+        File playerFilesDirectory = new File( Directories.HighscoreTable );
         File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
         for( File user : listedPlayerFiles )
