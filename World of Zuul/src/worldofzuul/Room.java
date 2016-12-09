@@ -1,5 +1,6 @@
 package worldofzuul;
 
+import Utilities.Dice;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,16 +12,16 @@ import java.util.Iterator;
  *
  */
 public class Room {
-    private boolean Lock = false;
+    private boolean lock = false;
     private String name;
-    private boolean Spawnable = true;
+    private boolean spawnable = true;
     
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
     
-    private Dice SpawnChance = new Dice( 0,     // Min
+    private Dice spawnChance = new Dice( 0,     // Min
                                          100 ); // Max
 
     public Room(String name, String description) {
@@ -127,22 +128,22 @@ public class Room {
                      monster );
     }
     
-    public void SetSpawnable( boolean value )
+    public void setSpawnable( boolean value )
     {
-        Spawnable = value;
+        spawnable = value;
     }
     
-    public boolean GetSpawnable()
+    public boolean getSpawnable()
     {
-        return Spawnable;
+        return spawnable;
     }
     
     public void spawnRandomZombie()
     {
-        if( Spawnable == true )
+        if( spawnable == true )
         {
         
-            int rValue = SpawnChance.Calculate();
+            int rValue = spawnChance.calculate();
         
             if( rValue >= 20 && 
                 rValue <= 80 )
@@ -169,12 +170,12 @@ public class Room {
     
     public boolean isLocked()
     {
-        return Lock;
+        return lock;
     }
     
     public void setLock( boolean status )
     {
-        Lock = status;
+        lock = status;
     }
 
     public int getSize() {
