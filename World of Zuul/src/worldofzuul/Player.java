@@ -2,7 +2,7 @@ package worldofzuul; //NETBEANS
 
 import java.util.HashMap;
 import java.util.Set;
-import worldofzuul.Score.Highscore;
+import worldofzuul.score.Highscore;
 
 /**
  * Contains info about the Player.

@@ -32,7 +32,7 @@ public class List
         {
             File[] files = null;
                
-            files = directory.listFiles( new worldofzuul.IO.FileFilters.Files() );
+            files = directory.listFiles( new worldofzuul.IO.fileFilters.Files() );
                
             return files;
         }

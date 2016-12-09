@@ -1,6 +1,6 @@
 package worldofzuul;
 
-import Utilities.Dice;
+import worldofzuul.utilities.Dice;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
