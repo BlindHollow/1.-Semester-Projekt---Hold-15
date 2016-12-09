@@ -18,10 +18,6 @@ import java.io.*;
  */
 public class Files implements FileFilter 
 {
-    public Files()
-    {
-        
-    }
     
     @Override
     public boolean accept( File f )

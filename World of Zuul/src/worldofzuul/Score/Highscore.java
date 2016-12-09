@@ -120,13 +120,14 @@ public class Highscore extends HighscoreSystem
         
     }
     
-    // Get
+    // Accessors
+        // Getters ------------------------------------------------------------>
     public boolean getDebug()
     {
         return this.debug;
     }
     
-    // Set
+        // Setters ------------------------------------------------------------>
     public void setDebug( boolean State )
     {
         this.debug = State;
