@@ -123,8 +123,9 @@ public class Room {
         Zombie monster = new Zombie( "zombie", 
                                      HP, DMG );
         
+        String monsterName = monster.getRandomName();
         
-        zombies.put( "zombie", 
+        zombies.put( monsterName, 
                      monster );
     }
     
