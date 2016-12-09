@@ -24,7 +24,7 @@ public class List
      * @param directory
      * @return 
      */
-    public static File[] ListFiles( File directory )
+    public static File[] listFiles( File directory )
     {
         ArrayList<File> fileList = new ArrayList();
         

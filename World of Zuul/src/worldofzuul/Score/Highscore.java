@@ -20,21 +20,21 @@ import java.nio.file.Files;
  */
 public class Highscore extends HighscoreSystem 
 {
-    private boolean Debug = false;
+    private boolean debug = false;
     
-    private final String DatabasePath = ".\\db";
-    private final String HS_Database = DatabasePath + "\\Highscore";
+    private final String databasePath = ".\\db";
+    private final String hsDatabase = databasePath + "\\Highscore";
     
     /**
      * 
      */
     public Highscore()
     {
-        SetCurrentPlayerName( "player" );
+        setCurrentPlayerName( "player" );
         
-        if( worldofzuul.IO.Directories.Exist( new File( HS_Database ) ) == false )
+        if( worldofzuul.IO.Directories.exist( new File( hsDatabase ) ) == false )
         {
-            worldofzuul.IO.Directories.Create( HS_Database, 
+            worldofzuul.IO.Directories.create( hsDatabase, 
                                                true );
         }
         
@@ -53,9 +53,9 @@ public class Highscore extends HighscoreSystem
             return;
         }
         
-        SetCurrentPlayerName( name );
+        setCurrentPlayerName( name );
         
-        LoadPlayers();
+        loadPlayers();
         
         
     }
@@ -65,15 +65,15 @@ public class Highscore extends HighscoreSystem
      * @param CharacterName
      * @return True: Saved, False: Error occured
      */
-    public boolean SaveCurrentCharacter( )
+    public boolean saveCurrentCharacter( )
     {
        StringBuilder builder = new StringBuilder(); 
         
-       builder.append( GetCurrentPlayerName() );
+       builder.append( getCurrentPlayerName() );
        builder.append( ',' );
-       builder.append( Integer.toString( GetCurrentPlayerPoints() ) );
+       builder.append( Integer.toString( getCurrentPlayerPoints() ) );
               
-       File file = new File( HS_Database + "\\" + GetCurrentPlayerName() );
+       File file = new File( hsDatabase + "\\" + getCurrentPlayerName() );
        
        try
        {
@@ -92,10 +92,10 @@ public class Highscore extends HighscoreSystem
     /**
      * Loads other Character's that are saved
      */
-    public final void LoadPlayers()
+    public final void loadPlayers()
     {
-        File playerFilesDirectory = new File( HS_Database );
-        File[] listedPlayerFiles = worldofzuul.IO.List.ListFiles( playerFilesDirectory );
+        File playerFilesDirectory = new File( hsDatabase );
+        File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
         for( File user : listedPlayerFiles )
         {
@@ -107,7 +107,7 @@ public class Highscore extends HighscoreSystem
                 {
                     String[] result = currentline.split( "," );
                     
-                    AddPlayers( result[0], 
+                    addPlayers( result[0], 
                                 Integer.parseInt( result[1] ) );  
                 }
                 
@@ -123,15 +123,15 @@ public class Highscore extends HighscoreSystem
     }
     
     // Get
-    public boolean GetDebug()
+    public boolean getDebug()
     {
-        return this.Debug;
+        return this.debug;
     }
     
     // Set
-    public void SetDebug( boolean State )
+    public void setDebug( boolean State )
     {
-        this.Debug = State;
+        this.debug = State;
     }
     
     // Functions ------------------------------------------------------------------------------------ //
@@ -150,7 +150,7 @@ public class Highscore extends HighscoreSystem
             
             for( char c : InputName.toCharArray() )
             {
-                Continue = AllowedCharacter( c );
+                Continue = allowedCharacter( c );
 
                 if( Continue == false )
                     return false;
@@ -164,7 +164,7 @@ public class Highscore extends HighscoreSystem
         * @param inputValue
         * @return 
         */
-        public static boolean AllowedCharacter( char inputValue )
+        public static boolean allowedCharacter( char inputValue )
         {
             
             if ( inputValue >= 'A' && 

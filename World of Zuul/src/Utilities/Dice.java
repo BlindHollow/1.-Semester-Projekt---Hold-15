@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldofzuul;
+package Utilities;
 
 import java.util.Random;
 
@@ -19,10 +19,10 @@ public class Dice
     public Dice( int begin,
                  int end )
     {
-        Edit( begin, end );
+        edit( begin, end );
     }
     
-    public final void Edit( int begin, 
+    public final void edit( int begin, 
                             int end )
     {
         this.Begin = begin;
@@ -34,7 +34,7 @@ public class Dice
      * @return value between begin and end interval
      * @return -1 : Error, else random value between @param Begin and @param End
      */
-    public final int Calculate()
+    public final int calculate()
     {
         Random r = new Random();
         

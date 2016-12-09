@@ -18,87 +18,87 @@ package worldofzuul.Score;
 // Implements Comparable. used to sort a array
 public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
-    private String Playername = null;
+    private String playerName = null;
     
-    private boolean PersonOfInterest = false;
+    private boolean personOfInterest = false;
     
-    private int PlayerScore = 0;
-    private int Rank        = 0;
+    private int playerScore = 0;
+    private int rank        = 0;
     
         // Accessors
             // Getters
-    public String GetPlayerName()
+    public String getPlayerName()
     {
-        return this.Playername;
+        return this.playerName;
     }
     
-    public int GetPlayerScore()
+    public int getPlayerScore()
     {
-        return this.PlayerScore;
+        return this.playerScore;
     }
     
-    public int GetRank()
+    public int getRank()
     {
-        return this.Rank;
+        return this.rank;
     }
     
-    public boolean GetPOI()
+    public boolean getPOI()
     {
-        boolean currentState = this.PersonOfInterest;
+        boolean currentState = this.personOfInterest;
         
         // Reset's it.
-        if( this.PersonOfInterest == true )
-            this.PersonOfInterest = false;
+        if( this.personOfInterest == true )
+            this.personOfInterest = false;
         
         return currentState;
     }
     
         // Setters
-    public void SetRank( int Rank )
+    public void setRank( int Rank )
     {
-        this.Rank = Rank;
+        this.rank = Rank;
     }
     
-    public void SetPOI( boolean PersonOfInterestState )
+    public void setPOI( boolean PersonOfInterestState )
     {
-        this.PersonOfInterest = PersonOfInterestState;
+        this.personOfInterest = PersonOfInterestState;
     }
     
-    public void SetPlayerScore( int Score )
+    public void setPlayerScore( int Score )
     {
-        this.PlayerScore = Score;
+        this.playerScore = Score;
     }
     
-    public void SetPlayerName( String name )
+    public void setPlayerName( String name )
     {
-        this.Playername = name;
+        this.playerName = name;
     }
     
     // Init
     public HighscorePlayer()
     {
-        this.SetPlayerScore(0);
+        this.setPlayerScore(0);
     }
     
     public HighscorePlayer( String Name )
     {
         this();
         
-        this.SetPlayerName( Name );
+        this.setPlayerName( Name );
     }
     
     public HighscorePlayer( String Name, int Score )
     {
         this( Name );
         
-        PlayerScore = Score;
+        playerScore = Score;
     }
     
     // Implementations
     @Override
     public int compareTo( HighscorePlayer object )
     {
-        return object.GetPlayerScore() - this.GetPlayerScore();
+        return object.getPlayerScore() - this.getPlayerScore();
     }
     
 } // End Class

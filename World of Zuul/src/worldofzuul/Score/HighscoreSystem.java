@@ -19,10 +19,10 @@ import java.util.*;
 
 public class HighscoreSystem
 {
-    private HighscoreUser User = new HighscoreUser();
-    private ArrayList<HighscorePlayer> ListOfPriorUserScores = new ArrayList();
+    private HighscoreUser user = new HighscoreUser();
+    private ArrayList<HighscorePlayer> listOfPriorUserScores = new ArrayList();
     
-    private int TotalAmountOfUsers = 0;
+    private int totalAmountOfUsers = 0;
     
     /**
      * 
@@ -30,8 +30,8 @@ public class HighscoreSystem
      */
     public HighscoreSystem( )
     {
-        User.SetPlayerName( "Player" );
-        User.SetIsPlayer( true );
+        user.setPlayerName( "Player" );
+        user.setIsPlayer( true );
     }
     
     /**
@@ -39,9 +39,9 @@ public class HighscoreSystem
      * @param Name
      * @return 
      */
-    protected boolean AddPlayers( String Name )
+    protected boolean addPlayers( String Name )
     {
-        return AddPlayers( Name, 0 );
+        return addPlayers( Name, 0 );
     }
     
     /**
@@ -50,18 +50,18 @@ public class HighscoreSystem
      * @param Score
      * @return 
      */
-    protected boolean AddPlayers( String Name, int Score )
+    protected boolean addPlayers( String Name, int Score )
     {
         HighscorePlayer player = new HighscorePlayer( Name, 
                                                       Score );
         
-        if( ExactUser( Name ) == true )
+        if( exactUser( Name ) == true )
         {
             return false;
         }
         else
         {
-            ListOfPriorUserScores.add( player );
+            listOfPriorUserScores.add( player );
             return true;
         }
         
@@ -72,14 +72,14 @@ public class HighscoreSystem
      * @param Name
      * @return 
      */
-    private boolean ExactUser( String Name )
+    private boolean exactUser( String Name )
     {
-        if( Name.equalsIgnoreCase( User.GetPlayerName() ) )
+        if( Name.equalsIgnoreCase( user.getPlayerName() ) )
             return true;
         
-        for( HighscorePlayer current : ListOfPriorUserScores )
+        for( HighscorePlayer current : listOfPriorUserScores )
         {
-            if( Name.equalsIgnoreCase( User.GetPlayerName() ) )
+            if( Name.equalsIgnoreCase( user.getPlayerName() ) )
             {
                 return true;
             }
@@ -92,9 +92,9 @@ public class HighscoreSystem
      * Add points for the Current Player
      * @param Number 
      */
-    public final void AddCurrentPlayerPoints( int Number )
+    public final void addCurrentPlayerPoints( int Number )
     {
-        User.SetPlayerScore( GetCurrentPlayerPoints() + Number );
+        user.setPlayerScore( getCurrentPlayerPoints() + Number );
     }
     
     
@@ -102,18 +102,18 @@ public class HighscoreSystem
      * 
      * @param Number 
      */
-    public final void SetCurrentPlayerPoints( int Number )
+    public final void setCurrentPlayerPoints( int Number )
     {
-        User.SetPlayerScore( Number );
+        user.setPlayerScore( Number );
     }
     
     /**
      * Remove points for the Current Player
      * @param Number 
      */
-    public final void RemoveCurrentPlayerPoints( int Number )
+    public final void removeCurrentPlayerPoints( int Number )
     {
-        User.SetPlayerScore( GetCurrentPlayerPoints() - Number );
+        user.setPlayerScore( getCurrentPlayerPoints() - Number );
         
     }
     
@@ -122,38 +122,38 @@ public class HighscoreSystem
      * Retrieve Points for the current Player
      * @return 
      */
-    public final int GetCurrentPlayerPoints()
+    public final int getCurrentPlayerPoints()
     {
-        return User.GetPlayerScore();
+        return user.getPlayerScore();
     }
     
-    public final void SetCurrentPlayerName( String name )
+    public final void setCurrentPlayerName( String name )
     {
-        User.SetPlayerName( name );
+        user.setPlayerName( name );
     }
     
-    public final String GetCurrentPlayerName()
+    public final String getCurrentPlayerName()
     {
-        return User.GetPlayerName();
+        return user.getPlayerName();
     }
     
-    public final int GetTotalAmountOfHighscores()
+    public final int getTotalAmountOfHighscores()
     {
-        return TotalAmountOfUsers;
+        return totalAmountOfUsers;
     }
     
     /**
      * Returns a sorted list, with the player and other players
      * @return 
      */
-    public ArrayList<HighscorePlayer> OrderedListOfPlayers()
+    public ArrayList<HighscorePlayer> orderedListOfPlayers()
     {
         // ReturnList
         ArrayList<HighscorePlayer> retList = new ArrayList();
         
         // Adds Everybody
-        retList.addAll( ListOfPriorUserScores );
-        retList.add( User.GetPlayerObject() );
+        retList.addAll( listOfPriorUserScores );
+        retList.add( user.getPlayerObject() );
         
         // Sortere Listen
         Collections.sort( retList );

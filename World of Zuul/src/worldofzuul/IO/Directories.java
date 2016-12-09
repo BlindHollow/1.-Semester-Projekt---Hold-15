@@ -24,11 +24,11 @@ public class Directories
          * @param CreateParents
          * @return 
          */
-        public static boolean Create(String Path, boolean CreateParents)
+        public static boolean create(String Path, boolean CreateParents)
         {
             File f = new File(Path);
             
-            return Create(f, CreateParents);
+            return create(f, CreateParents);
         }
     
         /**
@@ -37,7 +37,7 @@ public class Directories
          * @param createParents
          * @return 
          */
-        public static boolean Create( File Path, boolean createParents )
+        public static boolean create( File Path, boolean createParents )
         {
            try
            {
@@ -63,11 +63,11 @@ public class Directories
         * @param Path
         * @return 
         */
-       public static boolean Remove( File Path )
+       public static boolean remove( File Path )
        {
            try
            {
-               if( Exist( Path ) == true )
+               if( exist( Path ) == true )
                {
                    Path.delete();
 
@@ -92,7 +92,7 @@ public class Directories
         * @param Path
         * @return 
         */
-       public static boolean Exist( File Path )
+       public static boolean exist( File Path )
        {
            try
            {
