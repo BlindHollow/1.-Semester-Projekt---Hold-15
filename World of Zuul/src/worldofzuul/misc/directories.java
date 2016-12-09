@@ -14,7 +14,7 @@ package worldofzuul.misc;
  * @author Madsen, Kent vejrup
  * @author Thy, Mads Heimdal
  */
-public final class directories 
+public final class Directories 
 {
     public static String DBpath = ".\\db";
     
