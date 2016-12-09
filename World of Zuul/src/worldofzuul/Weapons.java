@@ -1,5 +1,7 @@
 package worldofzuul;
 
+import Utilities.Dice;
+
 public class Weapons extends Items {
 
     private int damage;
