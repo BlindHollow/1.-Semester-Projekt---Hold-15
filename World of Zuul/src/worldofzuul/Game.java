@@ -3,8 +3,15 @@ package worldofzuul;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
+<<<<<<< loading
 import java.io.*;
 import static java.lang.Integer.parseInt;
+=======
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+>>>>>>> master
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -16,6 +23,13 @@ import java.util.Random;
  * commandwords from the user. As long as the command is not quit and the player
  * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
  * end.
+
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Game {
 
@@ -298,11 +312,11 @@ public class Game {
     private void createItems() {
         allowedItems = new HashMap<>();
 
-        fireaxe = new Weapons("fireaxe", 10, true);
-        policegun = new Weapons("policegun", 30, false);
-        shotgun = new Weapons("shotgun", 20, false);
-        crowbar = new Weapons("crowbar", 10, true);
-        ram = new Weapons("ram", 3, true);
+        fireaxe = new Weapons("fireaxe", 10, 1, true);
+        policegun = new Weapons("policegun", 30, 4, false);
+        shotgun = new Weapons("shotgun", 20, 5, false);
+        crowbar = new Weapons("crowbar", 10, 1, true);
+        ram = new Weapons("ram", 3, 4, true);
 
         energybar = new Food("energybar", 30, 0);
         energydrink = new Food("energydrink", 0, 30);
@@ -653,7 +667,7 @@ public class Game {
                     wantToQuit = true;
                     break;
                 case "y":
-                    Application.newGame();
+                    Application.createGame();
                     break;
                 default:
                     System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");

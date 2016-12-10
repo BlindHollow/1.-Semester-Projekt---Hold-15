@@ -2,16 +2,29 @@ package worldofzuul; //NETBEANS
 
 import java.util.HashMap;
 import java.util.Set;
+import worldofzuul.score.Highscore;
 
 /**
+ 
  * Contains info about the Player.
- *
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Player {
 
     private int health, hunger, thirst, illness;
+<<<<<<< loading
 
+=======
+    private Highscore playerScore;
+    
+>>>>>>> master
     private String name;
+    
 
     private boolean isDead = false; //If set to true, game will end.
 
@@ -25,6 +38,7 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
+        this.playerScore = new Highscore( this.name );
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;

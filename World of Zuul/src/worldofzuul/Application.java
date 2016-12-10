@@ -5,14 +5,20 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- *
- * @author
+ 
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 class Application {
 
-    private static Game detvirker;
+    private static Game game;
 
     // Entry function, for the Java Program
+<<<<<<< loading
     public static void main(String[] Args) throws IOException {
         
         System.out.println("Input filename: ");
@@ -34,6 +40,17 @@ class Application {
         detvirker = new Game();
         detvirker.loadGame(file);
 
+=======
+    public static void main(String[] Args) {
+
+        createGame();
+
+    }
+
+    public static void createGame() {
+        game = new Game();
+        game.newGame(); //Creates a new game and starts it.
+>>>>>>> master
     }
 
 } // Class Application

@@ -1,5 +1,6 @@
 package worldofzuul;
 
+import worldofzuul.utilities.Dice;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,17 +9,26 @@ import java.util.Iterator;
  * This class contains information about the rooms.
  * A room consists of a description string and three seperate hashmaps containng information about what exits a given room has,
  * what items are placed in it and whether there are zombies in the room and if yes, which zombies there are.
- *
+ 
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Room {
-    private boolean Lock = false;
+    private boolean lock = false;
     private String name;
-    private boolean Spawnable = true;
+    private boolean spawnable = true;
     
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
+    
+    private Dice spawnChance = new Dice( 0,     // Min
+                                         100 ); // Max
 
     public Room(String name, String description) {
         this.description = description;
@@ -112,30 +122,35 @@ public class Room {
     
     private void spawnZombie()
     {
-        Zombie monster = new Zombie( "RandomZombie", 
-                                     100, 2 );
+        int HP, DMG;
+        HP = 5;
+        DMG = 2;
         
-        zombies.put( "RandomZombie", 
+        Zombie monster = new Zombie( "zombie", 
+                                     HP, DMG );
+        
+        String monsterName = monster.getRandomName();
+        
+        zombies.put( monsterName, 
                      monster );
     }
     
-    public void SetSpawnable( boolean value )
+    public void setSpawnable( boolean value )
     {
-        Spawnable = value;
+        spawnable = value;
     }
     
-    public boolean GetSpawnable()
+    public boolean getSpawnable()
     {
-        return Spawnable;
+        return spawnable;
     }
     
     public void spawnRandomZombie()
     {
-        if( Spawnable == true )
+        if( spawnable == true )
         {
-            Dice random = new Dice(0, 100);
         
-            int rValue = random.Calculate();
+            int rValue = spawnChance.calculate();
         
             if( rValue >= 20 && 
                 rValue <= 80 )
@@ -162,12 +177,12 @@ public class Room {
     
     public boolean isLocked()
     {
-        return Lock;
+        return lock;
     }
     
     public void setLock( boolean status )
     {
-        Lock = status;
+        lock = status;
     }
 
     public int getSize() {
