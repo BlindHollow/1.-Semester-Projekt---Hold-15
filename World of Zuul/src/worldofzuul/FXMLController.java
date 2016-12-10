@@ -60,6 +60,7 @@ public class FXMLController implements Initializable {
     private Button btnQuit;
     Stage stage = null;
     Parent root = null;
+    private Parser pars;
 
     /**
      * initialises the controller class.
@@ -67,6 +68,7 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        pars = new Parser();
     }
 
     @FXML
@@ -104,35 +106,35 @@ public class FXMLController implements Initializable {
     @FXML
     private void onMouseClicked(MouseEvent event) {
         if (event.getX() < 50 && event.getX() > 0 && event.getY() < 365 && event.getY() > 315) {
-            NewFXMain.spil.goRoom("west");
+            pars.moveToRoom("west");
             tempLabel.setText("You walked west");
             updateStats();
         } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 365 && event.getY() > 315) {
-            NewFXMain.spil.goRoom("east");
+            pars.moveToRoom("east");
             tempLabel.setText("You walked east");
             updateStats();
         } else if (event.getX() < 525 && event.getX() > 475 && event.getY() < 50 && event.getY() > 0) {
-            NewFXMain.spil.goRoom("north");
+            pars.moveToRoom("north");
             tempLabel.setText("You walked north");
             updateStats();
         } else if (event.getX() < 525 && event.getX() > 475 && event.getY() < 680 && event.getY() > 630) {
-            NewFXMain.spil.goRoom("south");
+            pars.moveToRoom("south");
             tempLabel.setText("You walked south");
             updateStats();
         } else if (event.getX() < 50 && event.getX() > 0 && event.getY() < 50 && event.getY() > 0) {
-            NewFXMain.spil.goRoom("northwest");
+            pars.moveToRoom("northwest");
             tempLabel.setText("You walked northwest");
             updateStats();
         } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 50 && event.getY() > 0) {
-            NewFXMain.spil.goRoom("northeast");
+            pars.moveToRoom("northeast");
             tempLabel.setText("You walked northeast");
             updateStats();
         } else if (event.getX() < 50 && event.getX() > 0 && event.getY() < 680 && event.getY() > 630) {
-            NewFXMain.spil.goRoom("southwest");
+            pars.moveToRoom("southwest");
             tempLabel.setText("You walked southwest");
             updateStats();
         } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 680 && event.getY() > 630) {
-            NewFXMain.spil.goRoom("southeast");
+            pars.moveToRoom("southeast");
             tempLabel.setText("You walked southeast");
             updateStats();
         }
@@ -140,13 +142,13 @@ public class FXMLController implements Initializable {
     }
 
     private void updateStats() {
-        double passnumber = NewFXMain.spil.player.getThirst();
+        double passnumber = pars.getPlayerThirst();
         this.thirstbar.setProgress(passnumber / 100);
-        passnumber = NewFXMain.spil.player.getHunger();
+        passnumber = pars.getPlayerHunger();
         this.hungerbar.setProgress(passnumber / 100);
-        passnumber = NewFXMain.spil.player.getHealth();
+        passnumber = pars.getPlayerHealth();
         this.healthbar.setProgress(passnumber / 100);
-        passnumber = NewFXMain.spil.player.getIllness();
+        passnumber = pars.getPlayerIllness();
         this.illnessbar.setProgress(passnumber / 100);
     }
 

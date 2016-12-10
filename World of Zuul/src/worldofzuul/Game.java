@@ -291,7 +291,7 @@ public class Game {
     private void printHelp() {
         System.out.println("You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\nGood luck, friendo \r\n\r\n");
         System.out.println("Your command words are:");
-        parser.showCommands();
+        //parser.showCommands();
     }
 
     public void goRoom(String direction) {

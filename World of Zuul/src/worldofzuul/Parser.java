@@ -1,46 +1,72 @@
 package worldofzuul;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 
 // TODO: Write Documentation
-public class Parser
-{
-    private CommandWords commands;
-    private Scanner reader;
+public class Parser implements ParserInterface{
 
-    public Parser()
-    {
-        commands = new CommandWords();
-        reader = new Scanner(System.in);
+    @Override
+    public void moveToRoom(String direction) {
+        NewFXMain.spil.goRoom("direction");
     }
 
-    public Command getCommand()
-    {
-        String inputLine;
-        String word1 = null;
-        String word2 = null;
-
-        System.out.print("> ");
-
-        inputLine = reader.nextLine();
-
-        Scanner tokenizer = new Scanner(inputLine);
-        if(tokenizer.hasNext())
-        {
-            word1 = tokenizer.next().toLowerCase(); //Sets the inputcommand to lower case, to make playerinput case insensitive.
-            if(tokenizer.hasNext())
-            {
-                word2 = tokenizer.next().toLowerCase(); //Sets the inputcommand to lower case, to make playerinput case insensitive.
-            }
-        }
-
-        return new Command(commands.getCommandWord(word1), word2);
+    @Override
+    public int getPlayerHealth() {
+       return NewFXMain.spil.player.getHealth();
     }
 
-    public void showCommands()
-    {
-        commands.showAll();
+    @Override
+    public int getPlayerHunger() {
+        return NewFXMain.spil.player.getHunger();
     }
+
+    @Override
+    public int getPlayerThirst() {
+        return NewFXMain.spil.player.getThirst();
+    }
+
+    @Override
+    public int getPlayerIllness() {
+        return NewFXMain.spil.player.getIllness();
+    }
+
+    @Override
+    public void pickUpItem(String itemName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void dropItem(String itemName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<String, Items> getPlayerInventory() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<String, Items> getItemsInRoom() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<String, Room> getRoomExits() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void saveGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void loadGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }
