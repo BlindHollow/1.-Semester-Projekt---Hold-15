@@ -18,7 +18,7 @@ class Application {
     private static Game game;
 
     // Entry function, for the Java Program
-<<<<<<< loading
+
     public static void main(String[] Args) throws IOException {
         
         System.out.println("Input filename: ");
@@ -30,27 +30,19 @@ class Application {
     }
 
     public static void newGame() {
-        detvirker = new Game();
+        game = new Game();
         Scanner keyboard = new Scanner(System.in);
         String playerName = keyboard.nextLine();
-        detvirker.newGame(playerName); //Creates a new game and starts it.
+        game.newGame(playerName); //Creates a new game and starts it.
     }
 
     public static void loadGame(File file) throws IOException {
-        detvirker = new Game();
-        detvirker.loadGame(file);
-
-=======
-    public static void main(String[] Args) {
-
-        createGame();
-
-    }
+        game = new Game();
+        game.loadGame(file);
 
     public static void createGame() {
         game = new Game();
-        game.newGame(); //Creates a new game and starts it.
->>>>>>> master
+        game.newGame(""); //Creates a new game and starts it.
     }
 
 } // Class Application

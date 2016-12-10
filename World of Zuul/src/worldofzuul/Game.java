@@ -3,15 +3,12 @@ package worldofzuul;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
-<<<<<<< loading
 import java.io.*;
 import static java.lang.Integer.parseInt;
-=======
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
->>>>>>> master
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
