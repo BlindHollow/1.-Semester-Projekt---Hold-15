@@ -15,10 +15,9 @@ import java.util.Scanner;
  */
 class Application {
 
-    private static Game game;
+    private static Game detvirker;
 
     // Entry function, for the Java Program
-<<<<<<< loading
     public static void main(String[] Args) throws IOException {
         
         System.out.println("Input filename: ");
@@ -39,18 +38,6 @@ class Application {
     public static void loadGame(File file) throws IOException {
         detvirker = new Game();
         detvirker.loadGame(file);
-
-=======
-    public static void main(String[] Args) {
-
-        createGame();
-
-    }
-
-    public static void createGame() {
-        game = new Game();
-        game.newGame(); //Creates a new game and starts it.
->>>>>>> master
     }
 
 } // Class Application

@@ -3,15 +3,12 @@ package worldofzuul;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
-<<<<<<< loading
 import java.io.*;
 import static java.lang.Integer.parseInt;
-=======
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
->>>>>>> master
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -667,7 +664,7 @@ public class Game {
                     wantToQuit = true;
                     break;
                 case "y":
-                    Application.createGame();
+                    Application.newGame();
                     break;
                 default:
                     System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
