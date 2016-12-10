@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 class Application {
 
-    private static Game detvirker;
+    private static Game game;
 
     // Entry function, for the Java Program
     public static void main(String[] Args) throws IOException {
@@ -36,8 +36,8 @@ class Application {
     }
 
     public static void loadGame(File file) throws IOException {
-        detvirker = new Game();
-        detvirker.loadGame(file);
+        game = new Game();
+        game.loadGame(file);
     }
 
 } // Class Application
