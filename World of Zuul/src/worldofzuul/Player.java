@@ -17,13 +17,17 @@ import worldofzuul.score.Highscore;
 public class Player {
 
     private int health, hunger, thirst, illness;
+<<<<<<< loading
+
+=======
     private Highscore playerScore;
     
+>>>>>>> master
     private String name;
     
 
     private boolean isDead = false; //If set to true, game will end.
-    
+
     private Weapons primaryWeapon;
 
     private HashMap<String, Items> inventory = new HashMap<>();
@@ -111,8 +115,8 @@ public class Player {
      * difficulty.
      */
     public void degenHungerAndThirst(int n) {
-        updateHunger(-1*n);
-        updateThirst(-1*n);
+        updateHunger(-1 * n);
+        updateThirst(-1 * n);
     }
 
     /**
@@ -142,7 +146,7 @@ public class Player {
             System.out.println("You are dehydrated.");
         }
     }
-    
+
     public void setPrimaryWeapon(Weapons weapon) {
         primaryWeapon = weapon;
     }
@@ -171,22 +175,22 @@ public class Player {
     public Weapons getPrimaryWeapon() {
         return primaryWeapon;
     }
-    
+
     public boolean hasUsableItem() {
         for (Items item : inventory.values()) {
             if (item instanceof Weapons) {
-                Weapons weap = (Weapons)item;
+                Weapons weap = (Weapons) item;
                 if (weap.isUsable()) {
                     return true;
                 }
-            } else {
-                return false;
             }
-        } return false;       
+        } return false;
     }
+
     public String getName() {
         return name;
     }
+
     /**
      * Prints the players status, ie. values of the attributes.
      */
@@ -198,6 +202,7 @@ public class Player {
     public Items getItemInInventory(String key) {
         return inventory.get(key);
     }
+
     public HashMap<String, Items> getInventory() {
         return inventory;
     }

@@ -3,10 +3,15 @@ package worldofzuul;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
+<<<<<<< loading
+import java.io.*;
+import static java.lang.Integer.parseInt;
+=======
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+>>>>>>> master
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -42,18 +47,21 @@ public class Game {
     private Food energybar, energydrink, cannedtuna, rum;
     private Sustain medKit, vaccination;
     private int degenFactor;
+    private HashMap<String, Room> allowedRooms;
+    private HashMap<String, Items> allowedItems;
 
     public Game() {
         parser = new Parser();
 
     }
-    public void newGame() {
+
+    public void newGame(String playerName) {
         degenFactor = 5;
         createRooms();
         addNeighbours();
         createItems();
         placeItems();
-        player = new Player("Bob");
+        player = new Player(playerName);
         play();
     }
 
@@ -67,8 +75,11 @@ public class Game {
                 Set<String> keys = player.getInventory().keySet();
                 for (String item : keys) {
                     writer.write(item + ",");
-                    writer.write("\n");
+
                 }
+                writer.write("\n");
+            } else {
+                writer.write("no items" + "\n");
             }
             //Save pilot state.
             if (pilotFound) {
@@ -81,30 +92,127 @@ public class Game {
             //Save room states.
             if (!rooms.isEmpty()) {
                 for (Room room : rooms) {
-                    writer.write("'" + room.getName() + "'" + "\n");
+                    writer.write(room.getName() + "\n");
                     HashMap<String, Room> exits = room.getNeighbours();
                     for (String key : exits.keySet()) {
                         writer.write(key + ",");
+                        writer.write(exits.get(key).getName() + "," + "\n");
                     }
-                    writer.write("\n");
+                    writer.write("endexits" + "\n");
+                    //writer.write("\n");
                     HashMap<String, Items> placements = room.getPlacements();
-                    for (String key : placements.keySet()) {
-                        writer.write(key + ",");
+                    if (!placements.isEmpty()) {
+                        for (String key : placements.keySet()) {
+                            writer.write(key + ",");
+                        }
+                    } else {
+                        writer.write("No items in room");
                     }
                     writer.write("\n");
-                    HashMap<String, Zombie> zombies = room.getZombies();
+                    /*HashMap<String, Zombie> zombies = room.getZombies(); //possibly remove, since zombies spawn randomly.
                     for (String key : zombies.keySet()) {
                         writer.write(key + ",");
                     }
-                    writer.write("\n");
+                    writer.write("\n");*/
                     if (room.isLocked()) {
                         writer.write("locked");
+                    } else {
+                        writer.write("notLocked");
                     }
                     writer.write("\n");
+                    writer.write("endroom" + "\n");
                 }
             }
+            writer.write("endfile");
+            writer.close();
+
         } catch (IOException e) {
             System.out.println("File could not be written");
+        }
+    }
+
+    public void loadGame(File file) throws IOException {
+        createRooms();
+        createItems();
+        try (BufferedReader read = new BufferedReader(new FileReader(file))) {
+            while (read.ready()) {
+                String playerState = read.readLine();
+                String[] playerAttributes = playerState.split(",");
+                player = new Player(playerAttributes[0], Integer.parseInt(playerAttributes[1]), Integer.parseInt(playerAttributes[2]), Integer.parseInt(playerAttributes[3]),
+                        Integer.parseInt(playerAttributes[4]));
+                currentRoom = allowedRooms.get(playerAttributes[6]);
+                degenFactor = Integer.parseInt(playerAttributes[5]);
+                String inventoryLine = read.readLine();
+                if (inventoryLine.equals("no items")) {
+                    System.out.println("No items in inventory");
+                } else {
+                    String[] itemsInInventory = inventoryLine.split(",");
+                    for (String itemname : itemsInInventory) {
+                        Items item = allowedItems.get(itemname);
+                        player.getInventory().put(item.getName(), item);
+                    }
+                }
+                String pilotStatus = read.readLine();
+                if (pilotStatus.equals("notFound")) {
+                    System.out.println("pilot hasn't been found");
+                } else {
+                    String[] pilotStatusArray = pilotStatus.split(",");
+                    pilotFound = true;
+                    pilotRoom = allowedRooms.get(pilotStatusArray[1]);
+                }
+                boolean moreRoomsToLoad = true;
+                while (moreRoomsToLoad) {
+                    String room = read.readLine();
+                    if (room.equals("endfile")) {
+                        System.out.println("load complete");
+                        break;
+                    }
+                    while (!room.equals("endroom")) {
+                        Room temp = allowedRooms.get(room);
+                        //System.out.println(room);
+                        System.out.println(temp.getName());
+                        rooms.add(temp);
+                        while (true) {
+                            String exit = read.readLine();
+                            //System.out.println(exit);
+                            if (exit.equals("endexits")) {
+                                System.out.println("exits done");
+                                break;
+                            } else {
+                                String[] exitDirection = exit.split(",");
+                                //System.out.println(exitDirection[0] + exitDirection[1]);
+                                temp.setExit(exitDirection[0], allowedRooms.get(exitDirection[1]));
+
+                            }
+                        }
+                        String itemString = read.readLine();
+                        if (!itemString.equals("No items in room")) {
+                            String[] itemsInRoom = itemString.split(",");
+                            for (String itemname : itemsInRoom) {
+                                temp.placeItem(allowedItems.get(itemname));
+                            }
+                            System.out.println("items done");
+                        } else {
+                            System.out.println("items done - no items");
+                        }
+                        String locked = read.readLine();
+                        if (locked.equals("locked")) {
+                            temp.setLock(true);
+                            System.out.println("locked");
+                        } else {
+                            System.out.println("was not locked");
+                        }
+
+                        room = read.readLine();
+                        //System.out.println(room + "\n");
+                    }
+
+                }
+                read.close();
+                play();
+            }
+        } catch (IOException e) {
+            Thread.currentThread().getStackTrace();
         }
     }
 
@@ -113,6 +221,7 @@ public class Game {
      * Room.setExit(direction) Descriptions created on creation of the rooms.
      */
     private void createRooms() {
+        allowedRooms = new HashMap<>();
 
         outside1 = new Room("outsidewest", "on westside of the mainstreet");
         outside2 = new Room("outsideeast", "on the eastside of the mainstreet");
@@ -126,8 +235,21 @@ public class Game {
         drugstore = new Room("drugstore", "in the drugstore");
         pub = new Room("pub", "in the pub");
         gasstation = new Room("gasstation", "in the gasstation");
-        
+
+        allowedRooms.put(outside1.getName(), outside1);
+        allowedRooms.put(outside2.getName(), outside2);
+        allowedRooms.put(helipad.getName(), helipad);
+        allowedRooms.put(hospital.getName(), hospital);
+        allowedRooms.put(policestation.getName(), policestation);
+        allowedRooms.put(grocerystore.getName(), grocerystore);
+        allowedRooms.put(firestation.getName(), firestation);
+        allowedRooms.put(house1.getName(), house1);
+        allowedRooms.put(house2.getName(), house2);
+        allowedRooms.put(drugstore.getName(), drugstore);
+        allowedRooms.put(pub.getName(), pub);
+        allowedRooms.put(gasstation.getName(), gasstation);
     }
+
     private void addNeighbours() {
 
         hospital.setExit("east", outside1);
@@ -168,7 +290,7 @@ public class Game {
 
         currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
-        
+
         rooms.add(outside1);
         rooms.add(outside2);
         rooms.add(helipad);
@@ -188,6 +310,7 @@ public class Game {
      *
      */
     private void createItems() {
+        allowedItems = new HashMap<>();
 
         fireaxe = new Weapons("fireaxe", 10, 1, true);
         policegun = new Weapons("policegun", 30, 4, false);
@@ -202,8 +325,20 @@ public class Game {
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
-        
+
+        allowedItems.put(fireaxe.getName(), fireaxe);
+        allowedItems.put(policegun.getName(), policegun);
+        allowedItems.put(shotgun.getName(), shotgun);
+        allowedItems.put(crowbar.getName(), crowbar);
+        allowedItems.put(ram.getName(), ram);
+        allowedItems.put(energybar.getName(), energybar);
+        allowedItems.put(energydrink.getName(), energydrink);
+        allowedItems.put(cannedtuna.getName(), cannedtuna);
+        allowedItems.put(rum.getName(), rum);
+        allowedItems.put(medKit.getName(), medKit);
+        allowedItems.put(vaccination.getName(), vaccination);
     }
+
     private void placeItems() {
 
         gasstation.placeItem(crowbar);
@@ -302,6 +437,14 @@ public class Game {
                         System.out.println("Something happened");
                     }
                     break;
+                /*case LOAD:
+                    try {
+                        loadGame();
+                        System.out.println("Game loaded");
+                    } catch (IOException e) {
+                        System.out.println("Something happened");
+                    }
+                    break;*/
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
