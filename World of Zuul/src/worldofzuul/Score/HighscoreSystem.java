@@ -112,7 +112,7 @@ public class HighscoreSystem
      * Remove points for the Current Player
      * @param Number 
      */
-    public final void removeCurrentPlayerPoints( int Number )
+    public final void decreaseCurrentPlayerPoints( int Number )
     {
         user.setPlayerScore( getCurrentPlayerPoints() - Number );
         
