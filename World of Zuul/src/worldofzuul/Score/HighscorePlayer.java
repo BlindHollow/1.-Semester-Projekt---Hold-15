@@ -43,14 +43,8 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     }
     
     public boolean getPOI()
-    {
-        boolean currentState = this.personOfInterest;
-        
-        // Reset's it.
-        if( this.personOfInterest == true )
-            this.personOfInterest = false;
-        
-        return currentState;
+    {   
+        return this.personOfInterest;
     }
     
         // Setters

@@ -368,6 +368,7 @@ public class Game {
             finished = processCommand(command);
             if (player.schroedinger()) {
                 System.out.println("You are dead.");
+                System.out.println("Your total accomulated points is:" + Integer.toString( player.RetrieveScore() ) );
                 finished = true;
             }
         }
@@ -539,6 +540,7 @@ public class Game {
             player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
+                player.AddPlayerScore( 10 );
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             } else {
                 zombie.attackPlayer(player);
@@ -567,10 +569,12 @@ public class Game {
 
     private void zipline() {
         if (currentRoom == firestation) {
+            player.AddPlayerScore( 20 );
             currentRoom = policestation;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else if (currentRoom == policestation) {
+            player.AddPlayerScore( 20 );
             currentRoom = helipad;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
@@ -583,7 +587,9 @@ public class Game {
         if (pilotFound) {
             pilotRoom = currentRoom;
         } else if (pilotRoom.equals(currentRoom)) {
+            
             pilotFound = true;
+            player.AddPlayerScore( 200 );
             System.out.println("You found the pilot");
         } else {
             int roomInt = (int) (Math.random() * pilotRoom.getSize());
@@ -655,6 +661,8 @@ public class Game {
 
     private void gameWon() {
         System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
+        
+        player.AddPlayerScore( 550 );
         Scanner scan = new Scanner(System.in);
         String playString = "f";
         while (!playString.equals("n") && !playString.equals("y")) {

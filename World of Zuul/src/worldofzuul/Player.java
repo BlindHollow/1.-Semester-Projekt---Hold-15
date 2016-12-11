@@ -33,7 +33,7 @@ public class Player {
      * Constructor Starts the player object with full health, hunger, thirst and
      * illness gauges.
      */
-    public Player(String name) {
+    public Player( String name ) {
         this.name = name;
         this.playerScore = new Highscore( this.name );
         this.health = 100;
@@ -91,6 +91,21 @@ public class Player {
             thirst = 0;
         }
         dehydration();
+    }
+    
+    public void AddPlayerScore( int i )
+    {
+        playerScore.addCurrentPlayerPoints(i);
+    }
+    
+    public void DeletePlayerScore( int i )
+    {
+        playerScore.decreaseCurrentPlayerPoints( i );
+    }
+    
+    public int RetrieveScore()
+    {
+        return playerScore.getCurrentPlayerPoints();
     }
 
     /**
