@@ -220,31 +220,63 @@ public class Game {
     private void createRooms() {
         allowedRooms = new HashMap<>();
 
-        outside1 = new Room("outsidewest", "on westside of the mainstreet");
-        outside2 = new Room("outsideeast", "on the eastside of the mainstreet");
-        helipad = new Room("helipad", "on a helipad");
-        hospital = new Room("hospital", "in a hospital");
-        policestation = new Room("policestation", "in the policestation");
-        grocerystore = new Room("grocerystore", "in the grocerystore");
-        firestation = new Room("firestation", "in the firestation");
-        house1 = new Room("redhouse", "in the red house");
-        house2 = new Room("bluehouse", "in the blue house");
-        drugstore = new Room("drugstore", "in the drugstore");
-        pub = new Room("pub", "in the pub");
-        gasstation = new Room("gasstation", "in the gasstation");
+        outside1    = new Room( "outsidewest", 
+                                "on westside of the mainstreet" );
+        outside2    = new Room( "outsideeast", 
+                                "on the eastside of the mainstreet" );
+        
+        helipad     = new Room( "helipad", 
+                                "on a helipad" );
+        hospital    = new Room( "hospital", 
+                                "in a hospital" );
+        
+        policestation   = new Room( "policestation", 
+                                    "in the policestation" );
+        firestation     = new Room( "firestation", 
+                                    "in the firestation" );
+        
+        grocerystore    = new Room( "grocerystore", 
+                                    "in the grocerystore" );
+        
+        house1      = new Room( "redhouse", 
+                                "in the red house" );
+        house2      = new Room( "bluehouse", 
+                                "in the blue house" );
+        
+        drugstore   = new Room( "drugstore", 
+                                "in the drugstore" );
+        
+        pub         = new Room( "pub", 
+                                "in the pub" );
+        
+        gasstation  = new Room( "gasstation", 
+                                "in the gasstation" );
 
-        allowedRooms.put(outside1.getName(), outside1);
-        allowedRooms.put(outside2.getName(), outside2);
-        allowedRooms.put(helipad.getName(), helipad);
-        allowedRooms.put(hospital.getName(), hospital);
-        allowedRooms.put(policestation.getName(), policestation);
-        allowedRooms.put(grocerystore.getName(), grocerystore);
-        allowedRooms.put(firestation.getName(), firestation);
-        allowedRooms.put(house1.getName(), house1);
-        allowedRooms.put(house2.getName(), house2);
-        allowedRooms.put(drugstore.getName(), drugstore);
-        allowedRooms.put(pub.getName(), pub);
-        allowedRooms.put(gasstation.getName(), gasstation);
+        allowedRooms.put( outside1.getName(), outside1 );
+        allowedRooms.put( outside2.getName(), outside2 );
+        
+        allowedRooms.put( helipad.getName(), helipad );
+        allowedRooms.put( hospital.getName(), hospital );
+        
+        allowedRooms.put( policestation.getName(), 
+                          policestation );
+        allowedRooms.put( grocerystore.getName(), 
+                          grocerystore );
+        allowedRooms.put( firestation.getName(), 
+                          firestation );
+        allowedRooms.put( drugstore.getName(), 
+                          drugstore );
+        
+        allowedRooms.put( house1.getName(), 
+                          house1 );
+        allowedRooms.put( house2.getName(), 
+                          house2 );
+        
+        allowedRooms.put( pub.getName(), 
+                          pub );
+        
+        allowedRooms.put( gasstation.getName(), 
+                          gasstation );
     }
 
     private void addNeighbours() {
@@ -309,31 +341,61 @@ public class Game {
     private void createItems() {
         allowedItems = new HashMap<>();
 
-        fireaxe = new Weapons("fireaxe", 10, 1, true);
-        policegun = new Weapons("policegun", 30, 4, false);
-        shotgun = new Weapons("shotgun", 20, 5, false);
-        crowbar = new Weapons("crowbar", 10, 1, true);
-        ram = new Weapons("ram", 3, 4, true);
+        fireaxe = new Weapons( "fireaxe", 
+                               10, 1, 
+                               true );
+        
+        policegun = new Weapons( "policegun", 
+                                 30, 4, 
+                                 false );
+        shotgun = new Weapons( "shotgun", 
+                               20, 5, 
+                               false );
+        
+        crowbar = new Weapons( "crowbar", 
+                               10, 1, 
+                               true );
+        ram = new Weapons( "ram", 
+                            3, 4, 
+                            true );
 
-        energybar = new Food("energybar", 30, 0);
-        energydrink = new Food("energydrink", 0, 30);
-        cannedtuna = new Food("cannedtuna", 50, 0);
-        rum = new Food("rum", 0, 20);
+        energybar   = new Food( "energybar", 
+                                30, 0 );
+        energydrink = new Food( "energydrink", 
+                                0, 30 );
+        cannedtuna  = new Food( "cannedtuna", 
+                                50, 0 );
+        rum         = new Food( "rum", 
+                                0, 20 );
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
 
-        allowedItems.put(fireaxe.getName(), fireaxe);
-        allowedItems.put(policegun.getName(), policegun);
-        allowedItems.put(shotgun.getName(), shotgun);
-        allowedItems.put(crowbar.getName(), crowbar);
-        allowedItems.put(ram.getName(), ram);
-        allowedItems.put(energybar.getName(), energybar);
-        allowedItems.put(energydrink.getName(), energydrink);
-        allowedItems.put(cannedtuna.getName(), cannedtuna);
-        allowedItems.put(rum.getName(), rum);
-        allowedItems.put(medKit.getName(), medKit);
-        allowedItems.put(vaccination.getName(), vaccination);
+        allowedItems.put( fireaxe.getName(), 
+                          fireaxe );
+        allowedItems.put( policegun.getName(), 
+                          policegun );
+        allowedItems.put( shotgun.getName(), 
+                          shotgun );
+        allowedItems.put( crowbar.getName(), 
+                          crowbar );
+        
+        allowedItems.put( ram.getName(), 
+                          ram );
+        
+        allowedItems.put( energybar.getName(), 
+                          energybar );
+        allowedItems.put( energydrink.getName(), 
+                          energydrink );
+        allowedItems.put( cannedtuna.getName(), 
+                          cannedtuna );
+        allowedItems.put( rum.getName(), 
+                          rum );
+        
+        allowedItems.put( medKit.getName(), 
+                          medKit );
+        allowedItems.put( vaccination.getName(), 
+                          vaccination );
     }
 
     private void placeItems() {
@@ -454,8 +516,8 @@ public class Game {
     }
 
     private void printHelp() {
-        System.out.println("You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\nGood luck, friendo \r\n\r\n");
-        System.out.println("Your command words are:");
+        System.out.println( "You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\nGood luck, friendo \r\n\r\n" );
+        System.out.println( "Your command words are:" );
         parser.showCommands();
     }
 
@@ -498,11 +560,19 @@ public class Game {
 
         Room nextRoom = currentRoom.getExit(direction);
 
-        if (nextRoom == null) {
+        if ( nextRoom == null ) 
+        {
             System.out.println("There is no door!");
-        } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
+        } 
+        else if( nextRoom.zombieAmount() == 0 )
+        {
+            System.out.println("You need to deal with the zombies in the room, before moving");
+        }
+        else if ( nextRoom.isLocked() == true && !player.hasUsableItem() ) 
+        {
             System.out.println("Door is Locked, find something to open the door with and try again.");
-        } else {
+        } 
+        else {
             currentRoom = nextRoom;
             currentRoom.spawnRandomZombie();
 
@@ -570,11 +640,13 @@ public class Game {
     private void zipline() {
         if (currentRoom == firestation) {
             player.AddPlayerScore( 20 );
+            
             currentRoom = policestation;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else if (currentRoom == policestation) {
             player.AddPlayerScore( 20 );
+            
             currentRoom = helipad;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();

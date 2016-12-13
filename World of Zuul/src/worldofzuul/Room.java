@@ -23,6 +23,7 @@ public class Room {
     private boolean spawnable = true;
     
     private String description;
+    
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
@@ -30,6 +31,11 @@ public class Room {
     private Dice spawnChance = new Dice( 0,     // Min
                                          100 ); // Max
 
+    public int zombieAmount()
+    {
+        return zombies.size();
+    }
+    
     public Room(String name, String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
