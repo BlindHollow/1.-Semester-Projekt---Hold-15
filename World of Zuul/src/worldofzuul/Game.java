@@ -61,7 +61,10 @@ public class Game {
         player = new Player(playerName);
         play();
     }
-
+    /**
+    * Function saves the current game state to a file named "save.txt" 
+    * @throws IOException 
+    */
     public void saveGame() throws IOException {
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
@@ -127,8 +130,17 @@ public class Game {
             System.out.println("File could not be written");
         }
     }
-
-    public void loadGame(File file) throws IOException {
+    /**
+    * Loads and starts a game from a file, whose format is determined by save(), TODO: Make complete description of fileformat.
+    * @param file
+    * Take an input file, the format of the file is determined by the save()
+    * @throws IOException
+    * @throws NullPointerException
+    * NullPointerExceptions happen when the inputfile either is in the wrong format or the inputfile specifies items or rooms that are not allowed.
+    * @throws ArrayIndexOutOfBoundsException 
+    * Exception thrown when the file is not in the specified format.
+    */
+    public void loadGame(File file) throws IOException, NullPointerException, ArrayIndexOutOfBoundsException {
         createRooms();
         createItems();
         try (BufferedReader read = new BufferedReader(new FileReader(file))) {
@@ -168,7 +180,7 @@ public class Game {
                         Room temp = allowedRooms.get(room);
                         //System.out.println(room);
                         System.out.println(temp.getName());
-                        rooms.add(temp);
+                        rooms.add(temp); //Add room specified in file to rooms ArrayList, so the player does not end up in a room with no exits on sewer()
                         while (true) {
                             String exit = read.readLine();
                             //System.out.println(exit);
@@ -210,6 +222,12 @@ public class Game {
             }
         } catch (IOException e) {
             Thread.currentThread().getStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("Invalid item or room, fix it and try again.");
+            newGame("Bob");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Fileformat is invalid");
+            newGame("Bob");
         }
     }
 
