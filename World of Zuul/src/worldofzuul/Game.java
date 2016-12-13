@@ -564,7 +564,7 @@ public class Game {
         {
             System.out.println("There is no door!");
         } 
-        else if( nextRoom.zombieAmount() == 0 )
+        else if( nextRoom.zombieAmount() != 0 )
         {
             System.out.println("You need to deal with the zombies in the room, before moving");
         }
