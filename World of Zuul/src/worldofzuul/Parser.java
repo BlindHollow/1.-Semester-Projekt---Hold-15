@@ -1,21 +1,18 @@
 package worldofzuul;
 
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
 
 // TODO: Write Documentation
-public class Parser implements ParserInterface{
+public class Parser implements ParserInterface {
 
     @Override
     public void moveToRoom(String direction) {
-        NewFXMain.spil.goRoom("direction");
+        NewFXMain.spil.goRoom(direction);
     }
 
     @Override
     public int getPlayerHealth() {
-       return NewFXMain.spil.player.getHealth();
+        return NewFXMain.spil.player.getHealth();
     }
 
     @Override
@@ -35,27 +32,27 @@ public class Parser implements ParserInterface{
 
     @Override
     public void pickUpItem(String itemName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NewFXMain.spil.takeItem(itemName);
     }
 
     @Override
     public void dropItem(String itemName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NewFXMain.spil.dropItem(itemName);
     }
 
     @Override
     public HashMap<String, Items> getPlayerInventory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return NewFXMain.spil.player.getInventory();
     }
 
     @Override
     public HashMap<String, Items> getItemsInRoom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return NewFXMain.spil.currentRoom().getAllItems();
     }
 
     @Override
     public HashMap<String, Room> getRoomExits() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return NewFXMain.spil.currentRoom().getNeighbours();
     }
 
     @Override
@@ -68,5 +65,4 @@ public class Parser implements ParserInterface{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
 }

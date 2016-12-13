@@ -105,6 +105,10 @@ public class Room {
     public Items getItem(String key) {
         return placements.get(key);
     }
+    
+    public HashMap<String, Items> getAllItems(){
+        return this.placements;
+    }
 
     public Zombie getZombie(String key) {
         return zombies.get(key);

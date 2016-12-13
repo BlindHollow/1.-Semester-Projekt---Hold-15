@@ -77,22 +77,22 @@ public class FXMLController implements Initializable {
             stage = (Stage) btnContinue.getScene().getWindow(); //get reference to the button's stage        
             loadScene("GameScene");
         } else if (event.getSource() == btnNewGame) {
-            welcomeStartAnchor.setVisible(true);
+            //welcomeStartAnchor.setVisible(true);
+            stage = (Stage) btnStartGame.getScene().getWindow();
+            loadScene("GameScene");
         } else if (event.getSource() == btnStartGame) {
             stage = (Stage) btnStartGame.getScene().getWindow();
             loadScene("GameScene");
         } else {
-            stage = (Stage) mainBtn.getScene().getWindow();
-            loadScene("WelcomeScene");
+            pars.pickUpItem("fireaxe");
         }
-
     }
 
     @FXML
     private void loadScene(String sceneName) throws IOException {
         root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml")); //load up OTHER FXML document
         //create a new scene with root and set the stage
-        Scene scene = new Scene(root,1200, 680);
+        Scene scene = new Scene(root, 1200, 680);
         stage.setScene(scene);
         stage.show();
     }

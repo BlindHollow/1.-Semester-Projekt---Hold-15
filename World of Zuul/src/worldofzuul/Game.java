@@ -159,6 +159,7 @@ public class Game {
         house2.setLock(true);
 
         currentRoom = hospital; //Sets the games starting Room
+        System.out.println(currentRoom.getLongDescription());
         pilotRoom = outside1;
 
         rooms.add(outside1);
@@ -249,12 +250,12 @@ public class Game {
                 case STATUS:
                     player.getStatus();
                     break;
-                case GRAB:
-                    takeItem(command);
-                    break;
-                case DROP:
-                    dropItem(command);
-                    break;
+//                case GRAB:
+//                    takeItem(command);
+//                    break;
+//                case DROP:
+//                    dropItem(command);
+//                    break;
                 case SEARCH:
                     currentRoom.searchRoom();
                     break;
@@ -297,7 +298,7 @@ public class Game {
     public void goRoom(String direction) {
         
         Room nextRoom = currentRoom.getExit(direction);
-
+        
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
@@ -412,12 +413,9 @@ public class Game {
     }
 //pick up an item in the room you are in. Command: Grab "item"
 
-    private void takeItem(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("What item?");
-            return;
-        }
-        Items item = currentRoom.getItem(command.getSecondWord());
+    public void takeItem(String itemName) {
+        
+        Items item = currentRoom.getItem(itemName);
 
         if (null == item) {
             System.out.println("Can't find that item");
@@ -437,12 +435,9 @@ public class Game {
     }
 
     //drop an item in your inventory and leave it in current room. Command: Drop "item"
-    private void dropItem(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("What item?");
-            return;
-        }
-        Items item = player.getItemInInventory(command.getSecondWord());
+    public void dropItem(String itemName) {
+        
+        Items item = player.getItemInInventory(itemName);
 
         if (null == item) {
             System.out.println("That is not an item in your inventory.");
