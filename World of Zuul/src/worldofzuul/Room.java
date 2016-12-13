@@ -5,24 +5,25 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * This class contains information about the rooms.
- * A room consists of a description string and three seperate hashmaps containng information about what exits a given room has,
- * what items are placed in it and whether there are zombies in the room and if yes, which zombies there are.
- *
+ * This class contains information about the rooms. A room consists of a
+ * description string and three seperate hashmaps containng information about
+ * what exits a given room has, what items are placed in it and whether there
+ * are zombies in the room and if yes, which zombies there are.
  */
 public class Room {
-    private boolean Lock = false;
+
+    private boolean lock = false;
     private String name;
     private boolean Spawnable = true;
-    
-    private String description;
-    private HashMap<String, Room> exits;
-    private HashMap<String, Items> placements;
+
+    private final String description;
+    private final HashMap<String, Room> exits;
+    private final HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
 
     public Room(String name, String description) {
         this.description = description;
-        exits = new HashMap<String, Room>();
+        exits = new HashMap<>();
         placements = new HashMap<>();
         zombies = new HashMap<>();
         this.name = name;
@@ -44,7 +45,7 @@ public class Room {
 
     //Places a zombie in a room
     public void placeZombie(Zombie zombie) {
-        zombies.put( zombie.getName(), zombie );
+        zombies.put(zombie.getName(), zombie);
     }
 
     //Removes the zombie from the room. Should be used when it's killed
@@ -83,9 +84,9 @@ public class Room {
 
     }
 
-    public Room getExit(String direction) { 
+    public Room getExit(String direction) {
         Room room = exits.get(direction);
-        
+
         return room;
     }
 
@@ -105,48 +106,44 @@ public class Room {
     public Items getItem(String key) {
         return placements.get(key);
     }
-    
-    public HashMap<String, Items> getAllItems(){
+
+    /**
+     * A method that returns all the items in a room.
+     *
+     * @return
+     */
+    public HashMap<String, Items> getAllItems() {
         return this.placements;
     }
 
     public Zombie getZombie(String key) {
         return zombies.get(key);
     }
-    
-    private void spawnZombie()
-    {
-        Zombie monster = new Zombie( "RandomZombie", 
-                                     100, 2 );
-        
-        zombies.put( "RandomZombie", 
-                     monster );
+
+    private void spawnZombie() {
+        Zombie monster = new Zombie("RandomZombie", 100, 2);
+
+        zombies.put("RandomZombie", monster);
     }
-    
-    public void SetSpawnable( boolean value )
-    {
+
+    public void SetSpawnable(boolean value) {
         Spawnable = value;
     }
-    
-    public boolean GetSpawnable()
-    {
+
+    public boolean GetSpawnable() {
         return Spawnable;
     }
-    
-    public void spawnRandomZombie()
-    {
-        if( Spawnable == true )
-        {
+
+    public void spawnRandomZombie() {
+        if (Spawnable == true) {
             Dice random = new Dice(0, 100);
-        
+
             int rValue = random.Calculate();
-        
-            if( rValue >= 20 && 
-                rValue <= 80 )
-            {
+
+            if (rValue >= 20    && rValue <= 80) {
                 spawnZombie();
             }
-           
+
         }
     }
 
@@ -163,31 +160,31 @@ public class Room {
             System.out.println(itemString);
         }
     }
-    
-    public boolean isLocked()
-    {
-        return Lock;
+
+    public boolean isLocked() {
+        return lock;
     }
-    
-    public void setLock( boolean status )
-    {
-        Lock = status;
+
+    public void setLock(boolean status) {
+        lock = status;
     }
 
     public int getSize() {
         return exits.size();
     }
-    
+
     public HashMap<String, Room> getNeighbours() {
         return exits;
     }
-    
+
     public HashMap<String, Items> getPlacements() {
         return placements;
     }
+
     public HashMap<String, Zombie> getZombies() {
         return zombies;
     }
+
     public String getName() {
         return name;
     }

@@ -70,7 +70,12 @@ public class FXMLController implements Initializable {
         // TODO
         pars = new Parser();
     }
-
+/**
+ * Handles button actions. Gets the source of the event, 
+ * and handles the action accordingly.
+ * @param event
+ * @throws IOException 
+ */
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         if (event.getSource() == btnContinue) {
@@ -88,6 +93,12 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Used to load a new scene, based on a string, 
+     * which is the name of the scenes fxml
+     * @param sceneName
+     * @throws IOException 
+     */
     @FXML
     private void loadScene(String sceneName) throws IOException {
         root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml")); //load up OTHER FXML document
@@ -97,12 +108,22 @@ public class FXMLController implements Initializable {
         stage.show();
     }
 
+    
+    /**
+     * Quits the game, by hiding the scene from which the event was called
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void quitGame(ActionEvent event) throws IOException {
         //hider scenen, og slukker spillet
         btnQuit.getScene().getWindow().hide();
     }
 
+    /**
+     * Moves the player to another room, dependeing on what is clicked.
+     * @param event 
+     */
     @FXML
     private void onMouseClicked(MouseEvent event) {
         if (event.getX() < 50 && event.getX() > 0 && event.getY() < 365 && event.getY() > 315) {
@@ -141,6 +162,9 @@ public class FXMLController implements Initializable {
 
     }
 
+    /**
+     * Updates the players status on the gui.
+     */
     private void updateStats() {
         double passnumber = pars.getPlayerThirst();
         this.thirstbar.setProgress(passnumber / 100);

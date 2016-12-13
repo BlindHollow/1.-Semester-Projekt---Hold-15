@@ -2,7 +2,12 @@ package worldofzuul;
 
 import java.util.HashMap;
 
-// TODO: Write Documentation
+/**
+ * A class with methods that the gui controller can call. 
+ * By making an instance of this in any gui, 
+ * the gui can play the game(as long as it uses the methods in a correct way).
+ * @author bytof
+ */
 public class Parser implements ParserInterface {
 
     @Override
