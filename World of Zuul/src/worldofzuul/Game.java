@@ -37,7 +37,7 @@ public class Game {
     private boolean wantToQuit;
     private boolean noteFound;
     private boolean hasBeenInPub;
-    private Room pilotRoom;
+    private Room pilotRoom, locationOfNote;
     private boolean pilotFound;
     private ArrayList<Room> rooms = new ArrayList<Room>();
     private Weapons fireaxe, policegun, shotgun, ram, crowbar;
@@ -88,6 +88,7 @@ public class Game {
                 writer.write("no items" + "\n");
             }
             //Save pilot state.
+            writer.write(locationOfNote.getName() + "\n");
             writer.write(pilotRoom.getName() + "\n");
             if (noteFound) {
                 writer.write("noteFound");
@@ -181,6 +182,8 @@ public class Game {
                         player.getInventory().put(item.getName(), item);
                     }
                 }
+                String locationOfNoteRoom = read.readLine();
+                locationOfNote = allowedRooms.get(locationOfNoteRoom);
                 String pilotRoomName = read.readLine();
                 pilotRoom = allowedRooms.get(pilotRoomName); //If not has been found sets pilots current room, if not sets pilots starting room.
                 String noteFoundStatus = read.readLine(); //has note been found or not?
@@ -367,6 +370,7 @@ public class Game {
 
         currentRoom = hospital; //Sets the games starting Room
         pilotRoom = outside1;
+        locationOfNote = helipad;
 
         rooms.add(outside1);
         rooms.add(outside2);
@@ -634,9 +638,9 @@ public class Game {
                 movePilot();
             }
 
-            if (currentRoom.equals(helipad) && pilotRoom.equals(helipad)) {
+            if (currentRoom.equals(locationOfNote) && pilotRoom.equals(locationOfNote)) {
                 gameWon();
-            } else if (currentRoom.equals(helipad)) {
+            } else if (currentRoom.equals(locationOfNote)) {
                 noteFound = true;
             }
         }
