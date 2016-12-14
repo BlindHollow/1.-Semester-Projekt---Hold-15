@@ -15,7 +15,6 @@ public class Room {
     private boolean lock = false;
     private String name;
     private boolean Spawnable = true;
-
     private final String description;
     private final HashMap<String, Room> exits;
     private final HashMap<String, Items> placements;

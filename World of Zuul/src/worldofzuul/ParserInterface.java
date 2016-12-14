@@ -10,6 +10,8 @@ import java.util.HashMap;
 /**
  *
  * @author bytof
+ * Interface for the Parser class. With this implemented, 
+ * the gui can easily access all necessary methods.
  */
 public interface ParserInterface {
     void moveToRoom(String direction);
@@ -19,6 +21,7 @@ public interface ParserInterface {
     int getPlayerIllness();
     void pickUpItem(String itemName);
     void dropItem(String itemName);
+    void useItem(String itemName);
     HashMap<String, Items> getPlayerInventory();
     HashMap<String, Items> getItemsInRoom();
     HashMap<String, Room> getRoomExits();

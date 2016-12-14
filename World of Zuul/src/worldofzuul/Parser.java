@@ -44,6 +44,11 @@ public class Parser implements ParserInterface {
     public void dropItem(String itemName) {
         NewFXMain.spil.dropItem(itemName);
     }
+    
+    @Override
+    public void useItem(String itemName){
+        NewFXMain.spil.useItem(itemName);
+    }
 
     @Override
     public HashMap<String, Items> getPlayerInventory() {

@@ -14,5 +14,13 @@ public class Food extends Items {
         this.thirstRegen = thirst;
         this.name = name;
     }
+    
+    public int getHungerRegen(){
+        return this.hungerRegen;
+    }
+    
+    public int getThirstRegen(){
+        return this.thirstRegen;
+    }
 
 }

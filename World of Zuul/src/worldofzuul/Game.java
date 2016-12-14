@@ -18,7 +18,6 @@ import java.util.Random;
  */
 public class Game {
 
-    private Parser parser;
     private Room currentRoom;
     public Player player;
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
@@ -34,8 +33,6 @@ public class Game {
     private int degenFactor;
 
     public Game() {
-
-        parser = new Parser();
         newGame();
     }
 
@@ -449,6 +446,23 @@ public class Game {
             player.getInventory().remove(item.getName());
         }
     }
+    
+    public void useItem(String itemName) {
+        
+        Items item = player.getItemInInventory(itemName);
+        
+        if (null == item) {
+            System.out.println("Item not in inventory");
+        } else if(item instanceof Food){
+            player.updateHunger(((Food) item).getHungerRegen());
+            player.updateThirst(((Food) item).getThirstRegen());
+        } else if(item instanceof Sustain) {
+            player.updateHealth(((Sustain) item).getHealthRegen());
+            player.updateIllness(((Sustain) item).getIllnessRegen());
+        } else {
+            System.out.println("Cannot use that item");
+        }
+    }
 
     private void gameWon() {
         System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
@@ -477,5 +491,7 @@ public class Game {
     public Room pilotRoom() {
         return pilotRoom;
     }
+    
+    
 
 } // Class Game
