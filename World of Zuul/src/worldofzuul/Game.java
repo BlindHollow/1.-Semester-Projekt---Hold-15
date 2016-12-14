@@ -161,29 +161,29 @@ public class Game {
                 String playerState = read.readLine();
                 String[] playerAttributes = playerState.split(",");
                 player = new Player(playerAttributes[0], Integer.parseInt(playerAttributes[1]), Integer.parseInt(playerAttributes[2]), Integer.parseInt(playerAttributes[3]),
-                        Integer.parseInt(playerAttributes[4]));
-                currentRoom = allowedRooms.get(playerAttributes[6]);
-                degenFactor = Integer.parseInt(playerAttributes[5]);
-                String playerWeapon = read.readLine();
+                        Integer.parseInt(playerAttributes[4])); //Creates player object based on stats in the savefile.
+                currentRoom = allowedRooms.get(playerAttributes[6]); //sets currentRoom.
+                degenFactor = Integer.parseInt(playerAttributes[5]); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)
+                String playerWeapon = read.readLine(); //Does player have a primary weapon equipped?
                 if (playerWeapon.equals("noWeapon")) {
-                    System.out.println("player has no weapon");
+                    System.out.println("player has no weapon"); //no
                 } else {
-                    player.setPrimaryWeapon((Weapons) allowedItems.get(playerWeapon));
+                    player.setPrimaryWeapon((Weapons) allowedItems.get(playerWeapon)); //if yes, sets the weapon based off allowed items.
                     System.out.println("Primary weapon set.");
                 }
-                String inventoryLine = read.readLine();
+                String inventoryLine = read.readLine(); //Players inventory
                 if (inventoryLine.equals("no items")) {
                     System.out.println("No items in inventory");
                 } else {
                     String[] itemsInInventory = inventoryLine.split(",");
-                    for (String itemname : itemsInInventory) {
+                    for (String itemname : itemsInInventory) { //iterate through itemsInInventory and add items to new players inventory.
                         Items item = allowedItems.get(itemname);
                         player.getInventory().put(item.getName(), item);
                     }
                 }
                 String pilotRoomName = read.readLine();
-                pilotRoom = allowedRooms.get(pilotRoomName);
-                String noteFoundStatus = read.readLine();
+                pilotRoom = allowedRooms.get(pilotRoomName); //If not has been found sets pilots current room, if not sets pilots starting room.
+                String noteFoundStatus = read.readLine(); //has note been found or not?
                 if (noteFoundStatus.equals("noteNotFound")) {
                     System.out.println("Pilot's note has not been found");
                     noteFound = false;
@@ -191,7 +191,7 @@ public class Game {
                     noteFound = true;
                     System.out.println("Pilot note was found");
                 }
-                String pilotFoundStatus = read.readLine();
+                String pilotFoundStatus = read.readLine(); //has pilot been found?
                 if (pilotFoundStatus.equals("notFound")) {
                     System.out.println("pilot hasn't been found");
                 } else {
@@ -200,18 +200,18 @@ public class Game {
                 }
                 boolean moreRoomsToLoad = true;
                 while (moreRoomsToLoad) {
-                    String room = read.readLine();
+                    String room = read.readLine(); //Checks if the file has ended and the load is complete.
                     if (room.equals("endfile")) {
                         System.out.println("load complete");
                         break;
                     }
                     while (!room.equals("endroom")) {
-                        Room temp = allowedRooms.get(room);
+                        Room temp = allowedRooms.get(room); //Reads the entered room and gets correct room based on allowedRooms.
                         //System.out.println(room);
                         System.out.println(temp.getName());
                         rooms.add(temp); //Add room specified in file to rooms ArrayList, so the player does not end up in a room with no exits on sewer()
                         while (true) {
-                            String exit = read.readLine();
+                            String exit = read.readLine(); //Reads the exits that are set for a room.
                             //System.out.println(exit);
                             if (exit.equals("endexits")) {
                                 System.out.println("exits done");
@@ -223,7 +223,7 @@ public class Game {
 
                             }
                         }
-                        String itemString = read.readLine();
+                        String itemString = read.readLine(); //Describes items in a room
                         if (!itemString.equals("No items in room")) {
                             String[] itemsInRoom = itemString.split(",");
                             for (String itemname : itemsInRoom) {
@@ -233,7 +233,7 @@ public class Game {
                         } else {
                             System.out.println("items done - no items");
                         }
-                        String locked = read.readLine();
+                        String locked = read.readLine(); //Is the room locked or not?
                         if (locked.equals("locked")) {
                             temp.setLock(true);
                             System.out.println("locked");
@@ -246,7 +246,7 @@ public class Game {
                     }
 
                 }
-                read.close();
+                read.close(); //Closes the reader on completion.
                 play();
             }
         } catch (IOException e) {
@@ -657,7 +657,7 @@ public class Game {
             player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
-                player.AddPlayerScore( 10 );
+                player.addPlayerScore( 10 );
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             } else {
                 zombie.attackPlayer(player);
@@ -686,13 +686,13 @@ public class Game {
 
     private void zipline() {
         if (currentRoom == firestation) {
-            player.AddPlayerScore( 20 );
+            player.addPlayerScore( 20 );
             
             currentRoom = policestation;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else if (currentRoom == policestation) {
-            player.AddPlayerScore( 20 );
+            player.addPlayerScore( 20 );
             
             currentRoom = helipad;
             player.degenHungerAndThirst(degenFactor);
@@ -708,7 +708,7 @@ public class Game {
         } else if (pilotRoom.equals(currentRoom)) {
             
             pilotFound = true;
-            player.AddPlayerScore( 200 );
+            player.addPlayerScore( 200 );
             System.out.println("You found the pilot");
         } else {
             int roomInt = (int) (Math.random() * pilotRoom.getSize());
@@ -750,7 +750,7 @@ public class Game {
 
             System.out.println("You picked up the " + item.getName());
             player.getInventory().put(item.getName(), item);
-            if (item instanceof Weapons) {
+            if ((item instanceof Weapons) && !(player.hasPrimaryWeapon())) {
                 player.setPrimaryWeapon((Weapons) item);
                 System.out.println("Primary Weapon set");
             }
@@ -781,7 +781,7 @@ public class Game {
     private void gameWon() {
         System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
         
-        player.AddPlayerScore( 550 );
+        player.addPlayerScore( 550 );
         Scanner scan = new Scanner(System.in);
         String playString = "f";
         while (!playString.equals("n") && !playString.equals("y")) {

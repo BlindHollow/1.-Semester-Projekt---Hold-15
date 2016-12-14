@@ -94,12 +94,12 @@ public class Player {
         dehydration();
     }
     
-    public void AddPlayerScore( int i )
+    public void addPlayerScore( int i )
     {
         playerScore.addCurrentPlayerPoints(i);
     }
     
-    public void DeletePlayerScore( int i )
+    public void deletePlayerScore( int i )
     {
         playerScore.decreaseCurrentPlayerPoints( i );
     }
