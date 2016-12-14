@@ -1,6 +1,7 @@
 package worldofzuul;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * A class with methods that the gui controller can call. 
@@ -49,15 +50,20 @@ public class Parser implements ParserInterface {
     public void useItem(String itemName){
         NewFXMain.spil.useItem(itemName);
     }
-
+    
     @Override
-    public HashMap<String, Items> getPlayerInventory() {
-        return NewFXMain.spil.player.getInventory();
+    public Room getCurrentRoom(){
+        return NewFXMain.spil.currentRoom();
     }
 
     @Override
-    public HashMap<String, Items> getItemsInRoom() {
-        return NewFXMain.spil.currentRoom().getAllItems();
+    public Set<String> getPlayerInventory() {
+        return NewFXMain.spil.player.getInventory().keySet();
+    }
+
+    @Override
+    public Set<String> getItemsInRoom() {
+        return NewFXMain.spil.currentRoom().getAllItems().keySet();
     }
 
     @Override

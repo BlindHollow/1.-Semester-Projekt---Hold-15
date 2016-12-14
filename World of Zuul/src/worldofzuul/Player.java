@@ -41,6 +41,10 @@ public class Player {
         this.illness = illness;
     }
 
+    public void setName(String s){
+        this.name = s;
+    }
+    
     /**
      * Updates the health attribute checks if health is 0 or less on update, if
      * it is, sets isDead = true, causing the game to end.

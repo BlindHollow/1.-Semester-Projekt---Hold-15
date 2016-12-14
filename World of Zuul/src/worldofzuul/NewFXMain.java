@@ -5,6 +5,7 @@
  */
 package worldofzuul;
 
+import java.net.URL;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 /**
@@ -37,10 +41,20 @@ public class NewFXMain extends Application {
         Scene gameScene = new Scene(root, 1200, 680);
 
         stage.setScene(gameScene);
-        stage.setTitle("World of Zuul - The Game");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/zombie_icon.jpg"))); //Set icon on titlebar
+        stage.setTitle("Death Hospital - The Game"); //Set title on titlebar
         stage.show();
         stage.setResizable(false);
         stage.sizeToScene();
+        
+        //EXPERIMENTAL MUSIC PLAYER
+        final URL resource = getClass().getResource("sounds/darkness.mp3");
+        final Media media = new Media(resource.toString());
+        final MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnEndOfMedia(() -> {
+            mediaPlayer.seek(javafx.util.Duration.ZERO);
+        });
+        mediaPlayer.play();
     }
 
     /**

@@ -6,6 +6,7 @@
 package worldofzuul;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  *
@@ -22,8 +23,9 @@ public interface ParserInterface {
     void pickUpItem(String itemName);
     void dropItem(String itemName);
     void useItem(String itemName);
-    HashMap<String, Items> getPlayerInventory();
-    HashMap<String, Items> getItemsInRoom();
+    Room getCurrentRoom();
+    Set<String> getPlayerInventory();
+    Set<String> getItemsInRoom();
     HashMap<String, Room> getRoomExits();
     void saveGame();
     void loadGame();

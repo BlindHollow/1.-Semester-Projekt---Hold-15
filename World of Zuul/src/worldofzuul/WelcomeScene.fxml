@@ -11,28 +11,31 @@
 
 <AnchorPane id="anchorWelcomeScene" stylesheets="@css\welcomeScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController">
     <children>
-        <Label id="welcomeHeader" layoutX="20.0" layoutY="20.0" text="Death Hospital - A zombie game" textFill="#ddab05">
+      <AnchorPane fx:id="welcomeStartAnchor" layoutX="439.0" layoutY="172.0" prefHeight="200.0" prefWidth="400.0">
+         <children>
+            <AnchorPane fx:id="welcomeStartPane" prefHeight="200.0" prefWidth="400.0" />
+            <Label focusTraversable="false" layoutX="14.0" layoutY="14.0" text="Player Name" textFill="#ddab05">
+               <font>
+                  <Font size="38.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.8" />
+               </effect>
+            </Label>
+            <Button fx:id="btnStartGame" layoutX="255.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Start" />
+            <TextField fx:id="enterPlayerName" editable="true" layoutX="14.0" layoutY="88.0" promptText="Enter your name" />
+         </children></AnchorPane>
+        <Label id="welcomeHeader" layoutX="20.0" layoutY="20.0" text="Death Hospital - The Game" textFill="#ddab05">
             <font>
                 <Font size="58.0" />
             </font>
             <effect>
-                <DropShadow />
+                <DropShadow spread="0.8" />
             </effect>
         </Label>
         <Button fx:id="btnContinue" disable="true" layoutX="138.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Continue Game" />
         <Button fx:id="btnNewGame" layoutX="138.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleButtonAction" text="New Game" />
         <Button fx:id="btnQuit" layoutX="138.0" layoutY="326.0" mnemonicParsing="false" onAction="#quitGame" text="Quit" />
-      <AnchorPane fx:id="welcomeStartAnchor" layoutX="439.0" layoutY="172.0" prefHeight="200.0" prefWidth="400.0">
-         <children>
-            <Label blendMode="COLOR_DODGE" layoutX="14.0" layoutY="14.0" text="Player Name" textFill="#ddab05">
-               <font>
-                  <Font size="38.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnStartGame" layoutX="255.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Start" />
-            <TextField layoutX="14.0" layoutY="88.0" promptText="Enter your name" editable="true"   />
-            <AnchorPane fx:id="welcomeStartPane" prefHeight="200.0" prefWidth="400.0" />
-         </children></AnchorPane>
         
     </children>
 </AnchorPane>

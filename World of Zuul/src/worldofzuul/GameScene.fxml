@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController" stylesheets="@css\gameScene.css">
+<HBox stylesheets="@css\gameScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="worldofzuul.FXMLController">
     <children>
         <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: lightgray;" HBox.hgrow="ALWAYS">
             <children>
@@ -21,7 +22,7 @@
                         <ProgressBar fx:id="thirstbar" layoutX="13.0" layoutY="170.0" prefHeight="23.0" prefWidth="168.0" progress="1.0" />
                         <Label layoutX="13.0" layoutY="204.0" text="Illness" />
                         <ProgressBar fx:id="illnessbar" layoutX="13.0" layoutY="225.0" prefHeight="23.0" prefWidth="168.0" progress="0.0" />
-                        <Label layoutX="13.0" layoutY="14.0" text="PlayerName">
+                        <Label fx:id="labelPlayerName" layoutX="13.0" layoutY="14.0" onMouseClicked="#onPlayerName" text="PlayerName">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
