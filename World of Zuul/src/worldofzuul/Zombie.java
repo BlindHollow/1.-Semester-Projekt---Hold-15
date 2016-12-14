@@ -17,29 +17,30 @@ import worldofzuul.utilities.Dice;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Zombie {
-    private String defaultName = "zombie";
+    //private String defaultName = "zombie";
     
     private String name;
     private int zomHP;
     private int zomDamage;
     private boolean isDead;
-    private String DefualtZombieNamePath = ".\\db\\Zombies";
-    private ArrayList<String> zombieNames = new ArrayList();
-    
-    private Dice randomName = new Dice(0, 0);
+    //private String DefualtZombieNamePath = ".\\db\\Zombies";
+    //private ArrayList<String> zombieNames = new ArrayList();
+    private String[] zombieNames =  {"jon", "ned", "ramsay", "arya", "peter", "thormund", "jorah", "sansa", "brann", "rickon"};
+    //private Dice randomName = new Dice(0, 0);
 
-    public Zombie(String name, int zomHP, int zomDamage) {
-        this.name = name;
+    public Zombie(int zomHP, int zomDamage) {
+        this.name = (zombieNames[new Random().nextInt(zombieNames.length)]);
         this.zomHP = zomHP;
         this.zomDamage = zomDamage;
         this.isDead = false;
         
-        File path = new File( DefualtZombieNamePath );
+       /* File path = new File( DefualtZombieNamePath );
         
         if( worldofzuul.IO.Directories.exist( path ) == false )
-            worldofzuul.IO.Directories.create( path, true );
+            worldofzuul.IO.Directories.create( path, true );*/
     }
 
     public void hit(int damage) {
@@ -73,7 +74,7 @@ public class Zombie {
         return name;
     }
 
-    public String getRandomName()
+    /*public String getRandomName()
     {
         File f = new File( ".\\db\\Zombies" );
         
@@ -116,6 +117,6 @@ public class Zombie {
         }
         
         return value;
-    }
+    }*/
     
 }

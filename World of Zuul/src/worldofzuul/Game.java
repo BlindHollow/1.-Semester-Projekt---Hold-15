@@ -71,6 +71,12 @@ public class Game {
                 new FileOutputStream("save.txt"), "utf-8"))) {
             writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + ","
                     + degenFactor + "," + currentRoom.getName() + "\n");
+            if (player.hasPrimaryWeapon()) {
+                writer.write(player.getPrimaryWeapon().getName());
+            } else {
+                writer.write("noWeapon");
+            }
+            writer.write("\n");
             if (!player.getInventory().isEmpty()) {
                 Set<String> keys = player.getInventory().keySet();
                 for (String item : keys) {
@@ -82,12 +88,19 @@ public class Game {
                 writer.write("no items" + "\n");
             }
             //Save pilot state.
+            writer.write(pilotRoom.getName() + "\n");
+            if (noteFound) {
+                writer.write("noteFound");
+            } else {
+                writer.write("noteNotFound");
+            }
+            writer.write("\n");
             if (pilotFound) {
-                writer.write("pilotFound," + pilotRoom.getName() + "\n");
+                writer.write("pilotFound");
             } else {
                 writer.write("notFound");
-                writer.write("\n");
             }
+            writer.write("\n");
 
             //Save room states.
             if (!rooms.isEmpty()) {
@@ -151,6 +164,13 @@ public class Game {
                         Integer.parseInt(playerAttributes[4]));
                 currentRoom = allowedRooms.get(playerAttributes[6]);
                 degenFactor = Integer.parseInt(playerAttributes[5]);
+                String playerWeapon = read.readLine();
+                if (playerWeapon.equals("noWeapon")) {
+                    System.out.println("player has no weapon");
+                } else {
+                    player.setPrimaryWeapon((Weapons) allowedItems.get(playerWeapon));
+                    System.out.println("Primary weapon set.");
+                }
                 String inventoryLine = read.readLine();
                 if (inventoryLine.equals("no items")) {
                     System.out.println("No items in inventory");
@@ -161,13 +181,22 @@ public class Game {
                         player.getInventory().put(item.getName(), item);
                     }
                 }
-                String pilotStatus = read.readLine();
-                if (pilotStatus.equals("notFound")) {
+                String pilotRoomName = read.readLine();
+                pilotRoom = allowedRooms.get(pilotRoomName);
+                String noteFoundStatus = read.readLine();
+                if (noteFoundStatus.equals("noteNotFound")) {
+                    System.out.println("Pilot's note has not been found");
+                    noteFound = false;
+                } else {
+                    noteFound = true;
+                    System.out.println("Pilot note was found");
+                }
+                String pilotFoundStatus = read.readLine();
+                if (pilotFoundStatus.equals("notFound")) {
                     System.out.println("pilot hasn't been found");
                 } else {
-                    String[] pilotStatusArray = pilotStatus.split(",");
                     pilotFound = true;
-                    pilotRoom = allowedRooms.get(pilotStatusArray[1]);
+                    System.out.println("Pilot was found");
                 }
                 boolean moreRoomsToLoad = true;
                 while (moreRoomsToLoad) {
@@ -224,6 +253,7 @@ public class Game {
             Thread.currentThread().getStackTrace();
         } catch (NullPointerException e) {
             System.out.println("Invalid item or room, fix it and try again.");
+            Thread.currentThread().getStackTrace();
             newGame("Bob");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Fileformat is invalid");
@@ -582,8 +612,7 @@ public class Game {
         {
             System.out.println("There is no door!");
         } 
-        else if( nextRoom.zombieAmount() != 0 )
-        {
+        else if(!currentRoom.getZombies().isEmpty()) {
             System.out.println("You need to deal with the zombies in the room, before moving");
         }
         else if ( nextRoom.isLocked() == true && !player.hasUsableItem() ) 

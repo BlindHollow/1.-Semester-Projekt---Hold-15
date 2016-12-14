@@ -22,7 +22,8 @@ public class Player {
     
     private String name;
     
-
+    private boolean hasPrimaryWeapon;
+    
     private boolean isDead = false; //If set to true, game will end.
 
     private Weapons primaryWeapon;
@@ -161,6 +162,7 @@ public class Player {
 
     public void setPrimaryWeapon(Weapons weapon) {
         primaryWeapon = weapon;
+        hasPrimaryWeapon = true;
     }
 
     //Access functions.
@@ -186,6 +188,10 @@ public class Player {
 
     public Weapons getPrimaryWeapon() {
         return primaryWeapon;
+    }
+    
+    public boolean hasPrimaryWeapon() {
+        return hasPrimaryWeapon;
     }
 
     public boolean hasUsableItem() {

@@ -26,6 +26,7 @@ class Application {
         File file = new File(filename);
         loadGame(file);
 
+        //newGame();
     }
 
     public static void newGame() {

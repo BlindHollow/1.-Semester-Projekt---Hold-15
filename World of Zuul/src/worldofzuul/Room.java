@@ -31,10 +31,10 @@ public class Room {
     private Dice spawnChance = new Dice( 0,     // Min
                                          100 ); // Max
 
-    public int zombieAmount()
+    /*public int zombieAmount()
     {
         return zombies.size();
-    }
+    }*/
     
     public Room(String name, String description) {
         this.description = description;
@@ -132,12 +132,11 @@ public class Room {
         HP = 5;
         DMG = 2;
         
-        Zombie monster = new Zombie( "zombie", 
-                                     HP, DMG );
+        Zombie monster = new Zombie(HP, DMG );
         
-        String monsterName = monster.getRandomName();
+        //String monsterName = monster.getRandomName();
         
-        zombies.put( monsterName, 
+        zombies.put( monster.getName(), 
                      monster );
     }
     
