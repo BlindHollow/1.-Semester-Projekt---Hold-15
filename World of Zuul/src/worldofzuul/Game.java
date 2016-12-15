@@ -1,5 +1,6 @@
 package worldofzuul;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
 import java.io.*;
