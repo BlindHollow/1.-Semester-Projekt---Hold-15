@@ -12,15 +12,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.scene.image.*;
+import javafx.scene.media.*;
+import javafx.stage.*;
 
 /**
  *
