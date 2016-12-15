@@ -33,7 +33,7 @@ public class Highscore extends HighscoreSystem
         
         if( worldofzuul.IO.Directories.exist(new File( Directories.HighscoreTable ) ) == false )
         {
-            worldofzuul.IO.Directories.create(Directories.HighscoreTable, 
+            worldofzuul.IO.Directories.create( Directories.HighscoreTable, 
                                                true );
         }
         
@@ -55,7 +55,6 @@ public class Highscore extends HighscoreSystem
         setCurrentPlayerName( name );
         
         loadPlayers();
-        
         
     }
     
@@ -93,13 +92,24 @@ public class Highscore extends HighscoreSystem
      */
     public final void loadPlayers()
     {
+        // Directory for the highscore files
         File playerFilesDirectory = new File( Directories.HighscoreTable );
+        
+        // List of files
         File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
         
+        // Reads each files, and adds them to the highscore list
         for( File user : listedPlayerFiles )
         {
+            
             try
             {
+                /* 
+                   Note: Returns the file, line by line
+                // If the file is large enough, it can cause OutOfMemoryError
+                // And cause the program to crash, however. due to the fact that
+                // we're only reading names and stuff, it wont be a huge problem. 
+                */
                 List<String> linesRead = Files.readAllLines( user.toPath() );
                 
                 for( String currentline : linesRead )
@@ -111,9 +121,30 @@ public class Highscore extends HighscoreSystem
                 }
                 
             }
-            catch ( Exception ex )
+            catch( java.lang.SecurityException SEx )
             {
-                        
+                // Indicates a security violation.
+                    // Triggered...
+                continue;
+            }
+            catch( java.io.IOException IOEx )
+            {
+                continue;
+            }
+            catch( java.lang.IllegalArgumentException IAEx )
+            {
+                // 
+                return;
+            }
+            catch( java.lang.OutOfMemoryError OOMEx )
+            {
+                // Couldn't allocate the required memory . . .
+                return;
+            }
+            catch ( Exception Ex )
+            {
+                // out of our controll, exit gracefully. . .
+                return;      
             }
             
         }
