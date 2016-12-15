@@ -293,9 +293,9 @@ public class Game {
     }
 
     public void goRoom(String direction) {
-        
+
         Room nextRoom = currentRoom.getExit(direction);
-        
+
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
@@ -311,7 +311,7 @@ public class Game {
             if (currentRoom == pub && !hasBeenInPub) {
                 sewer();
             }
-            
+
             if (noteFound) {
                 movePilot();
             }
@@ -411,7 +411,7 @@ public class Game {
 //pick up an item in the room you are in. Command: Grab "item"
 
     public void takeItem(String itemName) {
-        
+
         Items item = currentRoom.getItem(itemName);
 
         if (null == item) {
@@ -433,7 +433,7 @@ public class Game {
 
     //drop an item in your inventory and leave it in current room. Command: Drop "item"
     public void dropItem(String itemName) {
-        
+
         Items item = player.getItemInInventory(itemName);
 
         if (null == item) {
@@ -446,21 +446,24 @@ public class Game {
             player.getInventory().remove(item.getName());
         }
     }
-    
+
     public void useItem(String itemName) {
-        
+
         Items item = player.getItemInInventory(itemName);
-        
-        if (null == item) {
-            System.out.println("Item not in inventory");
-        } else if(item instanceof Food){
-            player.updateHunger(((Food) item).getHungerRegen());
-            player.updateThirst(((Food) item).getThirstRegen());
-        } else if(item instanceof Sustain) {
-            player.updateHealth(((Sustain) item).getHealthRegen());
-            player.updateIllness(((Sustain) item).getIllnessRegen());
-        } else {
-            System.out.println("Cannot use that item");
+
+        if (player.itemsIsInInventory(item)) {
+
+            if (null == item) {
+                System.out.println("Item not in inventory");
+            } else if (item instanceof Food) {
+                player.updateHunger(((Food) item).getHungerRegen());
+                player.updateThirst(((Food) item).getThirstRegen());
+            } else if (item instanceof Sustain) {
+                player.updateHealth(((Sustain) item).getHealthRegen());
+                player.updateIllness(((Sustain) item).getIllnessRegen());
+            } else {
+                System.out.println("Cannot use that item");
+            }
         }
     }
 
@@ -491,7 +494,5 @@ public class Game {
     public Room pilotRoom() {
         return pilotRoom;
     }
-    
-    
 
 } // Class Game

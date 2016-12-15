@@ -211,4 +211,8 @@ public class Player {
             System.out.println(itemString);
         }
     }
+    
+    public boolean itemsIsInInventory(Items i){
+        return inventory.containsKey(i.getName());
+    }
 } //class Player
