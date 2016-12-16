@@ -9,6 +9,8 @@ import java.util.Random;
 
 /**
  * Dice class that returns a number between the "begin" interval and the "end" interval
+   Edit(begin, end), adds new "limits",
+   You can use the get & set's too.
  
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
@@ -58,8 +60,8 @@ public class Dice
     }
     
     /**
-     * 
-     * @return value between begin and end interval
+     * Returns a value between begin & end
+     * @return random Integer Value
      * @return -1 : Error, else random value between @param Begin and @param End
      */
     public final int calculate()
