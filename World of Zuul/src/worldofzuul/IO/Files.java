@@ -32,9 +32,20 @@ public class Files
             {
                 return filePath.createNewFile();
             }
+            catch( java.nio.file.FileAlreadyExistsException FAEEx )
+            {
+                
+                return false;
+            }
+            catch( java.io.IOException IOEx )
+            {
+                
+                return false;
+            }
             catch( Exception ex )
             {
-
+                
+                return false;
             }
 
         }

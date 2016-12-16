@@ -41,11 +41,6 @@ public class HighscoreUser
         isPlayer = inputState;
     }
     
-    public void setRank( int r )
-    {
-        player.setRank( r );
-    }
-    
     // Getters
     public boolean getIsPlayer()
     {
@@ -60,11 +55,6 @@ public class HighscoreUser
     public int getPlayerScore()
     {
         return player.getPlayerScore();
-    }
-    
-    public int getPlayerRank()
-    {
-        return player.getRank();
     }
     
     // Object

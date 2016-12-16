@@ -23,7 +23,6 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     private boolean personOfInterest = false;
     
     private int playerScore = 0;
-    private int rank        = 0;
     
         // Accessors
             // Getters
@@ -37,22 +36,12 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
         return this.playerScore;
     }
     
-    public int getRank()
-    {
-        return this.rank;
-    }
-    
     public boolean getPOI()
     {   
         return this.personOfInterest;
     }
     
         // Setters
-    public void setRank( int Rank )
-    {
-        this.rank = Rank;
-    }
-    
     public void setPOI( boolean PersonOfInterestState )
     {
         this.personOfInterest = PersonOfInterestState;
