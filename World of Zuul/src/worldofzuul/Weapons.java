@@ -19,6 +19,13 @@ public class Weapons extends Items {
     private boolean usable;
     private Dice randChange = new Dice(0, 100);
 
+    /**
+     * Constructor for the weapons class. 
+     * @param name
+     * @param damage
+     * @param critmod
+     * @param usable 
+     */
     public Weapons(String name, int damage, int critmod, boolean usable) {
         this.damage = damage;
         this.name = name;
@@ -26,6 +33,11 @@ public class Weapons extends Items {
         this.critmodifier = critmod;
     }
     
+    /**
+     * A potentiel to give bonus damage, else it will return normal damage
+     * @param dmg
+     * @return 
+     */
     private int CritDmg( int dmg )
     {
         int r = randChange.calculate();
@@ -40,10 +52,18 @@ public class Weapons extends Items {
         }
     }
     
+    /**
+     * returns if it can be used
+     * @return 
+     */
     public boolean isUsable() {
         return usable;
     }
 
+    /**
+     * Gets the weapons damage
+     * @return 
+     */
     public int getDamage() {
         return CritDmg( this.damage );
     }

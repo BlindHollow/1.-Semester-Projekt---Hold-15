@@ -16,6 +16,7 @@ import worldofzuul.score.Highscore;
  */
 public class Player {
 
+    //Variables
     private int health, hunger, thirst, illness;
   
     private Highscore playerScore;
