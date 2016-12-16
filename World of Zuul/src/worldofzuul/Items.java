@@ -5,11 +5,6 @@ public class Items {
 
     public String name;
 
-    // Broken, etc.
-    private int item_Status() {
-        return 0;
-    }
-
     public void found() {
         String actionString = "You found " + this.name;
         System.out.println(actionString);
@@ -23,5 +18,9 @@ public class Items {
     public String getName() {
         return name;
     }
-
+    
+    // Broken, etc.
+    private int item_Status() {
+        return 0;
+    }
 }

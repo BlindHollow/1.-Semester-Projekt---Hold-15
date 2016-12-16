@@ -427,7 +427,7 @@ public class Game {
             }
 
             currentRoom.removeItem(item.getName());
-        }
+        }   
     }
 
     //drop an item in your inventory and leave it in current room. Command: Drop "item"
