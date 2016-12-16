@@ -128,7 +128,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void quitGame(ActionEvent event) throws IOException {
         //Giver mulighed for at stoppe spillet
-        btnQuit.setOnAction(e -> AlertBox.display("Title of Window", "Are you sure?"));
+        btnQuit.setOnAction(e -> AlertBox.displayQuitBox("Quit?","Are you sure?"));
     }
 
     /**
@@ -268,4 +268,3 @@ public class FXMLController implements Initializable {
         }
     }
 }
-
