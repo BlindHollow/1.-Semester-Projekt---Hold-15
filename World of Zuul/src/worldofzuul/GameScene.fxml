@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -44,13 +45,13 @@
                 </AnchorPane>
                 <AnchorPane fx:id="paneButtons" prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="mainBtn" layoutX="39.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Exit to menu" />
+                        <Button fx:id="btnHelp" layoutX="39.0" layoutY="50.0" mnemonicParsing="false" onAction="#getHelpBox" text="Help" />
                         <Button fx:id="btnQuit" layoutX="39.0" layoutY="92.0" mnemonicParsing="false" onAction="#quitGame" text="Quit" />
                     </children>
                 </AnchorPane>
             </children>
         </VBox>
-        <AnchorPane onMouseClicked="#onMouseClicked" HBox.hgrow="ALWAYS">
+        <AnchorPane fx:id="roomBackground" onMouseClicked="#onMouseClicked" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="tempLabel" layoutX="333.0" layoutY="290.0" text="Label" />
             </children>

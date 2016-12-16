@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -54,7 +56,9 @@ public class FXMLController implements Initializable {
     @FXML
     private AnchorPane welcomeStartAnchor;
     @FXML
-    private Button mainBtn;
+    private AnchorPane roomBackground;
+    @FXML
+    private Button btnHelp;
     @FXML
     private Button btnStartGame;
     @FXML
@@ -65,6 +69,8 @@ public class FXMLController implements Initializable {
     private TextField enterPlayerName;
     @FXML
     private Label labelPlayerName;
+    @FXML
+    private ImageView img1;
     Stage stage = null;
     Parent root = null;
     private Parser pars;
@@ -125,10 +131,14 @@ public class FXMLController implements Initializable {
      * @param event
      * @throws IOException
      */
-    @FXML
+    @FXML //Åbner en hjælp box
+    private void getHelpBox(ActionEvent event) throws IOException {
+        AlertBox.displayHelpBox();
+    }
+
+    @FXML //Giver mulighed for at stoppe spillet
     private void quitGame(ActionEvent event) throws IOException {
-        //Giver mulighed for at stoppe spillet
-        btnQuit.setOnAction(e -> AlertBox.displayQuitBox("Quit?","Are you sure?"));
+        AlertBox.displayQuitBox("Quit?", "Are you sure?");
     }
 
     /**
@@ -171,10 +181,13 @@ public class FXMLController implements Initializable {
             tempLabel.setText("You walked southeast");
             updateStats();
         }
-
+        updateRoom();
     }
 
     private void updateRoom() { //TODO load picture of room, load pictures of exits
+
+        String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
+        roomBackground.setStyle(image);
         HashMap<String, Room> exits = pars.getRoomExits();
         Set<String> keys = exits.keySet();
         for (String exit : keys) {
