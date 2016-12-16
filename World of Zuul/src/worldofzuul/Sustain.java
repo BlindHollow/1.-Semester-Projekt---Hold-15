@@ -15,6 +15,12 @@ public class Sustain extends Items {
     private final int healthRegen; //for regenerating health upon use
     private final int illnessRegen; //for lowering the illness upon use
 
+    /**
+     * 
+     * @param name
+     * @param health
+     * @param illness 
+     */
     public Sustain(String name, int health, int illness) {
         this.healthRegen = health;
         this.illnessRegen = illness;

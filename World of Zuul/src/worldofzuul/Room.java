@@ -36,6 +36,11 @@ public class Room {
         return zombies.size();
     }*/
     
+    /**
+     * 
+     * @param name
+     * @param description 
+     */
     public Room(String name, String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
@@ -44,38 +49,66 @@ public class Room {
         this.name = name;
     }
 
+    /**
+     * 
+     * @param direction
+     * @param neighbor 
+     */
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
-    //Places an item in the room
+    /**
+     * Places an item in the room
+     */
     public void placeItem(Items item) {
         placements.put(item.getName(), item);
     }
 
-    //Removes an item from the room
+    /**
+     * Removes an item from the room
+     * @param key 
+     */
     public void removeItem(String key) {
         placements.remove(key);
     }
 
-    //Places a zombie in a room
+    /**
+     * Places a zombie in a room
+     * @param zombie 
+     */
     public void placeZombie(Zombie zombie) {
         zombies.put( zombie.getName(), zombie );
     }
 
-    //Removes the zombie from the room. Should be used when it's killed
+    /**
+     * Removes the zombie from the room. Should be used when it's killed
+     * @param key 
+     */
     public void removeZombie(String key) {
         zombies.remove(key);
     }
 
+    /**
+     * Retrieves a short description of the room
+     * @return 
+     */
     public String getShortDescription() {
         return description;
     }
 
+    /**
+     * Retrieves a long description of the room
+     * @return 
+     */
     public String getLongDescription() {
         return "You are " + description + ".\n" + getZombieString() + getExitString();
     }
 
+    /**
+     * Get Exit
+     * @return 
+     */
     private String getExitString() {
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
@@ -85,6 +118,10 @@ public class Room {
         return returnString;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getZombieString() {
         if (!zombies.isEmpty()) {
             String zombieString = "A zombified version of ";
@@ -99,12 +136,22 @@ public class Room {
 
     }
 
+    /**
+     * 
+     * @param direction
+     * @return 
+     */
     public Room getExit(String direction) { 
         Room room = exits.get(direction);
         
         return room;
     }
 
+    /**
+     * 
+     * @param index
+     * @return 
+     */
     public Room getExit(int index) {
         Set<String> keys = exits.keySet();
         int i = 0;
@@ -117,15 +164,27 @@ public class Room {
         return null;
     }
 
-    //Returns the item (an object) with the key "key" in the placements HashMap
+    /**
+     * Returns the item (an object) with the key "key" in the placements HashMap
+     * @param key
+     * @return 
+     */
     public Items getItem(String key) {
         return placements.get(key);
     }
 
+    /**
+     * 
+     * @param key
+     * @return 
+     */
     public Zombie getZombie(String key) {
         return zombies.get(key);
     }
     
+    /**
+     * Spawns zombies
+     */
     private void spawnZombie()
     {
         int HP, DMG;
@@ -140,16 +199,27 @@ public class Room {
                      monster );
     }
     
+    /**
+     * 
+     * @param value 
+     */
     public void setSpawnable( boolean value )
     {
         spawnable = value;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean getSpawnable()
     {
         return spawnable;
     }
     
+    /**
+     * 
+     */
     public void spawnRandomZombie()
     {
         if( spawnable == true )
@@ -166,7 +236,9 @@ public class Room {
         }
     }
 
-    //Prints a list of items in the current room
+    /**
+     * Prints a list of items in the current room
+     */
     public void searchRoom() {
         if (placements.isEmpty()) {
             System.out.println("The room is empty.");
@@ -180,30 +252,60 @@ public class Room {
         }
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isLocked()
     {
         return lock;
     }
     
+    /**
+     * 
+     * @param status 
+     */
     public void setLock( boolean status )
     {
         lock = status;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getSize() {
         return exits.size();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public HashMap<String, Room> getNeighbours() {
         return exits;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public HashMap<String, Items> getPlacements() {
         return placements;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public HashMap<String, Zombie> getZombies() {
         return zombies;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public String getName() {
         return name;
     }
