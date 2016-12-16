@@ -76,6 +76,7 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         pars = new Parser();
+        onPlayerName();
     }
 
     /**
@@ -127,7 +128,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void quitGame(ActionEvent event) throws IOException {
         //Giver mulighed for at stoppe spillet
-        btnQuit.setOnAction(e -> AlertBox.display("Title of Window","Are you sure?"));
+        btnQuit.setOnAction(e -> AlertBox.display("Title of Window", "Are you sure?"));
     }
 
     /**
@@ -201,7 +202,6 @@ public class FXMLController implements Initializable {
         updateItemsInRoom();
     }
 
-    
     private void updateItemsInRoom() { //TODO load pictures of items
         int i = 0;
         for (String s : pars.getItemsInRoom()) {
@@ -256,9 +256,16 @@ public class FXMLController implements Initializable {
         passnumber = pars.getPlayerIllness();
         this.illnessbar.setProgress(passnumber / 100);
     }
+
     @FXML
     private void onPlayerName(MouseEvent event) {
         labelPlayerName.setText(NewFXMain.spil.player.getName());
     }
 
+    private void onPlayerName() {
+        if (labelPlayerName != null) {
+            labelPlayerName.setText(NewFXMain.spil.player.getName());
+        }
+    }
 }
+
