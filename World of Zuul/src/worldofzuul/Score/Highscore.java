@@ -20,19 +20,25 @@ import worldofzuul.misc.Directories;
  * @author Madsen, Kent vejrup
  * @author Thy, Mads Heimdal
  */
+/**
+ * An extended version of the highscoreSystem, that retrieves a bunch of users.
+ */
 public class Highscore extends HighscoreSystem 
 {
     private boolean debug = false;
     
     /**
-     * 
+     * Constructor
      */
     public Highscore()
     {
+        // Default playername
         setCurrentPlayerName( "player" );
         
+        // Check if directory Exist
         if( worldofzuul.IO.Directories.exist(new File( Directories.HighscoreTable ) ) == false )
         {
+            // Create it
             worldofzuul.IO.Directories.create( Directories.HighscoreTable, 
                                                true );
         }
@@ -40,7 +46,7 @@ public class Highscore extends HighscoreSystem
     }
     
     /**
-     * 
+     * Constructor
      * @param name 
      */
     public Highscore( String name )
@@ -76,6 +82,7 @@ public class Highscore extends HighscoreSystem
        try
        {
             PrintWriter pw = new PrintWriter( file, "UTF-8" );
+            
             pw.println( builder.toString() );
             pw.close();
        }
@@ -165,7 +172,7 @@ public class Highscore extends HighscoreSystem
         this.debug = State;
     }
     
-    // Functions ------------------------------------------------------------------------------------ //
+    // Functions -------------------------------------------------------------->
    
     private static class hsText
     {   
@@ -219,19 +226,6 @@ public class Highscore extends HighscoreSystem
             return false;
         } // End AllowedCharacter
         
-    } // End Parsing
-    
-    private static class hsDebug
-    {
-        public static void output( String Text, boolean DebugState )
-        {
-            
-            if( DebugState == true )
-            {
-                System.out.println(Text);
-            }
-            
-        }
-    } // End hsDebug    
+    } // End Parsing  
 
 }  // End Class Main

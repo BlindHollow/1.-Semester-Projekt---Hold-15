@@ -15,9 +15,10 @@ package worldofzuul.score;
  * @author Thy, Mads Heimdal
  */
 
-// Implements Comparable. used to sort a array
 public final class HighscorePlayer implements Comparable<HighscorePlayer>
 {
+    // Implements Comparable. used to sort a arraylist of players, by their highscore
+    
     // Private Variables
     private String playerName = null;
     
@@ -48,7 +49,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     /**
      * Depends on the context, as an example if your looking for a player, in the list
      * When it's sorted for you.
-     * You get if the currentObject is an interest to you
+     * You get, if the currentObject is an interest to you
      * @return 
      */
     public boolean getPOI()
@@ -69,7 +70,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     }
     
     /**
-     * 
+     * Sets the currentPlayers score
      * @param Score 
      */
     public void setPlayerScore( int Score )
@@ -78,7 +79,7 @@ public final class HighscorePlayer implements Comparable<HighscorePlayer>
     }
     
     /**
-     * 
+     * Sets the currentPlayers name
      * @param name 
      */
     public void setPlayerName( String name )

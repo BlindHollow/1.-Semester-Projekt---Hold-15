@@ -14,6 +14,10 @@ package worldofzuul.score;
  * @author Madsen, Kent vejrup
  * @author Thy, Mads Heimdal
  */
+
+/**
+ * From the viewpoint, it's usually a "active" player himself
+ */
 public class HighscoreUser 
 {
     
