@@ -31,6 +31,11 @@ public class Zombie {
     private String[] zombieNames =  {"jon", "ned", "ramsay", "arya", "peter", "thormund", "jorah", "sansa", "brann", "rickon"};
     //private Dice randomName = new Dice(0, 0);
 
+    /**
+     * Constructor for Zombie
+     * @param zomHP
+     * @param zomDamage 
+     */
     public Zombie(int zomHP, int zomDamage) {
         this.name = (zombieNames[new Random().nextInt(zombieNames.length)]);
         this.zomHP = zomHP;
@@ -43,22 +48,37 @@ public class Zombie {
             worldofzuul.IO.Directories.create( path, true );*/
     }
 
+    /**
+     * Hitting the zombie, with a specific amount of damage
+     * @param damage 
+     */
     public void hit(int damage) {
         updateHealth(-1*damage);
         System.out.println("You attacked " + name + " for " + damage + " damage.");
     }
     
+    /**
+     * 
+     * @param player 
+     */
     public void attackPlayer(Player player) {
         player.updateHealth(-1*zomDamage);
         player.updateIllness(7);
         System.out.println(name + " attacked you for " + zomDamage + " damage.");
     }
 
+    /**
+     * 
+     */
     public void kill() {
         String actionString = "You killed the " + this.name;
         System.out.println(actionString);
     }
     
+    /**
+     * 
+     * @param modifier 
+     */
     public void updateHealth(int modifier) {
         zomHP = zomHP + modifier;
         if (zomHP <= 0) {
@@ -66,10 +86,18 @@ public class Zombie {
         }
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean schroedinger(){
         return isDead;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getName() {
         return name;
     }
