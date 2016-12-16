@@ -127,13 +127,11 @@ public class FXMLController implements Initializable {
     @FXML
     private void quitGame(ActionEvent event) throws IOException {
         //Giver mulighed for at stoppe spillet
-        if (event.getSource() == btnQuit) {
-            btnQuit.setOnAction(e -> AlertBox.display("Quit?", "Are you sure you want to quit?"));
-        }
+        btnQuit.setOnAction(e -> AlertBox.display("Title of Window","Are you sure?"));
     }
 
     /**
-     * Moves the player to another room, depending on what is clicked.
+     * Moves the player to another room, dependeing on what is clicked.
      *
      * @param event
      */
@@ -203,6 +201,7 @@ public class FXMLController implements Initializable {
         updateItemsInRoom();
     }
 
+    
     private void updateItemsInRoom() { //TODO load pictures of items
         int i = 0;
         for (String s : pars.getItemsInRoom()) {
@@ -257,7 +256,6 @@ public class FXMLController implements Initializable {
         passnumber = pars.getPlayerIllness();
         this.illnessbar.setProgress(passnumber / 100);
     }
-
     @FXML
     private void onPlayerName(MouseEvent event) {
         labelPlayerName.setText(NewFXMain.spil.player.getName());
