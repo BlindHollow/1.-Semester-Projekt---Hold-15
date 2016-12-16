@@ -19,16 +19,26 @@ public class Items {
         return 0;
     }
 
+    /**
+     * 
+     */
     public void found() {
         String actionString = "You found " + this.name;
         System.out.println(actionString);
     }
 
+    /**
+     * 
+     */
     public void destroy() {
         String actionString = "You destroyed " + this.name;
         System.out.println(actionString);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getName() {
         return name;
     }

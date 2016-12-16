@@ -661,7 +661,7 @@ public class Game {
             player.degenHungerAndThirst(degenFactor);
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
-                player.addPlayerScore( 10 );
+                player.increasePlayerScore( 10 );
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             } else {
                 zombie.attackPlayer(player);
@@ -690,13 +690,13 @@ public class Game {
 
     private void zipline() {
         if (currentRoom == firestation) {
-            player.addPlayerScore( 20 );
+            player.increasePlayerScore( 20 );
             
             currentRoom = policestation;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
         } else if (currentRoom == policestation) {
-            player.addPlayerScore( 20 );
+            player.increasePlayerScore( 20 );
             
             currentRoom = helipad;
             player.degenHungerAndThirst(degenFactor);
@@ -712,7 +712,7 @@ public class Game {
         } else if (pilotRoom.equals(currentRoom)) {
             
             pilotFound = true;
-            player.addPlayerScore( 200 );
+            player.increasePlayerScore( 200 );
             System.out.println("You found the pilot");
         } else {
             int roomInt = (int) (Math.random() * pilotRoom.getSize());
@@ -785,7 +785,7 @@ public class Game {
     private void gameWon() {
         System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
         
-        player.addPlayerScore( 550 );
+        player.increasePlayerScore( 550 );
         Scanner scan = new Scanner(System.in);
         String playString = "f";
         while (!playString.equals("n") && !playString.equals("y")) {

@@ -94,16 +94,28 @@ public class Player {
         dehydration();
     }
     
-    public void addPlayerScore( int i )
+    /**
+     * increases the current player points, with a specific number
+     * @param i 
+     */
+    public void increasePlayerScore( int i )
     {
         playerScore.addCurrentPlayerPoints(i);
     }
     
-    public void deletePlayerScore( int i )
+    /**
+     * decreases the current player points, with a specific number
+     * @param i 
+     */
+    public void decreasePlayerScore( int i )
     {
         playerScore.decreaseCurrentPlayerPoints( i );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int RetrieveScore()
     {
         return playerScore.getCurrentPlayerPoints();

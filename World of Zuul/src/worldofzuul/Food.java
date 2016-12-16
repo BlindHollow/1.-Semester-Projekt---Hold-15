@@ -15,6 +15,12 @@ public class Food extends Items {
     private final int hungerRegen; //for regenerating health upon use
     private final int thirstRegen; //for regenerating thirst upon use
 
+    /**
+     * 
+     * @param name
+     * @param hunger
+     * @param thirst 
+     */
     public Food(String name, int hunger, int thirst) {
         this.hungerRegen = hunger;
         this.thirstRegen = thirst;

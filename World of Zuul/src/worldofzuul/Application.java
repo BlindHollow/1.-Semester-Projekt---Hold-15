@@ -17,7 +17,9 @@ class Application {
 
     private static Game game;
 
-    // Entry function, for the Java Program
+    /**
+     * Entry function, for the Java Program
+     */
     public static void main(String[] Args) throws IOException {
         
         System.out.println("Input filename: ");
@@ -29,6 +31,9 @@ class Application {
         //newGame();
     }
 
+    /**
+     * Creates a new game
+     */
     public static void newGame() {
         game = new Game();
         Scanner keyboard = new Scanner(System.in);
@@ -36,6 +41,11 @@ class Application {
         game.newGame(playerName); //Creates a new game and starts it.
     }
 
+    /**
+     * Loads a saved game
+     * @param file
+     * @throws IOException 
+     */
     public static void loadGame(File file) throws IOException {
         game = new Game();
         game.loadGame(file);
