@@ -141,7 +141,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="playerImg" fitHeight="100.0" fitWidth="100.0" layoutX="419.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="playerImg" fitHeight="100.0" fitWidth="100.0" layoutX="419.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/player_bag.png" />
                </image>
