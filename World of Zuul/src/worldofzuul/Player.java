@@ -2,19 +2,31 @@ package worldofzuul; //NETBEANS
 
 import java.util.HashMap;
 import java.util.Set;
+import worldofzuul.score.Highscore;
 
 /**
+ 
  * Contains info about the Player.
- *
+ * @author Bytoft, Mikkel
+ * @author Christensen, Martin Steen
+ * @author Hansen, Søren Vest
+ * @author Johansen, Emil Højgaard
+ * @author Madsen, Kent vejrup
+ * @author Thy, Mads Heimdal
  */
 public class Player {
 
+    //Variables
     private int health, hunger, thirst, illness;
+  
+    private Highscore playerScore;
     
     private String name;
-
-    private boolean isDead = false; //If set to true, game will end.
     
+    private boolean hasPrimaryWeapon;
+    
+    private boolean isDead = false; //If set to true, game will end.
+
     private Weapons primaryWeapon;
 
     private HashMap<String, Items> inventory = new HashMap<>();
@@ -23,8 +35,9 @@ public class Player {
      * Constructor Starts the player object with full health, hunger, thirst and
      * illness gauges.
      */
-    public Player(String name) {
+    public Player( String name ) {
         this.name = name;
+        this.playerScore = new Highscore( this.name );
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;
@@ -85,6 +98,33 @@ public class Player {
         }
         dehydration();
     }
+    
+    /**
+     * increases the current player points, with a specific number
+     * @param i 
+     */
+    public void increasePlayerScore( int i )
+    {
+        playerScore.addCurrentPlayerPoints(i);
+    }
+    
+    /**
+     * decreases the current player points, with a specific number
+     * @param i 
+     */
+    public void decreasePlayerScore( int i )
+    {
+        playerScore.decreaseCurrentPlayerPoints( i );
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public int RetrieveScore()
+    {
+        return playerScore.getCurrentPlayerPoints();
+    }
 
     /**
      * Updates illness attribute has no maxvalue if above 80 it will update
@@ -99,14 +139,24 @@ public class Player {
             updateHealth((int) (-1 * illness * 0.10)); //lose health equivalent to 10% of illness stat.
         }
     }
+    
+    public void SavePlayerscore()
+    {
+        playerScore.saveCurrentCharacter();
+    }
+    
+    public void LoadHighscore()
+    {
+        playerScore.loadPlayers();
+    }
 
     /**
      * Degrades hunger and thirst by 5 each. TODO: Adjust numbers to adjust
      * difficulty.
      */
     public void degenHungerAndThirst(int n) {
-        updateHunger(-1*n);
-        updateThirst(-1*n);
+        updateHunger(-1 * n);
+        updateThirst(-1 * n);
     }
 
     /**
@@ -136,9 +186,10 @@ public class Player {
             System.out.println("You are dehydrated.");
         }
     }
-    
+
     public void setPrimaryWeapon(Weapons weapon) {
         primaryWeapon = weapon;
+        hasPrimaryWeapon = true;
     }
 
     //Access functions.
@@ -166,21 +217,25 @@ public class Player {
         return primaryWeapon;
     }
     
+    public boolean hasPrimaryWeapon() {
+        return hasPrimaryWeapon;
+    }
+
     public boolean hasUsableItem() {
         for (Items item : inventory.values()) {
             if (item instanceof Weapons) {
-                Weapons weap = (Weapons)item;
+                Weapons weap = (Weapons) item;
                 if (weap.isUsable()) {
                     return true;
                 }
-            } else {
-                return false;
             }
-        } return false;       
+        } return false;
     }
+
     public String getName() {
         return name;
     }
+
     /**
      * Prints the players status, ie. values of the attributes.
      */
@@ -192,6 +247,7 @@ public class Player {
     public Items getItemInInventory(String key) {
         return inventory.get(key);
     }
+
     public HashMap<String, Items> getInventory() {
         return inventory;
     }
