@@ -656,6 +656,7 @@ public class Game {
             System.out.println("There is no door!");
         } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
             System.out.println("Door is Locked, find something to open the door with and try again.");
+                    } else if (!currentRoom.getZombies().isEmpty()) {
             System.out.println("There's a zombie in the room, you can't leave.");
         } else {
             currentRoom = nextRoom;
