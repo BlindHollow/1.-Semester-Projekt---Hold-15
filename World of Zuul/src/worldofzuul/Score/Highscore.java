@@ -55,7 +55,7 @@ public class Highscore extends HighscoreSystem
             return;
         
         setCurrentPlayerName( name );
-        
+      
         loadPlayers();
         
     }
@@ -104,7 +104,7 @@ public class Highscore extends HighscoreSystem
         // Reads each files, and adds them to the highscore list
         for( File user : listedPlayerFiles )
         {
-            
+          
             try
             {
                 /* 
@@ -119,14 +119,17 @@ public class Highscore extends HighscoreSystem
                 {
                     String[] result = currentline.split( "," );
                     
-                    if( this.getCurrentPlayerName().equals( result[0].toLowerCase() ) == true )
+                    if( hsFunction.isLowerStringsEqual( this.getCurrentPlayerName(), 
+                        result[0] ) )
                     {
-                        System.out.println( "Result : " + user.getName() + ", " + result[0] );
                         this.setCurrentPlayerPoints( Integer.parseInt( result[1]) );
                     }
-                    
-                    addPlayers( result[0], 
-                                Integer.parseInt( result[1] ) );  
+                    else
+                    {
+                        addPlayers( result[0], 
+                                    Integer.parseInt( result[1] ) );
+                    }
+                      
                 }
                 
             }
@@ -163,6 +166,19 @@ public class Highscore extends HighscoreSystem
     
     // Functions -------------------------------------------------------------->
    
+    private static class hsFunction
+    {
+        
+        public static boolean isLowerStringsEqual( String a, String b )
+        {
+            if( a.toLowerCase().equals( b.toLowerCase() ) )
+                return true;
+            
+            return false;
+        }
+        
+    }
+    
     private static class hsText
     {   
             /**
@@ -172,7 +188,7 @@ public class Highscore extends HighscoreSystem
             */
         public static boolean parseCharacters( String InputName )
         {
-            //
+            // 
             boolean Continue;
             
             for( char c : InputName.toCharArray() )

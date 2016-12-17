@@ -23,8 +23,6 @@ public class HighscoreSystem
     private HighscoreUser user = new HighscoreUser();
     private ArrayList<HighscorePlayer> listOfPriorUserScores = new ArrayList();
     
-    private int totalAmountOfUsers = 0;
-    
     /**
      * 
      * @param CurrentPlayername 
@@ -134,11 +132,6 @@ public class HighscoreSystem
     public final String getCurrentPlayerName()
     {
         return user.getPlayerName();
-    }
-    
-    public final int getTotalAmountOfHighscores()
-    {
-        return totalAmountOfUsers;
     }
     
     /**
