@@ -829,5 +829,9 @@ System.out.println("player loadede");
     public Room pilotRoom() {
         return pilotRoom;
     }
+    
+    public boolean getNoteFound(){
+        return noteFound;
+    }
 
 } // Class Game

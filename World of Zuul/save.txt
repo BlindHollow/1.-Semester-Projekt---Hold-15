@@ -1,4 +1,4 @@
-3eefrcevff,100,100,100,0,3,hospital
+3eefrcevff,100,100,100,0,3,pub
 noWeapon
 no items
 helipad

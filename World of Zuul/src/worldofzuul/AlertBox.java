@@ -92,6 +92,7 @@ public class AlertBox {
         closeButton.setOnAction(e -> System.exit(0));
         newGameButton.setOnAction(e -> {
             NewFXMain.startNewGame();
+            NewFXMain.spil.newGame();
             window.close();
         });
         

@@ -49,6 +49,16 @@ public class Parser implements ParserInterface {
     }
     
     @Override
+    public boolean pilotNote(){
+        return NewFXMain.spil.getNoteFound();
+    }
+    
+    @Override
+    public Room pilotRoom(){
+        return NewFXMain.spil.pilotRoom();
+    }
+    
+    @Override
     public void pickUpItem(String itemName) {
         NewFXMain.spil.takeItem(itemName);
     }

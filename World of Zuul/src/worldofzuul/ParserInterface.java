@@ -24,6 +24,8 @@ public interface ParserInterface {
     int getPlayerIllness();
     boolean playerDead();
     int playerScore();
+    boolean pilotNote();
+    Room pilotRoom();
     void pickUpItem(String itemName);
     void dropItem(String itemName);
     void useItem(String itemName);

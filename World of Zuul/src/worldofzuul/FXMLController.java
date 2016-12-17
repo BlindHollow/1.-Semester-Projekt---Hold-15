@@ -57,7 +57,7 @@ public class FXMLController implements Initializable {
     @FXML
     private Label invSlot4;
     @FXML
-    private Label tempLabel;
+    private Label roomLabel;
     @FXML
     private Button btnNewGame;
     @FXML
@@ -83,7 +83,7 @@ public class FXMLController implements Initializable {
     @FXML
     private ImageView img1;
     @FXML
-    private ImageView zombie1, zombie2, zombie3;
+    private ImageView zombie1, zombie2, zombie3, pilotImg;
     @FXML
     private RadioButton radUse, radDrop, radWep;
     @FXML
@@ -228,7 +228,7 @@ public class FXMLController implements Initializable {
         if(pars.moveToRoom(s)){
         AlertBox.displayEndBox("Congratulations, you won", "Your final score is: " + pars.playerScore());
     }
-        tempLabel.setText("You walked ");
+        roomLabel.setText(pars.getCurrentRoom().getName());
         updateStats();
         
     }
@@ -243,6 +243,7 @@ public class FXMLController implements Initializable {
             doorSW.setVisible(false);
             doorS.setVisible(false);
             doorSE.setVisible(false);
+            pilotImg.setVisible(false);
 
             String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
             roomBackground.setStyle(image);
@@ -278,6 +279,11 @@ public class FXMLController implements Initializable {
                         break;
                 }
             }
+            if(pars.pilotNote() && pars.getCurrentRoom().equals(pars.pilotRoom())){
+                pilotImg.setVisible(true);
+            }
+                
+            
             updateItemsInRoom();
         }
     }
