@@ -50,9 +50,9 @@ class Application {
      * @param file
      * @throws IOException 
      */
-    public static void loadGame(File file) throws IOException {
+    public static void loadGame( File file ) throws IOException {
         game = new Game();
-        game.loadGame(file);
+        game.loadGame( file );
     }
 
 } // Class Application
