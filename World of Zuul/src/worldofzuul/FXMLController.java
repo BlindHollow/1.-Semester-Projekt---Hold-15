@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,6 +72,8 @@ public class FXMLController implements Initializable {
     @FXML
     private Label labelPlayerName;
     @FXML
+    private ImageView doorNW, doorN, doorNE, doorW, doorE, doorSW, doorS, doorSE;
+    @FXML
     private ImageView img1;
     Stage stage = null;
     Parent root = null;
@@ -83,6 +87,7 @@ public class FXMLController implements Initializable {
         // TODO
         pars = new Parser();
         onPlayerName();
+        updateRoom();
     }
 
     /**
@@ -120,6 +125,7 @@ public class FXMLController implements Initializable {
     private void loadScene(String sceneName) throws IOException {
         root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml")); //load up OTHER FXML document
         //create a new scene with root and set the stage
+        root.setId("gameScene");
         Scene scene = new Scene(root, 1200, 680);
         stage.setScene(scene);
         stage.show();
@@ -148,35 +154,35 @@ public class FXMLController implements Initializable {
      */
     @FXML
     private void onMouseClicked(MouseEvent event) {
-        if (event.getX() < 50 && event.getX() > 0 && event.getY() < 365 && event.getY() > 315) {
+        if (event.getSource().equals(doorW)) {
             pars.moveToRoom("west");
             tempLabel.setText("You walked west");
             updateStats();
-        } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 365 && event.getY() > 315) {
+        } else if (event.getSource().equals(doorE)) {
             pars.moveToRoom("east");
             tempLabel.setText("You walked east");
             updateStats();
-        } else if (event.getX() < 525 && event.getX() > 475 && event.getY() < 50 && event.getY() > 0) {
+        } else if (event.getSource().equals(doorN)) {
             pars.moveToRoom("north");
             tempLabel.setText("You walked north");
             updateStats();
-        } else if (event.getX() < 525 && event.getX() > 475 && event.getY() < 680 && event.getY() > 630) {
+        } else if (event.getSource().equals(doorS)) {
             pars.moveToRoom("south");
             tempLabel.setText("You walked south");
             updateStats();
-        } else if (event.getX() < 50 && event.getX() > 0 && event.getY() < 50 && event.getY() > 0) {
+        } else if (event.getSource().equals(doorNW)) {
             pars.moveToRoom("northwest");
             tempLabel.setText("You walked northwest");
             updateStats();
-        } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 50 && event.getY() > 0) {
+        } else if (event.getSource().equals(doorNE)) {
             pars.moveToRoom("northeast");
             tempLabel.setText("You walked northeast");
             updateStats();
-        } else if (event.getX() < 50 && event.getX() > 0 && event.getY() < 680 && event.getY() > 630) {
+        } else if (event.getSource().equals(doorSW)) {
             pars.moveToRoom("southwest");
             tempLabel.setText("You walked southwest");
             updateStats();
-        } else if (event.getX() < 1000 && event.getX() > 950 && event.getY() < 680 && event.getY() > 630) {
+        } else if (event.getSource().equals(doorSE)) {
             pars.moveToRoom("southeast");
             tempLabel.setText("You walked southeast");
             updateStats();
@@ -185,34 +191,52 @@ public class FXMLController implements Initializable {
     }
 
     private void updateRoom() { //TODO load picture of room, load pictures of exits
+        if (labelPlayerName != null) { //It's cheating, but it works
+            doorNW.setVisible(false);
+            doorN.setVisible(false);
+            doorNE.setVisible(false);
+            doorW.setVisible(false);
+            doorE.setVisible(false);
+            doorSW.setVisible(false);
+            doorS.setVisible(false);
+            doorSE.setVisible(false);
 
-        String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
-        roomBackground.setStyle(image);
-        HashMap<String, Room> exits = pars.getRoomExits();
-        Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            switch (exit) {
-                case "north":
-                    break;
-                case "south":
-                    break;
-                case "west":
-                    break;
-                case "east":
-                    break;
-                case "northwest":
-                    break;
-                case "northeast":
-                    break;
-                case "southwest":
-                    break;
-                case "southeast":
-                    break;
-                default:
-                    break;
+            String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
+            roomBackground.setStyle(image);
+            HashMap<String, Room> exits = pars.getRoomExits();
+            Set<String> keys = exits.keySet();
+            for (String exit : keys) {
+                switch (exit) {
+                    case "north":
+                        doorN.setVisible(true);
+                        break;
+                    case "south":
+                        doorS.setVisible(true);
+                        break;
+                    case "west":
+                        doorW.setVisible(true);
+                        break;
+                    case "east":
+                        doorE.setVisible(true);
+                        break;
+                    case "northwest":
+                        doorNW.setVisible(true);
+                        break;
+                    case "northeast":
+                        doorNE.setVisible(true);
+                        break;
+                    case "southwest":
+                        doorSW.setVisible(true);
+                        break;
+                    case "southeast":
+                        doorSE.setVisible(true);
+                        break;
+                    default:
+                        break;
+                }
             }
+            updateItemsInRoom();
         }
-        updateItemsInRoom();
     }
 
     private void updateItemsInRoom() { //TODO load pictures of items

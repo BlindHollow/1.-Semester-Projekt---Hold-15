@@ -54,7 +54,7 @@
         <AnchorPane fx:id="roomBackground" onMouseClicked="#onMouseClicked" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="tempLabel" layoutX="333.0" layoutY="290.0" text="Label" />
-            <ImageView fx:id="doorNW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorNW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -62,7 +62,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorN" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorN" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -70,7 +70,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorNE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorNE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -78,7 +78,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="300.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -86,7 +86,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="300.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -94,7 +94,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorSW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorSW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -102,7 +102,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorS" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorS" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -110,7 +110,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorSE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doorSE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
