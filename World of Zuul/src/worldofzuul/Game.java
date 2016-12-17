@@ -750,26 +750,40 @@ public class Game {
         Zombie zombie = currentRoom.getZombie(command.getSecondWord());
         Weapons weapon = player.getPrimaryWeapon();
 
-        if (null == zombie) {
+        if (null == zombie) 
+        {
             System.out.println("Can't find that zombie in the room");
-        } else if (player.getPrimaryWeapon() == null) {
+        } 
+        else if ( player.getPrimaryWeapon() == null ) 
+        {
             zombie.hit(5);
+            
             player.degenHungerAndThirst(degenFactor);
+            
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getName());
                 player.increasePlayerScore( 10 );
                 System.out.println(zombie.getName() + " is dead. Hooray...");
-            } else {
-                zombie.attackPlayer(player);
+            } 
+            else 
+            {
+                zombie.attackPlayer( player );
             }
-        } else {
-            zombie.hit(weapon.getDamage());
+        } 
+        else 
+        {
+            zombie.hit( weapon.getDamage() );
+            
             player.degenHungerAndThirst(degenFactor);
-            if (zombie.schroedinger()) {
+            
+            if ( zombie.schroedinger() ) 
+            {
                 currentRoom.removeZombie(zombie.getName());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
-            } else {
-                zombie.attackPlayer(player);
+            } 
+            else 
+            {
+                zombie.attackPlayer( player );
             }
 
         }
@@ -887,6 +901,7 @@ public class Game {
         player.increasePlayerScore( 550 );
         Scanner scan = new Scanner(System.in);
         String playString = "f";
+        
         while (!playString.equals("n") && !playString.equals("y")) {
             playString = scan.next();
             switch (playString.toLowerCase()) {
