@@ -25,8 +25,6 @@ import worldofzuul.misc.Directories;
  */
 public class Highscore extends HighscoreSystem 
 {
-    private boolean debug = false;
-    
     /**
      * Constructor
      */
@@ -54,9 +52,7 @@ public class Highscore extends HighscoreSystem
         this();
         
         if( hsText.parseCharacters( name ) == false )
-        {
             return;
-        }
         
         setCurrentPlayerName( name );
         
@@ -125,7 +121,7 @@ public class Highscore extends HighscoreSystem
                     
                     if( this.getCurrentPlayerName().equals( result[0].toLowerCase() ) == true )
                     {
-                        System.out.println("Result : " + user.getName() + ", " + result[0] );
+                        System.out.println( "Result : " + user.getName() + ", " + result[0] );
                         this.setCurrentPlayerPoints( Integer.parseInt( result[1]) );
                     }
                     
@@ -165,19 +161,6 @@ public class Highscore extends HighscoreSystem
         
     }
     
-    // Accessors
-        // Getters ------------------------------------------------------------>
-    public boolean getDebug()
-    {
-        return this.debug;
-    }
-    
-        // Setters ------------------------------------------------------------>
-    public void setDebug( boolean State )
-    {
-        this.debug = State;
-    }
-    
     // Functions -------------------------------------------------------------->
    
     private static class hsText
@@ -209,28 +192,50 @@ public class Highscore extends HighscoreSystem
         * @return 
         */
         public static boolean allowedCharacter( char inputValue )
+        {   
+            if( isAlphabetic( inputValue ) )
+                return true;
+            
+            if( isNumber( inputValue ) )
+                return true;
+            
+            if( isSpace( inputValue ) )
+                return true;
+            
+            return false;
+        } // End AllowedCharacter
+        
+        public static boolean isAlphabetic( char Input )
         {
-            
-            if ( inputValue >= 'A' && 
-                 inputValue <= 'z' )
-            {
-                return true;
-            }
-            
-            if( inputValue >= '0' && 
-                inputValue <= '9' )
-            {
-                return true;
-            }
-            
-            if( ( inputValue == '-' ) || 
-                ( inputValue == '_' ) )
+            if ( Input >= 'A' && 
+                 Input <= 'z' )
             {
                 return true;
             }
             
             return false;
-        } // End AllowedCharacter
+        }
+        
+        public static boolean isNumber( char Input )
+        {
+            if( Input >= '0' && 
+                Input <= '9' )
+            {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public static boolean isSpace( char Input )
+        {
+            // Usually - & _ can indicate it's space
+            if( Input >= '-' || 
+                Input == '_' )
+                return true;
+            
+            return false;
+        }
         
     } // End Parsing  
 
