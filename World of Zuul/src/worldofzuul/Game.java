@@ -544,20 +544,24 @@ public class Game {
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
-            if (player.schroedinger()) {
-                System.out.println("You are dead.");
-                System.out.println("Your total accomulated points is:" + Integer.toString( player.RetrieveScore() ) );
+            if ( player.schroedinger() ) 
+            {
+                System.out.println( "You are dead." );
+                System.out.println( "Your total accomulated points is:" + 
+                                     Integer.toString( player.RetrieveScore() ) );
+                
                 finished = true;
             }
         }
 
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println( "Thank you for playing.  Good bye." );
     }
 
     private void printWelcome() {
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -573,38 +577,50 @@ public class Game {
             return false;
         }
 
-        if (null != commandWord) {
-            switch (commandWord) {
+        if ( null != commandWord ) 
+        {
+            switch ( commandWord ) 
+            {
                 case HELP:
                     printHelp();
                     break;
+                
                 case GO:
                     goRoom(command);
                     break;
+                
                 case STATUS:
                     player.getStatus();
                     break;
+                
                 case GRAB:
                     takeItem(command);
                     break;
+                
                 case DROP:
                     dropItem(command);
                     break;
+                
                 case SEARCH:
                     currentRoom.searchRoom();
                     break;
+                
                 case INVENTORY:
                     player.showInventory();
                     break;
+                
                 case ATTACK:
                     attackZombie(command);
                     break;
+                
                 case SUICIDE:
                     player.updateHealth(-100);
                     break;
+                
                 case ZIPLINE:
                     zipline();
                     break;
+                    
                 case SAVE:
                     try {
                         saveGame();
@@ -613,6 +629,7 @@ public class Game {
                         System.out.println("Something happened");
                     }
                     break;
+                    
                 /*case LOAD:
                     try {
                         loadGame();
@@ -621,12 +638,15 @@ public class Game {
                         System.out.println("Something happened");
                     }
                     break;*/
+                    
                 case QUIT:
                     wantToQuit = quit(command);
                     break;
+                
                 default:
                     break;
             }
+            
         }
         return wantToQuit;
     }
@@ -634,6 +654,7 @@ public class Game {
     private void printHelp() {
         System.out.println( "You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\nGood luck, friendo \r\n\r\n" );
         System.out.println( "Your command words are:" );
+        
         parser.showCommands();
     }
 
@@ -644,28 +665,38 @@ public class Game {
         }
         String direction = command.getSecondWord();
         if (null != command.getCommandWord());
-        switch (command.getSecondWord()) { //Allows abbreviations for directions.
+        
+        switch (command.getSecondWord()) 
+        { 
+            //Allows abbreviations for directions.
             case "ne":
                 direction = "northeast";
                 break;
+                
             case "nw":
                 direction = "northwest";
                 break;
+                
             case "se":
                 direction = "southeast";
                 break;
+                
             case "sw":
                 direction = "southwest";
                 break;
+                
             case "n":
                 direction = "north";
                 break;
+                
             case "s":
                 direction = "south";
                 break;
+                
             case "e":
                 direction = "east";
                 break;
+                
             case "w":
                 direction = "west";
                 break;
@@ -680,7 +711,8 @@ public class Game {
         {
             System.out.println("There is no door!");
         } 
-        else if(!currentRoom.getZombies().isEmpty()) {
+        else if(!currentRoom.getZombies().isEmpty()) 
+        {
             System.out.println("You need to deal with the zombies in the room, before moving");
         }
         else if ( nextRoom.isLocked() == true && !player.hasUsableItem() ) 
@@ -745,9 +777,12 @@ public class Game {
 
     private void sewer() {
         Room randomRoom = (rooms.get(new Random().nextInt(rooms.size())));
+        
         currentRoom = randomRoom;
         hasBeenInPub = true;
+        
         player.degenHungerAndThirst(degenFactor);
+        
         System.out.println("You fall into a sewer, you decide to explore it");
         System.out.println(currentRoom.getLongDescription());
     }
