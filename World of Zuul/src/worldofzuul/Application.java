@@ -20,11 +20,12 @@ class Application {
     /**
      * Entry function, for the Java Program
      */
-    public static void main(String[] Args) throws IOException {
+    public static void main( String[] Args ) throws IOException {
         
         System.out.println("Input filename: ");
         Scanner keyboard = new Scanner(System.in);
         String filename = keyboard.nextLine();
+        
         File file = new File(filename);
         //loadGame(file);
 
@@ -34,10 +35,13 @@ class Application {
     /**
      * Creates a new game
      */
-    public static void newGame() {
+    public static void newGame() 
+    {
         game = new Game();
+        
         Scanner keyboard = new Scanner(System.in);
         String playerName = keyboard.nextLine();
+        
         game.newGame(playerName); //Creates a new game and starts it.
     }
 
