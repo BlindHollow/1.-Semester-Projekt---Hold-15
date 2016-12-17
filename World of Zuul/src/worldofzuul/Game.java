@@ -67,7 +67,7 @@ public class Game {
     */
     public void saveGame() throws IOException {
         
-        player.SavePlayerscore();
+        player.savePlayerscore();
         
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
@@ -305,7 +305,6 @@ public class Game {
                 }
                 
                 read.close(); //Closes the reader on completion.
-                play();
             }
         } 
         catch ( IOException e ) 
@@ -316,15 +315,15 @@ public class Game {
         {
             System.out.println("Invalid item or room, fix it and try again.");
             Thread.currentThread().getStackTrace();
-            newGame("Bob");
+            newGame();
         } 
         catch ( ArrayIndexOutOfBoundsException e ) 
         {
             System.out.println("Fileformat is invalid");
-            newGame("Bob");
+            newGame();
         }
         
-        player.LoadHighscore();
+        player.loadHighscore();
         
     }
 

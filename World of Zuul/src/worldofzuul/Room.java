@@ -190,11 +190,11 @@ public class Room {
      * Spawns zombies
      */
     private void spawnZombie() {
-        int HP, DMG;
-        HP = 5;
-        DMG = 2;
+        int hp, dmg;
+        hp = 5;
+        dmg = 2;
         
-        Zombie monster = new Zombie(HP, DMG );
+        Zombie monster = new Zombie(hp, dmg );
         
         //String monsterName = monster.getRandomName();
         

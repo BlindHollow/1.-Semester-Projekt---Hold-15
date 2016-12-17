@@ -121,7 +121,7 @@ public class Player {
      * 
      * @return 
      */
-    public int RetrieveScore()
+    public int retrieveScore()
     {
         return playerScore.getCurrentPlayerPoints();
     }
@@ -140,12 +140,12 @@ public class Player {
         }
     }
     
-    public void SavePlayerscore()
+    public void savePlayerscore()
     {
         playerScore.saveCurrentCharacter();
     }
     
-    public void LoadHighscore()
+    public void loadHighscore()
     {
         playerScore.loadPlayers();
     }
