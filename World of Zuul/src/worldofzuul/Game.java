@@ -44,12 +44,15 @@ public class Game {
     private Food energybar, energydrink, cannedtuna, rum;
     private Sustain medKit, vaccination;
     private int degenFactor;
+    
     private HashMap<String, Room> allowedRooms;
     private HashMap<String, Items> allowedItems;
 
+    private worldofzuul.utilities.Dice random;
+    
     public Game() {
         parser = new Parser();
-
+        random = new worldofzuul.utilities.Dice( 0, 100 );
     }
 
     public void newGame(String playerName) {
@@ -579,53 +582,63 @@ public class Game {
 
         if ( null != commandWord ) 
         {
+            int rChange = random.calculate();
+            
+            if( rChange <= 40 && rChange >= 60 )
+            {
+                currentRoom.zombieEncounter( player );
+            }
+            
             switch ( commandWord ) 
             {
                 case HELP:
-                    printHelp();
+                        printHelp();
                     break;
                 
                 case GO:
-                    goRoom(command);
+                        goRoom(command);
                     break;
                 
                 case STATUS:
-                    player.getStatus();
+                        player.getStatus();
                     break;
                 
                 case GRAB:
-                    takeItem(command);
+                        takeItem(command);
                     break;
                 
                 case DROP:
-                    dropItem(command);
+                        dropItem(command);
                     break;
                 
                 case SEARCH:
-                    currentRoom.searchRoom();
+                        currentRoom.searchRoom();
                     break;
                 
                 case INVENTORY:
-                    player.showInventory();
+                        player.showInventory();
                     break;
                 
                 case ATTACK:
-                    attackZombie(command);
+                        attackZombie(command);
                     break;
                 
                 case SUICIDE:
-                    player.updateHealth(-100);
+                        player.updateHealth(-100);
                     break;
                 
                 case ZIPLINE:
-                    zipline();
+                        zipline();
                     break;
                     
                 case SAVE:
-                    try {
+                    try 
+                    {
                         saveGame();
                         System.out.println("Game saved");
-                    } catch (IOException e) {
+                    } 
+                    catch (IOException e) 
+                    {
                         System.out.println("Something happened");
                     }
                     break;
@@ -640,7 +653,7 @@ public class Game {
                     break;*/
                     
                 case QUIT:
-                    wantToQuit = quit(command);
+                        wantToQuit = quit(command);
                     break;
                 
                 default:
@@ -648,11 +661,17 @@ public class Game {
             }
             
         }
+        
         return wantToQuit;
     }
 
-    private void printHelp() {
-        System.out.println( "You wake up from a coma \r\nYou are in a hospital \r\nA note reads: \r\nA virus outbreak has turned people to zombies \r\nGood luck, friendo \r\n\r\n" );
+    private void printHelp() 
+    {
+        System.out.println( "You wake up from a coma" );
+        System.out.println( "You are in a hospital " );
+        System.out.println( "A note reads: " );
+        System.out.println( "A virus outbreak has turned people to zombies " );
+        System.out.println( "Good luck, friendo \r\n" );
         System.out.println( "Your command words are:" );
         
         parser.showCommands();
@@ -670,35 +689,35 @@ public class Game {
         { 
             //Allows abbreviations for directions.
             case "ne":
-                direction = "northeast";
+                    direction = "northeast";
                 break;
                 
             case "nw":
-                direction = "northwest";
+                    direction = "northwest";
                 break;
                 
             case "se":
-                direction = "southeast";
+                    direction = "southeast";
                 break;
                 
             case "sw":
-                direction = "southwest";
+                    direction = "southwest";
                 break;
                 
             case "n":
-                direction = "north";
+                    direction = "north";
                 break;
                 
             case "s":
-                direction = "south";
+                    direction = "south";
                 break;
                 
             case "e":
-                direction = "east";
+                    direction = "east";
                 break;
                 
             case "w":
-                direction = "west";
+                    direction = "west";
                 break;
 
             default:
@@ -719,7 +738,8 @@ public class Game {
         {
             System.out.println("Door is Locked, find something to open the door with and try again.");
         } 
-        else {
+        else 
+        {
             currentRoom = nextRoom;
             currentRoom.spawnRandomZombie();
 
@@ -727,26 +747,33 @@ public class Game {
 
             player.degenHungerAndThirst(degenFactor); //update hunger and thirst gauges on roomchange.
 
-            if (currentRoom == pub && !hasBeenInPub) {
+            if (currentRoom == pub && !hasBeenInPub) 
+            {
                 sewer();
             }
             if (noteFound) {
                 movePilot();
             }
 
-            if (currentRoom.equals(locationOfNote) && pilotRoom.equals(locationOfNote)) {
+            if (currentRoom.equals(locationOfNote) && pilotRoom.equals(locationOfNote)) 
+            {
                 gameWon();
-            } else if (currentRoom.equals(locationOfNote)) {
+            } 
+            else if (currentRoom.equals(locationOfNote)) 
+            {
                 noteFound = true;
             }
         }
     }
 
-    private void attackZombie(Command command) {
-        if (!command.hasSecondWord()) {
+    private void attackZombie(Command command) 
+    {
+        if (!command.hasSecondWord()) 
+        {
             System.out.println("What zombie?");
             return;
         }
+        
         Zombie zombie = currentRoom.getZombie(command.getSecondWord());
         Weapons weapon = player.getPrimaryWeapon();
 
@@ -760,7 +787,8 @@ public class Game {
             
             player.degenHungerAndThirst(degenFactor);
             
-            if (zombie.schroedinger()) {
+            if ( zombie.schroedinger() ) 
+            {
                 currentRoom.removeZombie(zombie.getName());
                 player.increasePlayerScore( 10 );
                 System.out.println(zombie.getName() + " is dead. Hooray...");
@@ -802,38 +830,54 @@ public class Game {
     }
 
     private void zipline() {
-        if (currentRoom == firestation) {
+        if (currentRoom == firestation) 
+        {
             player.increasePlayerScore( 20 );
             
             currentRoom = policestation;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
-        } else if (currentRoom == policestation) {
+        } 
+        else if (currentRoom == policestation) 
+        {
             player.increasePlayerScore( 20 );
             
             currentRoom = helipad;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
-        } else {
+        } 
+        else 
+        {
             System.out.println("You can not zipline from here.");
         }
     }
 
-    private void movePilot() {
-        if (pilotFound) {
+    private void movePilot() 
+    {
+        if (pilotFound) 
+        {
             pilotRoom = currentRoom;
-        } else if (pilotRoom.equals(currentRoom)) {
-            
+        } 
+        else if (pilotRoom.equals(currentRoom)) 
+        {    
             pilotFound = true;
             player.increasePlayerScore( 200 );
             System.out.println("You found the pilot");
-        } else {
-            int roomInt = (int) (Math.random() * pilotRoom.getSize());
+        } 
+        else 
+        {
+            int roomInt = (int) (Math.random() * pilotRoom.getSize() );
+            
             Room nextRoom = pilotRoom.getExit(roomInt);
-            if (nextRoom == null) {
-                System.out.println("No door for pilot.. Fix u moron");
-            } else {
+            
+            if (nextRoom == null) 
+            {
+                System.out.println("No door for pilot.. Fix it, u moron");
+            } 
+            else 
+            {
                 pilotRoom = nextRoom;
+                
                 if (pilotRoom.equals(currentRoom)) {
                     pilotFound = true;
                     System.out.println("You found the pilot");
@@ -852,42 +896,54 @@ public class Game {
     }
 //pick up an item in the room you are in. Command: Grab "item"
 
-    private void takeItem(Command command) {
-        if (!command.hasSecondWord()) {
+    private void takeItem(Command command) 
+    {
+        if ( !command.hasSecondWord() ) {
             System.out.println("What item?");
             return;
         }
+        
         Items item = currentRoom.getItem(command.getSecondWord());
 
-        if (null == item) {
+        if (null == item) 
+        {
             System.out.println("Can't find that item");
-        } else if (player.getInventory().size() >= 4) {
+        } 
+        else if (player.getInventory().size() >= 4) 
+        {
             System.out.println("Your inventory is full.");
-        } else {
-
+        } 
+        else 
+        {
             System.out.println("You picked up the " + item.getName());
             player.getInventory().put(item.getName(), item);
-            if ((item instanceof Weapons) && !(player.hasPrimaryWeapon())) {
+            if ((item instanceof Weapons) && !(player.hasPrimaryWeapon())) 
+            {
                 player.setPrimaryWeapon((Weapons) item);
                 System.out.println("Primary Weapon set");
             }
 
             currentRoom.removeItem(item.getName());
         }
+        
     }
 
     //drop an item in your inventory and leave it in current room. Command: Drop "item"
-    private void dropItem(Command command) {
-        if (!command.hasSecondWord()) {
+    private void dropItem(Command command) 
+    {
+        if (!command.hasSecondWord()) 
+        {
             System.out.println("What item?");
             return;
         }
+        
         Items item = player.getItemInInventory(command.getSecondWord());
 
-        if (null == item) {
+        if (null == item) 
+        {
             System.out.println("That is not an item in your inventory.");
-        } else {
-
+        } else 
+        {
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
 
@@ -895,34 +951,42 @@ public class Game {
         }
     }
 
-    private void gameWon() {
+    private void gameWon() 
+    {
         System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
         
         player.increasePlayerScore( 550 );
         Scanner scan = new Scanner(System.in);
         String playString = "f";
         
-        while (!playString.equals("n") && !playString.equals("y")) {
+        while (!playString.equals("n") && !playString.equals("y")) 
+        {
             playString = scan.next();
-            switch (playString.toLowerCase()) {
+            
+            switch (playString.toLowerCase()) 
+            {
                 case "n":
-                    wantToQuit = true;
+                        wantToQuit = true;
                     break;
+                    
                 case "y":
-                    Application.newGame();
+                        Application.newGame();
                     break;
+                    
                 default:
-                    System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
+                        System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
                     break;
             }
         }
     }
 
-    public Room currentRoom() {
+    public Room currentRoom() 
+    {
         return currentRoom;
     }
 
-    public Room pilotRoom() {
+    public Room pilotRoom() 
+    {
         return pilotRoom;
     }
 
