@@ -12,8 +12,8 @@ import java.util.Set;
 public class Parser implements ParserInterface {
 
     @Override
-    public void moveToRoom(String direction) {
-        NewFXMain.spil.goRoom(direction);
+    public boolean moveToRoom(String direction) {
+        return NewFXMain.spil.goRoom(direction);
     }
 
     @Override
@@ -36,6 +36,16 @@ public class Parser implements ParserInterface {
         return NewFXMain.spil.player.getIllness();
     }
 
+    @Override
+    public boolean playerDead(){
+        return NewFXMain.spil.player.schroedinger();
+    }
+    
+    @Override
+    public int playerScore(){
+        return NewFXMain.spil.player.retrieveScore();
+    }
+    
     @Override
     public void pickUpItem(String itemName) {
         NewFXMain.spil.takeItem(itemName);

@@ -610,7 +610,7 @@ public class Game {
         //parser.showCommands();
     }
 
-    public void goRoom(String direction) {
+    public boolean goRoom(String direction) {
 
         Room nextRoom = currentRoom.getExit(direction);
 
@@ -637,11 +637,13 @@ public class Game {
             }
 
             if (currentRoom.equals(locationOfNote) && pilotRoom.equals(locationOfNote)) {
-                gameWon();
+//                gameWon();
+                return true;
             } else if (currentRoom.equals(locationOfNote)) {
                 noteFound = true;
             }
         }
+        return false;
     }
 
     public void attackZombie(String s) {
@@ -775,7 +777,8 @@ public class Game {
 
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
-            if(player.getPrimaryWeapon().equals(item)){
+            
+            if(player.hasPrimaryWeapon() && player.getPrimaryWeapon().equals(item)){
                 player.removePrimaryWeapon();
             }
             player.getInventory().remove(item.getName());
@@ -804,25 +807,25 @@ public class Game {
         }
     }
 
-    private void gameWon() {
-        System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
-        Scanner scan = new Scanner(System.in);
-        String playString = "f";
-        while (!playString.equals("n") && !playString.equals("y")) {
-            playString = scan.next();
-            switch (playString.toLowerCase()) {
-                case "n":
-                    wantToQuit = true;
-                    break;
-                case "y":
-                    NewFXMain.startNewGame();
-                    break;
-                default:
-                    System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
-                    break;
-            }
-        }
-    }
+//    private void gameWon() {
+//        System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
+//        Scanner scan = new Scanner(System.in);
+//        String playString = "f";
+//        while (!playString.equals("n") && !playString.equals("y")) {
+//            playString = scan.next();
+//            switch (playString.toLowerCase()) {
+//                case "n":
+//                    wantToQuit = true;
+//                    break;
+//                case "y":
+//                    NewFXMain.startNewGame();
+//                    break;
+//                default:
+//                    System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
+//                    break;
+//            }
+//        }
+//    }
 
     public Room currentRoom() {
         return currentRoom;

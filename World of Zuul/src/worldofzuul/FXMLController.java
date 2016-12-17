@@ -167,43 +167,43 @@ public class FXMLController implements Initializable {
     @FXML
     private void onMouseClicked(MouseEvent event) {
         if (event.getSource().equals(doorW)) {
-            pars.moveToRoom("west");
-            tempLabel.setText("You walked west");
-            updateStats();
+            goRoom("west");
         } else if (event.getSource().equals(doorE)) {
-            pars.moveToRoom("east");
-            tempLabel.setText("You walked east");
-            updateStats();
+            goRoom("east");
         } else if (event.getSource().equals(doorN)) {
-            pars.moveToRoom("north");
-            tempLabel.setText("You walked north");
-            updateStats();
+            goRoom("north");
         } else if (event.getSource().equals(doorS)) {
-            pars.moveToRoom("south");
-            tempLabel.setText("You walked south");
-            updateStats();
+            goRoom("south");
         } else if (event.getSource().equals(doorNW)) {
-            pars.moveToRoom("northwest");
-            tempLabel.setText("You walked northwest");
-            updateStats();
+            goRoom("northwest");
         } else if (event.getSource().equals(doorNE)) {
-            pars.moveToRoom("northeast");
-            tempLabel.setText("You walked northeast");
-            updateStats();
+            goRoom("northeast");
         } else if (event.getSource().equals(doorSW)) {
-            pars.moveToRoom("southwest");
-            tempLabel.setText("You walked southwest");
-            updateStats();
+            goRoom("southwest");
         } else if (event.getSource().equals(doorSE)) {
-            pars.moveToRoom("southeast");
-            tempLabel.setText("You walked southeast");
-            updateStats();
+            goRoom("southeast");
         } else if (event.getSource().equals(fireaxeImg)) {
             pars.pickUpItem("fireaxe");
         } else if (event.getSource().equals(ramImg)) {
             pars.pickUpItem("ram");
         } else if (event.getSource().equals(vaccinationImg)) {
             pars.pickUpItem("vaccination");
+        } else if (event.getSource().equals(energydrinkImg)) {
+            pars.pickUpItem("energydrink");
+        } else if (event.getSource().equals(energybarImg)) {
+            pars.pickUpItem("energybar");
+        } else if (event.getSource().equals(medkitImg)) {
+            pars.pickUpItem("medkit");
+        } else if (event.getSource().equals(rumImg)) {
+            pars.pickUpItem("rum");
+        } else if (event.getSource().equals(cannedtunaImg)) {
+            pars.pickUpItem("cannedtuna");
+        } else if (event.getSource().equals(policegunImg)) {
+            pars.pickUpItem("policegun");
+        } else if (event.getSource().equals(shotgunImg)) {
+            pars.pickUpItem("shotgun");
+        } else if (event.getSource().equals(crowbarImg)) {
+            pars.pickUpItem("crowbar");
         } else if (event.getSource().equals(zombie1)) {
             pars.attackZombie(zom1Str);
         } else if (event.getSource().equals(zombie2)) {
@@ -215,6 +215,15 @@ public class FXMLController implements Initializable {
         updateInventory();
         updateZombies();
         updateStats();
+    }
+
+    private void goRoom(String s) {
+        if(pars.moveToRoom(s)){
+        AlertBox.displayEndBox("Congratulations, you won", "");
+    }
+        tempLabel.setText("You walked " + "Your final score is: " + pars.playerScore());
+        updateStats();
+        
     }
 
     private void updateRoom() { //TODO load picture of room, load pictures of exits
@@ -294,6 +303,14 @@ public class FXMLController implements Initializable {
         fireaxeImg.setVisible(false);
         ramImg.setVisible(false);
         vaccinationImg.setVisible(false);
+        medkitImg.setVisible(false);
+        rumImg.setVisible(false);
+        energydrinkImg.setVisible(false);
+        energybarImg.setVisible(false);
+        cannedtunaImg.setVisible(false);
+        policegunImg.setVisible(false);
+        shotgunImg.setVisible(false);
+        crowbarImg.setVisible(false);
 
         for (String s : pars.getItemsInRoom()) {
             switch (s) {
@@ -327,7 +344,7 @@ public class FXMLController implements Initializable {
                 case "vaccination":
                     vaccinationImg.setVisible(true);
                     break;
-                case "medKit":
+                case "medkit":
                     medkitImg.setVisible(true);
                     break;
             }
@@ -373,6 +390,9 @@ public class FXMLController implements Initializable {
         this.healthbar.setProgress(passnumber / 100);
         passnumber = pars.getPlayerIllness();
         this.illnessbar.setProgress(passnumber / 100);
+        if (pars.playerDead()) {
+            AlertBox.displayEndBox("You died", "Your final score is: " + pars.playerScore());
+        }
     }
 
     @FXML
@@ -382,33 +402,39 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onInventory(MouseEvent event) {
-        if(radButts.getSelectedToggle().equals(radUse)){
-            if(event.getSource().equals(invSlot1)){
+        if (radButts.getSelectedToggle().equals(radUse)) {
+            if (event.getSource().equals(invSlot1)) {
                 pars.useItem(invSlot1.getText());
-            } else if(event.getSource().equals(invSlot2)){
+            } else if (event.getSource().equals(invSlot2)) {
                 pars.useItem(invSlot2.getText());
-            } else if(event.getSource().equals(invSlot3)){
+            } else if (event.getSource().equals(invSlot3)) {
                 pars.useItem(invSlot3.getText());
+            } else if (event.getSource().equals(invSlot4)) {
+                pars.useItem(invSlot4.getText());
             }
             updateInventory();
             updateStats();
-        } else if(radButts.getSelectedToggle().equals(radDrop)){
-            if(event.getSource().equals(invSlot1)){
+        } else if (radButts.getSelectedToggle().equals(radDrop)) {
+            if (event.getSource().equals(invSlot1)) {
                 pars.dropItem(invSlot1.getText());
-            } else if(event.getSource().equals(invSlot2)){
+            } else if (event.getSource().equals(invSlot2)) {
                 pars.dropItem(invSlot2.getText());
-            } else if(event.getSource().equals(invSlot3)){
+            } else if (event.getSource().equals(invSlot3)) {
                 pars.dropItem(invSlot3.getText());
+            } else if (event.getSource().equals(invSlot4)) {
+                pars.dropItem(invSlot4.getText());
             }
             updateInventory();
             updateRoom();
-        } else if(radButts.getSelectedToggle().equals(radWep)){
-            if(event.getSource().equals(invSlot1)){
+        } else if (radButts.getSelectedToggle().equals(radWep)) {
+            if (event.getSource().equals(invSlot1)) {
                 pars.setPrimaryWeapon(invSlot1.getText());
-            } else if(event.getSource().equals(invSlot2)){
+            } else if (event.getSource().equals(invSlot2)) {
                 pars.setPrimaryWeapon(invSlot2.getText());
-            } else if(event.getSource().equals(invSlot3)){
+            } else if (event.getSource().equals(invSlot3)) {
                 pars.setPrimaryWeapon(invSlot3.getText());
+            } else if (event.getSource().equals(invSlot4)) {
+                pars.setPrimaryWeapon(invSlot4.getText());
             }
         }
     }

@@ -15,11 +15,13 @@ import java.util.Set;
  * the gui can easily access all necessary methods.
  */
 public interface ParserInterface {
-    void moveToRoom(String direction);
+    boolean moveToRoom(String direction);
     int getPlayerHealth();
     int getPlayerHunger();
     int getPlayerThirst();
     int getPlayerIllness();
+    boolean playerDead();
+    int playerScore();
     void pickUpItem(String itemName);
     void dropItem(String itemName);
     void useItem(String itemName);

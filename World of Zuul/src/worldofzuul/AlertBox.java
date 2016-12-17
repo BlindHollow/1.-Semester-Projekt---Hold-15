@@ -64,5 +64,33 @@ public class AlertBox {
         window.showAndWait();
         
     }
+    
+    public static void displayEndBox(String title, String message) {
+        Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMinWidth(450);
+        window.setMinHeight(500);
+
+        Label label = new Label();
+        Button closeButton = new Button("Quit");
+        Button newGameButton = new Button("Start new game");
+        label.setText(message);
+        closeButton.setOnAction(e -> System.exit(0));
+        newGameButton.setOnAction(e -> {
+            NewFXMain.startNewGame();
+            window.close();
+        });
+        
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, closeButton, newGameButton);
+        layout.setAlignment(Pos.CENTER);
+        
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+        
+    }
 
 }
