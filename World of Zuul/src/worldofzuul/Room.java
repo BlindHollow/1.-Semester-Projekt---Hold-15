@@ -125,9 +125,9 @@ public class Room {
             String zombieString = "A zombified version of ";
             Set<String> keys = zombies.keySet();
             for (String zombie : keys) {
-                zombieString += zombie + " ";
+                zombieString += zombie;
             }
-            return zombieString + "is in the room!" + ".\n";
+            return zombieString + " is in the room!" + ".\n";
         } else {
             return "";
         }

@@ -118,28 +118,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="fireaxeImg" fitHeight="75.0" fitWidth="75.0" layoutX="91.0" layoutY="137.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@images/fireaxe.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="policegunImg" fitHeight="75.0" fitWidth="75.0" layoutX="110.0" layoutY="109.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="shotgunImg" fitHeight="75.0" fitWidth="75.0" layoutX="165.0" layoutY="137.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="ramImg" fitHeight="75.0" fitWidth="75.0" layoutX="295.0" layoutY="164.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="crowbarImg" fitHeight="75.0" fitWidth="75.0" layoutX="305.0" layoutY="174.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="energybarImg" fitHeight="75.0" fitWidth="75.0" layoutX="315.0" layoutY="184.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="energydrinkImg" fitHeight="75.0" fitWidth="75.0" layoutX="325.0" layoutY="194.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="cannedtunaImg" fitHeight="75.0" fitWidth="75.0" layoutX="335.0" layoutY="204.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="rumImg" fitHeight="75.0" fitWidth="75.0" layoutX="345.0" layoutY="214.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="vaccinationImg" fitHeight="75.0" fitWidth="75.0" layoutX="355.0" layoutY="224.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="medkitImg" fitHeight="75.0" fitWidth="75.0" layoutX="365.0" layoutY="234.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
             </children>
         </AnchorPane>
     </children>
