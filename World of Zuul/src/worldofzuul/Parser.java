@@ -1,5 +1,7 @@
 package worldofzuul;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -102,8 +104,12 @@ public class Parser implements ParserInterface {
     }
 
     @Override
-    public void loadGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void loadGame(File file) throws IOException {
+        try{
+        NewFXMain.spil.loadGame(file);
+        } catch(Exception e){
+            System.out.println("wtf?");
+        }
     }
 
 }

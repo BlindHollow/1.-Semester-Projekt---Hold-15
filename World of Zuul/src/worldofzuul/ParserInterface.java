@@ -5,6 +5,8 @@
  */
 package worldofzuul;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -33,5 +35,5 @@ public interface ParserInterface {
     Set<String> getItemsInRoom();
     HashMap<String, Room> getRoomExits();
     void saveGame();
-    void loadGame();
+    void loadGame(File file) throws IOException;
 }

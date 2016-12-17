@@ -49,7 +49,6 @@ public class Game {
     private worldofzuul.utilities.Dice random;
 
     public Game() {
-        newGame();
     }
 
     public void newGame() {
@@ -171,13 +170,9 @@ public class Game {
             while (read.ready()) {
                 String playerState = read.readLine();
                 String[] playerAttributes = playerState.split(",");
-
-                player = new Player(playerAttributes[0],
-                        Integer.parseInt(playerAttributes[1]),
-                        Integer.parseInt(playerAttributes[2]),
-                        Integer.parseInt(playerAttributes[3]),
-                        Integer.parseInt(playerAttributes[4])); //Creates player object based on stats in the savefile.
-
+                System.out.println(playerState);
+                player = new Player(playerAttributes[0], Integer.parseInt(playerAttributes[1]), Integer.parseInt(playerAttributes[2]), Integer.parseInt(playerAttributes[3]), Integer.parseInt(playerAttributes[4])); //Creates player object based on stats in the savefile.
+System.out.println("player loadede");
                 currentRoom = allowedRooms.get(playerAttributes[6]); //sets currentRoom.
 
                 degenFactor = Integer.parseInt(playerAttributes[5]); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)

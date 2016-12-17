@@ -30,6 +30,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import java.io.File;
 
 /**
  * FXML Controller class
@@ -86,6 +88,7 @@ public class FXMLController implements Initializable {
     private RadioButton radUse, radDrop, radWep;
     @FXML
     private ToggleGroup radButts;
+    final FileChooser fileChooser = new FileChooser();
     Stage stage = null;
     Parent root = null;
     private Parser pars;
@@ -112,11 +115,15 @@ public class FXMLController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         if (event.getSource() == btnContinue) {
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+            File file = fileChooser.showOpenDialog(stage);
+            pars.loadGame(file);
             stage = (Stage) btnContinue.getScene().getWindow(); //get reference to the button's stage        
             loadScene("GameScene");
         } else if (event.getSource() == btnNewGame) {
             welcomeStartAnchor.setVisible(true);
         } else if (event.getSource() == btnStartGame) {
+            NewFXMain.spil.newGame();
             NewFXMain.spil.player.setName(enterPlayerName.getText());
             stage = (Stage) btnStartGame.getScene().getWindow();
             loadScene("GameScene");
@@ -219,9 +226,9 @@ public class FXMLController implements Initializable {
 
     private void goRoom(String s) {
         if(pars.moveToRoom(s)){
-        AlertBox.displayEndBox("Congratulations, you won", "");
+        AlertBox.displayEndBox("Congratulations, you won", "Your final score is: " + pars.playerScore());
     }
-        tempLabel.setText("You walked " + "Your final score is: " + pars.playerScore());
+        tempLabel.setText("You walked ");
         updateStats();
         
     }
