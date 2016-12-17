@@ -135,6 +135,16 @@ public class Player {
             updateHealth((int) (-1 * illness * 0.10)); //lose health equivalent to 10% of illness stat.
         }
     }
+    
+    public void SavePlayerscore()
+    {
+        playerScore.saveCurrentCharacter();
+    }
+    
+    public void LoadHighscore()
+    {
+        playerScore.loadPlayers();
+    }
 
     /**
      * Degrades hunger and thirst by 5 each. TODO: Adjust numbers to adjust

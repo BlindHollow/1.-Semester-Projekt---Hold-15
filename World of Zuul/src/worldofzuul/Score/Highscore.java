@@ -123,6 +123,12 @@ public class Highscore extends HighscoreSystem
                 {
                     String[] result = currentline.split( "," );
                     
+                    if( this.getCurrentPlayerName().equals( result[0].toLowerCase() ) == true )
+                    {
+                        System.out.println("Result : " + user.getName() + ", " + result[0] );
+                        this.setCurrentPlayerPoints( Integer.parseInt( result[1]) );
+                    }
+                    
                     addPlayers( result[0], 
                                 Integer.parseInt( result[1] ) );  
                 }

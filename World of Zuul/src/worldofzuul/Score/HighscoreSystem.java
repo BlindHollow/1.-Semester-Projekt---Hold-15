@@ -80,7 +80,7 @@ public class HighscoreSystem
         
         for( HighscorePlayer current : listOfPriorUserScores )
         {
-            if( Name.equalsIgnoreCase( user.getPlayerName() ) )
+            if( Name.equalsIgnoreCase( current.getPlayerName() ) )
             {
                 return true;
             }
@@ -97,7 +97,6 @@ public class HighscoreSystem
     {
         user.setPlayerScore( getCurrentPlayerPoints() + Number );
     }
-    
     
     /**
      * 
@@ -117,7 +116,6 @@ public class HighscoreSystem
         user.setPlayerScore( getCurrentPlayerPoints() - Number );
         
     }
-    
     
     /**
      * Retrieve Points for the current Player

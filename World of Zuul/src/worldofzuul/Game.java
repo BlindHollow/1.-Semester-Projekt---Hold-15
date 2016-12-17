@@ -66,6 +66,9 @@ public class Game {
     * @throws IOException 
     */
     public void saveGame() throws IOException {
+        
+        player.SavePlayerscore();
+        
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
@@ -262,6 +265,9 @@ public class Game {
             System.out.println("Fileformat is invalid");
             newGame("Bob");
         }
+        
+        player.LoadHighscore();
+        
     }
 
     /**

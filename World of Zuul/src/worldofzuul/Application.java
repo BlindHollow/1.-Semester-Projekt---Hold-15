@@ -26,9 +26,9 @@ class Application {
         Scanner keyboard = new Scanner(System.in);
         String filename = keyboard.nextLine();
         File file = new File(filename);
-        loadGame(file);
+        //loadGame(file);
 
-        //newGame();
+        newGame();
     }
 
     /**
