@@ -582,12 +582,6 @@ public class Game {
 
         if ( null != commandWord ) 
         {
-            int rChange = random.calculate();
-            
-            if( rChange <= 40 && rChange >= 60 )
-            {
-                currentRoom.zombieEncounter( player );
-            }
             
             switch ( commandWord ) 
             {

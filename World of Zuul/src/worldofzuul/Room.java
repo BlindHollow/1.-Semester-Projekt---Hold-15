@@ -48,34 +48,6 @@ public class Room {
         zombies = new HashMap<>();
         this.name = name;
     }
-
-    /**
-     * if they is zombies in the room, a random zombie will attack you
-     */
-    public void zombieEncounter(Player player)
-    {
-        int amountOfZombies = zombies.size();
-        
-        if( amountOfZombies != 0 )
-        {
-            if( amountOfZombies == 1 )
-            {
-                Zombie currentZ = zombies.get( 0 );
-                
-                currentZ.attackPlayer(player);
-            }
-            else
-            {
-                worldofzuul.utilities.Dice randomDice = new worldofzuul.utilities.Dice(0, amountOfZombies -1);
-                
-                int r = randomDice.calculate();
-                
-                Zombie current = zombies.get( r );
-                
-                current.attackPlayer( player );
-            }
-        }
-    }
     
     /**
      * 
