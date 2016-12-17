@@ -21,9 +21,7 @@ public class Room {
     private boolean lock = false;
     private String name;
     private boolean spawnable = true;
-    
     private String description;
-    
     private HashMap<String, Room> exits;
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
@@ -43,7 +41,7 @@ public class Room {
      */
     public Room(String name, String description) {
         this.description = description;
-        exits = new HashMap<String, Room>();
+        exits = new HashMap<>();
         placements = new HashMap<>();
         zombies = new HashMap<>();
         this.name = name;
@@ -78,7 +76,7 @@ public class Room {
      * @param zombie 
      */
     public void placeZombie(Zombie zombie) {
-        zombies.put( zombie.getName(), zombie );
+        zombies.put(zombie.getName(), zombie);
     }
 
     /**
@@ -135,7 +133,6 @@ public class Room {
         }
 
     }
-
     /**
      * 
      * @param direction
@@ -143,7 +140,7 @@ public class Room {
      */
     public Room getExit(String direction) { 
         Room room = exits.get(direction);
-        
+
         return room;
     }
 
@@ -174,7 +171,14 @@ public class Room {
     }
 
     /**
-     * 
+     * A method that returns all the items in a room.
+     *
+     * @return
+     */
+    public HashMap<String, Items> getAllItems() {
+        return this.placements;
+    }
+     /** 
      * @param key
      * @return 
      */
@@ -185,8 +189,7 @@ public class Room {
     /**
      * Spawns zombies
      */
-    private void spawnZombie()
-    {
+    private void spawnZombie() {
         int HP, DMG;
         HP = 5;
         DMG = 2;
@@ -203,8 +206,7 @@ public class Room {
      * 
      * @param value 
      */
-    public void setSpawnable( boolean value )
-    {
+    public void setSpawnable(boolean value) {
         spawnable = value;
     }
     
@@ -212,27 +214,22 @@ public class Room {
      * 
      * @return 
      */
-    public boolean getSpawnable()
-    {
+    public boolean getSpawnable() {
         return spawnable;
     }
     
     /**
      * 
      */
-    public void spawnRandomZombie()
-    {
-        if( spawnable == true )
-        {
+    public void spawnRandomZombie() {
+        if( spawnable == true ) {
         
             int rValue = spawnChance.calculate();
         
-            if( rValue >= 20 && 
-                rValue <= 80 )
-            {
+            if(rValue >= 20 && rValue <= 80) {
                 spawnZombie();
             }
-           
+
         }
     }
 
@@ -256,8 +253,7 @@ public class Room {
      * 
      * @return 
      */
-    public boolean isLocked()
-    {
+    public boolean isLocked() {
         return lock;
     }
     
@@ -265,8 +261,7 @@ public class Room {
      * 
      * @param status 
      */
-    public void setLock( boolean status )
-    {
+    public void setLock(boolean status) {
         lock = status;
     }
 

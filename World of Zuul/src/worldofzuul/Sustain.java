@@ -26,5 +26,13 @@ public class Sustain extends Items {
         this.illnessRegen = illness;
         this.name = name;
     }
+    
+    public int getHealthRegen(){
+        return this.healthRegen;
+    }
+    
+    public int getIllnessRegen(){
+        return this.illnessRegen;
+    }
 
 }

@@ -1,46 +1,84 @@
 package worldofzuul;
 
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.HashMap;
+import java.util.Set;
 
+/**
+ * A class with methods that the gui controller can call. 
+ * By making an instance of this in any gui, 
+ * the gui can play the game(as long as it uses the methods in a correct way).
+ * @author bytof
+ */
+public class Parser implements ParserInterface {
 
-// TODO: Write Documentation
-public class Parser
-{
-    private CommandWords commands;
-    private Scanner reader;
-
-    public Parser()
-    {
-        commands = new CommandWords();
-        reader = new Scanner(System.in);
+    @Override
+    public void moveToRoom(String direction) {
+        NewFXMain.spil.goRoom(direction);
     }
 
-    public Command getCommand()
-    {
-        String inputLine;
-        String word1 = null;
-        String word2 = null;
-
-        System.out.print("> ");
-
-        inputLine = reader.nextLine();
-
-        Scanner tokenizer = new Scanner(inputLine);
-        if(tokenizer.hasNext())
-        {
-            word1 = tokenizer.next().toLowerCase(); //Sets the inputcommand to lower case, to make playerinput case insensitive.
-            if(tokenizer.hasNext())
-            {
-                word2 = tokenizer.next().toLowerCase(); //Sets the inputcommand to lower case, to make playerinput case insensitive.
-            }
-        }
-
-        return new Command(commands.getCommandWord(word1), word2);
+    @Override
+    public int getPlayerHealth() {
+        return NewFXMain.spil.player.getHealth();
     }
 
-    public void showCommands()
-    {
-        commands.showAll();
+    @Override
+    public int getPlayerHunger() {
+        return NewFXMain.spil.player.getHunger();
     }
+
+    @Override
+    public int getPlayerThirst() {
+        return NewFXMain.spil.player.getThirst();
+    }
+
+    @Override
+    public int getPlayerIllness() {
+        return NewFXMain.spil.player.getIllness();
+    }
+
+    @Override
+    public void pickUpItem(String itemName) {
+        NewFXMain.spil.takeItem(itemName);
+    }
+
+    @Override
+    public void dropItem(String itemName) {
+        NewFXMain.spil.dropItem(itemName);
+    }
+    
+    @Override
+    public void useItem(String itemName){
+        NewFXMain.spil.useItem(itemName);
+    }
+    
+    @Override
+    public Room getCurrentRoom(){
+        return NewFXMain.spil.currentRoom();
+    }
+
+    @Override
+    public Set<String> getPlayerInventory() {
+        return NewFXMain.spil.player.getInventory().keySet();
+    }
+
+    @Override
+    public Set<String> getItemsInRoom() {
+        return NewFXMain.spil.currentRoom().getAllItems().keySet();
+    }
+
+    @Override
+    public HashMap<String, Room> getRoomExits() {
+        return NewFXMain.spil.currentRoom().getNeighbours();
+    }
+
+    @Override
+    public void saveGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void loadGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
