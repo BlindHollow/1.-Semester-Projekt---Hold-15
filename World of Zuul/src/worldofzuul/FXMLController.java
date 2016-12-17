@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -77,9 +78,12 @@ public class FXMLController implements Initializable {
     private ImageView fireaxeImg, policegunImg, shotgunImg, ramImg, crowbarImg, energybarImg, energydrinkImg, cannedtunaImg, rumImg, medkitImg, vaccinationImg;
     @FXML
     private ImageView img1;
+    @FXML
+    private ImageView zombie1, zombie2, zombie3;
     Stage stage = null;
     Parent root = null;
     private Parser pars;
+    private String zom1Str, zom2Str, zom3Str;
 
     /**
      * initialises the controller class.
@@ -190,9 +194,17 @@ public class FXMLController implements Initializable {
             updateStats();
         } else if (event.getSource().equals(fireaxeImg)) {
             pars.pickUpItem("fireaxe");
+        } else if (event.getSource().equals(zombie1)) {
+            pars.attackZombie(zom1Str);
+        } else if (event.getSource().equals(zombie2)) {
+            pars.attackZombie(zom2Str);
+        } else if (event.getSource().equals(zombie3)) {
+            pars.attackZombie(zom3Str);
         }
         updateRoom();
         updateInventory();
+        updateZombies();
+        updateStats();
     }
 
     private void updateRoom() { //TODO load picture of room, load pictures of exits
@@ -242,6 +254,30 @@ public class FXMLController implements Initializable {
                 }
             }
             updateItemsInRoom();
+        }
+    }
+
+    private void updateZombies() {
+        zombie1.setVisible(false);
+        zombie2.setVisible(false);
+        zombie3.setVisible(false);
+        int i = 0;
+        for (String s : pars.getZombies()) {
+            switch (i) {
+                case 0:
+                    zombie1.setVisible(true);
+                    zom1Str = s;
+                    break;
+                case 1:
+                    zombie2.setVisible(true);
+                    zom2Str = s;
+                    break;
+                case 2:
+                    zombie3.setVisible(true);
+                    zom3Str = s;
+                    break;
+            }
+            i++;
         }
     }
 

@@ -21,17 +21,14 @@ import java.util.Random;
  */
 public class Dice 
 {
-    private Integer Begin, 
-                    End;
+    private Integer Begin, End;
     
-    public Dice( int begin,
-                 int end )
+    public Dice( int begin, int end )
     {
         edit( begin, end );
     }
     
-    public final void edit( int begin, 
-                            int end )
+    public final void edit( int begin, int end )
     {
         setBegin( begin );
         setEnd( end );

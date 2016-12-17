@@ -53,7 +53,7 @@ public class Game {
     }
 
     public void newGame() {
-        degenFactor = 5;
+        degenFactor = 3;
         createRooms();
         addNeighbours();
         createItems();
@@ -609,9 +609,9 @@ public class Game {
                 case INVENTORY:
                     player.showInventory();
                     break;
-                case ATTACK:
-                    attackZombie(command);
-                    break;
+//                case ATTACK:
+//                    attackZombie(command);
+//                    break;
                 case SUICIDE:
                     player.updateHealth(-100);
                     break;
@@ -682,15 +682,10 @@ public class Game {
         }
     }
 
-    private void attackZombie(Command command) 
-    {
-        if (!command.hasSecondWord()) 
-        {
-            System.out.println("What zombie?");
-            return;
-        }
+    public void attackZombie(String s){
         
-        Zombie zombie = currentRoom.getZombie(command.getSecondWord());
+        
+        Zombie zombie = currentRoom.getZombie(s);
         Weapons weapon = player.getPrimaryWeapon();
 
         if (null == zombie) 
@@ -705,7 +700,7 @@ public class Game {
             
             if ( zombie.schroedinger() ) 
             {
-                currentRoom.removeZombie(zombie.getName());
+                currentRoom.removeZombie(zombie.getId().toString());
                 player.increasePlayerScore( 10 );
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             } 
@@ -722,7 +717,7 @@ public class Game {
             
             if ( zombie.schroedinger() ) 
             {
-                currentRoom.removeZombie(zombie.getName());
+                currentRoom.removeZombie(zombie.getId().toString());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             } 
             else 

@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class Zombie {
     //private String defaultName = "zombie";
@@ -25,6 +26,7 @@ public class Zombie {
     private String name;
     private int zomHP;
     private int zomDamage;
+    private UUID id;
     private boolean isDead;
     //private String DefualtZombieNamePath = ".\\db\\Zombies";
     //private ArrayList<String> zombieNames = new ArrayList();
@@ -41,11 +43,17 @@ public class Zombie {
         this.zomHP = zomHP;
         this.zomDamage = zomDamage;
         this.isDead = false;
+        this.id = UUID.randomUUID();
+        System.out.println(id.toString());
         
        /* File path = new File( DefualtZombieNamePath );
         
         if( worldofzuul.IO.Directories.exist( path ) == false )
             worldofzuul.IO.Directories.create( path, true );*/
+    }
+    
+    public UUID getId(){
+        return id;
     }
 
     /**

@@ -23,6 +23,8 @@ public interface ParserInterface {
     void pickUpItem(String itemName);
     void dropItem(String itemName);
     void useItem(String itemName);
+    void attackZombie(String s);
+    Set<String> getZombies();
     Room getCurrentRoom();
     Set<String> getPlayerInventory();
     Set<String> getItemsInRoom();

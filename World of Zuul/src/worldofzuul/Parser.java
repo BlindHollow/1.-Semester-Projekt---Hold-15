@@ -52,6 +52,16 @@ public class Parser implements ParserInterface {
     }
     
     @Override
+    public void attackZombie(String s){
+        NewFXMain.spil.attackZombie(s);
+    }
+    
+    @Override
+    public Set<String> getZombies(){
+        return NewFXMain.spil.currentRoom().getZombies().keySet();
+    }
+    
+    @Override
     public Room getCurrentRoom(){
         return NewFXMain.spil.currentRoom();
     }
