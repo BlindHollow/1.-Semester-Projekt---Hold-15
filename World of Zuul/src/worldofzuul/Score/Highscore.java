@@ -31,14 +31,13 @@ public class Highscore extends HighscoreSystem
     public Highscore()
     {
         // Default playername
-        setCurrentPlayerName( "player" );
+        setCurrentPlayerName("player");
         
         // Check if directory Exist
         if( worldofzuul.IO.Directories.exist(new File( Directories.HighscoreTable ) ) == false )
         {
             // Create it
-            worldofzuul.IO.Directories.create( Directories.HighscoreTable, 
-                                               true );
+            worldofzuul.IO.Directories.create( Directories.HighscoreTable, true );
         }
         
     }

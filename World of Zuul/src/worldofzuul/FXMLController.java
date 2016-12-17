@@ -74,6 +74,8 @@ public class FXMLController implements Initializable {
     @FXML
     private ImageView doorNW, doorN, doorNE, doorW, doorE, doorSW, doorS, doorSE;
     @FXML
+    private ImageView fireaxeImg, policegunImg, shotgunImg, ramImg, crowbarImg, energybarImg, energydrinkImg, cannedtunaImg, rumImg, medkitImg, vaccinationImg;
+    @FXML
     private ImageView img1;
     Stage stage = null;
     Parent root = null;
@@ -186,6 +188,8 @@ public class FXMLController implements Initializable {
             pars.moveToRoom("southeast");
             tempLabel.setText("You walked southeast");
             updateStats();
+        } else if (event.getSource().equals(fireaxeImg)){
+            pars.pickUpItem("fireaxe");
         }
         updateRoom();
     }
@@ -200,6 +204,7 @@ public class FXMLController implements Initializable {
             doorSW.setVisible(false);
             doorS.setVisible(false);
             doorSE.setVisible(false);
+            fireaxeImg.setVisible(false);
 
             String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
             roomBackground.setStyle(image);
@@ -236,20 +241,45 @@ public class FXMLController implements Initializable {
                 }
             }
             updateItemsInRoom();
+            updateInventory();
         }
     }
 
-    private void updateItemsInRoom() { //TODO load pictures of items
-        int i = 0;
+    private void updateItemsInRoom() {
         for (String s : pars.getItemsInRoom()) {
-            switch (i) {
-                case 0:
+            switch (s) {
+                case "fireaxe":
+                    fireaxeImg.setVisible(true);
                     break;
-                case 1:
+                case "shotgun":
+                    shotgunImg.setVisible(true);
                     break;
-                case 2:
+                case "ram":
+                    ramImg.setVisible(true);
                     break;
-                case 3:
+                case "policegun":
+                    policegunImg.setVisible(true);
+                    break;
+                case "crowbar":
+                    crowbarImg.setVisible(true);
+                    break;
+                case "energybar":
+                    energybarImg.setVisible(true);
+                    break;
+                case "energydrink":
+                    energydrinkImg.setVisible(true);
+                    break;
+                case "cannedtuna":
+                    cannedtunaImg.setVisible(true);
+                    break;
+                case "rum":
+                    rumImg.setVisible(true);
+                    break;
+                case "vaccination":
+                    vaccinationImg.setVisible(true);
+                    break;
+                case "medKit":
+                    medkitImg.setVisible(true);
                     break;
                 default:
                     break;
