@@ -32,7 +32,7 @@ public class Sustain extends Items {
     }
     
     public int getIllnessRegen(){
-        return this.illnessRegen;
+        return -1*this.illnessRegen;
     }
 
 }

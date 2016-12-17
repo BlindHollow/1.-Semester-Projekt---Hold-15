@@ -80,6 +80,11 @@ public class Parser implements ParserInterface {
     public HashMap<String, Room> getRoomExits() {
         return NewFXMain.spil.currentRoom().getNeighbours();
     }
+    
+    @Override
+    public void setPrimaryWeapon(String weapon){
+        NewFXMain.spil.player.setPrimaryWeapon(weapon);
+    }
 
     @Override
     public void saveGame() {

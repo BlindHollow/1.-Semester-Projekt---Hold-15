@@ -19,7 +19,7 @@ import java.util.Random;
  * commandwords from the user. As long as the command is not quit and the player
  * is not dead (ie. player.schrodinger evaluates to FALSE) the game does not
  * end.
-
+ *
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -42,12 +42,12 @@ public class Game {
     private Food energybar, energydrink, cannedtuna, rum;
     private Sustain medKit, vaccination;
     private int degenFactor;
-    
+
     private HashMap<String, Room> allowedRooms;
     private HashMap<String, Items> allowedItems;
 
     private worldofzuul.utilities.Dice random;
-    
+
     public Game() {
         newGame();
     }
@@ -61,14 +61,16 @@ public class Game {
         player = new Player("Bob");
 
     }
+
     /**
-    * Function saves the current game state to a file named "save.txt" 
-    * @throws IOException 
-    */
+     * Function saves the current game state to a file named "save.txt"
+     *
+     * @throws IOException
+     */
     public void saveGame() throws IOException {
-        
+
         player.savePlayerscore();
-        
+
         //Save the player state.
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
@@ -147,154 +149,128 @@ public class Game {
             System.out.println("File could not be written");
         }
     }
+
     /**
-    * Loads and starts a game from a file, whose format is determined by save(), TODO: Make complete description of fileformat.
-    * @param file
-    * Take an input file, the format of the file is determined by the save()
-    * @throws IOException
-    * @throws NullPointerException
-    * NullPointerExceptions happen when the inputfile either is in the wrong format or the inputfile specifies items or rooms that are not allowed.
-    * @throws ArrayIndexOutOfBoundsException 
-    * Exception thrown when the file is not in the specified format.
-    */
-    public void loadGame( File file ) throws IOException, NullPointerException, ArrayIndexOutOfBoundsException 
-    {
+     * Loads and starts a game from a file, whose format is determined by
+     * save(), TODO: Make complete description of fileformat.
+     *
+     * @param file Take an input file, the format of the file is determined by
+     * the save()
+     * @throws IOException
+     * @throws NullPointerException NullPointerExceptions happen when the
+     * inputfile either is in the wrong format or the inputfile specifies items
+     * or rooms that are not allowed.
+     * @throws ArrayIndexOutOfBoundsException Exception thrown when the file is
+     * not in the specified format.
+     */
+    public void loadGame(File file) throws IOException, NullPointerException, ArrayIndexOutOfBoundsException {
         createRooms();
         createItems();
-        
-        try ( BufferedReader read = new BufferedReader( new FileReader( file ) ) ) 
-        {
-            while ( read.ready() ) 
-            {
+
+        try (BufferedReader read = new BufferedReader(new FileReader(file))) {
+            while (read.ready()) {
                 String playerState = read.readLine();
                 String[] playerAttributes = playerState.split(",");
-                
-                player = new Player( playerAttributes[ 0 ], 
-                                     Integer.parseInt( playerAttributes[1] ), 
-                                     Integer.parseInt( playerAttributes[2] ), 
-                                     Integer.parseInt( playerAttributes[3] ),
-                                     Integer.parseInt( playerAttributes[4] ) ); //Creates player object based on stats in the savefile.
-                
-                currentRoom = allowedRooms.get( playerAttributes[6] ); //sets currentRoom.
-                
-                degenFactor = Integer.parseInt( playerAttributes[5] ); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)
-                
+
+                player = new Player(playerAttributes[0],
+                        Integer.parseInt(playerAttributes[1]),
+                        Integer.parseInt(playerAttributes[2]),
+                        Integer.parseInt(playerAttributes[3]),
+                        Integer.parseInt(playerAttributes[4])); //Creates player object based on stats in the savefile.
+
+                currentRoom = allowedRooms.get(playerAttributes[6]); //sets currentRoom.
+
+                degenFactor = Integer.parseInt(playerAttributes[5]); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)
+
                 String playerWeapon = read.readLine(); //Does player have a primary weapon equipped?
-                if ( playerWeapon.equals( "noWeapon" ) ) 
-                {
-                    System.out.println( "player has no weapon" ); //no
-                } 
-                else 
-                {
-                    player.setPrimaryWeapon( (Weapons) allowedItems.get(playerWeapon) ); //if yes, sets the weapon based off allowed items.
-                    System.out.println( "Primary weapon set." );
+                if (playerWeapon.equals("noWeapon")) {
+                    System.out.println("player has no weapon"); //no
+                } else if (allowedItems.get(playerWeapon) instanceof Weapons) {
+                    player.setPrimaryWeapon(playerWeapon); //if yes, sets the weapon based off allowed items.
+                    System.out.println("Primary weapon set.");
                 }
                 String inventoryLine = read.readLine(); //Players inventory
-                
-                if ( inventoryLine.equals( "no items" ) ) 
-                {
+
+                if (inventoryLine.equals("no items")) {
                     System.out.println("No items in inventory");
-                } 
-                else 
-                {
+                } else {
                     String[] itemsInInventory = inventoryLine.split(",");
-                    
-                    for ( String itemname : itemsInInventory ) 
-                    { 
+
+                    for (String itemname : itemsInInventory) {
                         //iterate through itemsInInventory and add items to new players inventory.
-                        Items item = allowedItems.get( itemname );
-                        player.getInventory().put( item.getName(), item );
+                        Items item = allowedItems.get(itemname);
+                        player.getInventory().put(item.getName(), item);
                     }
                 }
-                
+
                 String locationOfNoteRoom = read.readLine();
-                
+
                 locationOfNote = allowedRooms.get(locationOfNoteRoom);
                 String pilotRoomName = read.readLine();
-                
+
                 pilotRoom = allowedRooms.get(pilotRoomName); //If not has been found sets pilots current room, if not sets pilots starting room.
-                
+
                 String noteFoundStatus = read.readLine(); //has note been found or not?
-                if ( noteFoundStatus.equals( "noteNotFound" ) ) 
-                {
-                    System.out.println( "Pilot's note has not been found" );
+                if (noteFoundStatus.equals("noteNotFound")) {
+                    System.out.println("Pilot's note has not been found");
                     noteFound = false;
-                } 
-                else 
-                {
+                } else {
                     noteFound = true;
-                    System.out.println( "Pilot note was found" );
+                    System.out.println("Pilot note was found");
                 }
-                
+
                 String pilotFoundStatus = read.readLine(); //has pilot been found?
-                if ( pilotFoundStatus.equals( "notFound" ) ) 
-                {
-                    System.out.println( "pilot hasn't been found" );
-                } 
-                else 
-                {
+                if (pilotFoundStatus.equals("notFound")) {
+                    System.out.println("pilot hasn't been found");
+                } else {
                     pilotFound = true;
-                    System.out.println( "Pilot was found" );
+                    System.out.println("Pilot was found");
                 }
                 boolean moreRoomsToLoad = true;
-                while ( moreRoomsToLoad ) 
-                {
+                while (moreRoomsToLoad) {
                     String room = read.readLine(); //Checks if the file has ended and the load is complete.
-                    
-                    if ( room.equals( "endfile" ) ) 
-                    {
+
+                    if (room.equals("endfile")) {
                         System.out.println("load complete");
                         break;
                     }
-                    
-                    while ( !room.equals("endroom" ) ) 
-                    {
+
+                    while (!room.equals("endroom")) {
                         Room temp = allowedRooms.get(room); //Reads the entered room and gets correct room based on allowedRooms.
-                        
+
                         //System.out.println(room);
                         System.out.println(temp.getName());
                         rooms.add(temp); //Add room specified in file to rooms ArrayList, so the player does not end up in a room with no exits on sewer()
-                        
-                        while (true) 
-                        {
+
+                        while (true) {
                             String exit = read.readLine(); //Reads the exits that are set for a room.
                             //System.out.println(exit);
-                            if (exit.equals("endexits")) 
-                            {
+                            if (exit.equals("endexits")) {
                                 System.out.println("exits done");
                                 break;
-                            } 
-                            else 
-                            {
+                            } else {
                                 String[] exitDirection = exit.split(",");
                                 //System.out.println(exitDirection[0] + exitDirection[1]);
-                                temp.setExit( exitDirection[0], allowedRooms.get( exitDirection[1] ) );
+                                temp.setExit(exitDirection[0], allowedRooms.get(exitDirection[1]));
                             }
                         }
-                        
+
                         String itemString = read.readLine(); //Describes items in a room
-                        if ( !itemString.equals( "No items in room" ) ) 
-                        {
+                        if (!itemString.equals("No items in room")) {
                             String[] itemsInRoom = itemString.split(",");
-                            for (String itemname : itemsInRoom) 
-                            {
+                            for (String itemname : itemsInRoom) {
                                 temp.placeItem(allowedItems.get(itemname));
                             }
                             System.out.println("items done");
-                        } 
-                        else 
-                        {
+                        } else {
                             System.out.println("items done - no items");
                         }
-                        
+
                         String locked = read.readLine(); //Is the room locked or not?
-                        if (locked.equals("locked")) 
-                        {
+                        if (locked.equals("locked")) {
                             temp.setLock(true);
                             System.out.println("locked");
-                        } 
-                        else 
-                        {
+                        } else {
                             System.out.println("was not locked");
                         }
 
@@ -303,28 +279,22 @@ public class Game {
                     }
 
                 }
-                
+
                 read.close(); //Closes the reader on completion.
             }
-        } 
-        catch ( IOException e ) 
-        {
+        } catch (IOException e) {
             Thread.currentThread().getStackTrace();
-        } 
-        catch ( NullPointerException e ) 
-        {
+        } catch (NullPointerException e) {
             System.out.println("Invalid item or room, fix it and try again.");
             Thread.currentThread().getStackTrace();
             newGame();
-        } 
-        catch ( ArrayIndexOutOfBoundsException e ) 
-        {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Fileformat is invalid");
             newGame();
         }
-        
+
         player.loadHighscore();
-        
+
     }
 
     /**
@@ -334,63 +304,63 @@ public class Game {
     private void createRooms() {
         allowedRooms = new HashMap<>();
 
-        outside1    = new Room( "outsidewest", 
-                                "on westside of the mainstreet" );
-        outside2    = new Room( "outsideeast", 
-                                "on the eastside of the mainstreet" );
-        
-        helipad     = new Room( "helipad", 
-                                "on a helipad" );
-        hospital    = new Room( "hospital", 
-                                "in a hospital" );
-        
-        policestation   = new Room( "policestation", 
-                                    "in the policestation" );
-        firestation     = new Room( "firestation", 
-                                    "in the firestation" );
-        
-        grocerystore    = new Room( "grocerystore", 
-                                    "in the grocerystore" );
-        
-        house1      = new Room( "redhouse", 
-                                "in the red house" );
-        house2      = new Room( "bluehouse", 
-                                "in the blue house" );
-        
-        drugstore   = new Room( "drugstore", 
-                                "in the drugstore" );
-        
-        pub         = new Room( "pub", 
-                                "in the pub" );
-        
-        gasstation  = new Room( "gasstation", 
-                                "in the gasstation" );
+        outside1 = new Room("outsidewest",
+                "on westside of the mainstreet");
+        outside2 = new Room("outsideeast",
+                "on the eastside of the mainstreet");
 
-        allowedRooms.put( outside1.getName(), outside1 );
-        allowedRooms.put( outside2.getName(), outside2 );
-        
-        allowedRooms.put( helipad.getName(), helipad );
-        allowedRooms.put( hospital.getName(), hospital );
-        
-        allowedRooms.put( policestation.getName(), 
-                          policestation );
-        allowedRooms.put( grocerystore.getName(), 
-                          grocerystore );
-        allowedRooms.put( firestation.getName(), 
-                          firestation );
-        allowedRooms.put( drugstore.getName(), 
-                          drugstore );
-        
-        allowedRooms.put( house1.getName(), 
-                          house1 );
-        allowedRooms.put( house2.getName(), 
-                          house2 );
-        
-        allowedRooms.put( pub.getName(), 
-                          pub );
-        
-        allowedRooms.put( gasstation.getName(), 
-                          gasstation );
+        helipad = new Room("helipad",
+                "on a helipad");
+        hospital = new Room("hospital",
+                "in a hospital");
+
+        policestation = new Room("policestation",
+                "in the policestation");
+        firestation = new Room("firestation",
+                "in the firestation");
+
+        grocerystore = new Room("grocerystore",
+                "in the grocerystore");
+
+        house1 = new Room("redhouse",
+                "in the red house");
+        house2 = new Room("bluehouse",
+                "in the blue house");
+
+        drugstore = new Room("drugstore",
+                "in the drugstore");
+
+        pub = new Room("pub",
+                "in the pub");
+
+        gasstation = new Room("gasstation",
+                "in the gasstation");
+
+        allowedRooms.put(outside1.getName(), outside1);
+        allowedRooms.put(outside2.getName(), outside2);
+
+        allowedRooms.put(helipad.getName(), helipad);
+        allowedRooms.put(hospital.getName(), hospital);
+
+        allowedRooms.put(policestation.getName(),
+                policestation);
+        allowedRooms.put(grocerystore.getName(),
+                grocerystore);
+        allowedRooms.put(firestation.getName(),
+                firestation);
+        allowedRooms.put(drugstore.getName(),
+                drugstore);
+
+        allowedRooms.put(house1.getName(),
+                house1);
+        allowedRooms.put(house2.getName(),
+                house2);
+
+        allowedRooms.put(pub.getName(),
+                pub);
+
+        allowedRooms.put(gasstation.getName(),
+                gasstation);
     }
 
     private void addNeighbours() {
@@ -458,62 +428,61 @@ public class Game {
     private void createItems() {
         allowedItems = new HashMap<>();
 
-        fireaxe = new Weapons( "fireaxe", 
-                               10, 1, 
-                               true );
-        
-        policegun = new Weapons( "policegun", 
-                                 30, 4, 
-                                 false );
-        shotgun = new Weapons( "shotgun", 
-                               20, 5, 
-                               false );
-        
-        crowbar = new Weapons( "crowbar", 
-                               10, 1, 
-                               true );
-        ram = new Weapons( "ram", 
-                            3, 4, 
-                            true );
+        fireaxe = new Weapons("fireaxe",
+                10, 1,
+                true);
 
-        energybar   = new Food( "energybar", 
-                                30, 0 );
-        energydrink = new Food( "energydrink", 
-                                0, 30 );
-        cannedtuna  = new Food( "cannedtuna", 
-                                50, 0 );
-        rum         = new Food( "rum", 
-                                0, 20 );
+        policegun = new Weapons("policegun",
+                30, 4,
+                false);
+        shotgun = new Weapons("shotgun",
+                20, 5,
+                false);
+
+        crowbar = new Weapons("crowbar",
+                10, 1,
+                true);
+        ram = new Weapons("ram",
+                3, 4,
+                true);
+
+        energybar = new Food("energybar",
+                30, 0);
+        energydrink = new Food("energydrink",
+                0, 30);
+        cannedtuna = new Food("cannedtuna",
+                50, 0);
+        rum = new Food("rum",
+                0, 20);
 
         medKit = new Sustain("medkit", 50, 0);
         vaccination = new Sustain("vaccination", 0, 50);
 
+        allowedItems.put(fireaxe.getName(),
+                fireaxe);
+        allowedItems.put(policegun.getName(),
+                policegun);
+        allowedItems.put(shotgun.getName(),
+                shotgun);
+        allowedItems.put(crowbar.getName(),
+                crowbar);
 
-        allowedItems.put( fireaxe.getName(), 
-                          fireaxe );
-        allowedItems.put( policegun.getName(), 
-                          policegun );
-        allowedItems.put( shotgun.getName(), 
-                          shotgun );
-        allowedItems.put( crowbar.getName(), 
-                          crowbar );
-        
-        allowedItems.put( ram.getName(), 
-                          ram );
-        
-        allowedItems.put( energybar.getName(), 
-                          energybar );
-        allowedItems.put( energydrink.getName(), 
-                          energydrink );
-        allowedItems.put( cannedtuna.getName(), 
-                          cannedtuna );
-        allowedItems.put( rum.getName(), 
-                          rum );
-        
-        allowedItems.put( medKit.getName(), 
-                          medKit );
-        allowedItems.put( vaccination.getName(), 
-                          vaccination );
+        allowedItems.put(ram.getName(),
+                ram);
+
+        allowedItems.put(energybar.getName(),
+                energybar);
+        allowedItems.put(energydrink.getName(),
+                energydrink);
+        allowedItems.put(cannedtuna.getName(),
+                cannedtuna);
+        allowedItems.put(rum.getName(),
+                rum);
+
+        allowedItems.put(medKit.getName(),
+                medKit);
+        allowedItems.put(vaccination.getName(),
+                vaccination);
     }
 
     private void placeItems() {
@@ -538,9 +507,7 @@ public class Game {
 
     }
 
-
-
-   /* public void play() {
+    /* public void play() {
         printWelcome();
 
         boolean finished = false;
@@ -560,13 +527,11 @@ public class Game {
 
         System.out.println( "Thank you for playing.  Good bye." );
     }*/
-
-
     private void printWelcome() {
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        
+
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -582,16 +547,14 @@ public class Game {
             return false;
         }
 
-        if ( null != commandWord ) 
-        {
-            
-            switch ( commandWord ) 
-            {
+        if (null != commandWord) {
+
+            switch (commandWord) {
                 case HELP:
-                        printHelp();
+                    printHelp();
                     break;
-                
-           case GO:
+
+                case GO:
                     goRoom("hej");
                     break;
                 case STATUS:
@@ -636,19 +599,18 @@ public class Game {
         return wantToQuit;
     }
 
-    private void printHelp() 
-    {
-        System.out.println( "You wake up from a coma" );
-        System.out.println( "You are in a hospital " );
-        System.out.println( "A note reads: " );
-        System.out.println( "A virus outbreak has turned people to zombies " );
-        System.out.println( "Good luck, friendo \r\n" );
-        System.out.println( "Your command words are:" );
-        
+    private void printHelp() {
+        System.out.println("You wake up from a coma");
+        System.out.println("You are in a hospital ");
+        System.out.println("A note reads: ");
+        System.out.println("A virus outbreak has turned people to zombies ");
+        System.out.println("Good luck, friendo \r\n");
+        System.out.println("Your command words are:");
+
         //parser.showCommands();
     }
 
-     public void goRoom(String direction) {
+    public void goRoom(String direction) {
 
         Room nextRoom = currentRoom.getExit(direction);
 
@@ -656,7 +618,7 @@ public class Game {
             System.out.println("There is no door!");
         } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
             System.out.println("Door is Locked, find something to open the door with and try again.");
-                    } else if (!currentRoom.getZombies().isEmpty()) {
+        } else if (!currentRoom.getZombies().isEmpty()) {
             System.out.println("There's a zombie in the room, you can't leave.");
         } else {
             currentRoom = nextRoom;
@@ -682,47 +644,35 @@ public class Game {
         }
     }
 
-    public void attackZombie(String s){
-        
-        
+    public void attackZombie(String s) {
+
         Zombie zombie = currentRoom.getZombie(s);
         Weapons weapon = player.getPrimaryWeapon();
 
-        if (null == zombie) 
-        {
+        if (null == zombie) {
             System.out.println("Can't find that zombie in the room");
-        } 
-        else if ( player.getPrimaryWeapon() == null ) 
-        {
+        } else if (player.getPrimaryWeapon() == null) {
             zombie.hit(5);
-            
+
             player.degenHungerAndThirst(degenFactor);
-            
-            if ( zombie.schroedinger() ) 
-            {
+
+            if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getId().toString());
-                player.increasePlayerScore( 10 );
+                player.increasePlayerScore(10);
                 System.out.println(zombie.getName() + " is dead. Hooray...");
-            } 
-            else 
-            {
-                zombie.attackPlayer( player );
+            } else {
+                zombie.attackPlayer(player);
             }
-        } 
-        else 
-        {
-            zombie.hit( weapon.getDamage() );
-            
+        } else {
+            zombie.hit(weapon.getDamage());
+
             player.degenHungerAndThirst(degenFactor);
-            
-            if ( zombie.schroedinger() ) 
-            {
+
+            if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getId().toString());
                 System.out.println(zombie.getName() + " is dead. Hooray...");
-            } 
-            else 
-            {
-                zombie.attackPlayer( player );
+            } else {
+                zombie.attackPlayer(player);
             }
 
         }
@@ -730,65 +680,51 @@ public class Game {
 
     private void sewer() {
         Room randomRoom = (rooms.get(new Random().nextInt(rooms.size())));
-        
+
         currentRoom = randomRoom;
         hasBeenInPub = true;
-        
+
         player.degenHungerAndThirst(degenFactor);
-        
+
         System.out.println("You fall into a sewer, you decide to explore it");
         System.out.println(currentRoom.getLongDescription());
     }
 
     private void zipline() {
-        if (currentRoom == firestation) 
-        {
-            player.increasePlayerScore( 20 );
-            
+        if (currentRoom == firestation) {
+            player.increasePlayerScore(20);
+
             currentRoom = policestation;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
-        } 
-        else if (currentRoom == policestation) 
-        {
-            player.increasePlayerScore( 20 );
-            
+        } else if (currentRoom == policestation) {
+            player.increasePlayerScore(20);
+
             currentRoom = helipad;
             player.degenHungerAndThirst(degenFactor);
             currentRoom.getLongDescription();
-        } 
-        else 
-        {
+        } else {
             System.out.println("You can not zipline from here.");
         }
     }
 
-    private void movePilot() 
-    {
-        if (pilotFound) 
-        {
+    private void movePilot() {
+        if (pilotFound) {
             pilotRoom = currentRoom;
-        } 
-        else if (pilotRoom.equals(currentRoom)) 
-        {    
+        } else if (pilotRoom.equals(currentRoom)) {
             pilotFound = true;
-            player.increasePlayerScore( 200 );
+            player.increasePlayerScore(200);
             System.out.println("You found the pilot");
-        } 
-        else 
-        {
-            int roomInt = (int) (Math.random() * pilotRoom.getSize() );
-            
+        } else {
+            int roomInt = (int) (Math.random() * pilotRoom.getSize());
+
             Room nextRoom = pilotRoom.getExit(roomInt);
-            
-            if (nextRoom == null) 
-            {
+
+            if (nextRoom == null) {
                 System.out.println("No door for pilot.. Fix it, u moron");
-            } 
-            else 
-            {
+            } else {
                 pilotRoom = nextRoom;
-                
+
                 if (pilotRoom.equals(currentRoom)) {
                     pilotFound = true;
                     System.out.println("You found the pilot");
@@ -807,7 +743,7 @@ public class Game {
     }
 //pick up an item in the room you are in. Command: Grab "item"
 
-public void takeItem(String itemName) {
+    public void takeItem(String itemName) {
 
         Items item = currentRoom.getItem(itemName);
 
@@ -820,7 +756,7 @@ public void takeItem(String itemName) {
             System.out.println("You picked up the " + item.getName());
             player.getInventory().put(item.getName(), item);
             if (item instanceof Weapons) {
-                player.setPrimaryWeapon((Weapons) item);
+                player.setPrimaryWeapon(itemName);
                 System.out.println("Primary Weapon set");
             }
 
@@ -839,7 +775,9 @@ public void takeItem(String itemName) {
 
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
-
+            if(player.getPrimaryWeapon().equals(item)){
+                player.removePrimaryWeapon();
+            }
             player.getInventory().remove(item.getName());
         }
     }
@@ -855,9 +793,11 @@ public void takeItem(String itemName) {
             } else if (item instanceof Food) {
                 player.updateHunger(((Food) item).getHungerRegen());
                 player.updateThirst(((Food) item).getThirstRegen());
+                player.getInventory().remove(item.getName());
             } else if (item instanceof Sustain) {
                 player.updateHealth(((Sustain) item).getHealthRegen());
                 player.updateIllness(((Sustain) item).getIllnessRegen());
+                player.getInventory().remove(item.getName());
             } else {
                 System.out.println("Cannot use that item");
             }

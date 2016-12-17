@@ -22,7 +22,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -80,6 +82,10 @@ public class FXMLController implements Initializable {
     private ImageView img1;
     @FXML
     private ImageView zombie1, zombie2, zombie3;
+    @FXML
+    private RadioButton radUse, radDrop, radWep;
+    @FXML
+    private ToggleGroup radButts;
     Stage stage = null;
     Parent root = null;
     private Parser pars;
@@ -194,6 +200,10 @@ public class FXMLController implements Initializable {
             updateStats();
         } else if (event.getSource().equals(fireaxeImg)) {
             pars.pickUpItem("fireaxe");
+        } else if (event.getSource().equals(ramImg)) {
+            pars.pickUpItem("ram");
+        } else if (event.getSource().equals(vaccinationImg)) {
+            pars.pickUpItem("vaccination");
         } else if (event.getSource().equals(zombie1)) {
             pars.attackZombie(zom1Str);
         } else if (event.getSource().equals(zombie2)) {
@@ -217,7 +227,6 @@ public class FXMLController implements Initializable {
             doorSW.setVisible(false);
             doorS.setVisible(false);
             doorSE.setVisible(false);
-            fireaxeImg.setVisible(false);
 
             String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
             roomBackground.setStyle(image);
@@ -282,6 +291,10 @@ public class FXMLController implements Initializable {
     }
 
     private void updateItemsInRoom() { //TODO load pictures of items
+        fireaxeImg.setVisible(false);
+        ramImg.setVisible(false);
+        vaccinationImg.setVisible(false);
+
         for (String s : pars.getItemsInRoom()) {
             switch (s) {
                 case "fireaxe":
@@ -322,6 +335,10 @@ public class FXMLController implements Initializable {
     }
 
     private void updateInventory() {
+        invSlot1.setText("Empty");
+        invSlot2.setText("Empty");
+        invSlot3.setText("Empty");
+        invSlot4.setText("Empty");
         int i = 0;
         for (String s : pars.getPlayerInventory()) {
             switch (i) {
@@ -361,6 +378,39 @@ public class FXMLController implements Initializable {
     @FXML
     private void onPlayerName(MouseEvent event) {
         labelPlayerName.setText(NewFXMain.spil.player.getName());
+    }
+
+    @FXML
+    private void onInventory(MouseEvent event) {
+        if(radButts.getSelectedToggle().equals(radUse)){
+            if(event.getSource().equals(invSlot1)){
+                pars.useItem(invSlot1.getText());
+            } else if(event.getSource().equals(invSlot2)){
+                pars.useItem(invSlot2.getText());
+            } else if(event.getSource().equals(invSlot3)){
+                pars.useItem(invSlot3.getText());
+            }
+            updateInventory();
+            updateStats();
+        } else if(radButts.getSelectedToggle().equals(radDrop)){
+            if(event.getSource().equals(invSlot1)){
+                pars.dropItem(invSlot1.getText());
+            } else if(event.getSource().equals(invSlot2)){
+                pars.dropItem(invSlot2.getText());
+            } else if(event.getSource().equals(invSlot3)){
+                pars.dropItem(invSlot3.getText());
+            }
+            updateInventory();
+            updateRoom();
+        } else if(radButts.getSelectedToggle().equals(radWep)){
+            if(event.getSource().equals(invSlot1)){
+                pars.setPrimaryWeapon(invSlot1.getText());
+            } else if(event.getSource().equals(invSlot2)){
+                pars.setPrimaryWeapon(invSlot2.getText());
+            } else if(event.getSource().equals(invSlot3)){
+                pars.setPrimaryWeapon(invSlot3.getText());
+            }
+        }
     }
 
     private void onPlayerName() {

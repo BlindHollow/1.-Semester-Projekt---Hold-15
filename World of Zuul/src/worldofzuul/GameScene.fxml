@@ -37,10 +37,17 @@
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
-                        <Label fx:id="invSlot1" layoutX="14.0" layoutY="48.0" text="Empty" />
-                        <Label fx:id="invSlot2" layoutX="97.0" layoutY="48.0" text="Empty" />
-                        <Label fx:id="invSlot3" layoutX="14.0" layoutY="101.0" text="Empty" />
-                        <Label fx:id="invSlot4" layoutX="97.0" layoutY="101.0" text="Empty" />
+                        <Label fx:id="invSlot1" layoutX="14.0" layoutY="48.0" onMouseClicked="#onInventory" text="Empty" />
+                        <Label fx:id="invSlot2" layoutX="97.0" layoutY="48.0" onMouseClicked="#onInventory" text="Empty" />
+                        <Label fx:id="invSlot3" layoutX="14.0" layoutY="101.0" onMouseClicked="#onInventory" text="Empty" />
+                        <Label fx:id="invSlot4" layoutX="97.0" layoutY="101.0" onMouseClicked="#onInventory" text="Empty" />
+                  <RadioButton fx:id="radUse" layoutX="14.0" layoutY="122.0" mnemonicParsing="false" selected="true" text="Use">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radButts" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="radDrop" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" text="Drop" toggleGroup="$radButts" />
+                  <RadioButton fx:id="radWep" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" text="Set primary weapon" toggleGroup="$radButts" />
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="paneButtons" prefHeight="200.0" prefWidth="200.0">
@@ -54,12 +61,12 @@
         <AnchorPane fx:id="roomBackground" onMouseClicked="#onMouseClicked" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="tempLabel" layoutX="333.0" layoutY="290.0" text="Label" />
-            <ImageView fx:id="zombie1" fitHeight="75.0" fitWidth="100.0" layoutX="525.0" layoutY="347.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="zombie1" fitHeight="75.0" fitWidth="100.0" layoutX="525.0" layoutY="347.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/dead.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="doorNW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorNW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -67,7 +74,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorN" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorN" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -75,7 +82,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorNE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorNE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -83,7 +90,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="300.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="300.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -91,7 +98,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="300.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="300.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -99,7 +106,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorSW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorSW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -107,7 +114,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorS" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorS" fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -115,7 +122,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="doorSE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="doorSE" fitHeight="50.0" fitWidth="50.0" layoutX="950.0" layoutY="600.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/doorsymbol.png" />
                </image>
@@ -123,7 +130,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="fireaxeImg" fitHeight="75.0" fitWidth="75.0" layoutX="91.0" layoutY="137.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="fireaxeImg" fitHeight="75.0" fitWidth="75.0" layoutX="91.0" layoutY="137.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/fireaxe.png" />
                </image>
@@ -132,25 +139,31 @@
                </cursor>
             </ImageView>
             <ImageView fx:id="policegunImg" fitHeight="75.0" fitWidth="75.0" layoutX="110.0" layoutY="109.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="shotgunImg" fitHeight="75.0" fitWidth="75.0" layoutX="165.0" layoutY="137.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="ramImg" fitHeight="75.0" fitWidth="75.0" layoutX="295.0" layoutY="164.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shotgunImg" fitHeight="75.0" fitWidth="75.0" layoutX="647.0" layoutY="208.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="ramImg" fitHeight="75.0" fitWidth="75.0" layoutX="692.0" layoutY="405.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ram.png" />
+               </image></ImageView>
             <ImageView fx:id="crowbarImg" fitHeight="75.0" fitWidth="75.0" layoutX="305.0" layoutY="174.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="energybarImg" fitHeight="75.0" fitWidth="75.0" layoutX="315.0" layoutY="184.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="energydrinkImg" fitHeight="75.0" fitWidth="75.0" layoutX="325.0" layoutY="194.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="cannedtunaImg" fitHeight="75.0" fitWidth="75.0" layoutX="335.0" layoutY="204.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="rumImg" fitHeight="75.0" fitWidth="75.0" layoutX="345.0" layoutY="214.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="vaccinationImg" fitHeight="75.0" fitWidth="75.0" layoutX="355.0" layoutY="224.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="vaccinationImg" fitHeight="75.0" fitWidth="75.0" layoutX="465.0" layoutY="507.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/vaccination.png" />
+               </image></ImageView>
             <ImageView fx:id="medkitImg" fitHeight="75.0" fitWidth="75.0" layoutX="365.0" layoutY="234.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="zombie3" fitHeight="75.0" fitWidth="100.0" layoutX="367.0" layoutY="177.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="zombie3" fitHeight="75.0" fitWidth="100.0" layoutX="367.0" layoutY="177.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/dead.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="zombie2" fitHeight="75.0" fitWidth="100.0" layoutX="327.0" layoutY="384.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="zombie2" fitHeight="75.0" fitWidth="100.0" layoutX="327.0" layoutY="384.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/dead.png" />
                </image>

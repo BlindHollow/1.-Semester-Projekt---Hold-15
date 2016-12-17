@@ -67,6 +67,7 @@ public class Player {
     public void updateHealth(int modifier) {
         health = health + modifier;
         if (health <= 0) {
+            health = 0;
             isDead = true; //If player is dead game should end.
         }
     }
@@ -135,6 +136,9 @@ public class Player {
      */
     public void updateIllness(int modifier) {
         illness = illness + modifier;
+        if(illness < 0 ){
+            illness = 0;
+        }
         if (illness > 80) {
             updateHealth((int) (-1 * illness * 0.10)); //lose health equivalent to 10% of illness stat.
         }
@@ -187,8 +191,8 @@ public class Player {
         }
     }
 
-    public void setPrimaryWeapon(Weapons weapon) {
-        primaryWeapon = weapon;
+    public void setPrimaryWeapon(String key) {
+        primaryWeapon = (Weapons) inventory.get(key);
         hasPrimaryWeapon = true;
     }
 
@@ -250,6 +254,11 @@ public class Player {
 
     public HashMap<String, Items> getInventory() {
         return inventory;
+    }
+    
+    public void removePrimaryWeapon(){
+        primaryWeapon = null;
+        hasPrimaryWeapon = false;
     }
 
     /**

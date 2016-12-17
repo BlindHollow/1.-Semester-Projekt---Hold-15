@@ -24,6 +24,7 @@ public interface ParserInterface {
     void dropItem(String itemName);
     void useItem(String itemName);
     void attackZombie(String s);
+    void setPrimaryWeapon(String weapon);
     Set<String> getZombies();
     Room getCurrentRoom();
     Set<String> getPlayerInventory();
