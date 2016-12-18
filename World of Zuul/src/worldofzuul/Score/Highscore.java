@@ -29,8 +29,6 @@ public class Highscore extends HighscoreSystem {
      * Constructor
      */
     public Highscore() {
-        // Default playername
-        setCurrentPlayerName("player");
 
         // Check if directory Exist
         if (worldofzuul.IO.Directories.exist(new File(Directories.HighscoreTable)) == false) {
@@ -53,8 +51,6 @@ public class Highscore extends HighscoreSystem {
             return;
         }
 
-        setCurrentPlayerName(name);
-
         loadPlayers();
 
     }
@@ -65,14 +61,14 @@ public class Highscore extends HighscoreSystem {
      * @param CharacterName
      * @return True: Saved, False: Error occured
      */
-    public boolean saveCurrentCharacter() {
+    public boolean saveCurrentCharacter(String PlayerName, int Score) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(getCurrentPlayerName());
+        builder.append(PlayerName);
         builder.append(',');
-        builder.append(Integer.toString(getCurrentPlayerPoints()));
+        builder.append(Integer.toString(Score));
 
-        File file = new File(Directories.HighscoreTable + "\\" + getCurrentPlayerName());
+        File file = new File(Directories.HighscoreTable + "\\" + PlayerName);
 
         try {
             PrintWriter pw = new PrintWriter(file, "UTF-8");
@@ -108,17 +104,12 @@ public class Highscore extends HighscoreSystem {
                  */
                 List<String> linesRead = Files.readAllLines(user.toPath());
 
-                for (String currentline : linesRead) {
+                for ( String currentline : linesRead) {
+                    
                     String[] result = currentline.split(",");
-
-                    if (hsFunction.isLowerStringsEqual(this.getCurrentPlayerName(),
-                            result[0])) {
-                        this.setCurrentPlayerPoints(Integer.parseInt(result[1]));
-                    } else {
-                        addPlayers(result[0],
-                                Integer.parseInt(result[1]));
-                    }
-
+                    
+                    addPlayers(result[0], Integer.parseInt(result[1]));
+                    
                 }
 
             } catch (java.lang.SecurityException SEx) {

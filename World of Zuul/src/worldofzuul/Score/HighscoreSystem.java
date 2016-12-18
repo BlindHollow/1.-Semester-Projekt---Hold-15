@@ -19,7 +19,6 @@ import java.util.Collections;
  */
 public class HighscoreSystem {
 
-    private HighscoreUser user = new HighscoreUser();
     private ArrayList<HighscorePlayer> listOfPriorUserScores = new ArrayList();
 
     /**
@@ -27,8 +26,7 @@ public class HighscoreSystem {
      * @param CurrentPlayername
      */
     public HighscoreSystem() {
-        user.setPlayerName("Player");
-        user.setIsPlayer(true);
+        
     }
 
     /**
@@ -67,10 +65,7 @@ public class HighscoreSystem {
      * @return
      */
     private boolean exactUser(String Name) {
-        if (Name.equalsIgnoreCase(user.getPlayerName())) {
-            return true;
-        }
-
+        
         for (HighscorePlayer current : listOfPriorUserScores) {
             if (Name.equalsIgnoreCase(current.getPlayerName())) {
                 return true;
