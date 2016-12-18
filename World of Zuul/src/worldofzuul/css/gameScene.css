@@ -1,6 +1,6 @@
-#paneButtons{
+/*#paneButtons{
     -fx-background-color: #000000;
-}
+}*/
 #roomBackground{
    /*-fx-background-image: url('../images/hospital.png');*/
     -fx-background-size: stretch;

@@ -754,7 +754,7 @@ public class Game {
 
             System.out.println("You picked up the " + item.getName());
             player.getInventory().put(item.getName(), item);
-            if (item instanceof Weapons) {
+            if (item instanceof Weapons && !player.hasPrimaryWeapon()) {
                 player.setPrimaryWeapon(itemName);
                 System.out.println("Primary Weapon set");
             }

@@ -200,7 +200,7 @@
             </ImageView>
             <ImageView fx:id="zombie3" fitHeight="75.0" fitWidth="100.0" layoutX="367.0" layoutY="177.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@images/dead.png" />
+                  <Image url="@images/grillunhandy.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -208,7 +208,7 @@
             </ImageView>
             <ImageView fx:id="zombie2" fitHeight="75.0" fitWidth="100.0" layoutX="327.0" layoutY="384.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@images/dead.png" />
+                  <Image url="@images/dead_army.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
