@@ -46,7 +46,7 @@ public class Parser implements ParserInterface {
 
     @Override
     public int playerScore() {
-        return NewFXMain.spil.player.retrieveScore();
+        return NewFXMain.spil.player.getScore();
     }
 
     @Override

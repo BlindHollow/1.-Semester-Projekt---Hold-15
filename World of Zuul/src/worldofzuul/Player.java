@@ -25,7 +25,7 @@ public class Player {
     private boolean hasPrimaryWeapon;
 
     private boolean isDead = false; //If set to true, game will end.
-
+    private worldofzuul.score.HighscorePlayer highscore;
     private Weapons primaryWeapon;
 
     private HashMap<String, Items> inventory = new HashMap<>();
@@ -40,6 +40,7 @@ public class Player {
         this.hunger = 100;
         this.thirst = 100;
         this.illness = 0;
+        highscore = new worldofzuul.score.HighscorePlayer(this.name, 0);
     }
 
     /**
@@ -107,6 +108,8 @@ public class Player {
      * @param i
      */
     public void increasePlayerScore(int i) {
+        int currentScore = highscore.getPlayerScore();
+        highscore.setPlayerScore( currentScore  + i );
         
     }
 
@@ -116,15 +119,13 @@ public class Player {
      * @param i
      */
     public void decreasePlayerScore(int i) {
-        
+        int currentScore = highscore.getPlayerScore();
+        highscore.setPlayerScore(currentScore - i);
     }
-
-    /**
-     *
-     * @return
-     */
-    public int retrieveScore() {
-        return 0;
+    
+    public int getScore()
+    {
+        return highscore.getPlayerScore();
     }
 
     /**
