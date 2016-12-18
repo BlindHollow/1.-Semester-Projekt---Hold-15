@@ -669,6 +669,7 @@ public class Game {
 
             if (zombie.schroedinger()) {
                 currentRoom.removeZombie(zombie.getId().toString());
+                player.increasePlayerScore(10);
                 System.out.println(zombie.getName() + " is dead. Hooray...");
             } else {
                 zombie.attackPlayer(player);
