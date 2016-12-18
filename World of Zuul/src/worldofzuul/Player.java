@@ -20,8 +20,6 @@ public class Player {
     //Variables
     private int health, hunger, thirst, illness;
 
-    private Highscore playerScore;
-
     private String name;
 
     private boolean hasPrimaryWeapon;
@@ -38,7 +36,6 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
-        this.playerScore = new Highscore(this.name);
         this.health = 100;
         this.hunger = 100;
         this.thirst = 100;
@@ -54,7 +51,6 @@ public class Player {
         this.thirst = thirst;
         this.illness = illness;
         this.name = name;
-        this.playerScore = new Highscore(name);
 
     }
 
@@ -111,7 +107,7 @@ public class Player {
      * @param i
      */
     public void increasePlayerScore(int i) {
-        playerScore.addCurrentPlayerPoints(i);
+        
     }
 
     /**
@@ -120,7 +116,7 @@ public class Player {
      * @param i
      */
     public void decreasePlayerScore(int i) {
-        playerScore.decreaseCurrentPlayerPoints(i);
+        
     }
 
     /**
@@ -128,7 +124,7 @@ public class Player {
      * @return
      */
     public int retrieveScore() {
-        return playerScore.getCurrentPlayerPoints();
+        
     }
 
     /**
@@ -149,11 +145,11 @@ public class Player {
     }
 
     public void savePlayerscore() {
-        playerScore.saveCurrentCharacter();
+        
     }
 
     public void loadHighscore() {
-        playerScore.loadPlayers();
+        
     }
 
     /**
