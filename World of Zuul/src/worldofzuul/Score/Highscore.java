@@ -87,6 +87,11 @@ public class Highscore extends HighscoreSystem {
         return true;
     }
     
+    /**
+     * 
+     * @param PlayerName
+     * @return 
+     */
     public static HighscorePlayer loadCharacter(String PlayerName)
     {
         File userFile = new File( Directories.HighscoreTable + "\\" + PlayerName );
