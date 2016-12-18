@@ -1,9 +1,15 @@
 #anchorWelcomeScene{
     /*-fx-background-color:black;*/
-    -fx-background-image: url("../images/welcomeBG.jpg");
+    -fx-background-image: url("../images/frontpage.png");
     -fx-background-repeat: stretch;
-    /*-fx-background-position: center center;*/
+    -fx-background-size: 1200 680;
+    -fx-background-position: center center;
 }
+#highscores, #highscores .viewport, #highscores .content{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
 #btnNewGame{
 
 }

@@ -32,6 +32,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.io.File;
+import javafx.scene.control.TextArea;
+import worldofzuul.score.*;
 
 /**
  * FXML Controller class
@@ -88,11 +90,14 @@ public class FXMLController implements Initializable {
     private RadioButton radUse, radDrop, radWep;
     @FXML
     private ToggleGroup radButts;
+    @FXML
+    private TextArea highscores;
     final FileChooser fileChooser = new FileChooser();
     Stage stage = null;
     Parent root = null;
     private Parser pars;
     private String zom1Str, zom2Str, zom3Str;
+    private Highscore hs;
 
     /**
      * initialises the controller class.
@@ -103,6 +108,7 @@ public class FXMLController implements Initializable {
         pars = new Parser();
         onPlayerName();
         updateRoom();
+        updateHighscore();
     }
 
     /**
@@ -448,6 +454,21 @@ public class FXMLController implements Initializable {
                 pars.setPrimaryWeapon(invSlot3.getText());
             } else if (event.getSource().equals(invSlot4)) {
                 pars.setPrimaryWeapon(invSlot4.getText());
+            }
+        }
+    }
+
+    private void updateHighscore() {
+        if (highscores != null) {
+            int limit = 0;
+            hs = new Highscore();
+            hs.loadPlayers();
+            for (HighscorePlayer p : hs.orderedListOfPlayers()) {
+               highscores.setText(highscores.getText() + "\n Player: " + p.getPlayerName() + "Highscore: " + p.getPlayerScore());
+               limit++;
+               if(limit == 10){
+                   break;
+               }
             }
         }
     }

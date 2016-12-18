@@ -63,7 +63,7 @@ public class AlertBox {
         window.setMinHeight(500);
 
         Label label = new Label();
-        label.setText("This is a help box");
+        label.setText("-Tryk på en dør, for at gå til et nyt rum\n-Tryk på et item i rummet for at samle det op\n-Tryk på et item i Inventory, for at udføre den handling som under er valgt\n-Tryk på en zombie for at angribe den");
         Button closeButton = new Button("Cancel");
         closeButton.setOnAction(e -> window.close());
 
