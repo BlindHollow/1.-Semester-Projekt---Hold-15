@@ -48,9 +48,15 @@ public class Game {
 
     private worldofzuul.utilities.Dice random;
 
+    /**
+     * 
+     */
     public Game() {
     }
 
+    /**
+     * 
+     */
     public void newGame() {
         degenFactor = 3;
         createRooms();

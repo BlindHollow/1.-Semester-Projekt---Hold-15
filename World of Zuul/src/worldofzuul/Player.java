@@ -69,6 +69,8 @@ public class Player {
     public void updateHealth(int modifier) {
         health = health + modifier;
         if (health <= 0) {
+            this.savePlayerscore();
+        
             health = 0;
             isDead = true; //If player is dead game should end.
         }
@@ -205,11 +207,6 @@ public class Player {
 
     //Access functions.
     public boolean schroedinger() {
-        
-        if(isDead == true)
-        {
-            this.savePlayerscore();
-        }
         
         return isDead;
     }

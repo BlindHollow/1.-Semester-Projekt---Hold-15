@@ -31,10 +31,7 @@ public class Room {
     private Dice spawnChance = new Dice(0, // Min
             100); // Max
 
-    /*public int zombieAmount()
-    {
-        return zombies.size();
-    }*/
+
     /**
      *
      * @param name
