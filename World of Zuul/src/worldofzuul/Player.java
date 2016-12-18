@@ -124,7 +124,7 @@ public class Player {
      * @return
      */
     public int retrieveScore() {
-        
+        return 0;
     }
 
     /**
