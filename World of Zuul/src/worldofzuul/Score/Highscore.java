@@ -169,6 +169,11 @@ public class Highscore extends HighscoreSystem {
     
     private static class hsText {
         
+        /**
+         * 
+         * @param s
+         * @return 
+         */
         public static boolean isStringWhitespaceOrNull( String s )
         {
             if(s.isEmpty())
@@ -236,6 +241,11 @@ public class Highscore extends HighscoreSystem {
             return false;
         }
 
+        /**
+         * 
+         * @param Input
+         * @return 
+         */
         public static boolean isNumber(char Input) {
             if (Input >= '0'
                     && Input <= '9') {
@@ -245,6 +255,11 @@ public class Highscore extends HighscoreSystem {
             return false;
         }
 
+        /**
+         * 
+         * @param Input
+         * @return 
+         */
         public static boolean isSpace(char Input) {
             // Usually - & _ can indicate it's space
             if (Input >= '-'
