@@ -205,6 +205,12 @@ public class Player {
 
     //Access functions.
     public boolean schroedinger() {
+        
+        if(isDead == true)
+        {
+            this.savePlayerscore();
+        }
+        
         return isDead;
     }
 

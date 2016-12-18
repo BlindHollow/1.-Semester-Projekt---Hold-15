@@ -40,6 +40,7 @@ public class Highscore extends HighscoreSystem {
                     true);
         }
 
+        
     }
 
     /**
