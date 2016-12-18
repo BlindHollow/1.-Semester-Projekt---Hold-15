@@ -101,6 +101,7 @@ public class FXMLController implements Initializable {
 
     /**
      * initialises the controller class.
+     * 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -115,7 +116,7 @@ public class FXMLController implements Initializable {
      * Handles button actions. Gets the source of the event, and handles the
      * action accordingly.
      *
-     * @param event
+     * @param event The user action
      * @throws IOException
      */
     @FXML
@@ -143,7 +144,7 @@ public class FXMLController implements Initializable {
      * Used to load a new scene, based on a string, which is the name of the
      * scenes fxml
      *
-     * @param sceneName
+     * @param sceneName The name of the scene
      * @throws IOException
      */
     @FXML
@@ -159,7 +160,7 @@ public class FXMLController implements Initializable {
     /**
      * Quits the game, by hiding the scene from which the event was called
      *
-     * @param event
+     * @param event User event
      * @throws IOException
      */
     @FXML //Åbner en hjælp box
@@ -167,15 +168,20 @@ public class FXMLController implements Initializable {
         AlertBox.displayHelpBox();
     }
 
+    /**
+     * Opens the QuitBox
+     * @param event User event
+     * @throws IOException 
+     */
     @FXML //Giver mulighed for at stoppe spillet
     private void quitGame(ActionEvent event) throws IOException {
         AlertBox.displayQuitBox("Quit?", "Are you sure?");
     }
 
     /**
-     * Moves the player to another room, dependeing on what is clicked.
+     *  Does something dependeing on what is clicked. Then updates everythig.
      *
-     * @param event
+     * @param event User clicked on something
      */
     @FXML
     private void onMouseClicked(MouseEvent event) {
@@ -230,6 +236,10 @@ public class FXMLController implements Initializable {
         updateStats();
     }
 
+    /**
+     * Moves player to a new room, and opens an alertbox if the game is won
+     * @param s The direction to go
+     */
     private void goRoom(String s) {
         if (pars.moveToRoom(s)) {
             AlertBox.displayEndBox("Congratulations, you won", "Your final score is: " + pars.playerScore());
@@ -238,7 +248,10 @@ public class FXMLController implements Initializable {
 
     }
 
-    private void updateRoom() { //TODO load picture of room, load pictures of exits
+    /**
+     * Updates the updates the image of the current room, and its available exits
+     */
+    private void updateRoom() { 
         if (labelPlayerName != null) { //It's cheating, but it works
             doorNW.setVisible(false);
             doorN.setVisible(false);
@@ -294,6 +307,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Updates the imgaes of zombies to show the ones that are in the room
+     */
     private void updateZombies() {
         zombie1.setVisible(false);
         zombie2.setVisible(false);
@@ -318,7 +334,10 @@ public class FXMLController implements Initializable {
         }
     }
 
-    private void updateItemsInRoom() { //TODO load pictures of items
+    /**
+     * Updates the images of the items, to display the ones that are in the room
+     */
+    private void updateItemsInRoom() {
         fireaxeImg.setVisible(false);
         ramImg.setVisible(false);
         vaccinationImg.setVisible(false);
@@ -370,6 +389,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Updates the labels that displays the inventory.
+     */
     private void updateInventory() {
         invSlot1.setText("Empty");
         invSlot2.setText("Empty");
@@ -414,11 +436,10 @@ public class FXMLController implements Initializable {
         }
     }
 
-    @FXML
-    private void onPlayerName(MouseEvent event) {
-        labelPlayerName.setText(NewFXMain.spil.player.getName());
-    }
-
+    /**
+     * Does something when an item in the inventory is clicked, based on which radiobutton is selected
+     * @param event The item that is clicked
+     */
     @FXML
     private void onInventory(MouseEvent event) {
         if (radButts.getSelectedToggle().equals(radUse)) {
@@ -458,6 +479,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Displays the highscore on the welcome scene
+     */
     private void updateHighscore() {
         if (highscores != null) {
             int limit = 0;
@@ -473,6 +497,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Updates the label for the player name when the game scene is loaded
+     */
     private void onPlayerName() {
         if (labelPlayerName != null) {
             labelPlayerName.setText(NewFXMain.spil.player.getName());

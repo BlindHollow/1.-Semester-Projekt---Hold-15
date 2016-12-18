@@ -22,7 +22,7 @@ public class Player {
 
     private String name;
     private int score;
-    
+
     private boolean hasPrimaryWeapon;
 
     private boolean isDead = false; //If set to true, game will end.
@@ -55,6 +55,11 @@ public class Player {
 
     }
 
+    /**
+     * Sets the player name
+     *
+     * @param s The string that you want to set as player name
+     */
     public void setName(String s) {
         System.out.println("name is being set");
         this.name = s;
@@ -64,16 +69,16 @@ public class Player {
      * Updates the health attribute checks if health is 0 or less on update, if
      * it is, sets isDead = true, causing the game to end.
      *
-     * @param modifier
+     * @param modifier how much the game should be changed
      */
     public void updateHealth(int modifier) {
         health = health + modifier;
         if (health <= 0) {
             this.savePlayerscore();
-        
+
             health = 0;
             isDead = true; //If player is dead game should end.
-            
+
         }
     }
 
@@ -81,7 +86,7 @@ public class Player {
      * Updates the hunger attribute. If hunger goes beolw 0, set back to zero,
      * as hunger less than zero is not allowed.
      *
-     * @param modifier
+     * @param modifier how much the hunger should be modified
      */
     public void updateHunger(int modifier) {
         hunger = hunger + modifier;
@@ -95,7 +100,7 @@ public class Player {
      * Updates the thirst attribute. If thirst goes below 0 it is set to zero,
      * as thirst less than zero is not allowed.
      *
-     * @param modifier
+     * @param modifier how much the thirst should be modified
      */
     public void updateThirst(int modifier) {
         thirst = thirst + modifier;
@@ -108,24 +113,24 @@ public class Player {
     /**
      * increases the current player points, with a specific number
      *
-     * @param i
+     * @param i how much the players score should be increased
      */
     public void increasePlayerScore(int i) {
-        this.score = this.score  + i;
-        
+        this.score = this.score + i;
+
     }
 
     /**
      * decreases the current player points, with a specific number
      *
-     * @param i
+     * @param i how much to decrease the players score
      */
     public void decreasePlayerScore(int i) {
         this.score = this.score - i;
     }
-    
-    public int getScore()
-    {
+
+    //access function
+    public int getScore() {
         return this.score;
     }
 
@@ -134,7 +139,7 @@ public class Player {
      * health with -10% of current value of illness. TODO Adjust numbers,
      * possibly remove attribute entirely.
      *
-     * @param modifier
+     * @param modifier how much the illness should be modified
      */
     public void updateIllness(int modifier) {
         illness = illness + modifier;
@@ -146,22 +151,23 @@ public class Player {
         }
     }
 
+    /**
+     * saves the players score to a file
+     */
     public void savePlayerscore() {
         worldofzuul.score.Highscore.saveCharacter(name, this.getScore());
     }
 
+    /**
+     * Loads the score of a player, if a matching file is found
+     */
     public void loadHighscore() {
         worldofzuul.score.HighscorePlayer player = worldofzuul.score.Highscore.loadCharacter(name);
-        
-        if(player == null)
-        {
-            
-        }
-        else
-        {
+
+        if (player != null) {
             this.score = player.getPlayerScore();
         }
-            
+
     }
 
     /**
@@ -201,6 +207,10 @@ public class Player {
         }
     }
 
+    /**
+     * Sets the players primary weapon
+     * @param key the name of the weapon
+     */
     public void setPrimaryWeapon(String key) {
         primaryWeapon = (Weapons) inventory.get(key);
         hasPrimaryWeapon = true;
@@ -208,7 +218,7 @@ public class Player {
 
     //Access functions.
     public boolean schroedinger() {
-        
+
         return isDead;
     }
 
@@ -236,6 +246,10 @@ public class Player {
         return hasPrimaryWeapon;
     }
 
+    /**
+     * 
+     * @return returns true if the player has an item that can be used for opening doors 
+     */
     public boolean hasUsableItem() {
         for (Items item : inventory.values()) {
             if (item instanceof Weapons) {
@@ -252,14 +266,6 @@ public class Player {
         return name;
     }
 
-    /**
-     * Prints the players status, ie. values of the attributes.
-     */
-    public void getStatus() {
-        System.out.println("You have " + health + " health, " + hunger + " hunger, " + thirst + " thirst " + illness + " illness.");
-    }
-
-    //Returns the item (an object) with the key "key" in the inventory HashMap
     public Items getItemInInventory(String key) {
         return inventory.get(key);
     }
@@ -271,22 +277,6 @@ public class Player {
     public void removePrimaryWeapon() {
         primaryWeapon = null;
         hasPrimaryWeapon = false;
-    }
-
-    /**
-     * Lists all items in the players inventory
-     */
-    public void showInventory() {
-        if (inventory.isEmpty()) {
-            System.out.println("Your inventory is empty.");
-        } else {
-            String itemString = "Items in inventory:";
-            Set<String> keys = inventory.keySet();
-            for (String item : keys) {
-                itemString += " " + item;
-            }
-            System.out.println(itemString);
-        }
     }
 
     public boolean itemsIsInInventory(Items i) {

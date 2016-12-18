@@ -32,7 +32,6 @@ public class Game {
     private Room currentRoom;
     public Player player;
     private Room outside1, outside2, helipad, hospital, policestation, grocerystore, firestation, house1, house2, drugstore, pub, gasstation;
-    private boolean wantToQuit;
     private boolean noteFound;
     private boolean hasBeenInPub;
     private Room pilotRoom, locationOfNote;
@@ -46,16 +45,15 @@ public class Game {
     private HashMap<String, Room> allowedRooms;
     private HashMap<String, Items> allowedItems;
 
-    private worldofzuul.utilities.Dice random;
 
     /**
-     * 
+     *
      */
     public Game() {
     }
 
     /**
-     * 
+     *
      */
     public void newGame() {
         degenFactor = 3;
@@ -80,7 +78,7 @@ public class Game {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
             writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + ","
-                  + player.getScore() + "," + degenFactor + "," + currentRoom.getName() + "\n");
+                    + player.getScore() + "," + degenFactor + "," + currentRoom.getName() + "\n");
             if (player.hasPrimaryWeapon()) {
                 writer.write(player.getPrimaryWeapon().getName());
             } else {
@@ -403,7 +401,7 @@ public class Game {
         house2.setLock(true);
 
         currentRoom = hospital; //Sets the games starting Room
-        System.out.println(currentRoom.getLongDescription());
+
         pilotRoom = outside1;
 
         locationOfNote = helipad;
@@ -508,109 +506,12 @@ public class Game {
 
     }
 
-    /* public void play() {
-        printWelcome();
-
-        boolean finished = false;
-
-        while (!finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-            if ( player.schroedinger() ) 
-            {
-                System.out.println( "You are dead." );
-                System.out.println( "Your total accomulated points is:" + 
-                                     Integer.toString( player.RetrieveScore() ) );
-                
-                finished = true;
-            }
-        }
-
-        System.out.println( "Thank you for playing.  Good bye." );
-    }*/
-    private void printWelcome() {
-        System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println();
-        System.out.println(currentRoom.getLongDescription());
-    }
-
-    private boolean processCommand(Command command) {
-        wantToQuit = false;
-
-        CommandWord commandWord = command.getCommandWord();
-
-        if (commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
-
-        if (null != commandWord) {
-
-            switch (commandWord) {
-                case HELP:
-                    printHelp();
-                    break;
-
-                case GO:
-                    goRoom("hej");
-                    break;
-                case STATUS:
-                    player.getStatus();
-                    break;
-//                case GRAB:
-//                    takeItem(command);
-//                    break;
-//                case DROP:
-//                    dropItem(command);
-//                    break;
-                case SEARCH:
-                    currentRoom.searchRoom();
-                    break;
-                case INVENTORY:
-                    player.showInventory();
-                    break;
-//                case ATTACK:
-//                    attackZombie(command);
-//                    break;
-                case SUICIDE:
-                    player.updateHealth(-100);
-                    break;
-                case ZIPLINE:
-                    zipline();
-                    break;
-                case SAVE:
-                    try {
-                        saveGame();
-                        System.out.println("Game saved");
-                    } catch (IOException e) {
-                        System.out.println("Something happened");
-                    }
-                    break;
-                case QUIT:
-                    wantToQuit = quit(command);
-                    break;
-                default:
-                    break;
-            }
-        }
-        return wantToQuit;
-    }
-
-    private void printHelp() {
-        System.out.println("You wake up from a coma");
-        System.out.println("You are in a hospital ");
-        System.out.println("A note reads: ");
-        System.out.println("A virus outbreak has turned people to zombies ");
-        System.out.println("Good luck, friendo \r\n");
-        System.out.println("Your command words are:");
-
-        //parser.showCommands();
-    }
-
+    /**
+     * Moves the player to a new room
+     *
+     * @param direction The direction to go
+     * @return Returns if you have won the game or not
+     */
     public boolean goRoom(String direction) {
 
         Room nextRoom = currentRoom.getExit(direction);
@@ -627,8 +528,6 @@ public class Game {
 
             currentRoom.setLock(false);
 
-            System.out.println(currentRoom.getLongDescription());
-
             player.degenHungerAndThirst(degenFactor); //update hunger and thirst gauges on roomchange.
 
             if (currentRoom == pub && !hasBeenInPub) {
@@ -640,7 +539,6 @@ public class Game {
             }
 
             if (currentRoom.equals(locationOfNote) && pilotRoom.equals(locationOfNote)) {
-//                gameWon();
                 player.savePlayerscore();
                 return true;
             } else if (currentRoom.equals(locationOfNote)) {
@@ -650,6 +548,11 @@ public class Game {
         return false;
     }
 
+    /**
+     * Player attacks a given zombie
+     *
+     * @param s the zombie to attack, based on the zombies UUID
+     */
     public void attackZombie(String s) {
 
         Zombie zombie = currentRoom.getZombie(s);
@@ -685,6 +588,9 @@ public class Game {
         }
     }
 
+    /**
+     * Moves the player to a random room from ArrayList of Rooms
+     */
     private void sewer() {
         Room randomRoom = (rooms.get(new Random().nextInt(rooms.size())));
 
@@ -694,27 +600,11 @@ public class Game {
         player.degenHungerAndThirst(degenFactor);
 
         System.out.println("You fall into a sewer, you decide to explore it");
-        System.out.println(currentRoom.getLongDescription());
     }
 
-    private void zipline() {
-        if (currentRoom == firestation) {
-            player.increasePlayerScore(20);
-
-            currentRoom = policestation;
-            player.degenHungerAndThirst(degenFactor);
-            currentRoom.getLongDescription();
-        } else if (currentRoom == policestation) {
-            player.increasePlayerScore(20);
-
-            currentRoom = helipad;
-            player.degenHungerAndThirst(degenFactor);
-            currentRoom.getLongDescription();
-        } else {
-            System.out.println("You can not zipline from here.");
-        }
-    }
-
+    /**
+     * Moves the pilot to a random adjecent room, if the note is found
+     */
     private void movePilot() {
         if (pilotFound) {
             pilotRoom = currentRoom;
@@ -740,16 +630,11 @@ public class Game {
         }
     }
 
-    private boolean quit(Command command) {
-        if (command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        } else {
-            return true;
-        }
-    }
-//pick up an item in the room you are in. Command: Grab "item"
-
+    /**
+     * Adds an item to the inventory, and removes it from the current room
+     *
+     * @param itemName the name of the item to pick up
+     */
     public void takeItem(String itemName) {
 
         Items item = currentRoom.getItem(itemName);
@@ -771,7 +656,11 @@ public class Game {
         }
     }
 
-    //drop an item in your inventory and leave it in current room. Command: Drop "item"
+    /**
+     * Adds an item to the current room, and removes it from the inventory
+     *
+     * @param itemName the name of the item to drop
+     */
     public void dropItem(String itemName) {
 
         Items item = player.getItemInInventory(itemName);
@@ -790,6 +679,11 @@ public class Game {
         }
     }
 
+    /**
+     * Uses an item, to regenerate the players stats
+     *
+     * @param itemName the name of item to use
+     */
     public void useItem(String itemName) {
 
         Items item = player.getItemInInventory(itemName);
@@ -812,25 +706,7 @@ public class Game {
         }
     }
 
-//    private void gameWon() {
-//        System.out.printf("You won the game.\n Do you want to play again? Y/N\n> ");
-//        Scanner scan = new Scanner(System.in);
-//        String playString = "f";
-//        while (!playString.equals("n") && !playString.equals("y")) {
-//            playString = scan.next();
-//            switch (playString.toLowerCase()) {
-//                case "n":
-//                    wantToQuit = true;
-//                    break;
-//                case "y":
-//                    NewFXMain.startNewGame();
-//                    break;
-//                default:
-//                    System.out.println(playString + " is not an acceptable answer.\n Do you want to play again? Y/N\n> ");
-//                    break;
-//            }
-//        }
-//    }
+//access functions
     public Room currentRoom() {
         return currentRoom;
     }

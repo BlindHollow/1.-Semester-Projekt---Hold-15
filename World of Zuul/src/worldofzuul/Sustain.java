@@ -16,10 +16,10 @@ public class Sustain extends Items {
     private final int illnessRegen; //for lowering the illness upon use
 
     /**
-     * 
-     * @param name
-     * @param health
-     * @param illness 
+     * Creates a new item
+     * @param name name of the item
+     * @param health how much it regenerates health
+     * @param illness how much it regenerates illness 
      */
     public Sustain(String name, int health, int illness) {
         this.healthRegen = health;

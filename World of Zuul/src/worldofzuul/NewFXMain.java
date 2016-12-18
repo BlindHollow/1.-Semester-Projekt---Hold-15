@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.net.URL;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -20,17 +10,25 @@ import javafx.scene.media.*;
 import javafx.stage.*;
 
 /**
- *
+ * This is the main class, it makes a new game, and starts the user interface
  * @author bytof
  */
 public class NewFXMain extends Application {
 
     public static Game spil;
 
+    /**
+     * Creates an instance of Class:Game
+     */
     static void startNewGame() {
         spil = new Game();
     }
 
+    /**
+     * Makes a new stage and load the WelcomeScene to it
+     * @param stage The stage that is started
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
@@ -46,7 +44,6 @@ public class NewFXMain extends Application {
             AlertBox.displayQuitBox("Quit?", "Are you sure?");
         });
 
-        //EXPERIMENTAL MUSIC PLAYER
         final URL resource = getClass().getResource("sounds/darkness.mp3");
         final Media media = new Media(resource.toString());
         final MediaPlayer mediaPlayer = new MediaPlayer(media);

@@ -3,7 +3,6 @@ package worldofzuul;
 import worldofzuul.utilities.Dice;
 import java.util.Set;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * This class contains information about the rooms. A room consists of a
@@ -28,14 +27,13 @@ public class Room {
     private HashMap<String, Items> placements;
     private HashMap<String, Zombie> zombies;
 
-    private Dice spawnChance = new Dice(0, // Min
-            100); // Max
+    private Dice spawnChance = new Dice(0, 100);
 
 
     /**
-     *
-     * @param name
-     * @param description
+     * Creates room
+     * @param name the name of the room
+     * @param description the rooms description
      */
     public Room(String name, String description) {
         this.description = description;
@@ -46,9 +44,9 @@ public class Room {
     }
 
     /**
-     *
-     * @param direction
-     * @param neighbor
+     * sets the exits of the room
+     * @param direction the dirextion of neighbour
+     * @param neighbor neighbouring room
      */
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
@@ -64,7 +62,7 @@ public class Room {
     /**
      * Removes an item from the room
      *
-     * @param key
+     * @param key the name of the item
      */
     public void removeItem(String key) {
         placements.remove(key);
@@ -73,76 +71,25 @@ public class Room {
     /**
      * Places a zombie in a room
      *
-     * @param zombie
+     * @param zombie the zombie to place
      */
     public void placeZombie(Zombie zombie) {
-        zombies.put(zombie.getName(), zombie);
+        zombies.put(zombie.getId().toString(), zombie);
     }
 
     /**
      * Removes the zombie from the room. Should be used when it's killed
      *
-     * @param key
+     * @param key the id of zombie to remove
      */
     public void removeZombie(String key) {
         zombies.remove(key);
     }
 
-    /**
-     * Retrieves a short description of the room
-     *
-     * @return
-     */
     public String getShortDescription() {
         return description;
     }
 
-    /**
-     * Retrieves a long description of the room
-     *
-     * @return
-     */
-    public String getLongDescription() {
-        return "You are " + description + ".\n" + getZombieString() + getExitString();
-    }
-
-    /**
-     * Get Exit
-     *
-     * @return
-     */
-    private String getExitString() {
-        String returnString = "Exits:";
-        Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            returnString += " " + exit;
-        }
-        return returnString;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getZombieString() {
-        if (!zombies.isEmpty()) {
-            String zombieString = "A zombified version of ";
-            Set<String> keys = zombies.keySet();
-            for (String zombie : keys) {
-                zombieString += zombie + " ";
-            }
-            return zombieString + "is in the room!" + ".\n";
-        } else {
-            return "";
-        }
-
-    }
-
-    /**
-     *
-     * @param direction
-     * @return
-     */
     public Room getExit(String direction) {
         Room room = exits.get(direction);
 
@@ -150,9 +97,9 @@ public class Room {
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Returns a Room depending on an int
+     * @param index a randomly generated int
+     * @return Returns a room
      */
     public Room getExit(int index) {
         Set<String> keys = exits.keySet();
@@ -166,35 +113,20 @@ public class Room {
         return null;
     }
 
-    /**
-     * Returns the item (an object) with the key "key" in the placements HashMap
-     *
-     * @param key
-     * @return
-     */
     public Items getItem(String key) {
         return placements.get(key);
     }
 
-    /**
-     * A method that returns all the items in a room.
-     *
-     * @return
-     */
     public HashMap<String, Items> getAllItems() {
         return this.placements;
     }
 
-    /**
-     * @param key
-     * @return
-     */
     public Zombie getZombie(String key) {
         return zombies.get(key);
     }
 
     /**
-     * Spawns zombies
+     * Creates a zombies and adds it to the room
      */
     private void spawnZombie() {
         int hp, dmg;
@@ -207,24 +139,16 @@ public class Room {
         zombies.put(monster.getId().toString(), monster);
     }
 
-    /**
-     *
-     * @param value
-     */
     public void setSpawnable(boolean value) {
         spawnable = value;
     }
 
-    /**
-     *
-     * @return
-     */
     public boolean getSpawnable() {
         return spawnable;
     }
 
     /**
-     *
+     * Spawn up to 3 zombies in the room
      */
     public void spawnRandomZombie() {
 
@@ -239,74 +163,30 @@ public class Room {
         }
     }
 
-    /**
-     * Prints a list of items in the current room
-     */
-    public void searchRoom() {
-        if (placements.isEmpty()) {
-            System.out.println("The room is empty.");
-        } else {
-            String itemString = "Items in room:";
-            Set<String> keys = placements.keySet();
-            for (String item : keys) {
-                itemString += " " + item;
-            }
-            System.out.println(itemString);
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
     public boolean isLocked() {
         return lock;
     }
 
-    /**
-     *
-     * @param status
-     */
     public void setLock(boolean status) {
         lock = status;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getSize() {
         return exits.size();
     }
 
-    /**
-     *
-     * @return
-     */
     public HashMap<String, Room> getNeighbours() {
         return exits;
     }
 
-    /**
-     *
-     * @return
-     */
     public HashMap<String, Items> getPlacements() {
         return placements;
     }
 
-    /**
-     *
-     * @return
-     */
     public HashMap<String, Zombie> getZombies() {
         return zombies;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getName() {
         return name;
     }

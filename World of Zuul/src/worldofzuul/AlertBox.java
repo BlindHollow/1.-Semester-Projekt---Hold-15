@@ -20,6 +20,11 @@ import javafx.stage.*;
  */
 public class AlertBox {
 
+    /**
+     * This alertbox is displayed when the user tries to quit the application
+     * @param title This string is show as the title of the alertbox/window
+     * @param message This string is displayed in the alertbox
+     */
     public static void displayQuitBox(String title, String message) {
         Stage window = new Stage();
 
@@ -54,6 +59,9 @@ public class AlertBox {
 
     }
 
+    /**
+     * This alertbox displayes helpful information
+     */
     public static void displayHelpBox() {
         Stage window = new Stage();
 
@@ -77,6 +85,11 @@ public class AlertBox {
 
     }
 
+    /**
+     * This alerbox is displayed when the player wins or loses the game
+     * @param title This string is show as the title of the alertbox/window
+     * @param message This string is displayed in the alertbox
+     */
     public static void displayEndBox(String title, String message) {
         Stage window = new Stage();
 

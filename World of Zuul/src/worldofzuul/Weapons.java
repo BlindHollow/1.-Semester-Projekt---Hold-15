@@ -2,8 +2,8 @@ package worldofzuul;
 
 import worldofzuul.utilities.Dice;
 
-/*
- 
+/**
+ * Contains information about weapons
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -21,9 +21,9 @@ public class Weapons extends Items {
 
     /**
      * Constructor for the weapons class. 
-     * @param name
-     * @param damage
-     * @param critmod
+     * @param name the name of the item
+     * @param damage how much damage it deals
+     * @param critmod 
      * @param usable 
      */
     public Weapons(String name, int damage, int critmod, boolean usable) {
@@ -38,34 +38,23 @@ public class Weapons extends Items {
      * @param dmg
      * @return 
      */
-    private int CritDmg( int dmg )
-    {
+    private int critDmg(int dmg){
         int r = randChange.calculate();
         
-        if( r <= 45 && r >= 55 )
-        {
-            return ( dmg * this.critmodifier );
+        if( r >= 45 && r <= 55 ){           
+            return ( dmg * critmodifier );
         }
-        else
-        {
+        else {
             return dmg;
         }
     }
     
-    /**
-     * returns if it can be used
-     * @return 
-     */
     public boolean isUsable() {
         return usable;
     }
 
-    /**
-     * Gets the weapons damage
-     * @return 
-     */
     public int getDamage() {
-        return CritDmg( this.damage );
+        return critDmg( this.damage );
     }
 
 }
