@@ -63,13 +63,9 @@ public class FXMLController implements Initializable {
     @FXML
     private AnchorPane roomBackground;
     @FXML
-    private Button btnHelp;
-    @FXML
     private Button btnStartGame;
     @FXML
     private Button btnContinue;
-    @FXML
-    private Button btnQuit;
     @FXML
     private TextField enterPlayerName;
     @FXML
@@ -78,8 +74,6 @@ public class FXMLController implements Initializable {
     private ImageView doorNW, doorN, doorNE, doorW, doorE, doorSW, doorS, doorSE;
     @FXML
     private ImageView fireaxeImg, policegunImg, shotgunImg, ramImg, crowbarImg, energybarImg, energydrinkImg, cannedtunaImg, rumImg, medkitImg, vaccinationImg;
-    @FXML
-    private ImageView img1;
     @FXML
     private ImageView zombie1, zombie2, zombie3, pilotImg;
     @FXML
