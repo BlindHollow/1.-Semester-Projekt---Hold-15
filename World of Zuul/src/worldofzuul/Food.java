@@ -11,12 +11,14 @@ package worldofzuul;
  * @author Thy, Mads Heimdal
  */
 public class Food extends Items {
-
-    private final int hungerRegen; //for regenerating health upon use
-    private final int thirstRegen; //for regenerating thirst upon use
+    //for regenerating health upon use
+    private final int hungerRegen; 
+    
+    //for regenerating thirst upon use
+    private final int thirstRegen; 
 
     /**
-     * 
+     * Constructor, Set Name, hunger and thirst for the food 
      * @param name
      * @param hunger
      * @param thirst 
@@ -28,7 +30,7 @@ public class Food extends Items {
     }
     
     /**
-     * 
+     * get how much of the players hunger it will regenerate
      * @return 
      */
     public int getHungerRegen(){
@@ -36,7 +38,7 @@ public class Food extends Items {
     }
     
     /**
-     * 
+     *  get how much of the players thirs it will regenerate
      * @return 
      */
     public int getThirstRegen(){
