@@ -73,6 +73,7 @@ public class Player {
         
             health = 0;
             isDead = true; //If player is dead game should end.
+            savePlayerscore();
         }
     }
 

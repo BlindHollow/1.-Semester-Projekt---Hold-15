@@ -641,6 +641,7 @@ public class Game {
 
             if (currentRoom.equals(locationOfNote) && pilotRoom.equals(locationOfNote)) {
 //                gameWon();
+                player.savePlayerscore();
                 return true;
             } else if (currentRoom.equals(locationOfNote)) {
                 noteFound = true;

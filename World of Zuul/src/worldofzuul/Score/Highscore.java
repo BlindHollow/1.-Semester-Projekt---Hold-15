@@ -158,7 +158,7 @@ public class Highscore extends HighscoreSystem {
         {
             String s = getContent(user);
             
-            String[] result = s.split(s);
+            String[] result = s.split(",");
             
             addPlayers( result[0], Integer.parseInt( result[1] ) );
         }

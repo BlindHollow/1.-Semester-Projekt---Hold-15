@@ -464,7 +464,7 @@ public class FXMLController implements Initializable {
             hs = new Highscore();
             hs.loadPlayers();
             for (HighscorePlayer p : hs.orderedListOfPlayers()) {
-               highscores.setText(highscores.getText() + "\n Player: " + p.getPlayerName() + "Highscore: " + p.getPlayerScore());
+               highscores.setText(highscores.getText() + "\nPlayer: " + p.getPlayerName() + "\t\tHighscore: " + p.getPlayerScore());
                limit++;
                if(limit == 10){
                    break;
