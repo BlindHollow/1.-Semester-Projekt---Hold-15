@@ -27,10 +27,18 @@ public class Food extends Items {
         this.name = name;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getHungerRegen(){
         return this.hungerRegen;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getThirstRegen(){
         return this.thirstRegen;
     }
