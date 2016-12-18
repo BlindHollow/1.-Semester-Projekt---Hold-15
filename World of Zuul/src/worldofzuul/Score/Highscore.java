@@ -44,22 +44,6 @@ public class Highscore extends HighscoreSystem {
     }
 
     /**
-     * Constructor
-     *
-     * @param name
-     */
-    public Highscore(String name) {
-        this();
-
-        if (hsText.parseCharacters(name) == false) {
-            return;
-        }
-
-        loadPlayers();
-
-    }
-
-    /**
      * Saves a character's, current score
      *
      * @param PlayerName
@@ -88,7 +72,7 @@ public class Highscore extends HighscoreSystem {
     }
     
     /**
-     * 
+     * Loads a characters current score 
      * @param PlayerName
      * @return 
      */
@@ -115,11 +99,17 @@ public class Highscore extends HighscoreSystem {
 
     /* 
     Note: Returns the file, line by line
-      // If the file is large enough, it can cause OutOfMemoryError
-      // And cause the program to crash, however. due to the fact that
-      // we're only reading names and stuff, it wont be a huge problem. 
+    // If the file is large enough, it can cause OutOfMemoryError
+    // And cause the program to crash, however. due to the fact that
+    // we're only reading names and stuff, it wont be a huge problem. 
     */
-    public static String getContent( File userFile )
+    
+    /**
+     * Retrieves the last line (with a given character that is allowed)
+     * @param userFile
+     * @return 
+     */
+    private static String getContent( File userFile )
     {
         String retValue = "";
         
@@ -171,7 +161,6 @@ public class Highscore extends HighscoreSystem {
     }
 
     // Functions -------------------------------------------------------------->
-    
     private static class hsText {
         
         /**
@@ -196,28 +185,9 @@ public class Highscore extends HighscoreSystem {
             return true;
         }
 
-        /**
-         *
-         * @param InputName
-         * @return
-         */
-        public static boolean parseCharacters(String InputName) {
-            // 
-            boolean Continue;
-
-            for (char c : InputName.toCharArray()) {
-                Continue = allowedCharacter(c);
-
-                if (Continue == false) {
-                    return false;
-                }
-            }
-
-            return true;
-        } // End ParseCharacters
 
         /**
-         *
+         * is the character allowed.
          * @param inputValue
          * @return
          */
@@ -237,9 +207,13 @@ public class Highscore extends HighscoreSystem {
             return false;
         } // End AllowedCharacter
 
+        /**
+         * checks if the current character input is a alphabetic character
+         * @param Input
+         * @return 
+         */
         public static boolean isAlphabetic(char Input) {
-            if (Input >= 'A'
-                    && Input <= 'z') {
+            if (Input >= 'A'&& Input <= 'z') {
                 return true;
             }
 
@@ -247,13 +221,12 @@ public class Highscore extends HighscoreSystem {
         }
 
         /**
-         * 
+         * checks if the current input character is a number
          * @param Input
          * @return 
          */
         public static boolean isNumber(char Input) {
-            if (Input >= '0'
-                    && Input <= '9') {
+            if (Input >= '0' && Input <= '9') {
                 return true;
             }
 
@@ -261,14 +234,13 @@ public class Highscore extends HighscoreSystem {
         }
 
         /**
-         * 
+         * checks if the current character is space
          * @param Input
          * @return 
          */
         public static boolean isSpace(char Input) {
             // Usually - & _ can indicate it's space
-            if (Input >= '-'
-                    || Input == '_') {
+            if (Input >= '-' || Input == '_') {
                 return true;
             }
 

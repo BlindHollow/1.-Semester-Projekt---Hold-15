@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class List 
 {
     /**
-     * 
+     * Returns a list of files, in a given directory
      * @param directory
      * @return 
      */

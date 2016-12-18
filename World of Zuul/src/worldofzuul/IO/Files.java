@@ -19,7 +19,7 @@ import java.io.File;
 public class Files 
 {   
     /**
-     * 
+     * Creates a file
      * @param filePath
      * @return 
      */
@@ -58,7 +58,7 @@ public class Files
     }
     
        /**
-        * 
+        * Removes a file
         * @param filePath
         * @return 
         */
@@ -78,7 +78,7 @@ public class Files
        }
        
        /**
-        * 
+        * Checks if a file exist
         * @param filePath
         * @return 
         */

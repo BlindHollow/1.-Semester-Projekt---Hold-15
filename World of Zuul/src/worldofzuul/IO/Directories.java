@@ -19,7 +19,8 @@ import java.io.File;
 public class Directories 
 {
         /**
-         * 
+         * creates a directory, and gives the option to creates it's parents,
+         * A wrapper function so you use String instead of File
          * @param Path
          * @param CreateParents
          * @return 
@@ -32,7 +33,7 @@ public class Directories
         }
     
         /**
-         * 
+         * creates a directory, and gives the option to creates it's parents
          * @param Path
          * @param createParents
          * @return 
@@ -59,7 +60,7 @@ public class Directories
         }
         
        /**
-        * 
+        * removes a directory
         * @param Path
         * @return 
         */
@@ -88,7 +89,7 @@ public class Directories
        }
        
        /**
-        * 
+        * checks if a directory exist
         * @param Path
         * @return 
         */
