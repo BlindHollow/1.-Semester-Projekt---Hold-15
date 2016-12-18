@@ -1,4 +1,4 @@
-BobRoss,100,100,100,0,0,hospital
+BobRoss,100,100,100,0,0,0,hospital
 noWeapon
 no items
 helipad

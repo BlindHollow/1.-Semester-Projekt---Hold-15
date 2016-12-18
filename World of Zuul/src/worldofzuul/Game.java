@@ -80,7 +80,7 @@ public class Game {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("save.txt"), "utf-8"))) {
             writer.write(player.getName() + "," + player.getHealth() + "," + player.getHunger() + "," + player.getThirst() + "," + player.getIllness() + ","
-                    + degenFactor + "," + currentRoom.getName() + "\n");
+                  + player.getScore() + "," + degenFactor + "," + currentRoom.getName() + "\n");
             if (player.hasPrimaryWeapon()) {
                 writer.write(player.getPrimaryWeapon().getName());
             } else {
@@ -179,9 +179,9 @@ public class Game {
                 System.out.println(playerState);
                 player = new Player(playerAttributes[0], Integer.parseInt(playerAttributes[1]), Integer.parseInt(playerAttributes[2]), Integer.parseInt(playerAttributes[3]), Integer.parseInt(playerAttributes[4])); //Creates player object based on stats in the savefile.
                 System.out.println("player loadede");
-                currentRoom = allowedRooms.get(playerAttributes[6]); //sets currentRoom.
-
-                degenFactor = Integer.parseInt(playerAttributes[5]); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)
+                currentRoom = allowedRooms.get(playerAttributes[7]); //sets currentRoom.
+                player.increasePlayerScore(Integer.parseInt(playerAttributes[5]));
+                degenFactor = Integer.parseInt(playerAttributes[6]); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)
 
                 String playerWeapon = read.readLine(); //Does player have a primary weapon equipped?
                 if (playerWeapon.equals("noWeapon")) {

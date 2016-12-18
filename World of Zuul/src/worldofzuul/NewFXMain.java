@@ -62,7 +62,6 @@ public class NewFXMain extends Application {
     public static void main(String[] args) {
         startNewGame();
         launch(args);
-
     }
 
 }

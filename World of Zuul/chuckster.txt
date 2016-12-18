@@ -1,4 +1,4 @@
-ChuckNorris,100,100,100,0,5,hospital
+ChuckNorris,100,100,100,0,0,5,hospital
 noWeapon
 no items
 helipad

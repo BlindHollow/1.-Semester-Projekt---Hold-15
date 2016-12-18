@@ -1,4 +1,4 @@
-ArnoldSchwarzenegger,100,100,100,0,10,grocerystore
+ArnoldSchwarzenegger,100,100,100,0,0,10,grocerystore
 noWeapon
 no items
 helipad

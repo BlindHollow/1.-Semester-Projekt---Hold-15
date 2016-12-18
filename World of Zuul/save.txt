@@ -1,4 +1,4 @@
-Daniel,100,100,100,0,3,hospital
+Daniel,100,100,100,0,0,3,hospital
 noWeapon
 no items
 helipad
