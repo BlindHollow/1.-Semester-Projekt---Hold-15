@@ -35,7 +35,7 @@ public class HighscoreSystem {
      * @param Name
      * @return
      */
-    protected boolean addPlayers(String Name) {
+    protected boolean addPlayer(String Name) {
         return addPlayers(Name, 0);
     }
 
@@ -76,50 +76,6 @@ public class HighscoreSystem {
     }
 
     /**
-     * Add points for the Current Player
-     *
-     * @param Number
-     */
-    public final void addCurrentPlayerPoints(int Number) {
-        user.setPlayerScore(getCurrentPlayerPoints() + Number);
-    }
-
-    /**
-     *
-     * @param Number
-     */
-    public final void setCurrentPlayerPoints(int Number) {
-        user.setPlayerScore(Number);
-    }
-
-    /**
-     * Remove points for the Current Player
-     *
-     * @param Number
-     */
-    public final void decreaseCurrentPlayerPoints(int Number) {
-        user.setPlayerScore(getCurrentPlayerPoints() - Number);
-
-    }
-
-    /**
-     * Retrieve Points for the current Player
-     *
-     * @return
-     */
-    public final int getCurrentPlayerPoints() {
-        return user.getPlayerScore();
-    }
-
-    public final void setCurrentPlayerName(String name) {
-        user.setPlayerName(name);
-    }
-
-    public final String getCurrentPlayerName() {
-        return user.getPlayerName();
-    }
-
-    /**
      * Returns a sorted list, with the player and other players
      *
      * @return
@@ -130,7 +86,6 @@ public class HighscoreSystem {
 
         // Adds Everybody
         retList.addAll(listOfPriorUserScores);
-        retList.add(user.getPlayerObject());
 
         // Sortere Listen
         Collections.sort(retList);

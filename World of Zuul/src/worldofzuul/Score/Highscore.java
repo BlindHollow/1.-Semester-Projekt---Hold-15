@@ -6,9 +6,12 @@
 package worldofzuul.score;
 
 import java.util.List;
+
 import java.io.File;
 import java.io.PrintWriter;
+
 import java.nio.file.Files;
+
 import worldofzuul.misc.Directories;
 
 /**
@@ -58,10 +61,11 @@ public class Highscore extends HighscoreSystem {
     /**
      * Saves a character's, current score
      *
-     * @param CharacterName
+     * @param PlayerName
+     * @param Score
      * @return True: Saved, False: Error occured
      */
-    public boolean saveCurrentCharacter(String PlayerName, int Score) {
+    public static boolean saveCharacter(String PlayerName, int Score) {
         StringBuilder builder = new StringBuilder();
 
         builder.append(PlayerName);
@@ -81,7 +85,63 @@ public class Highscore extends HighscoreSystem {
 
         return true;
     }
+    
+    public static HighscorePlayer loadCharacter(String PlayerName)
+    {
+        File userFile = new File( Directories.HighscoreTable + "\\" + PlayerName );
+        HighscorePlayer player = new HighscorePlayer();
+        
+        try
+        {
+            String s = Highscore.getContent(userFile);
+            String[] a = s.split(",");
+            
+            player.setPlayerName( a[0] );
+            player.setPlayerScore( Integer.parseInt( a[1]) );
+        }
+        catch(Exception ex)
+        {
+            
+        }
+        
+        return player;
+    }
 
+    /* 
+    Note: Returns the file, line by line
+      // If the file is large enough, it can cause OutOfMemoryError
+      // And cause the program to crash, however. due to the fact that
+      // we're only reading names and stuff, it wont be a huge problem. 
+    */
+    public static String getContent( File userFile )
+    {
+        String retValue = "";
+        
+        try {
+                List<String> linesRead = Files.readAllLines( userFile.toPath() );
+
+                for ( String currentline : linesRead) 
+                {
+                    
+                    if(hsText.isStringWhitespaceOrNull(currentline) == false)
+                    {
+                        retValue = currentline;
+                    }
+                    
+                }
+
+            } catch (java.lang.SecurityException SEx) {
+                // Indicates a security violation.
+                // Triggered...
+            } catch (java.io.IOException IOEx) {
+            } catch (java.lang.IllegalArgumentException IAEx) {
+            } catch (java.lang.OutOfMemoryError OOMEx) {
+            } catch (Exception Ex) {
+            }
+        
+        return retValue;
+    }
+    
     /**
      * Loads other Character's that are saved
      */
@@ -93,60 +153,37 @@ public class Highscore extends HighscoreSystem {
         File[] listedPlayerFiles = worldofzuul.IO.List.listFiles(playerFilesDirectory);
 
         // Reads each files, and adds them to the highscore list
-        for (File user : listedPlayerFiles) {
-
-            try {
-                /* 
-                   Note: Returns the file, line by line
-                // If the file is large enough, it can cause OutOfMemoryError
-                // And cause the program to crash, however. due to the fact that
-                // we're only reading names and stuff, it wont be a huge problem. 
-                 */
-                List<String> linesRead = Files.readAllLines(user.toPath());
-
-                for ( String currentline : linesRead) {
-                    
-                    String[] result = currentline.split(",");
-                    
-                    addPlayers(result[0], Integer.parseInt(result[1]));
-                    
-                }
-
-            } catch (java.lang.SecurityException SEx) {
-                // Indicates a security violation.
-                // Triggered...
-                continue;
-            } catch (java.io.IOException IOEx) {
-                continue;
-            } catch (java.lang.IllegalArgumentException IAEx) {
-                // 
-                return;
-            } catch (java.lang.OutOfMemoryError OOMEx) {
-                // Couldn't allocate the required memory . . .
-                return;
-            } catch (Exception Ex) {
-                // out of our controll, exit gracefully. . .
-                return;
-            }
-
+        for ( File user : listedPlayerFiles ) 
+        {
+            String s = getContent(user);
+            
+            String[] result = s.split(s);
+            
+            addPlayers( result[0], Integer.parseInt( result[1] ) );
         }
 
     }
 
     // Functions -------------------------------------------------------------->
-    private static class hsFunction {
-
-        public static boolean isLowerStringsEqual(String a, String b) {
-            if (a.toLowerCase().equals(b.toLowerCase())) {
-                return true;
-            }
-
-            return false;
-        }
-
-    }
-
+    
     private static class hsText {
+        
+        public static boolean isStringWhitespaceOrNull( String s )
+        {
+            if(s.isEmpty())
+                return true;
+            
+            for(char c : s.toCharArray())
+            {
+                if(isAlphabetic(c))
+                    return false;
+                
+                if(isNumber(c))
+                    return false;   
+            }
+            
+            return true;
+        }
 
         /**
          *
