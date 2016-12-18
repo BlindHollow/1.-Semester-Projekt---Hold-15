@@ -5,8 +5,9 @@ import java.util.Set;
 import worldofzuul.score.Highscore;
 
 /**
- 
+ *
  * Contains info about the Player.
+ *
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -18,13 +19,13 @@ public class Player {
 
     //Variables
     private int health, hunger, thirst, illness;
-  
+
     private Highscore playerScore;
-    
+
     private String name;
-    
+
     private boolean hasPrimaryWeapon;
-    
+
     private boolean isDead = false; //If set to true, game will end.
 
     private Weapons primaryWeapon;
@@ -54,14 +55,14 @@ public class Player {
         this.illness = illness;
         this.name = name;
         this.playerScore = new Highscore(name);
-        
+
     }
 
-    public void setName(String s){
+    public void setName(String s) {
         System.out.println("name is being set");
         this.name = s;
     }
-    
+
     /**
      * Updates the health attribute checks if health is 0 or less on update, if
      * it is, sets isDead = true, causing the game to end.
@@ -103,31 +104,30 @@ public class Player {
         }
         dehydration();
     }
-    
+
     /**
      * increases the current player points, with a specific number
-     * @param i 
+     *
+     * @param i
      */
-    public void increasePlayerScore( int i )
-    {
+    public void increasePlayerScore(int i) {
         playerScore.addCurrentPlayerPoints(i);
     }
-    
+
     /**
      * decreases the current player points, with a specific number
-     * @param i 
+     *
+     * @param i
      */
-    public void decreasePlayerScore( int i )
-    {
-        playerScore.decreaseCurrentPlayerPoints( i );
+    public void decreasePlayerScore(int i) {
+        playerScore.decreaseCurrentPlayerPoints(i);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int retrieveScore()
-    {
+    public int retrieveScore() {
         return playerScore.getCurrentPlayerPoints();
     }
 
@@ -140,21 +140,19 @@ public class Player {
      */
     public void updateIllness(int modifier) {
         illness = illness + modifier;
-        if(illness < 0 ){
+        if (illness < 0) {
             illness = 0;
         }
         if (illness > 80) {
             updateHealth((int) (-1 * illness * 0.10)); //lose health equivalent to 10% of illness stat.
         }
     }
-    
-    public void savePlayerscore()
-    {
+
+    public void savePlayerscore() {
         playerScore.saveCurrentCharacter();
     }
-    
-    public void loadHighscore()
-    {
+
+    public void loadHighscore() {
         playerScore.loadPlayers();
     }
 
@@ -224,7 +222,7 @@ public class Player {
     public Weapons getPrimaryWeapon() {
         return primaryWeapon;
     }
-    
+
     public boolean hasPrimaryWeapon() {
         return hasPrimaryWeapon;
     }
@@ -237,7 +235,8 @@ public class Player {
                     return true;
                 }
             }
-        } return false;
+        }
+        return false;
     }
 
     public String getName() {
@@ -259,8 +258,8 @@ public class Player {
     public HashMap<String, Items> getInventory() {
         return inventory;
     }
-    
-    public void removePrimaryWeapon(){
+
+    public void removePrimaryWeapon() {
         primaryWeapon = null;
         hasPrimaryWeapon = false;
     }
@@ -280,8 +279,8 @@ public class Player {
             System.out.println(itemString);
         }
     }
-    
-    public boolean itemsIsInInventory(Items i){
+
+    public boolean itemsIsInInventory(Items i) {
         return inventory.containsKey(i.getName());
     }
 } //class Player

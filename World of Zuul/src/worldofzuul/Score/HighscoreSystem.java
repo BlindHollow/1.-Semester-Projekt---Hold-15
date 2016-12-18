@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
-
+ *
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -17,140 +17,130 @@ import java.util.Collections;
  * @author Madsen, Kent vejrup
  * @author Thy, Mads Heimdal
  */
+public class HighscoreSystem {
 
-public class HighscoreSystem
-{
     private HighscoreUser user = new HighscoreUser();
     private ArrayList<HighscorePlayer> listOfPriorUserScores = new ArrayList();
-    
+
     /**
-     * 
-     * @param CurrentPlayername 
+     *
+     * @param CurrentPlayername
      */
-    public HighscoreSystem( )
-    {
-        user.setPlayerName( "Player" );
-        user.setIsPlayer( true );
+    public HighscoreSystem() {
+        user.setPlayerName("Player");
+        user.setIsPlayer(true);
     }
-    
+
     /**
-     * Add Player's to compare againts 
+     * Add Player's to compare againts
+     *
      * @param Name
-     * @return 
+     * @return
      */
-    protected boolean addPlayers( String Name )
-    {
-        return addPlayers( Name, 0 );
+    protected boolean addPlayers(String Name) {
+        return addPlayers(Name, 0);
     }
-    
+
     /**
-     * 
+     *
      * @param Name
      * @param Score
-     * @return 
+     * @return
      */
-    protected boolean addPlayers( String Name, int Score )
-    {
-        HighscorePlayer player = new HighscorePlayer( Name, 
-                                                      Score );
-        
-        if( exactUser( Name ) == true )
-        {
+    protected boolean addPlayers(String Name, int Score) {
+        HighscorePlayer player = new HighscorePlayer(Name,
+                Score);
+
+        if (exactUser(Name) == true) {
             return false;
-        }
-        else
-        {
-            listOfPriorUserScores.add( player );
+        } else {
+            listOfPriorUserScores.add(player);
             return true;
         }
-        
+
     }
-    
+
     /**
      * Returns true if a player with the same name, show up. avoid duplicates
+     *
      * @param Name
-     * @return 
+     * @return
      */
-    private boolean exactUser( String Name )
-    {
-        if( Name.equalsIgnoreCase( user.getPlayerName() ) )
+    private boolean exactUser(String Name) {
+        if (Name.equalsIgnoreCase(user.getPlayerName())) {
             return true;
-        
-        for( HighscorePlayer current : listOfPriorUserScores )
-        {
-            if( Name.equalsIgnoreCase( current.getPlayerName() ) )
-            {
+        }
+
+        for (HighscorePlayer current : listOfPriorUserScores) {
+            if (Name.equalsIgnoreCase(current.getPlayerName())) {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Add points for the Current Player
-     * @param Number 
+     *
+     * @param Number
      */
-    public final void addCurrentPlayerPoints( int Number )
-    {
-        user.setPlayerScore( getCurrentPlayerPoints() + Number );
+    public final void addCurrentPlayerPoints(int Number) {
+        user.setPlayerScore(getCurrentPlayerPoints() + Number);
     }
-    
+
     /**
-     * 
-     * @param Number 
+     *
+     * @param Number
      */
-    public final void setCurrentPlayerPoints( int Number )
-    {
-        user.setPlayerScore( Number );
+    public final void setCurrentPlayerPoints(int Number) {
+        user.setPlayerScore(Number);
     }
-    
+
     /**
      * Remove points for the Current Player
-     * @param Number 
+     *
+     * @param Number
      */
-    public final void decreaseCurrentPlayerPoints( int Number )
-    {
-        user.setPlayerScore( getCurrentPlayerPoints() - Number );
-        
+    public final void decreaseCurrentPlayerPoints(int Number) {
+        user.setPlayerScore(getCurrentPlayerPoints() - Number);
+
     }
-    
+
     /**
      * Retrieve Points for the current Player
-     * @return 
+     *
+     * @return
      */
-    public final int getCurrentPlayerPoints()
-    {
+    public final int getCurrentPlayerPoints() {
         return user.getPlayerScore();
     }
-    
-    public final void setCurrentPlayerName( String name )
-    {
-        user.setPlayerName( name );
+
+    public final void setCurrentPlayerName(String name) {
+        user.setPlayerName(name);
     }
-    
-    public final String getCurrentPlayerName()
-    {
+
+    public final String getCurrentPlayerName() {
         return user.getPlayerName();
     }
-    
+
     /**
      * Returns a sorted list, with the player and other players
-     * @return 
+     *
+     * @return
      */
-    public ArrayList<HighscorePlayer> orderedListOfPlayers()
-    {
+    public ArrayList<HighscorePlayer> orderedListOfPlayers() {
         // ReturnList
         ArrayList<HighscorePlayer> retList = new ArrayList();
-        
+
         // Adds Everybody
-        retList.addAll( listOfPriorUserScores );
-        retList.add( user.getPlayerObject() );
-        
+        retList.addAll(listOfPriorUserScores);
+        retList.add(user.getPlayerObject());
+
         // Sortere Listen
-        Collections.sort( retList );
-        
+        Collections.sort(retList);
+
         return retList;
     }
-    
+
 }

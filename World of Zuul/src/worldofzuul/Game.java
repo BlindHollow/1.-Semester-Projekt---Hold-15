@@ -124,7 +124,7 @@ public class Game {
                             writer.write(key + ",");
                         }
                     } else {
-                        writer.write("No items in room");
+                        writer.write("no items in room");
                     }
                     writer.write("\n");
                     /*HashMap<String, Zombie> zombies = room.getZombies(); //possibly remove, since zombies spawn randomly.
@@ -172,7 +172,7 @@ public class Game {
                 String[] playerAttributes = playerState.split(",");
                 System.out.println(playerState);
                 player = new Player(playerAttributes[0], Integer.parseInt(playerAttributes[1]), Integer.parseInt(playerAttributes[2]), Integer.parseInt(playerAttributes[3]), Integer.parseInt(playerAttributes[4])); //Creates player object based on stats in the savefile.
-System.out.println("player loadede");
+                System.out.println("player loadede");
                 currentRoom = allowedRooms.get(playerAttributes[6]); //sets currentRoom.
 
                 degenFactor = Integer.parseInt(playerAttributes[5]); //sets degenFactor, which determines how much hunger and thirst will deteriorate (ie. how much time do you have to complete the game)
@@ -251,7 +251,7 @@ System.out.println("player loadede");
                         }
 
                         String itemString = read.readLine(); //Describes items in a room
-                        if (!itemString.equals("No items in room")) {
+                        if (!itemString.equals("no items in room")) {
                             String[] itemsInRoom = itemString.split(",");
                             for (String itemname : itemsInRoom) {
                                 temp.placeItem(allowedItems.get(itemname));
@@ -611,13 +611,15 @@ System.out.println("player loadede");
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
-        } else if (nextRoom.isLocked() == true && !player.hasUsableItem()) {
+        } else if (nextRoom.isLocked() && !player.hasUsableItem()) {
             System.out.println("Door is Locked, find something to open the door with and try again.");
         } else if (!currentRoom.getZombies().isEmpty()) {
             System.out.println("There's a zombie in the room, you can't leave.");
         } else {
             currentRoom = nextRoom;
             currentRoom.spawnRandomZombie();
+
+            currentRoom.setLock(false);
 
             System.out.println(currentRoom.getLongDescription());
 
@@ -710,7 +712,6 @@ System.out.println("player loadede");
             pilotRoom = currentRoom;
         } else if (pilotRoom.equals(currentRoom)) {
             pilotFound = true;
-            player.increasePlayerScore(200);
             System.out.println("You found the pilot");
         } else {
             int roomInt = (int) (Math.random() * pilotRoom.getSize());
@@ -724,6 +725,7 @@ System.out.println("player loadede");
 
                 if (pilotRoom.equals(currentRoom)) {
                     pilotFound = true;
+                    player.increasePlayerScore(200);
                     System.out.println("You found the pilot");
                 }
             }
@@ -772,8 +774,8 @@ System.out.println("player loadede");
 
             System.out.println("You dropped the " + item.getName());
             currentRoom.placeItem(item);
-            
-            if(player.hasPrimaryWeapon() && player.getPrimaryWeapon().equals(item)){
+
+            if (player.hasPrimaryWeapon() && player.getPrimaryWeapon().equals(item)) {
                 player.removePrimaryWeapon();
             }
             player.getInventory().remove(item.getName());
@@ -821,7 +823,6 @@ System.out.println("player loadede");
 //            }
 //        }
 //    }
-
     public Room currentRoom() {
         return currentRoom;
     }
@@ -829,8 +830,8 @@ System.out.println("player loadede");
     public Room pilotRoom() {
         return pilotRoom;
     }
-    
-    public boolean getNoteFound(){
+
+    public boolean getNoteFound() {
         return noteFound;
     }
 

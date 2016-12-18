@@ -6,7 +6,7 @@
 package worldofzuul.score;
 
 /**
-
+ *
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -14,57 +14,47 @@ package worldofzuul.score;
  * @author Madsen, Kent vejrup
  * @author Thy, Mads Heimdal
  */
-
 /**
  * From the viewpoint, it's usually a "active" player himself
  */
-public class HighscoreUser 
-{
-    
+public class HighscoreUser {
+
     private boolean isPlayer = false;
     private HighscorePlayer player = new HighscorePlayer();
-    
-    public HighscoreUser()
-    {
-        
+
+    public HighscoreUser() {
+
     }
-    
+
     // Setters
-    public void setPlayerName( String name )
-    {
-        player.setPlayerName( name );
+    public void setPlayerName(String name) {
+        player.setPlayerName(name);
     }
-    
-    public void setPlayerScore( int Score )
-    {
-        player.setPlayerScore( Score );
+
+    public void setPlayerScore(int Score) {
+        player.setPlayerScore(Score);
     }
-    
-    public void setIsPlayer( boolean inputState )
-    {
+
+    public void setIsPlayer(boolean inputState) {
         isPlayer = inputState;
     }
-    
+
     // Getters
-    public boolean getIsPlayer()
-    {
+    public boolean getIsPlayer() {
         return isPlayer;
     }
-    
-    public String getPlayerName()
-    {
+
+    public String getPlayerName() {
         return player.getPlayerName();
     }
-    
-    public int getPlayerScore()
-    {
+
+    public int getPlayerScore() {
         return player.getPlayerScore();
     }
-    
+
     // Object
-    public HighscorePlayer getPlayerObject()
-    {
+    public HighscorePlayer getPlayerObject() {
         return player;
     }
-    
+
 }

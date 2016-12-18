@@ -1,0 +1,92 @@
+ArnoldSchwarzenegger,100,100,100,0,10,grocerystore
+noWeapon
+no items
+helipad
+hospital
+noteNotFound
+notFound
+hospital
+east,outsidewest,
+northeast,grocerystore,
+endexits
+medkit,
+notLocked
+endroom
+grocerystore
+southwest,hospital,
+south,outsidewest,
+endexits
+no items in room
+notLocked
+endroom
+outsidewest
+northwest,grocerystore,
+northeast,redhouse,
+west,hospital
+southeast,pub,
+southwest,firestation,
+endexits
+no items in room
+notLocked
+endroom
+pub
+north,outsidewest,
+endexits
+no items in room
+notLocked
+endroom
+firestation
+north,outsidewest,
+endexits
+fireaxe,
+notLocked
+endroom
+redhouse
+south,outsidewest,
+east,bluehouse,
+endexits
+shotgun
+locked
+endroom
+bluehouse
+west,redhouse,
+south,outsideeast
+endexits
+no items in room
+locked
+endroom
+outsideeast
+northwest,bluehouse,
+northeast,drugstore,
+southwest,policestation,
+southeast,gasstation,
+east,helipad,
+endexits
+no items in room
+notLocked
+endroom
+gasstation
+north,outsideeast,
+endexits
+no items in room
+notLocked
+endroom
+drugstore
+south,outsideeast,
+endexits
+vaccination,
+locked
+endroom
+policestation
+north,outsideeast,
+endexits
+ram,policegun,
+notLocked
+endroom
+helipad
+west,outsideeast,
+endexits
+no items in room
+notLocked
+endroom
+endfile

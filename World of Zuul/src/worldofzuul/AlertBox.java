@@ -43,17 +43,17 @@ public class AlertBox {
                 Logger.getLogger(AlertBox.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton, cancelButton, saveButton);
         layout.setAlignment(Pos.CENTER);
-        
+
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        
+
     }
-    
+
     public static void displayHelpBox() {
         Stage window = new Stage();
 
@@ -66,17 +66,17 @@ public class AlertBox {
         label.setText("This is a help box");
         Button closeButton = new Button("Cancel");
         closeButton.setOnAction(e -> window.close());
-        
+
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
-        
+
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        
+
     }
-    
+
     public static void displayEndBox(String title, String message) {
         Stage window = new Stage();
 
@@ -89,21 +89,22 @@ public class AlertBox {
         Button closeButton = new Button("Quit");
         Button newGameButton = new Button("Start new game");
         label.setText(message);
+        window.setOnCloseRequest(e -> System.exit(0));
         closeButton.setOnAction(e -> System.exit(0));
         newGameButton.setOnAction(e -> {
             NewFXMain.startNewGame();
             NewFXMain.spil.newGame();
             window.close();
         });
-        
+
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton, newGameButton);
         layout.setAlignment(Pos.CENTER);
-        
+
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        
+
     }
 
 }

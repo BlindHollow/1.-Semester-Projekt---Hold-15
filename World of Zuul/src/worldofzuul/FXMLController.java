@@ -225,12 +225,11 @@ public class FXMLController implements Initializable {
     }
 
     private void goRoom(String s) {
-        if(pars.moveToRoom(s)){
-        AlertBox.displayEndBox("Congratulations, you won", "Your final score is: " + pars.playerScore());
-    }
-        roomLabel.setText(pars.getCurrentRoom().getName());
+        if (pars.moveToRoom(s)) {
+            AlertBox.displayEndBox("Congratulations, you won", "Your final score is: " + pars.playerScore());
+        }
         updateStats();
-        
+
     }
 
     private void updateRoom() { //TODO load picture of room, load pictures of exits
@@ -244,6 +243,8 @@ public class FXMLController implements Initializable {
             doorS.setVisible(false);
             doorSE.setVisible(false);
             pilotImg.setVisible(false);
+
+            roomLabel.setText(pars.getCurrentRoom().getName());
 
             String image = "-fx-background-image: url('./worldofzuul/images/" + pars.getCurrentRoom().getName() + ".png')";
             roomBackground.setStyle(image);
@@ -279,11 +280,10 @@ public class FXMLController implements Initializable {
                         break;
                 }
             }
-            if(pars.pilotNote() && pars.getCurrentRoom().equals(pars.pilotRoom())){
+            if (pars.pilotNote() && pars.getCurrentRoom().equals(pars.pilotRoom())) {
                 pilotImg.setVisible(true);
             }
-                
-            
+
             updateItemsInRoom();
         }
     }

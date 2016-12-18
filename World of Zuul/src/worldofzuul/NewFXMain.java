@@ -43,7 +43,10 @@ public class NewFXMain extends Application {
         stage.show();
         stage.setResizable(false);
         stage.sizeToScene();
-        
+        stage.setOnCloseRequest((WindowEvent we) -> {
+            AlertBox.displayQuitBox("Quit?", "Are you sure?");
+        });
+
         //EXPERIMENTAL MUSIC PLAYER
         final URL resource = getClass().getResource("sounds/darkness.mp3");
         final Media media = new Media(resource.toString());

@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import worldofzuul.misc.Directories;
 
 /**
-
+ *
  * @author Bytoft, Mikkel
  * @author Christensen, Martin Steen
  * @author Hansen, Søren Vest
@@ -23,236 +23,209 @@ import worldofzuul.misc.Directories;
 /**
  * An extended version of the highscoreSystem, that retrieves a bunch of users.
  */
-public class Highscore extends HighscoreSystem 
-{
+public class Highscore extends HighscoreSystem {
+
     /**
      * Constructor
      */
-    public Highscore()
-    {
+    public Highscore() {
         // Default playername
-        setCurrentPlayerName( "player" );
-        
+        setCurrentPlayerName("player");
+
         // Check if directory Exist
-        if( worldofzuul.IO.Directories.exist(new File( Directories.HighscoreTable ) ) == false )
-        {
+        if (worldofzuul.IO.Directories.exist(new File(Directories.HighscoreTable)) == false) {
             // Create it
-            worldofzuul.IO.Directories.create( Directories.HighscoreTable, 
-                                               true );
+            worldofzuul.IO.Directories.create(Directories.HighscoreTable,
+                    true);
         }
-        
+
     }
-    
+
     /**
      * Constructor
-     * @param name 
+     *
+     * @param name
      */
-    public Highscore( String name )
-    {
+    public Highscore(String name) {
         this();
-        
-        if( hsText.parseCharacters( name ) == false )
+
+        if (hsText.parseCharacters(name) == false) {
             return;
-        
-        setCurrentPlayerName( name );
-      
+        }
+
+        setCurrentPlayerName(name);
+
         loadPlayers();
-        
+
     }
-    
+
     /**
      * Saves a character's, current score
+     *
      * @param CharacterName
      * @return True: Saved, False: Error occured
      */
-    public boolean saveCurrentCharacter( )
-    {
-       StringBuilder builder = new StringBuilder(); 
-        
-       builder.append( getCurrentPlayerName() );
-       builder.append( ',' );
-       builder.append( Integer.toString( getCurrentPlayerPoints() ) );
-              
-       File file = new File( Directories.HighscoreTable + "\\" + getCurrentPlayerName() );
-       
-       try
-       {
-            PrintWriter pw = new PrintWriter( file, "UTF-8" );
-            
-            pw.println( builder.toString() );
+    public boolean saveCurrentCharacter() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(getCurrentPlayerName());
+        builder.append(',');
+        builder.append(Integer.toString(getCurrentPlayerPoints()));
+
+        File file = new File(Directories.HighscoreTable + "\\" + getCurrentPlayerName());
+
+        try {
+            PrintWriter pw = new PrintWriter(file, "UTF-8");
+
+            pw.println(builder.toString());
             pw.close();
-       }
-       catch( Exception ex )
-       {
-            return false;   
-       }
-       
-       return true;
+        } catch (Exception ex) {
+            return false;
+        }
+
+        return true;
     }
-    
+
     /**
      * Loads other Character's that are saved
      */
-    public final void loadPlayers()
-    {
+    public final void loadPlayers() {
         // Directory for the highscore files
-        File playerFilesDirectory = new File( Directories.HighscoreTable );
-        
+        File playerFilesDirectory = new File(Directories.HighscoreTable);
+
         // List of files
-        File[] listedPlayerFiles = worldofzuul.IO.List.listFiles( playerFilesDirectory );
-        
+        File[] listedPlayerFiles = worldofzuul.IO.List.listFiles(playerFilesDirectory);
+
         // Reads each files, and adds them to the highscore list
-        for( File user : listedPlayerFiles )
-        {
-          
-            try
-            {
+        for (File user : listedPlayerFiles) {
+
+            try {
                 /* 
                    Note: Returns the file, line by line
                 // If the file is large enough, it can cause OutOfMemoryError
                 // And cause the program to crash, however. due to the fact that
                 // we're only reading names and stuff, it wont be a huge problem. 
-                */
-                List<String> linesRead = Files.readAllLines( user.toPath() );
-                
-                for( String currentline : linesRead )
-                {
-                    String[] result = currentline.split( "," );
-                    
-                    if( hsFunction.isLowerStringsEqual( this.getCurrentPlayerName(), 
-                        result[0] ) )
-                    {
-                        this.setCurrentPlayerPoints( Integer.parseInt( result[1]) );
+                 */
+                List<String> linesRead = Files.readAllLines(user.toPath());
+
+                for (String currentline : linesRead) {
+                    String[] result = currentline.split(",");
+
+                    if (hsFunction.isLowerStringsEqual(this.getCurrentPlayerName(),
+                            result[0])) {
+                        this.setCurrentPlayerPoints(Integer.parseInt(result[1]));
+                    } else {
+                        addPlayers(result[0],
+                                Integer.parseInt(result[1]));
                     }
-                    else
-                    {
-                        addPlayers( result[0], 
-                                    Integer.parseInt( result[1] ) );
-                    }
-                      
+
                 }
-                
-            }
-            catch( java.lang.SecurityException SEx )
-            {
+
+            } catch (java.lang.SecurityException SEx) {
                 // Indicates a security violation.
-                    // Triggered...
+                // Triggered...
                 continue;
-            }
-            catch( java.io.IOException IOEx )
-            {
+            } catch (java.io.IOException IOEx) {
                 continue;
-            }
-            catch( java.lang.IllegalArgumentException IAEx )
-            {
+            } catch (java.lang.IllegalArgumentException IAEx) {
                 // 
                 return;
-            }
-            catch( java.lang.OutOfMemoryError OOMEx )
-            {
+            } catch (java.lang.OutOfMemoryError OOMEx) {
                 // Couldn't allocate the required memory . . .
                 return;
-            }
-            catch ( Exception Ex )
-            {
+            } catch (Exception Ex) {
                 // out of our controll, exit gracefully. . .
-                return;      
+                return;
             }
-            
+
         }
-        
-        
+
     }
-    
+
     // Functions -------------------------------------------------------------->
-   
-    private static class hsFunction
-    {
-        
-        public static boolean isLowerStringsEqual( String a, String b )
-        {
-            if( a.toLowerCase().equals( b.toLowerCase() ) )
+    private static class hsFunction {
+
+        public static boolean isLowerStringsEqual(String a, String b) {
+            if (a.toLowerCase().equals(b.toLowerCase())) {
                 return true;
-            
+            }
+
             return false;
         }
-        
+
     }
-    
-    private static class hsText
-    {   
-            /**
-            * 
-            * @param InputName
-            * @return 
-            */
-        public static boolean parseCharacters( String InputName )
-        {
+
+    private static class hsText {
+
+        /**
+         *
+         * @param InputName
+         * @return
+         */
+        public static boolean parseCharacters(String InputName) {
             // 
             boolean Continue;
-            
-            for( char c : InputName.toCharArray() )
-            {
-                Continue = allowedCharacter( c );
 
-                if( Continue == false )
+            for (char c : InputName.toCharArray()) {
+                Continue = allowedCharacter(c);
+
+                if (Continue == false) {
                     return false;
+                }
             }
 
             return true;
         } // End ParseCharacters
-     
-       /**
-        * 
-        * @param inputValue
-        * @return 
-        */
-        public static boolean allowedCharacter( char inputValue )
-        {   
-            if( isAlphabetic( inputValue ) )
+
+        /**
+         *
+         * @param inputValue
+         * @return
+         */
+        public static boolean allowedCharacter(char inputValue) {
+            if (isAlphabetic(inputValue)) {
                 return true;
-            
-            if( isNumber( inputValue ) )
+            }
+
+            if (isNumber(inputValue)) {
                 return true;
-            
-            if( isSpace( inputValue ) )
+            }
+
+            if (isSpace(inputValue)) {
                 return true;
-            
+            }
+
             return false;
         } // End AllowedCharacter
-        
-        public static boolean isAlphabetic( char Input )
-        {
-            if ( Input >= 'A' && 
-                 Input <= 'z' )
-            {
+
+        public static boolean isAlphabetic(char Input) {
+            if (Input >= 'A'
+                    && Input <= 'z') {
                 return true;
             }
-            
+
             return false;
         }
-        
-        public static boolean isNumber( char Input )
-        {
-            if( Input >= '0' && 
-                Input <= '9' )
-            {
+
+        public static boolean isNumber(char Input) {
+            if (Input >= '0'
+                    && Input <= '9') {
                 return true;
             }
-            
+
             return false;
         }
-        
-        public static boolean isSpace( char Input )
-        {
+
+        public static boolean isSpace(char Input) {
             // Usually - & _ can indicate it's space
-            if( Input >= '-' || 
-                Input == '_' )
+            if (Input >= '-'
+                    || Input == '_') {
                 return true;
-            
+            }
+
             return false;
         }
-        
+
     } // End Parsing  
 
 }  // End Class Main

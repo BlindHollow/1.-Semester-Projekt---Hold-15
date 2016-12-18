@@ -68,6 +68,9 @@
                <image>
                   <Image url="@images/dead.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="doorNW" fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
@@ -199,11 +202,17 @@
                <image>
                   <Image url="@images/dead.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="zombie2" fitHeight="75.0" fitWidth="100.0" layoutX="327.0" layoutY="384.0" onMouseClicked="#onMouseClicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/dead.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             </children>
         </AnchorPane>

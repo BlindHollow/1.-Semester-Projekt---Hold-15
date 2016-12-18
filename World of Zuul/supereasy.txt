@@ -1,0 +1,20 @@
+BobRoss,100,100,100,0,0,hospital
+noWeapon
+no items
+helipad
+hospital
+noteNotFound
+notFound
+hospital
+east,helipad
+endexits
+fireaxe,ram,policegun,shotgun,crowbar,energybar,energydrink,cannedtuna,rum,medkit,vaccination,
+notLocked
+endroom
+helipad
+west,hospital
+endexits
+no items in room
+notLocked
+endroom
+endfile

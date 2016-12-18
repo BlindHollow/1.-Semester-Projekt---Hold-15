@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * A class with methods that the gui controller can call. 
- * By making an instance of this in any gui, 
- * the gui can play the game(as long as it uses the methods in a correct way).
+ * A class with methods that the gui controller can call. By making an instance
+ * of this in any gui, the gui can play the game(as long as it uses the methods
+ * in a correct way).
+ *
  * @author bytof
  */
 public class Parser implements ParserInterface {
@@ -39,25 +40,25 @@ public class Parser implements ParserInterface {
     }
 
     @Override
-    public boolean playerDead(){
+    public boolean playerDead() {
         return NewFXMain.spil.player.schroedinger();
     }
-    
+
     @Override
-    public int playerScore(){
+    public int playerScore() {
         return NewFXMain.spil.player.retrieveScore();
     }
-    
+
     @Override
-    public boolean pilotNote(){
+    public boolean pilotNote() {
         return NewFXMain.spil.getNoteFound();
     }
-    
+
     @Override
-    public Room pilotRoom(){
+    public Room pilotRoom() {
         return NewFXMain.spil.pilotRoom();
     }
-    
+
     @Override
     public void pickUpItem(String itemName) {
         NewFXMain.spil.takeItem(itemName);
@@ -67,24 +68,24 @@ public class Parser implements ParserInterface {
     public void dropItem(String itemName) {
         NewFXMain.spil.dropItem(itemName);
     }
-    
+
     @Override
-    public void useItem(String itemName){
+    public void useItem(String itemName) {
         NewFXMain.spil.useItem(itemName);
     }
-    
+
     @Override
-    public void attackZombie(String s){
+    public void attackZombie(String s) {
         NewFXMain.spil.attackZombie(s);
     }
-    
+
     @Override
-    public Set<String> getZombies(){
+    public Set<String> getZombies() {
         return NewFXMain.spil.currentRoom().getZombies().keySet();
     }
-    
+
     @Override
-    public Room getCurrentRoom(){
+    public Room getCurrentRoom() {
         return NewFXMain.spil.currentRoom();
     }
 
@@ -102,9 +103,9 @@ public class Parser implements ParserInterface {
     public HashMap<String, Room> getRoomExits() {
         return NewFXMain.spil.currentRoom().getNeighbours();
     }
-    
+
     @Override
-    public void setPrimaryWeapon(String weapon){
+    public void setPrimaryWeapon(String weapon) {
         NewFXMain.spil.player.setPrimaryWeapon(weapon);
     }
 
@@ -115,9 +116,9 @@ public class Parser implements ParserInterface {
 
     @Override
     public void loadGame(File file) throws IOException {
-        try{
-        NewFXMain.spil.loadGame(file);
-        } catch(Exception e){
+        try {
+            NewFXMain.spil.loadGame(file);
+        } catch (Exception e) {
             System.out.println("wtf?");
         }
     }
