@@ -1,8 +1,6 @@
 package worldofzuul; //NETBEANS
 
 import java.util.HashMap;
-import java.util.Set;
-import worldofzuul.score.Highscore;
 
 /**
  *

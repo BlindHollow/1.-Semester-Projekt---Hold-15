@@ -39,37 +39,15 @@ import worldofzuul.score.*;
 public class FXMLController implements Initializable {
 
     @FXML
-    private ProgressBar healthbar;
+    private ProgressBar healthbar, hungerbar, thirstbar, illnessbar;
     @FXML
-    private ProgressBar hungerbar;
+    private Label invSlot1, invSlot2, invSlot3, invSlot4, roomLabel, labelPlayerName;
     @FXML
-    private ProgressBar thirstbar;
+    private Button btnNewGame, btnStartGame, btnContinue;
     @FXML
-    private ProgressBar illnessbar;
-    @FXML
-    private Label invSlot1;
-    @FXML
-    private Label invSlot2;
-    @FXML
-    private Label invSlot3;
-    @FXML
-    private Label invSlot4;
-    @FXML
-    private Label roomLabel;
-    @FXML
-    private Button btnNewGame;
-    @FXML
-    private AnchorPane welcomeStartAnchor;
-    @FXML
-    private AnchorPane roomBackground;
-    @FXML
-    private Button btnStartGame;
-    @FXML
-    private Button btnContinue;
+    private AnchorPane welcomeStartAnchor, roomBackground;
     @FXML
     private TextField enterPlayerName;
-    @FXML
-    private Label labelPlayerName;
     @FXML
     private ImageView doorNW, doorN, doorNE, doorW, doorE, doorSW, doorS, doorSE;
     @FXML
@@ -82,9 +60,9 @@ public class FXMLController implements Initializable {
     private ToggleGroup radButts;
     @FXML
     private TextArea highscores;
-    final FileChooser fileChooser = new FileChooser();
-    Stage stage = null;
-    Parent root = null;
+    private final FileChooser fileChooser = new FileChooser();
+    private Stage stage = null;
+    private Parent root = null;
     private Parser pars;
     private String zom1Str, zom2Str, zom3Str;
     private Highscore hs;
